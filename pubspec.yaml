@@ -1,0 +1,13 @@
+name: docudart
+description: A Dart CLI documentation tool.
+version: 0.0.1
+
+environment:
+  sdk: ^3.0.0
+
+executables:
+  docudart: docudart
+
+dev_dependencies:
+  lints: ^6.1.0
+  test: ^1.29.0
