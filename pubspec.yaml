@@ -1,12 +1,35 @@
 name: docudart
-description: A Dart CLI documentation tool.
+description: A static documentation generator for Dart, powered by Jaspr.
 version: 0.0.1
+repository: https://github.com/example/docudart
 
 environment:
   sdk: ^3.0.0
 
 executables:
   docudart: docudart
+
+dependencies:
+  # CLI
+  args: ^2.4.0
+
+  # File system
+  path: ^1.8.0
+  glob: ^2.1.0
+  watcher: ^1.1.0
+
+  # YAML/Frontmatter
+  yaml: ^3.1.0
+
+  # Markdown
+  markdown: ^7.2.0
+
+  # Jaspr
+  jaspr: ^0.22.0
+
+  # Utilities
+  collection: ^1.18.0
+  meta: ^1.11.0
 
 dev_dependencies:
   lints: ^6.1.0
