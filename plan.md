@@ -91,27 +91,44 @@ docudart/
 
 ---
 
-## Files Still Needed
+## Files (All Implemented)
 
 ```
 lib/src/
+├── cli/
+│   ├── cli_runner.dart              # ✅ CommandRunner setup
+│   ├── errors.dart                  # ✅ Error handling utilities
+│   └── commands/
+│       ├── init_command.dart        # ✅ docudart init
+│       ├── build_command.dart       # ✅ docudart build
+│       └── serve_command.dart       # ✅ docudart serve
 ├── core/
-│   ├── content_processor.dart       # ✅ CREATED - Process docs/ folder
-│   ├── readme_parser.dart           # TODO - Parse README.md sections
-│   └── version_manager.dart         # TODO - Handle versioning
+│   ├── content_processor.dart       # ✅ Process docs/ folder
+│   ├── readme_parser.dart           # ✅ Parse README.md sections
+│   ├── file_watcher.dart            # ✅ Hot reload support
+│   ├── site_generator.dart          # ✅ Generate Jaspr site
+│   ├── project_generator.dart       # ✅ Generate user project
+│   └── version_manager.dart         # ✅ Handle versioning
 ├── components/
-│   ├── component_registry.dart      # TODO - Component registration
-│   ├── component_discovery.dart     # TODO - Auto-discover components
+│   ├── component_registry.dart      # ✅ Component registration
+│   ├── component_discovery.dart     # ✅ Auto-discover components
 │   └── built_in/
-│       ├── callout.dart             # TODO - Info/Warning/Tip boxes
-│       ├── tabs.dart                # TODO - Tabbed content
-│       └── code_block.dart          # TODO - Syntax-highlighted code
+│       ├── callout.dart             # ✅ Info/Warning/Tip boxes
+│       ├── tabs.dart                # ✅ Tabbed content
+│       ├── code_block.dart          # ✅ Syntax-highlighted code
+│       └── version_switcher.dart    # ✅ Version dropdown
 ├── markdown/
-│   ├── markdown_processor.dart      # ✅ CREATED - Main markdown pipeline
-│   ├── component_parser.dart        # ✅ CREATED - Parse <Component /> in md
-│   └── frontmatter_handler.dart     # ✅ CREATED - YAML frontmatter
+│   ├── markdown_processor.dart      # ✅ Main markdown pipeline
+│   ├── component_parser.dart        # ✅ Parse <Component /> in md
+│   └── frontmatter_handler.dart     # ✅ YAML frontmatter
+├── theme/
+│   ├── base_theme.dart              # ✅ Abstract theme interface
+│   ├── default_theme.dart           # ✅ Flutter docs style theme
+│   ├── theme_colors.dart            # ✅ Color configuration
+│   ├── theme_typography.dart        # ✅ Typography configuration
+│   └── theme_loader.dart            # ✅ Load custom YAML themes
 └── routing/
-    └── sidebar_generator.dart       # ✅ CREATED - Generate sidebar
+    └── sidebar_generator.dart       # ✅ Generate sidebar
 ```
 
 ---
@@ -295,27 +312,28 @@ This is an informational note.
 ### Phase 5: Managed Site Generation Enhancement ✅ COMPLETED
 - [x] Complete `SiteGenerator` to render actual markdown content
 - [x] Generate proper Jaspr components from processed content
-- [ ] Implement hot reload file watching (TODO)
+- [x] Implement hot reload file watching
 - [x] Handle asset copying and path resolution
 
-### Phase 6: Component System
-- [ ] Implement `ComponentRegistry` with factory pattern
-- [ ] Implement `ComponentDiscovery` for auto-discovery
-- [ ] Create built-in components (Callout, Tabs, CodeBlock)
-- [ ] Component embedding in markdown rendering
+### Phase 6: Component System ✅ COMPLETED
+- [x] Implement `ComponentRegistry` with factory pattern
+- [x] Implement `ComponentDiscovery` for auto-discovery
+- [x] Create built-in components (Callout, Tabs, CodeBlock, Card, CardGrid)
+- [x] Component embedding in markdown rendering
+- [x] Component CSS styles in generated output
 
-### Phase 7: Versioning
-- [ ] Implement `VersionManager`
-- [ ] Version switcher component
-- [ ] Versioned routes (`/v1/docs/...`)
-- [ ] Version folder structure
+### Phase 7: Versioning ✅ COMPLETED
+- [x] Implement `VersionManager`
+- [x] Version switcher component
+- [x] Versioned routes (`/v1/docs/...`)
+- [x] Version folder structure
 
-### Phase 8: Polish
-- [ ] Error handling with helpful messages
-- [ ] README.md parsing for init
-- [ ] Custom theme loading
-- [ ] Performance optimization
-- [ ] Testing
+### Phase 8: Polish ✅ COMPLETED
+- [x] Error handling with helpful messages
+- [x] README.md parsing for init (ReadmeParser with smart section extraction)
+- [x] Custom theme loading (ThemeLoader from YAML files)
+- [x] Basic test suite (config, theme, markdown, README parser tests)
+- [ ] Performance optimization (deferred to future)
 
 ---
 

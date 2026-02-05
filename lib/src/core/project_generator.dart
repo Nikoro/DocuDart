@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
+import 'readme_parser.dart';
+
 /// Template options for project initialization.
 enum InitTemplate {
   /// Basic setup with config, landing page, and docs.
@@ -203,11 +205,11 @@ class LandingPage extends StatelessComponent {
 
   Future<void> _generateDocsFromReadme(
       String directory, File readmeFile) async {
-    final content = await readmeFile.readAsString();
-    final sections = _parseReadmeSections(content);
+    final sections = await ReadmeParser.parseFile(readmeFile.path);
 
     if (sections.isEmpty) {
       // Just copy README as index
+      final content = await readmeFile.readAsString();
       await File(p.join(directory, 'docs', 'index.md')).writeAsString('''
 ---
 title: Introduction
@@ -220,66 +222,20 @@ $content
     }
 
     // Generate a file for each section
-    int position = 1;
-    for (final section in sections.entries) {
-      final filename = _slugify(section.key);
+    for (final section in sections) {
       final mdContent = '''
 ---
-title: ${section.key}
-sidebar_position: $position
+title: ${section.title}
+sidebar_position: ${section.position}
 ---
 
-${section.value}
+${section.content}
 ''';
-      await File(p.join(directory, 'docs', '$filename.md'))
+      await File(p.join(directory, 'docs', '${section.filename}.md'))
           .writeAsString(mdContent);
-      position++;
     }
 
     print('Generated ${sections.length} documentation files from README.md');
-  }
-
-  Map<String, String> _parseReadmeSections(String content) {
-    final sections = <String, String>{};
-    final lines = content.split('\n');
-
-    String? currentSection;
-    final buffer = StringBuffer();
-
-    for (final line in lines) {
-      // Match ## headers (level 2)
-      final match = RegExp(r'^##\s+(.+)$').firstMatch(line);
-      if (match != null) {
-        // Save previous section
-        if (currentSection != null && buffer.isNotEmpty) {
-          sections[currentSection] = buffer.toString().trim();
-        }
-        currentSection = match.group(1)!.trim();
-        buffer.clear();
-      } else if (currentSection != null) {
-        buffer.writeln(line);
-      } else {
-        // Content before first ## header goes to "Introduction"
-        if (line.trim().isNotEmpty && !line.startsWith('# ')) {
-          sections['Introduction'] =
-              (sections['Introduction'] ?? '') + line + '\n';
-        }
-      }
-    }
-
-    // Save last section
-    if (currentSection != null && buffer.isNotEmpty) {
-      sections[currentSection] = buffer.toString().trim();
-    }
-
-    return sections;
-  }
-
-  String _slugify(String text) {
-    return text
-        .toLowerCase()
-        .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
-        .replaceAll(RegExp(r'^-|-$'), '');
   }
 
   Future<void> _generateExampleDocs(

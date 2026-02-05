@@ -1,5 +1,5 @@
 /// DocuDart - A static documentation generator for Dart, powered by Jaspr.
-library docudart;
+library;
 
 // Configuration
 export 'src/config/docudart_config.dart';
@@ -10,9 +10,28 @@ export 'src/config/footer_config.dart';
 export 'src/config/component_config.dart';
 export 'src/config/versioning_config.dart';
 export 'src/config/custom_page.dart';
+export 'src/config/config_loader.dart';
 
 // Theme
 export 'src/theme/base_theme.dart';
 export 'src/theme/default_theme.dart';
 export 'src/theme/theme_colors.dart';
 export 'src/theme/theme_typography.dart';
+export 'src/theme/theme_loader.dart';
+
+// Core
+export 'src/core/content_processor.dart';
+export 'src/core/site_generator.dart';
+export 'src/core/version_manager.dart';
+export 'src/core/readme_parser.dart';
+
+// Markdown
+export 'src/markdown/markdown_processor.dart';
+export 'src/markdown/frontmatter_handler.dart';
+export 'src/markdown/component_parser.dart';
+
+// Components
+export 'src/components/component_registry.dart';
+
+// Routing
+export 'src/routing/sidebar_generator.dart';

@@ -4,6 +4,7 @@ import 'package:args/command_runner.dart';
 import 'package:path/path.dart' as p;
 
 import '../../core/project_generator.dart';
+import '../errors.dart';
 
 /// Command to initialize a new DocuDart project.
 class InitCommand extends Command<int> {
@@ -33,8 +34,22 @@ class InitCommand extends Command<int> {
     final directory = argResults!['directory'] as String;
     final targetDir = p.normalize(p.absolute(directory));
 
-    print('Initializing DocuDart project in $targetDir...');
-    print('');
+    CliPrinter.header('DocuDart Project Setup');
+    CliPrinter.info('Target directory: $targetDir');
+    CliPrinter.blank();
+
+    // Check if directory already has a config.dart
+    final existingConfig = File(p.join(targetDir, 'config.dart'));
+    if (existingConfig.existsSync()) {
+      CliPrinter.warning('A DocuDart project already exists in this directory.');
+      stdout.write('Overwrite? (y/N): ');
+      final answer = stdin.readLineSync()?.trim().toLowerCase() ?? '';
+      if (answer != 'y' && answer != 'yes') {
+        CliPrinter.info('Cancelled.');
+        return 0;
+      }
+      CliPrinter.blank();
+    }
 
     // Check if --full flag is set, otherwise prompt interactively
     InitTemplate template;
@@ -47,35 +62,39 @@ class InitCommand extends Command<int> {
     final generator = ProjectGenerator();
 
     try {
+      CliPrinter.step('Creating project structure');
       await generator.generate(
         directory: targetDir,
         template: template,
       );
 
-      print('');
-      print('DocuDart project initialized successfully!');
-      print('');
-      print('Next steps:');
+      CliPrinter.blank();
+      CliPrinter.success('DocuDart project initialized successfully!');
+      CliPrinter.blank();
+      CliPrinter.info('Next steps:');
       if (directory != '.') {
         print('  cd $directory');
       }
       print('  dart pub get');
       print('  docudart serve');
-      print('');
+      CliPrinter.blank();
 
       return 0;
+    } on DocuDartException catch (e) {
+      CliPrinter.exception(e);
+      return 1;
     } catch (e) {
-      print('Error initializing project: $e');
+      CliPrinter.error('Error initializing project: $e');
       return 1;
     }
   }
 
   Future<InitTemplate> _promptForTemplate() async {
     print('Select a template:');
-    print('');
+    CliPrinter.blank();
     print('  [1] Default - Basic setup with config, landing page, and docs');
     print('  [2] Full    - All features with examples');
-    print('');
+    CliPrinter.blank();
     stdout.write('Enter choice (1 or 2) [1]: ');
 
     final input = stdin.readLineSync()?.trim() ?? '';

@@ -4,6 +4,7 @@ import 'package:path/path.dart' as p;
 
 import '../config/docudart_config.dart';
 import 'content_processor.dart';
+import 'version_manager.dart';
 import '../routing/sidebar_generator.dart';
 
 /// Generates the managed Jaspr site in .dart_tool/docudart.
@@ -24,22 +25,39 @@ class SiteGenerator {
     }
     await dir.create(recursive: true);
 
-    // Process documentation content
+    // Process documentation content (with versioning support)
     print('Processing documentation...');
-    final contentProcessor = ContentProcessor(config);
-    final (pages, rootFolder) = await contentProcessor.processAll();
+    final versionManager = VersionManager(config);
+    final versionedDocsMap = await versionManager.processAllVersions();
 
-    // Generate sidebar
-    final sidebarItems = SidebarGenerator.generate(
-      rootFolder: rootFolder,
-      config: config.sidebar,
-    );
+    // Collect all pages from all versions
+    final allPages = <DocPage>[];
+    final sidebarItemsByVersion = <String, List<GeneratedSidebarItem>>{};
+
+    for (final entry in versionedDocsMap.entries) {
+      final version = entry.key;
+      final versionedDocs = entry.value;
+
+      allPages.addAll(versionedDocs.pages);
+
+      // Generate sidebar for this version
+      sidebarItemsByVersion[version] = SidebarGenerator.generate(
+        rootFolder: versionedDocs.rootFolder,
+        config: config.sidebar,
+      );
+    }
+
+    // Get default version's sidebar for main navigation
+    final defaultVersion = versionManager.defaultVersion;
+    final defaultSidebarItems = sidebarItemsByVersion[defaultVersion] ??
+        sidebarItemsByVersion.values.firstOrNull ??
+        <GeneratedSidebarItem>[];
 
     // Generate all required files
     await _generatePubspec();
     await _generateMain();
-    await _generateApp(pages, sidebarItems);
-    await _generateStyles();
+    await _generateApp(allPages, defaultSidebarItems, versionManager);
+    await _generateStyles(versionManager.isEnabled);
     await _generateWebFiles();
     await _copyAssets();
 
@@ -56,7 +74,10 @@ class SiteGenerator {
     }
 
     print('Site structure generated successfully.');
-    print('Processed ${pages.length} documentation pages.');
+    print('Processed ${allPages.length} documentation pages.');
+    if (versionManager.isEnabled) {
+      print('Versions: ${versionManager.versions.join(", ")}');
+    }
   }
 
   Future<void> _generatePubspec() async {
@@ -118,6 +139,7 @@ void main() {
   Future<void> _generateApp(
     List<DocPage> pages,
     List<GeneratedSidebarItem> sidebarItems,
+    VersionManager versionManager,
   ) async {
     // Generate routes for all pages
     final routesBuffer = StringBuffer();
@@ -172,7 +194,7 @@ ${routesBuffer.toString()}
 
     // Generate pages and components
     await _generatePages();
-    await _generateComponents(sidebarItems);
+    await _generateComponents(sidebarItems, versionManager);
   }
 
   Future<void> _generatePages() async {
@@ -219,7 +241,10 @@ class HomePage extends StatelessComponent {
     await File(p.join(pagesDir, 'home_page.dart')).writeAsString(homePage);
   }
 
-  Future<void> _generateComponents(List<GeneratedSidebarItem> sidebarItems) async {
+  Future<void> _generateComponents(
+    List<GeneratedSidebarItem> sidebarItems,
+    VersionManager versionManager,
+  ) async {
     final componentsDir = p.join(managedDir, 'lib', 'components');
     await Directory(componentsDir).create(recursive: true);
 
@@ -227,9 +252,19 @@ class HomePage extends StatelessComponent {
     final title = config.title ?? 'Documentation';
     final sidebarCode = _generateSidebarCode(sidebarItems);
 
+    // Generate version switcher import and component if versioning is enabled
+    final hasVersioning = versionManager.isEnabled;
+    final versionSwitcherImport = hasVersioning
+        ? "import 'version_switcher.dart';"
+        : '';
+    final versionSwitcherComponent = hasVersioning
+        ? 'const VersionSwitcher(),'
+        : '';
+
     final layout = '''
 import 'package:jaspr/jaspr.dart';
 import 'sidebar.dart';
+$versionSwitcherImport
 
 class Layout extends StatelessComponent {
   final Component child;
@@ -260,6 +295,7 @@ class Layout extends StatelessComponent {
                   classes: ['header-nav'],
                   [
                     a(href: '/docs', [text('Docs')]),
+                    $versionSwitcherComponent
                   ],
                 ),
               ],
@@ -295,6 +331,11 @@ class Layout extends StatelessComponent {
 }
 ''';
     await File(p.join(componentsDir, 'layout.dart')).writeAsString(layout);
+
+    // Generate version switcher component if versioning is enabled
+    if (hasVersioning) {
+      await _generateVersionSwitcher(componentsDir, versionManager);
+    }
 
     // Sidebar component
     final sidebar = '''
@@ -452,7 +493,7 @@ class RawHtml extends StatelessComponent {
         .replaceAll('\n', '\\n');
   }
 
-  Future<void> _generateStyles() async {
+  Future<void> _generateStyles([bool includeVersionSwitcher = false]) async {
     final colors = config.theme.colors;
     final typography = config.theme.typography;
 
@@ -866,16 +907,268 @@ body {
     font-size: 1.5rem;
   }
 }
+
+/* ========== Component Styles ========== */
+
+/* Callout Component */
+.callout {
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  border-left: 4px solid;
+}
+
+.callout-icon {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.callout-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.callout-content p:last-child {
+  margin-bottom: 0;
+}
+
+.callout-info {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: #3b82f6;
+}
+
+.callout-tip {
+  background-color: rgba(34, 197, 94, 0.1);
+  border-color: #22c55e;
+}
+
+.callout-warning {
+  background-color: rgba(234, 179, 8, 0.1);
+  border-color: #eab308;
+}
+
+.callout-danger {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+}
+
+.callout-note {
+  background-color: rgba(107, 114, 128, 0.1);
+  border-color: #6b7280;
+}
+
+/* Tabs Component */
+.tabs-container {
+  margin: 1.5rem 0;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.tabs-list {
+  display: flex;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  overflow-x: auto;
+}
+
+.tab-button {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.tab-button:hover {
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+.tab-button.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.tabs-content {
+  padding: 1rem;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+/* Card Component */
+.card {
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background-color: var(--color-surface);
+  transition: all 0.15s;
+}
+
+.card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.card-content {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--card-grid-cols, 2), 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+/* Unknown Component */
+.component-unknown {
+  padding: 1rem;
+  margin: 1rem 0;
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px dashed #ef4444;
+  border-radius: 0.5rem;
+  color: #ef4444;
+  font-size: 0.875rem;
+}
+
+/* Dark Mode for Components */
+@media (prefers-color-scheme: dark) {
+  .callout-info {
+    background-color: rgba(59, 130, 246, 0.15);
+  }
+
+  .callout-tip {
+    background-color: rgba(34, 197, 94, 0.15);
+  }
+
+  .callout-warning {
+    background-color: rgba(234, 179, 8, 0.15);
+  }
+
+  .callout-danger {
+    background-color: rgba(239, 68, 68, 0.15);
+  }
+
+  .callout-note {
+    background-color: rgba(107, 114, 128, 0.2);
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}
 ''';
+
+    // Add version switcher styles if enabled
+    final versionSwitcherStyles = includeVersionSwitcher ? '''
+
+/* ========== Version Switcher ========== */
+
+.version-switcher {
+  display: flex;
+  align-items: center;
+}
+
+.version-select {
+  appearance: none;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  transition: all 0.15s;
+}
+
+.version-select:hover {
+  border-color: var(--color-primary);
+}
+
+.version-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(1, 117, 194, 0.1);
+}
+
+.version-select option {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+@media (prefers-color-scheme: dark) {
+  .version-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239ca3af' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
+  }
+
+  .version-select:focus {
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+  }
+}
+''' : '';
 
     final webDir = p.join(managedDir, 'web');
     await Directory(webDir).create(recursive: true);
-    await File(p.join(webDir, 'styles.css')).writeAsString(styles);
+    await File(p.join(webDir, 'styles.css')).writeAsString(styles + versionSwitcherStyles);
   }
 
   Future<void> _generateWebFiles() async {
     final webDir = p.join(managedDir, 'web');
     await Directory(webDir).create(recursive: true);
+
+    // JavaScript for version switching
+    final versionSwitchScript = '''
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var versionSelect = document.querySelector('.version-select');
+      if (versionSelect) {
+        versionSelect.addEventListener('change', function(e) {
+          var newPath = e.target.value;
+          if (newPath) {
+            window.location.href = newPath;
+          }
+        });
+      }
+    });
+  </script>
+''';
 
     // index.html
     final indexHtml = '''
@@ -887,6 +1180,7 @@ body {
 </head>
 <body>
   <script src="main.dart.js"></script>
+$versionSwitchScript
 </body>
 </html>
 ''';
@@ -908,5 +1202,89 @@ body {
         await entity.copy(targetPath);
       }
     }
+  }
+
+  Future<void> _generateVersionSwitcher(
+    String componentsDir,
+    VersionManager versionManager,
+  ) async {
+    final versions = versionManager.versions;
+    final defaultVersion = versionManager.defaultVersion;
+
+    // Generate version data
+    final versionDataBuffer = StringBuffer();
+    versionDataBuffer.writeln('const versionData = <VersionData>[');
+    for (final version in versions) {
+      final isDefault = version == defaultVersion;
+      final isLatest = version == versionManager.latestVersion;
+      final label = _escapeForDart(version);
+      final badgeList = <String>[];
+      if (isLatest) badgeList.add('latest');
+      if (isDefault && !isLatest) badgeList.add('default');
+      final badge = badgeList.isEmpty ? '' : ' (${badgeList.join(', ')})';
+
+      versionDataBuffer.writeln("  VersionData(");
+      versionDataBuffer.writeln("    id: '$label',");
+      versionDataBuffer.writeln("    label: '$label$badge',");
+      versionDataBuffer.writeln("    urlPrefix: ${isDefault ? "'/docs'" : "'/$label/docs'"},");
+      versionDataBuffer.writeln("    isDefault: $isDefault,");
+      versionDataBuffer.writeln("    isLatest: $isLatest,");
+      versionDataBuffer.writeln("  ),");
+    }
+    versionDataBuffer.writeln('];');
+
+    final versionSwitcher = '''
+import 'package:jaspr/jaspr.dart';
+
+class VersionData {
+  final String id;
+  final String label;
+  final String urlPrefix;
+  final bool isDefault;
+  final bool isLatest;
+
+  const VersionData({
+    required this.id,
+    required this.label,
+    required this.urlPrefix,
+    this.isDefault = false,
+    this.isLatest = false,
+  });
+}
+
+${versionDataBuffer.toString()}
+
+class VersionSwitcher extends StatelessComponent {
+  const VersionSwitcher({super.key});
+
+  @override
+  Iterable<Component> build(BuildContext context) sync* {
+    yield div(
+      classes: ['version-switcher'],
+      [
+        select(
+          classes: ['version-select'],
+          events: {
+            'change': (event) {
+              // JavaScript will handle the navigation
+            },
+          },
+          [
+            for (final version in versionData)
+              option(
+                value: version.urlPrefix,
+                attributes: version.isDefault ? {'selected': 'selected'} : {},
+                [text(version.label)],
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+''';
+
+    await File(p.join(componentsDir, 'version_switcher.dart'))
+        .writeAsString(versionSwitcher);
   }
 }

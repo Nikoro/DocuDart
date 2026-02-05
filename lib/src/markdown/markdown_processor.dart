@@ -2,6 +2,7 @@ import 'package:markdown/markdown.dart' as md;
 
 import 'frontmatter_handler.dart';
 import 'component_parser.dart';
+import '../components/component_registry.dart';
 
 /// Result of processing a markdown file.
 class ProcessedMarkdown {
@@ -45,12 +46,19 @@ class TocEntry {
 
 /// Processes markdown content into HTML with component support.
 class MarkdownProcessor {
+  /// Component registry for rendering embedded components.
+  final ComponentRegistry _registry;
+
+  MarkdownProcessor({ComponentRegistry? registry})
+      : _registry = registry ?? ComponentRegistry.withBuiltIns();
+
   /// Process markdown content from a file.
   ///
   /// 1. Parse frontmatter
   /// 2. Extract and replace embedded components with placeholders
   /// 3. Convert markdown to HTML
   /// 4. Extract table of contents
+  /// 5. Replace placeholders with rendered components
   ProcessedMarkdown process(String content) {
     // Step 1: Parse frontmatter
     final (meta, markdownContent) = FrontmatterHandler.parseWithMeta(content);
@@ -74,12 +82,43 @@ class MarkdownProcessor {
     // Step 5: Add IDs to headings for anchor links
     html = _addHeadingIds(html, toc);
 
+    // Step 6: Replace component placeholders with rendered HTML
+    html = _replaceComponentPlaceholders(html, componentResult.components);
+
     return ProcessedMarkdown(
       meta: meta,
       html: html,
       components: componentResult.components,
       tableOfContents: toc,
     );
+  }
+
+  /// Replace component placeholders with rendered HTML.
+  String _replaceComponentPlaceholders(
+    String html,
+    List<EmbeddedComponent> components,
+  ) {
+    var result = html;
+
+    for (final component in components) {
+      // Find the placeholder div
+      final placeholder = '<div data-component="${component.placeholderId}"></div>';
+
+      // Build the component HTML
+      final componentHtml = _registry.buildComponent(component);
+
+      if (componentHtml != null) {
+        result = result.replaceAll(placeholder, componentHtml);
+      } else {
+        // Unknown component - render a warning
+        result = result.replaceAll(
+          placeholder,
+          '<div class="component-unknown">Unknown component: ${component.name}</div>',
+        );
+      }
+    }
+
+    return result;
   }
 
   /// Extract table of contents from parsed markdown nodes.
