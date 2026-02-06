@@ -9,7 +9,9 @@ void main() {
     });
 
     test('parses content with no headings as introduction', () {
-      final sections = ReadmeParser.parse('This is some content without headings.');
+      final sections = ReadmeParser.parse(
+        'This is some content without headings.',
+      );
 
       expect(sections.length, equals(1));
       expect(sections.first.title, equals('Introduction'));
@@ -74,7 +76,7 @@ Cool features here.
       final sections = ReadmeParser.parse(content);
 
       // Should have Features section
-      expect(sections.any((s) => s.title == 'Features'), isTrue);
+      expect(sections.any((e) => e.title == 'Features'), isTrue);
     });
 
     test('generates correct filenames', () {

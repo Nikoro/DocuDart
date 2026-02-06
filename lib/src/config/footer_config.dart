@@ -9,10 +9,7 @@ class FooterConfig {
   /// Footer links organized in columns.
   final List<FooterColumn> columns;
 
-  const FooterConfig({
-    this.copyright,
-    this.columns = const [],
-  });
+  const FooterConfig({this.copyright, this.columns = const []});
 }
 
 /// A column of links in the footer.
@@ -24,10 +21,7 @@ class FooterColumn {
   /// Links in this column.
   final List<FooterLink> links;
 
-  const FooterColumn({
-    required this.title,
-    required this.links,
-  });
+  const FooterColumn({required this.title, required this.links});
 }
 
 /// A link in the footer.
@@ -48,19 +42,12 @@ class FooterLink {
   /// The href to use (path or url).
   String get href => url ?? path ?? '/';
 
-  const FooterLink({
-    required this.title,
-    this.path,
-    this.url,
-  }) : assert(path != null || url != null, 'Either path or url must be set');
+  const FooterLink({required this.title, this.path, this.url})
+    : assert(path != null || url != null, 'Either path or url must be set');
 
-  const FooterLink.internal({
-    required this.title,
-    required String this.path,
-  }) : url = null;
+  const FooterLink.internal({required this.title, required String this.path})
+    : url = null;
 
-  const FooterLink.external({
-    required this.title,
-    required String this.url,
-  }) : path = null;
+  const FooterLink.external({required this.title, required String this.url})
+    : path = null;
 }

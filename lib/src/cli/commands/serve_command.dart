@@ -73,7 +73,10 @@ class ServeCommand extends Command<int> {
           onRegenerate: () async {
             // Reload config in case it changed
             final newConfig = await ConfigLoader.load(websiteDir);
-            final newGenerator = SiteGenerator(newConfig, websiteDir: websiteDir);
+            final newGenerator = SiteGenerator(
+              newConfig,
+              websiteDir: websiteDir,
+            );
             await newGenerator.generate();
           },
         );

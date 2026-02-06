@@ -8,10 +8,7 @@ class FrontmatterResult {
   /// Markdown content without the frontmatter.
   final String content;
 
-  const FrontmatterResult({
-    required this.data,
-    required this.content,
-  });
+  const FrontmatterResult({required this.data, required this.content});
 }
 
 /// Metadata extracted from frontmatter.
@@ -62,14 +59,14 @@ class PageMeta {
 
   /// Convert to map for serialization.
   Map<String, dynamic> toMap() => {
-        if (title != null) 'title': title,
-        if (description != null) 'description': description,
-        if (sidebarPosition != null) 'sidebar_position': sidebarPosition,
-        if (sidebarTitle != null) 'sidebar_title': sidebarTitle,
-        if (!showInSidebar) 'sidebar': showInSidebar,
-        if (tags.isNotEmpty) 'tags': tags,
-        if (slug != null) 'slug': slug,
-      };
+    if (title != null) 'title': title,
+    if (description != null) 'description': description,
+    if (sidebarPosition != null) 'sidebar_position': sidebarPosition,
+    if (sidebarTitle != null) 'sidebar_title': sidebarTitle,
+    if (!showInSidebar) 'sidebar': showInSidebar,
+    if (tags.isNotEmpty) 'tags': tags,
+    if (slug != null) 'slug': slug,
+  };
 }
 
 /// Handles parsing YAML frontmatter from markdown files.
@@ -101,10 +98,7 @@ class FrontmatterHandler {
           ? Map<String, dynamic>.from(yaml)
           : <String, dynamic>{};
 
-      return FrontmatterResult(
-        data: data,
-        content: markdownContent,
-      );
+      return FrontmatterResult(data: data, content: markdownContent);
     } catch (e) {
       // If YAML parsing fails, return empty data and original content
       return FrontmatterResult(data: {}, content: content);

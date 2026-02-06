@@ -49,10 +49,11 @@ class VersionManager {
   final VersioningConfig _versionConfig;
 
   VersionManager(this.config)
-      : _versionConfig = config.versioning ?? const VersioningConfig();
+    : _versionConfig = config.versioning ?? const VersioningConfig();
 
   /// Whether versioning is enabled.
-  bool get isEnabled => _versionConfig.enabled && _versionConfig.versions.isNotEmpty;
+  bool get isEnabled =>
+      _versionConfig.enabled && _versionConfig.versions.isNotEmpty;
 
   /// List of all available versions.
   List<String> get versions => _versionConfig.versions;

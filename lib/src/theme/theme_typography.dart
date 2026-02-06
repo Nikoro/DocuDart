@@ -28,10 +28,10 @@ class ThemeTypography {
 
   /// Get CSS variable declarations.
   Map<String, String> get cssVariables => {
-        '--font-family': fontFamily,
-        '--font-family-mono': monoFontFamily,
-        '--font-size-base': '${baseFontSize}px',
-        '--line-height': '$lineHeight',
-        '--line-height-heading': '$headingLineHeight',
-      };
+    '--font-family': fontFamily,
+    '--font-family-mono': monoFontFamily,
+    '--font-size-base': '${baseFontSize}px',
+    '--line-height': '$lineHeight',
+    '--line-height-heading': '$headingLineHeight',
+  };
 }

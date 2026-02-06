@@ -66,11 +66,13 @@ class ComponentDiscovery {
         final relativePath = p.relative(file.path, from: componentsDir);
         final importPath = relativePath.replaceAll(r'\', '/');
 
-        components.add(DiscoveredComponent(
-          name: className,
-          filePath: file.path,
-          importPath: importPath,
-        ));
+        components.add(
+          DiscoveredComponent(
+            name: className,
+            filePath: file.path,
+            importPath: importPath,
+          ),
+        );
       }
     } catch (e) {
       // Ignore files that can't be read or parsed
@@ -89,17 +91,25 @@ class ComponentDiscovery {
 
     // Generate imports
     for (final component in components) {
-      buffer.writeln("import 'package:user_project/components/${component.importPath}';");
+      buffer.writeln(
+        "import 'package:user_project/components/${component.importPath}';",
+      );
     }
 
     buffer.writeln();
-    buffer.writeln('void registerCustomComponents(ComponentRegistry registry) {');
+    buffer.writeln(
+      'void registerCustomComponents(ComponentRegistry registry) {',
+    );
 
     for (final component in components) {
       buffer.writeln('  // ${component.name} from ${component.importPath}');
-      buffer.writeln("  registry.register('${component.name}', (props, children) {");
+      buffer.writeln(
+        "  registry.register('${component.name}', (props, children) {",
+      );
       buffer.writeln('    // Custom component rendering logic');
-      buffer.writeln("    return '<div data-component=\"${component.name}\">\$children</div>';");
+      buffer.writeln(
+        "    return '<div data-component=\"${component.name}\">\$children</div>';",
+      );
       buffer.writeln('  });');
     }
 

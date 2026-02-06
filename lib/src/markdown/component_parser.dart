@@ -32,10 +32,7 @@ class ComponentParseResult {
   /// List of extracted components.
   final List<EmbeddedComponent> components;
 
-  const ComponentParseResult({
-    required this.content,
-    required this.components,
-  });
+  const ComponentParseResult({required this.content, required this.components});
 }
 
 /// Parses MDX-like component syntax from markdown content.
@@ -45,22 +42,20 @@ class ComponentParseResult {
 /// - With children: `<Component prop="value">children</Component>`
 /// - Nested components
 class ComponentParser {
-  /// Pattern for self-closing components: <Component prop="value" />
+  /// Pattern for self-closing components: `<Component prop="value" />`
   static final _selfClosingPattern = RegExp(
     r'<([A-Z][a-zA-Z0-9]*)\s*([^>]*?)\s*/>',
     multiLine: true,
   );
 
-  /// Pattern for components with children: <Component>...</Component>
+  /// Pattern for components with children: `<Component>...</Component>`
   static final _withChildrenPattern = RegExp(
     r'<([A-Z][a-zA-Z0-9]*)\s*([^>]*)>([\s\S]*?)</\1>',
     multiLine: true,
   );
 
   /// Pattern for parsing props: prop="value" or prop={value}
-  static final _propPattern = RegExp(
-    r'(\w+)=(?:"([^"]*)"|{([^}]*)}|(\S+))',
-  );
+  static final _propPattern = RegExp(r'(\w+)=(?:"([^"]*)"|{([^}]*)}|(\S+))');
 
   /// Parse components from markdown content.
   ///
@@ -71,47 +66,49 @@ class ComponentParser {
     var placeholderIndex = 0;
 
     // First pass: extract components with children (to handle nesting)
-    processedContent = processedContent.replaceAllMapped(
-      _withChildrenPattern,
-      (match) {
-        final name = match.group(1)!;
-        final propsString = match.group(2) ?? '';
-        final children = match.group(3);
-        final placeholderId = '___COMPONENT_${placeholderIndex}___';
+    processedContent = processedContent.replaceAllMapped(_withChildrenPattern, (
+      match,
+    ) {
+      final name = match.group(1)!;
+      final propsString = match.group(2) ?? '';
+      final children = match.group(3);
+      final placeholderId = '___COMPONENT_${placeholderIndex}___';
 
-        components.add(EmbeddedComponent(
+      components.add(
+        EmbeddedComponent(
           name: name,
           props: _parseProps(propsString),
           children: children?.trim(),
           placeholderId: placeholderId,
           position: match.start,
-        ));
+        ),
+      );
 
-        placeholderIndex++;
-        return '\n\n<div data-component="$placeholderId"></div>\n\n';
-      },
-    );
+      placeholderIndex++;
+      return '\n\n<div data-component="$placeholderId"></div>\n\n';
+    });
 
     // Second pass: extract self-closing components
-    processedContent = processedContent.replaceAllMapped(
-      _selfClosingPattern,
-      (match) {
-        final name = match.group(1)!;
-        final propsString = match.group(2) ?? '';
-        final placeholderId = '___COMPONENT_${placeholderIndex}___';
+    processedContent = processedContent.replaceAllMapped(_selfClosingPattern, (
+      match,
+    ) {
+      final name = match.group(1)!;
+      final propsString = match.group(2) ?? '';
+      final placeholderId = '___COMPONENT_${placeholderIndex}___';
 
-        components.add(EmbeddedComponent(
+      components.add(
+        EmbeddedComponent(
           name: name,
           props: _parseProps(propsString),
           children: null,
           placeholderId: placeholderId,
           position: match.start,
-        ));
+        ),
+      );
 
-        placeholderIndex++;
-        return '\n\n<div data-component="$placeholderId"></div>\n\n';
-      },
-    );
+      placeholderIndex++;
+      return '\n\n<div data-component="$placeholderId"></div>\n\n';
+    });
 
     return ComponentParseResult(
       content: processedContent,

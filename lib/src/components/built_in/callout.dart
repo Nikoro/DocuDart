@@ -1,11 +1,5 @@
 /// Callout types for different styles.
-enum CalloutType {
-  info,
-  tip,
-  warning,
-  danger,
-  note,
-}
+enum CalloutType { info, tip, warning, danger, note }
 
 /// CSS styles for the Callout component.
 const calloutStyles = '''

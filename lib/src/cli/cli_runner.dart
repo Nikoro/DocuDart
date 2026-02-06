@@ -7,10 +7,10 @@ import 'commands/serve_command.dart';
 /// Main CLI runner for DocuDart.
 class DocuDartCliRunner extends CommandRunner<int> {
   DocuDartCliRunner()
-      : super(
-          'docudart',
-          'A static documentation generator for Dart, powered by Jaspr.',
-        ) {
+    : super(
+        'docudart',
+        'A static documentation generator for Dart, powered by Jaspr.',
+      ) {
     addCommand(InitCommand());
     addCommand(BuildCommand());
     addCommand(ServeCommand());

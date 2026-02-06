@@ -6,11 +6,7 @@ class DocuDartException implements Exception {
   final String? hint;
   final String? command;
 
-  const DocuDartException(
-    this.message, {
-    this.hint,
-    this.command,
-  });
+  const DocuDartException(this.message, {this.hint, this.command});
 
   @override
   String toString() {
@@ -36,7 +32,8 @@ class DocuDartErrors {
   static DocuDartException configNotFound() {
     return const DocuDartException(
       'DocuDart project not found.',
-      hint: 'Make sure you are in a project with a website/ directory, '
+      hint:
+          'Make sure you are in a project with a website/ directory, '
           'or inside the website/ directory itself.',
       command: 'docudart init',
     );
@@ -101,10 +98,7 @@ class DocuDartErrors {
 
   /// File read error.
   static DocuDartException fileReadError(String path, String error) {
-    return DocuDartException(
-      'Failed to read file: $path',
-      hint: error,
-    );
+    return DocuDartException('Failed to read file: $path', hint: error);
   }
 
   /// Markdown parse error.
@@ -117,10 +111,7 @@ class DocuDartErrors {
 
   /// Invalid frontmatter.
   static DocuDartException invalidFrontmatter(String path, String error) {
-    return DocuDartException(
-      'Invalid YAML frontmatter in: $path',
-      hint: error,
-    );
+    return DocuDartException('Invalid YAML frontmatter in: $path', hint: error);
   }
 }
 

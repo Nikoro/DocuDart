@@ -221,11 +221,7 @@ Some text.
     });
 
     test('toMap exports fields correctly', () {
-      const meta = PageMeta(
-        title: 'Test',
-        sidebarPosition: 1,
-        tags: ['tag1'],
-      );
+      const meta = PageMeta(title: 'Test', sidebarPosition: 1, tags: ['tag1']);
 
       final map = meta.toMap();
 

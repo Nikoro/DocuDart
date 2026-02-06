@@ -53,9 +53,11 @@ class DocPage {
     return withoutPrefix
         .replaceAll(RegExp(r'[-_]'), ' ')
         .split(' ')
-        .map((word) => word.isEmpty
-            ? word
-            : word[0].toUpperCase() + word.substring(1).toLowerCase())
+        .map(
+          (word) => word.isEmpty
+              ? word
+              : word[0].toUpperCase() + word.substring(1).toLowerCase(),
+        )
         .join(' ');
   }
 }
@@ -99,13 +101,16 @@ class ContentProcessor {
   Future<(List<DocPage>, DocFolder)> processAll() async {
     final docsDir = Directory(config.docsDir);
     if (!docsDir.existsSync()) {
-      return (const <DocPage>[], DocFolder(
-        relativePath: '',
-        name: 'Docs',
-        order: 0,
-        pages: [],
-        folders: [],
-      ));
+      return (
+        const <DocPage>[],
+        DocFolder(
+          relativePath: '',
+          name: 'Docs',
+          order: 0,
+          pages: [],
+          folders: [],
+        ),
+      );
     }
 
     final allPages = <DocPage>[];
@@ -174,7 +179,9 @@ class ContentProcessor {
     return DocFolder(
       relativePath: relativePath,
       name: _folderName(relativePath),
-      order: _extractOrder(p.basename(relativePath.isEmpty ? 'docs' : relativePath)),
+      order: _extractOrder(
+        p.basename(relativePath.isEmpty ? 'docs' : relativePath),
+      ),
       pages: pages,
       folders: folders,
     );
@@ -215,9 +222,12 @@ class ContentProcessor {
     var path = relativePath.replaceAll('.md', '');
 
     // Remove numeric prefixes from path segments
-    path = path.split(p.separator).map((segment) {
-      return segment.replaceFirst(RegExp(r'^\d+[-_]?'), '');
-    }).join('/');
+    path = path
+        .split(p.separator)
+        .map((segment) {
+          return segment.replaceFirst(RegExp(r'^\d+[-_]?'), '');
+        })
+        .join('/');
 
     // Handle index files
     if (path.endsWith('/index') || path == 'index') {
@@ -256,9 +266,11 @@ class ContentProcessor {
     return withoutPrefix
         .replaceAll(RegExp(r'[-_]'), ' ')
         .split(' ')
-        .map((word) => word.isEmpty
-            ? word
-            : word[0].toUpperCase() + word.substring(1).toLowerCase())
+        .map(
+          (word) => word.isEmpty
+              ? word
+              : word[0].toUpperCase() + word.substring(1).toLowerCase(),
+        )
         .join(' ');
   }
 }

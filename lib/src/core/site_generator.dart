@@ -13,11 +13,11 @@ class SiteGenerator {
   final String managedDir;
 
   SiteGenerator(this.config, {String? websiteDir})
-      : managedDir = p.join(
-            websiteDir ?? Directory.current.path,
-            '.dart_tool',
-            'docudart',
-          );
+    : managedDir = p.join(
+        websiteDir ?? Directory.current.path,
+        '.dart_tool',
+        'docudart',
+      );
 
   /// Generate the complete Jaspr site structure.
   Future<void> generate() async {
@@ -54,7 +54,8 @@ class SiteGenerator {
 
     // Get default version's sidebar for main navigation
     final defaultVersion = versionManager.defaultVersion;
-    final defaultSidebarItems = sidebarItemsByVersion[defaultVersion] ??
+    final defaultSidebarItems =
+        sidebarItemsByVersion[defaultVersion] ??
         sidebarItemsByVersion.values.firstOrNull ??
         <GeneratedSidebarItem>[];
 
@@ -68,11 +69,10 @@ class SiteGenerator {
 
     // Run pub get
     print('Installing dependencies...');
-    final result = await Process.run(
-      'dart',
-      ['pub', 'get'],
-      workingDirectory: managedDir,
-    );
+    final result = await Process.run('dart', [
+      'pub',
+      'get',
+    ], workingDirectory: managedDir);
 
     if (result.exitCode != 0) {
       throw Exception('Failed to install dependencies: ${result.stderr}');
@@ -117,7 +117,8 @@ jaspr:
     await Directory(p.join(managedDir, 'lib')).create(recursive: true);
 
     // Server entry point (lib/main.server.dart)
-    final serverMain = '''
+    final serverMain =
+        '''
 import 'package:jaspr/server.dart';
 import 'package:jaspr/dom.dart' show link, script;
 import 'app.dart';
@@ -143,8 +144,9 @@ void main() {
   ));
 }
 ''';
-    await File(p.join(managedDir, 'lib', 'main.server.dart'))
-        .writeAsString(serverMain);
+    await File(
+      p.join(managedDir, 'lib', 'main.server.dart'),
+    ).writeAsString(serverMain);
 
     // Client entry point (lib/main.client.dart)
     final clientMain = '''
@@ -161,8 +163,9 @@ void main() {
   runApp(const ClientApp());
 }
 ''';
-    await File(p.join(managedDir, 'lib', 'main.client.dart'))
-        .writeAsString(clientMain);
+    await File(
+      p.join(managedDir, 'lib', 'main.client.dart'),
+    ).writeAsString(clientMain);
 
     // Client options placeholder (lib/main.client.options.dart)
     // jaspr_builder will regenerate this with actual component registrations
@@ -172,8 +175,9 @@ import 'package:jaspr/client.dart';
 
 ClientOptions get defaultClientOptions => ClientOptions();
 ''';
-    await File(p.join(managedDir, 'lib', 'main.client.options.dart'))
-        .writeAsString(clientOptions);
+    await File(
+      p.join(managedDir, 'lib', 'main.client.options.dart'),
+    ).writeAsString(clientOptions);
   }
 
   Future<void> _generateApp(
@@ -210,7 +214,8 @@ ClientOptions get defaultClientOptions => ClientOptions();
         ),''');
     }
 
-    final app = '''
+    final app =
+        '''
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr_router/jaspr_router.dart';
@@ -246,7 +251,8 @@ ${routesBuffer.toString()}
     final title = config.title ?? 'Documentation';
     final description = config.description ?? 'Welcome to the documentation';
 
-    final homePage = '''
+    final homePage =
+        '''
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 
@@ -303,7 +309,8 @@ class HomePage extends StatelessComponent {
         ? 'const VersionSwitcher(),'
         : '';
 
-    final layout = '''
+    final layout =
+        '''
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 import 'sidebar.dart';
@@ -382,7 +389,8 @@ class Layout extends StatelessComponent {
     }
 
     // Sidebar component
-    final sidebar = '''
+    final sidebar =
+        '''
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 
@@ -461,8 +469,9 @@ class DocsPageContent extends StatelessComponent {
   }
 }
 ''';
-    await File(p.join(componentsDir, 'docs_page_content.dart'))
-        .writeAsString(docsPageContent);
+    await File(
+      p.join(componentsDir, 'docs_page_content.dart'),
+    ).writeAsString(docsPageContent);
   }
 
   String _generateSidebarCode(List<GeneratedSidebarItem> items) {
@@ -493,7 +502,11 @@ class DocsPageContent extends StatelessComponent {
     return buffer.toString();
   }
 
-  void _writeSidebarItem(StringBuffer buffer, GeneratedSidebarItem item, String indent) {
+  void _writeSidebarItem(
+    StringBuffer buffer,
+    GeneratedSidebarItem item,
+    String indent,
+  ) {
     buffer.writeln('${indent}SidebarItemData(');
     buffer.writeln("$indent  title: '${_escapeForDart(item.title)}',");
 
@@ -530,7 +543,8 @@ class DocsPageContent extends StatelessComponent {
     String toHex(int color) =>
         '#${(color & 0xFFFFFF).toRadixString(16).padLeft(6, '0')}';
 
-    final styles = '''
+    final styles =
+        '''
 /* DocuDart Generated Styles */
 
 :root {
@@ -1122,7 +1136,8 @@ body {
 ''';
 
     // Add version switcher styles if enabled
-    final versionSwitcherStyles = includeVersionSwitcher ? '''
+    final versionSwitcherStyles = includeVersionSwitcher
+        ? '''
 
 /* ========== Version Switcher ========== */
 
@@ -1171,11 +1186,14 @@ body {
     box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
   }
 }
-''' : '';
+'''
+        : '';
 
     final webDir = p.join(managedDir, 'web');
     await Directory(webDir).create(recursive: true);
-    await File(p.join(webDir, 'styles.css')).writeAsString(styles + versionSwitcherStyles);
+    await File(
+      p.join(webDir, 'styles.css'),
+    ).writeAsString(styles + versionSwitcherStyles);
   }
 
   Future<void> _generateWebFiles() async {
@@ -1223,14 +1241,17 @@ body {
       versionDataBuffer.writeln("  VersionData(");
       versionDataBuffer.writeln("    id: '$label',");
       versionDataBuffer.writeln("    label: '$label$badge',");
-      versionDataBuffer.writeln("    urlPrefix: ${isDefault ? "'/docs'" : "'/$label/docs'"},");
+      versionDataBuffer.writeln(
+        "    urlPrefix: ${isDefault ? "'/docs'" : "'/$label/docs'"},",
+      );
       versionDataBuffer.writeln("    isDefault: $isDefault,");
       versionDataBuffer.writeln("    isLatest: $isLatest,");
       versionDataBuffer.writeln("  ),");
     }
     versionDataBuffer.writeln('];');
 
-    final versionSwitcher = '''
+    final versionSwitcher =
+        '''
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 
@@ -1282,7 +1303,8 @@ class VersionSwitcher extends StatelessComponent {
 }
 ''';
 
-    await File(p.join(componentsDir, 'version_switcher.dart'))
-        .writeAsString(versionSwitcher);
+    await File(
+      p.join(componentsDir, 'version_switcher.dart'),
+    ).writeAsString(versionSwitcher);
   }
 }

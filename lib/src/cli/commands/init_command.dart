@@ -41,7 +41,9 @@ class InitCommand extends Command<int> {
     // Check if directory already has a website/config.dart
     final existingConfig = File(p.join(targetDir, 'website', 'config.dart'));
     if (existingConfig.existsSync()) {
-      CliPrinter.warning('A DocuDart project already exists in this directory.');
+      CliPrinter.warning(
+        'A DocuDart project already exists in this directory.',
+      );
       stdout.write('Overwrite? (y/N): ');
       final answer = stdin.readLineSync()?.trim().toLowerCase() ?? '';
       if (answer != 'y' && answer != 'yes') {
@@ -63,10 +65,7 @@ class InitCommand extends Command<int> {
 
     try {
       CliPrinter.step('Creating project structure');
-      await generator.generate(
-        directory: targetDir,
-        template: template,
-      );
+      await generator.generate(directory: targetDir, template: template);
 
       CliPrinter.blank();
       CliPrinter.success('DocuDart project initialized successfully!');

@@ -53,11 +53,10 @@ class ProjectGenerator {
 
     // Run dart pub get in website/
     print('Installing dependencies...');
-    final result = await Process.run(
-      'dart',
-      ['pub', 'get'],
-      workingDirectory: websiteDir,
-    );
+    final result = await Process.run('dart', [
+      'pub',
+      'get',
+    ], workingDirectory: websiteDir);
     if (result.exitCode != 0) {
       print('Warning: dart pub get failed: ${result.stderr}');
     }
@@ -104,14 +103,12 @@ class ProjectGenerator {
     }
   }
 
-  Future<void> _generateWebsitePubspec(
-    String websiteDir,
-    String title,
-  ) async {
+  Future<void> _generateWebsitePubspec(String websiteDir, String title) async {
     final docudartPath = await PackageResolver.relativePathTo(websiteDir);
     final packageName = _sanitizePackageName(title);
 
-    final pubspec = '''
+    final pubspec =
+        '''
 name: ${packageName}_docs
 description: Documentation site powered by DocuDart
 publish_to: none
@@ -142,7 +139,8 @@ dependencies:
     String description,
     InitTemplate template,
   ) async {
-    final configContent = '''
+    final configContent =
+        '''
 import 'package:docudart/docudart.dart';
 
 final config = DocuDartConfig(
@@ -186,7 +184,8 @@ final config = DocuDartConfig(
     String title,
     String description,
   ) async {
-    final landingContent = '''
+    final landingContent =
+        '''
 import 'package:docudart/docudart.dart';
 
 /// Landing page component.
@@ -224,8 +223,9 @@ class LandingPage extends StatelessComponent {
 }
 ''';
 
-    await File(p.join(websiteDir, 'pages', 'landing_page.dart'))
-        .writeAsString(landingContent);
+    await File(
+      p.join(websiteDir, 'pages', 'landing_page.dart'),
+    ).writeAsString(landingContent);
   }
 
   Future<void> _generateDocs(
@@ -258,7 +258,9 @@ class LandingPage extends StatelessComponent {
   }
 
   Future<void> _generateDocsFromReadme(
-      String websiteDir, File readmeFile) async {
+    String websiteDir,
+    File readmeFile,
+  ) async {
     final sections = await ReadmeParser.parseFile(readmeFile.path);
 
     if (sections.isEmpty) {
@@ -277,7 +279,8 @@ $content
 
     // Generate a file for each section
     for (final section in sections) {
-      final mdContent = '''
+      final mdContent =
+          '''
 ---
 title: ${section.title}
 sidebar_position: ${section.position}
@@ -285,15 +288,18 @@ sidebar_position: ${section.position}
 
 ${section.content}
 ''';
-      await File(p.join(websiteDir, 'docs', '${section.filename}.md'))
-          .writeAsString(mdContent);
+      await File(
+        p.join(websiteDir, 'docs', '${section.filename}.md'),
+      ).writeAsString(mdContent);
     }
 
     print('Generated ${sections.length} documentation files from README.md');
   }
 
   Future<void> _generateExampleDocs(
-      String websiteDir, InitTemplate template) async {
+    String websiteDir,
+    InitTemplate template,
+  ) async {
     // Index page
     await File(p.join(websiteDir, 'docs', 'index.md')).writeAsString('''
 ---
@@ -318,7 +324,8 @@ Edit the files in the `docs/` folder to add your content.
 ''');
 
     // Getting started page
-    await File(p.join(websiteDir, 'docs', 'getting-started.md')).writeAsString('''
+    await File(p.join(websiteDir, 'docs', 'getting-started.md')).writeAsString(
+      '''
 ---
 title: Getting Started
 sidebar_position: 2
@@ -358,7 +365,8 @@ Run `docudart build` to generate static files.
 ## Development Server
 
 Run `docudart serve` to start a local development server with hot reload.
-''');
+''',
+    );
 
     if (template == InitTemplate.full) {
       // Add more example files for full template
@@ -460,10 +468,8 @@ Create a custom theme by extending `BaseTheme` in the `themes/` folder.
     }
 
     if (additions.isNotEmpty) {
-      final newContent = content.trimRight() +
-          '\n\n# DocuDart\n' +
-          additions.join('\n') +
-          '\n';
+      final newContent =
+          '${content.trimRight()}\n\n# DocuDart\n${additions.join('\n')}\n';
       await gitignoreFile.writeAsString(newContent);
     }
   }

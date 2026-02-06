@@ -22,7 +22,7 @@ class ComponentConfig {
 /// Registration of a custom component for use in markdown.
 @immutable
 class ComponentRegistration {
-  /// Name used to reference the component in markdown (e.g., <MyComponent />).
+  /// Name used to reference the component in markdown (e.g., `<MyComponent />`).
   final String name;
 
   /// The component type.

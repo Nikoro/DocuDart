@@ -45,19 +45,12 @@ class NavLink {
   /// The href to use (path or url).
   String get href => url ?? path ?? '/';
 
-  const NavLink({
-    required this.title,
-    this.path,
-    this.url,
-  }) : assert(path != null || url != null, 'Either path or url must be set');
+  const NavLink({required this.title, this.path, this.url})
+    : assert(path != null || url != null, 'Either path or url must be set');
 
-  const NavLink.internal({
-    required this.title,
-    required String this.path,
-  }) : url = null;
+  const NavLink.internal({required this.title, required String this.path})
+    : url = null;
 
-  const NavLink.external({
-    required this.title,
-    required String this.url,
-  }) : path = null;
+  const NavLink.external({required this.title, required String this.url})
+    : path = null;
 }

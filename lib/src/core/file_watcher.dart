@@ -16,10 +16,7 @@ class DocuDartFileWatcher {
   Timer? _debounceTimer;
   bool _isRegenerating = false;
 
-  DocuDartFileWatcher({
-    required this.config,
-    required this.onRegenerate,
-  });
+  DocuDartFileWatcher({required this.config, required this.onRegenerate});
 
   /// Start watching for file changes.
   Future<void> start() async {
@@ -99,7 +96,15 @@ class DocuDartFileWatcher {
     }
 
     // Asset files
-    if (['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.ico'].contains(ext)) {
+    if ([
+      '.png',
+      '.jpg',
+      '.jpeg',
+      '.gif',
+      '.svg',
+      '.webp',
+      '.ico',
+    ].contains(ext)) {
       return true;
     }
 

@@ -73,9 +73,7 @@ void main() {
         items: [
           SidebarSection(
             title: 'Getting Started',
-            items: [
-              SidebarLink(title: 'Introduction', path: '/docs/intro'),
-            ],
+            items: [SidebarLink(title: 'Introduction', path: '/docs/intro')],
           ),
         ],
       );
@@ -95,10 +93,7 @@ void main() {
     });
 
     test('creates internal and external nav links', () {
-      final internalLink = NavLink.internal(
-        title: 'Docs',
-        path: '/docs',
-      );
+      final internalLink = NavLink.internal(title: 'Docs', path: '/docs');
       final externalLink = NavLink.external(
         title: 'GitHub',
         url: 'https://github.com/example',

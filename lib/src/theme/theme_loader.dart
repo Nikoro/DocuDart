@@ -83,7 +83,10 @@ class ThemeLoader {
   }
 
   /// Load a theme by name from the themes directory.
-  static Future<CustomTheme?> loadByName(String name, [String themesDir = 'themes']) async {
+  static Future<CustomTheme?> loadByName(
+    String name, [
+    String themesDir = 'themes',
+  ]) async {
     // Try .yaml then .yml extensions
     for (final ext in ['.yaml', '.yml']) {
       final path = p.join(themesDir, '$name$ext');
@@ -96,7 +99,9 @@ class ThemeLoader {
   }
 
   /// Discover all themes in a directory.
-  static Future<List<CustomTheme>> discoverThemes([String themesDir = 'themes']) async {
+  static Future<List<CustomTheme>> discoverThemes([
+    String themesDir = 'themes',
+  ]) async {
     final dir = Directory(themesDir);
     if (!dir.existsSync()) {
       return [];
@@ -142,15 +147,18 @@ class ThemeLoader {
       darkText: _parseColor(darkColorsYaml['text']) ?? 0xFFE6EDF3,
       darkTextMuted: _parseColor(darkColorsYaml['textMuted']) ?? 0xFF8B949E,
       darkBorder: _parseColor(darkColorsYaml['border']) ?? 0xFF30363D,
-      darkCodeBackground: _parseColor(darkColorsYaml['codeBackground']) ?? 0xFF161B22,
+      darkCodeBackground:
+          _parseColor(darkColorsYaml['codeBackground']) ?? 0xFF161B22,
     );
 
     // Parse typography
     final typographyYaml = yaml['typography'] as YamlMap? ?? YamlMap();
     final typography = ThemeTypography(
-      fontFamily: typographyYaml['fontFamily'] as String? ??
+      fontFamily:
+          typographyYaml['fontFamily'] as String? ??
           'Inter, system-ui, -apple-system, sans-serif',
-      monoFontFamily: typographyYaml['monoFontFamily'] as String? ??
+      monoFontFamily:
+          typographyYaml['monoFontFamily'] as String? ??
           'JetBrains Mono, Fira Code, monospace',
       baseFontSize: (typographyYaml['baseFontSize'] as num?)?.toDouble() ?? 16,
       lineHeight: (typographyYaml['lineHeight'] as num?)?.toDouble() ?? 1.6,

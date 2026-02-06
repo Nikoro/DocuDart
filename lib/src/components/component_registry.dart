@@ -1,10 +1,8 @@
 import '../markdown/component_parser.dart';
 
 /// Factory function for creating component HTML from props and children.
-typedef ComponentFactory = String Function(
-  Map<String, dynamic> props,
-  String? children,
-);
+typedef ComponentFactory =
+    String Function(Map<String, dynamic> props, String? children);
 
 /// Registry for custom components that can be embedded in markdown.
 class ComponentRegistry {
@@ -129,7 +127,8 @@ class ComponentRegistry {
     final iconHtml = icon != null ? '<div class="card-icon">$icon</div>' : '';
     final titleHtml = title != null ? '<h3 class="card-title">$title</h3>' : '';
 
-    final content = '''
+    final content =
+        '''
 <div class="card">
   $iconHtml
   $titleHtml

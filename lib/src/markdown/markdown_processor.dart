@@ -37,11 +37,7 @@ class TocEntry {
   /// Anchor ID for linking.
   final String id;
 
-  const TocEntry({
-    required this.text,
-    required this.level,
-    required this.id,
-  });
+  const TocEntry({required this.text, required this.level, required this.id});
 }
 
 /// Processes markdown content into HTML with component support.
@@ -50,7 +46,7 @@ class MarkdownProcessor {
   final ComponentRegistry _registry;
 
   MarkdownProcessor({ComponentRegistry? registry})
-      : _registry = registry ?? ComponentRegistry.withBuiltIns();
+    : _registry = registry ?? ComponentRegistry.withBuiltIns();
 
   /// Process markdown content from a file.
   ///
@@ -102,7 +98,8 @@ class MarkdownProcessor {
 
     for (final component in components) {
       // Find the placeholder div
-      final placeholder = '<div data-component="${component.placeholderId}"></div>';
+      final placeholder =
+          '<div data-component="${component.placeholderId}"></div>';
 
       // Build the component HTML
       final componentHtml = _registry.buildComponent(component);

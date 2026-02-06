@@ -100,23 +100,27 @@ class SidebarGenerator {
       // Skip pages that shouldn't be in sidebar
       if (!page.meta.showInSidebar) continue;
 
-      items.add(GeneratedSidebarItem.link(
-        title: page.sidebarTitle,
-        path: page.urlPath,
-        depth: depth,
-      ));
+      items.add(
+        GeneratedSidebarItem.link(
+          title: page.sidebarTitle,
+          path: page.urlPath,
+          depth: depth,
+        ),
+      );
     }
 
     // Add subfolders as categories
     for (final subfolder in folder.folders) {
       final children = _generateFromFolder(subfolder, depth + 1);
       if (children.isNotEmpty) {
-        items.add(GeneratedSidebarItem.category(
-          title: subfolder.name,
-          children: children,
-          collapsed: depth > 0, // Collapse nested folders by default
-          depth: depth,
-        ));
+        items.add(
+          GeneratedSidebarItem.category(
+            title: subfolder.name,
+            children: children,
+            collapsed: depth > 0, // Collapse nested folders by default
+            depth: depth,
+          ),
+        );
       }
     }
 
@@ -135,26 +139,32 @@ class SidebarGenerator {
 
       for (final item in section.items) {
         if (item is SidebarLink) {
-          children.add(GeneratedSidebarItem.link(
-            title: item.title,
-            path: item.path,
-            depth: depth + 1,
-          ));
+          children.add(
+            GeneratedSidebarItem.link(
+              title: item.title,
+              path: item.path,
+              depth: depth + 1,
+            ),
+          );
         } else if (item is SidebarExternalLink) {
-          children.add(GeneratedSidebarItem.link(
-            title: item.title,
-            path: item.url,
-            depth: depth + 1,
-          ));
+          children.add(
+            GeneratedSidebarItem.link(
+              title: item.title,
+              path: item.url,
+              depth: depth + 1,
+            ),
+          );
         }
       }
 
-      items.add(GeneratedSidebarItem.category(
-        title: section.title,
-        children: children,
-        collapsed: section.collapsed,
-        depth: depth,
-      ));
+      items.add(
+        GeneratedSidebarItem.category(
+          title: section.title,
+          children: children,
+          collapsed: section.collapsed,
+          depth: depth,
+        ),
+      );
     }
 
     return items;

@@ -61,11 +61,11 @@ class BuildCommand extends Command<int> {
       // Run jaspr build
       CliPrinter.step('Running Jaspr build');
       final managedDir = p.join(websiteDir, '.dart_tool', 'docudart');
-      final result = await Process.run(
-        'dart',
-        ['run', 'jaspr_cli:jaspr', 'build'],
-        workingDirectory: managedDir,
-      );
+      final result = await Process.run('dart', [
+        'run',
+        'jaspr_cli:jaspr',
+        'build',
+      ], workingDirectory: managedDir);
 
       if (result.exitCode != 0) {
         CliPrinter.exception(

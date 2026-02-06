@@ -9,10 +9,7 @@ class SidebarConfig {
   /// Manual sidebar items (merged with auto-generated if autoGenerate is true).
   final List<SidebarSection> items;
 
-  const SidebarConfig({
-    this.autoGenerate = true,
-    this.items = const [],
-  });
+  const SidebarConfig({this.autoGenerate = true, this.items = const []});
 }
 
 /// A section in the sidebar with a title and items.
@@ -49,10 +46,7 @@ class SidebarLink extends SidebarItem {
   /// Path to the page.
   final String path;
 
-  const SidebarLink({
-    required this.title,
-    required this.path,
-  });
+  const SidebarLink({required this.title, required this.path});
 
   /// Creates a sidebar link that auto-detects pages from a folder.
   factory SidebarLink.auto(String folderPath) = AutoSidebarLink;
@@ -61,8 +55,7 @@ class SidebarLink extends SidebarItem {
 /// A sidebar link that auto-generates from a folder path.
 @immutable
 class AutoSidebarLink extends SidebarLink {
-  const AutoSidebarLink(String folderPath)
-      : super(title: '', path: folderPath);
+  const AutoSidebarLink(String folderPath) : super(title: '', path: folderPath);
 }
 
 /// An external link in the sidebar.
@@ -74,8 +67,5 @@ class SidebarExternalLink extends SidebarItem {
   /// External URL.
   final String url;
 
-  const SidebarExternalLink({
-    required this.title,
-    required this.url,
-  });
+  const SidebarExternalLink({required this.title, required this.url});
 }

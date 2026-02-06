@@ -72,13 +72,15 @@ class ReadmeParser {
         if (currentTitle != null && buffer.isNotEmpty) {
           final sectionContent = buffer.toString().trim();
           if (sectionContent.isNotEmpty && !_shouldSkipSection(currentTitle)) {
-            sections.add(ReadmeSection(
-              title: currentTitle,
-              content: sectionContent,
-              level: currentLevel,
-              filename: _generateFilename(currentTitle, position),
-              position: position,
-            ));
+            sections.add(
+              ReadmeSection(
+                title: currentTitle,
+                content: sectionContent,
+                level: currentLevel,
+                filename: _generateFilename(currentTitle, position),
+                position: position,
+              ),
+            );
             position++;
           }
         }
@@ -127,13 +129,15 @@ class ReadmeParser {
     if (currentTitle != null && buffer.isNotEmpty) {
       final sectionContent = buffer.toString().trim();
       if (sectionContent.isNotEmpty && !_shouldSkipSection(currentTitle)) {
-        sections.add(ReadmeSection(
-          title: currentTitle,
-          content: sectionContent,
-          level: currentLevel,
-          filename: _generateFilename(currentTitle, position),
-          position: position,
-        ));
+        sections.add(
+          ReadmeSection(
+            title: currentTitle,
+            content: sectionContent,
+            level: currentLevel,
+            filename: _generateFilename(currentTitle, position),
+            position: position,
+          ),
+        );
       }
     }
 
@@ -141,13 +145,15 @@ class ReadmeParser {
     if (sections.isEmpty && introBuffer.isNotEmpty) {
       final introContent = _cleanIntroContent(introBuffer.toString());
       if (introContent.isNotEmpty) {
-        sections.add(ReadmeSection(
-          title: 'Introduction',
-          content: introContent,
-          level: 2,
-          filename: 'index',
-          position: 1,
-        ));
+        sections.add(
+          ReadmeSection(
+            title: 'Introduction',
+            content: introContent,
+            level: 2,
+            filename: 'index',
+            position: 1,
+          ),
+        );
       }
     }
 
@@ -159,13 +165,15 @@ class ReadmeParser {
       if (introContent.isNotEmpty) {
         // Renumber existing sections
         final renumbered = sections
-            .map((s) => ReadmeSection(
-                  title: s.title,
-                  content: s.content,
-                  level: s.level,
-                  filename: s.filename,
-                  position: s.position + 1,
-                ))
+            .map(
+              (s) => ReadmeSection(
+                title: s.title,
+                content: s.content,
+                level: s.level,
+                filename: s.filename,
+                position: s.position + 1,
+              ),
+            )
             .toList();
 
         return [
