@@ -1,12 +1,10 @@
-import 'package:meta/meta.dart';
+import 'package:jaspr/jaspr.dart';
 
-import 'sidebar_config.dart';
-import 'header_config.dart';
-import 'footer_config.dart';
 import 'component_config.dart';
-import 'versioning_config.dart';
 import 'custom_page.dart';
+import 'site_context.dart';
 import 'theme_config.dart';
+import 'versioning_config.dart';
 import '../theme/base_theme.dart';
 import '../theme/default_theme.dart';
 import '../theme/theme_colors.dart';
@@ -14,8 +12,7 @@ import '../theme/theme_typography.dart';
 import '../theme/theme_loader.dart';
 
 /// Main configuration class for DocuDart.
-@immutable
-class DocuDartConfig {
+class Config {
   /// Site title. Defaults to name from pubspec.yaml.
   final String? title;
 
@@ -46,8 +43,8 @@ class DocuDartConfig {
   /// Theme configuration.
   final BaseTheme theme;
 
-  /// Sidebar configuration.
-  final SidebarConfig sidebar;
+  /// Theme mode (light, dark, or system).
+  final ThemeMode themeMode;
 
   /// Component registration configuration.
   final ComponentConfig components;
@@ -58,13 +55,16 @@ class DocuDartConfig {
   /// Custom Dart/Jaspr pages.
   final List<CustomPage> customPages;
 
-  /// Header configuration.
-  final HeaderConfig header;
+  /// Header builder function. If null, no header is rendered.
+  final Component Function(SiteContext context)? header;
 
-  /// Footer configuration.
-  final FooterConfig footer;
+  /// Footer builder function. If null, no footer is rendered.
+  final Component Function(SiteContext context)? footer;
 
-  const DocuDartConfig({
+  /// Sidebar builder function. If null, no sidebar is rendered.
+  final Component Function(SiteContext context)? sidebar;
+
+  Config({
     this.title,
     this.description,
     this.logo,
@@ -75,12 +75,13 @@ class DocuDartConfig {
     this.baseUrl = '/',
     this.cleanUrls = true,
     BaseTheme? theme,
-    this.sidebar = const SidebarConfig(),
+    this.themeMode = ThemeMode.system,
     this.components = const ComponentConfig(),
     this.versioning,
     this.customPages = const [],
-    this.header = const HeaderConfig(),
-    this.footer = const FooterConfig(),
+    this.header,
+    this.footer,
+    this.sidebar,
   }) : theme = theme ?? const DefaultTheme();
 
   Map<String, dynamic> toJson() => {
@@ -94,16 +95,14 @@ class DocuDartConfig {
     'baseUrl': baseUrl,
     'cleanUrls': cleanUrls,
     'theme': theme.toJson(),
-    'sidebar': sidebar.toJson(),
+    'themeMode': themeMode.toJson(),
     'components': components.toJson(),
     if (versioning != null) 'versioning': versioning!.toJson(),
     'customPages': customPages.map((p) => p.toJson()).toList(),
-    'header': header.toJson(),
-    'footer': footer.toJson(),
   };
 
-  factory DocuDartConfig.fromJson(Map<String, dynamic> json) {
-    return DocuDartConfig(
+  factory Config.fromJson(Map<String, dynamic> json) {
+    return Config(
       title: json['title'] as String?,
       description: json['description'] as String?,
       logo: json['logo'] as String?,
@@ -114,9 +113,9 @@ class DocuDartConfig {
       baseUrl: json['baseUrl'] as String? ?? '/',
       cleanUrls: json['cleanUrls'] as bool? ?? true,
       theme: _themeFromJson(json['theme'] as Map<String, dynamic>?),
-      sidebar: json['sidebar'] != null
-          ? SidebarConfig.fromJson(json['sidebar'] as Map<String, dynamic>)
-          : const SidebarConfig(),
+      themeMode: json['themeMode'] != null
+          ? ThemeMode.fromJson(json['themeMode'] as String)
+          : ThemeMode.system,
       components: json['components'] != null
           ? ComponentConfig.fromJson(
               json['components'] as Map<String, dynamic>)
@@ -129,12 +128,6 @@ class DocuDartConfig {
               ?.map((e) => CustomPage.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      header: json['header'] != null
-          ? HeaderConfig.fromJson(json['header'] as Map<String, dynamic>)
-          : const HeaderConfig(),
-      footer: json['footer'] != null
-          ? FooterConfig.fromJson(json['footer'] as Map<String, dynamic>)
-          : const FooterConfig(),
     );
   }
 
@@ -145,9 +138,6 @@ class DocuDartConfig {
     if (type == 'default') {
       return DefaultTheme(
         primaryColor: json['primaryColor'] as int?,
-        darkMode: json['darkMode'] != null
-            ? DarkModeConfig.fromJson(json['darkMode'] as String)
-            : DarkModeConfig.system,
       );
     }
 
@@ -161,14 +151,11 @@ class DocuDartConfig {
           ? ThemeTypography.fromJson(
               json['typography'] as Map<String, dynamic>)
           : const ThemeTypography(),
-      darkMode: json['darkMode'] != null
-          ? DarkModeConfig.fromJson(json['darkMode'] as String)
-          : DarkModeConfig.system,
     );
   }
 
   /// Creates a copy with the given fields replaced.
-  DocuDartConfig copyWith({
+  Config copyWith({
     String? title,
     String? description,
     String? logo,
@@ -179,14 +166,15 @@ class DocuDartConfig {
     String? baseUrl,
     bool? cleanUrls,
     BaseTheme? theme,
-    SidebarConfig? sidebar,
+    ThemeMode? themeMode,
     ComponentConfig? components,
     VersioningConfig? versioning,
     List<CustomPage>? customPages,
-    HeaderConfig? header,
-    FooterConfig? footer,
+    Component Function(SiteContext context)? header,
+    Component Function(SiteContext context)? footer,
+    Component Function(SiteContext context)? sidebar,
   }) {
-    return DocuDartConfig(
+    return Config(
       title: title ?? this.title,
       description: description ?? this.description,
       logo: logo ?? this.logo,
@@ -197,12 +185,13 @@ class DocuDartConfig {
       baseUrl: baseUrl ?? this.baseUrl,
       cleanUrls: cleanUrls ?? this.cleanUrls,
       theme: theme ?? this.theme,
-      sidebar: sidebar ?? this.sidebar,
+      themeMode: themeMode ?? this.themeMode,
       components: components ?? this.components,
       versioning: versioning ?? this.versioning,
       customPages: customPages ?? this.customPages,
       header: header ?? this.header,
       footer: footer ?? this.footer,
+      sidebar: sidebar ?? this.sidebar,
     );
   }
 }

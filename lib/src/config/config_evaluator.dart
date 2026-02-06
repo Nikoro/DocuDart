@@ -9,7 +9,7 @@ import 'docudart_config.dart';
 class ConfigEvaluator {
   /// Evaluate config.dart in the given website directory.
   /// Returns null if config.dart doesn't exist or evaluation fails.
-  static Future<DocuDartConfig?> evaluate(String websiteDir) async {
+  static Future<Config?> evaluate(String websiteDir) async {
     final configFile = File(p.join(websiteDir, 'config.dart'));
     if (!configFile.existsSync()) {
       return null;
@@ -39,7 +39,7 @@ class ConfigEvaluator {
 
       final jsonStr = (result.stdout as String).trim();
       final json = jsonDecode(jsonStr) as Map<String, dynamic>;
-      return DocuDartConfig.fromJson(json);
+      return Config.fromJson(json);
     } catch (e) {
       print('Warning: Failed to evaluate config.dart: $e');
       return null;

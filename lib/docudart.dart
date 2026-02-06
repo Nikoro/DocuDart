@@ -3,10 +3,9 @@ library;
 
 // Configuration
 export 'src/config/docudart_config.dart';
-export 'src/config/sidebar_config.dart';
+export 'src/config/nav_link.dart';
+export 'src/config/site_context.dart';
 export 'src/config/theme_config.dart';
-export 'src/config/header_config.dart';
-export 'src/config/footer_config.dart';
 export 'src/config/component_config.dart';
 export 'src/config/versioning_config.dart';
 export 'src/config/custom_page.dart';
@@ -32,6 +31,9 @@ export 'src/markdown/component_parser.dart';
 
 // Components
 export 'src/components/component_registry.dart';
+export 'src/components/defaults/default_header.dart';
+export 'src/components/defaults/default_footer.dart';
+export 'src/components/defaults/default_sidebar.dart';
 
 // Routing
 export 'src/routing/sidebar_generator.dart';

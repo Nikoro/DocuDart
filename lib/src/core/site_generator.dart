@@ -4,16 +4,19 @@ import 'package:path/path.dart' as p;
 
 import '../config/docudart_config.dart';
 import 'content_processor.dart';
+import 'package_resolver.dart';
 import 'version_manager.dart';
 import '../routing/sidebar_generator.dart';
 
 /// Generates the managed Jaspr site in .dart_tool/docudart.
 class SiteGenerator {
-  final DocuDartConfig config;
+  final Config config;
+  final String websiteDir;
   final String managedDir;
 
   SiteGenerator(this.config, {String? websiteDir})
-    : managedDir = p.join(
+    : websiteDir = websiteDir ?? Directory.current.path,
+      managedDir = p.join(
         websiteDir ?? Directory.current.path,
         '.dart_tool',
         'docudart',
@@ -48,7 +51,6 @@ class SiteGenerator {
       // Generate sidebar for this version
       sidebarItemsByVersion[version] = SidebarGenerator.generate(
         rootFolder: versionedDocs.rootFolder,
-        config: config.sidebar,
       );
     }
 
@@ -62,10 +64,12 @@ class SiteGenerator {
     // Generate all required files
     await _generatePubspec();
     await _generateMain();
-    await _generateApp(allPages, defaultSidebarItems, versionManager);
+    await _copyUserFiles();
+    await _generateSiteContextData(defaultSidebarItems);
+    await _generateLayout();
+    await _generateApp(allPages, versionManager);
     await _generateStyles(
       includeVersionSwitcher: versionManager.isEnabled,
-      includeThemeToggle: config.header.showThemeToggle,
     );
     await _generateWebFiles();
     await _copyAssets();
@@ -89,6 +93,8 @@ class SiteGenerator {
   }
 
   Future<void> _generatePubspec() async {
+    final docudartRelPath = await PackageResolver.relativePathTo(managedDir);
+
     final pubspec = '''
 name: docudart_site
 description: Generated DocuDart site
@@ -101,6 +107,8 @@ environment:
 dependencies:
   jaspr: ^0.22.0
   jaspr_router: ^0.8.0
+  docudart:
+    path: $docudartRelPath
 
 dev_dependencies:
   build_runner: ^2.4.0
@@ -113,16 +121,150 @@ jaspr:
     await File(p.join(managedDir, 'pubspec.yaml')).writeAsString(pubspec);
   }
 
+  /// Copy user's config.dart and components/ into managed project's lib/.
+  Future<void> _copyUserFiles() async {
+    final libDir = p.join(managedDir, 'lib');
+    await Directory(libDir).create(recursive: true);
+
+    // Copy config.dart
+    final configSrc = File(p.join(websiteDir, 'config.dart'));
+    if (configSrc.existsSync()) {
+      await configSrc.copy(p.join(libDir, 'config.dart'));
+    }
+
+    // Copy components/ directory
+    final componentsSrc = Directory(p.join(websiteDir, 'components'));
+    if (componentsSrc.existsSync()) {
+      final componentsTarget = Directory(p.join(libDir, 'components'));
+      await componentsTarget.create(recursive: true);
+
+      await for (final entity in componentsSrc.list(recursive: true)) {
+        if (entity is File) {
+          final relativePath = p.relative(entity.path, from: componentsSrc.path);
+          final targetPath = p.join(componentsTarget.path, relativePath);
+          await File(targetPath).parent.create(recursive: true);
+          await entity.copy(targetPath);
+        }
+      }
+    }
+  }
+
+  /// Generate site_context_data.dart with sidebar items and custom pages.
+  Future<void> _generateSiteContextData(
+    List<GeneratedSidebarItem> sidebarItems,
+  ) async {
+    final buffer = StringBuffer();
+    buffer.writeln("import 'package:docudart/docudart.dart';");
+    buffer.writeln();
+    buffer.writeln('/// Auto-generated site context data.');
+    buffer.writeln('const siteContext = SiteContext(');
+    buffer.writeln('  docs: [');
+
+    for (final item in sidebarItems) {
+      _writeSidebarItemCode(buffer, item, '    ');
+    }
+
+    buffer.writeln('  ],');
+    buffer.writeln('  pages: [');
+
+    for (final page in config.customPages) {
+      buffer.writeln("    CustomPage(path: '${_escapeForDart(page.path)}', filePath: '${_escapeForDart(page.filePath)}'),");
+    }
+
+    buffer.writeln('  ],');
+    buffer.writeln(');');
+
+    await File(
+      p.join(managedDir, 'lib', 'site_context_data.dart'),
+    ).writeAsString(buffer.toString());
+  }
+
+  void _writeSidebarItemCode(
+    StringBuffer buffer,
+    GeneratedSidebarItem item,
+    String indent,
+  ) {
+    buffer.writeln('${indent}GeneratedSidebarItem(');
+    buffer.writeln("$indent  title: '${_escapeForDart(item.title)}',");
+
+    if (item.path != null) {
+      buffer.writeln("$indent  path: '${item.path}',");
+    }
+
+    buffer.writeln('$indent  isCategory: ${item.isCategory},');
+
+    if (item.collapsed) {
+      buffer.writeln('$indent  collapsed: ${item.collapsed},');
+    }
+
+    if (item.depth != 0) {
+      buffer.writeln('$indent  depth: ${item.depth},');
+    }
+
+    if (item.children.isNotEmpty) {
+      buffer.writeln('$indent  children: [');
+      for (final child in item.children) {
+        _writeSidebarItemCode(buffer, child, '$indent    ');
+      }
+      buffer.writeln('$indent  ],');
+    }
+
+    buffer.writeln('$indent),');
+  }
+
+  /// Generate layout.dart that delegates to config functions.
+  Future<void> _generateLayout() async {
+    final layout = '''
+import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/dom.dart';
+import 'config.dart';
+import 'site_context_data.dart';
+
+class Layout extends StatelessComponent {
+  final Component child;
+  final bool showSidebar;
+
+  const Layout({
+    required this.child,
+    this.showSidebar = true,
+    super.key,
+  });
+
+  @override
+  Component build(BuildContext context) {
+    final headerComponent = config.header?.call(siteContext);
+    final sidebarComponent = showSidebar ? config.sidebar?.call(siteContext) : null;
+    final footerComponent = config.footer?.call(siteContext);
+
+    return div(
+      classes: 'layout',
+      [
+        if (headerComponent != null) headerComponent,
+        div(
+          classes: sidebarComponent != null ? 'site-body' : 'site-body no-sidebar',
+          [
+            if (sidebarComponent != null) sidebarComponent,
+            div(
+              classes: 'site-main',
+              attributes: {'role': 'main'},
+              [child],
+            ),
+          ],
+        ),
+        if (footerComponent != null) footerComponent,
+      ],
+    );
+  }
+}
+''';
+    await File(p.join(managedDir, 'lib', 'layout.dart')).writeAsString(layout);
+  }
+
   Future<void> _generateMain() async {
     final title = config.title ?? 'Documentation';
     final description = config.description ?? '';
 
     await Directory(p.join(managedDir, 'lib')).create(recursive: true);
-
-    // Theme toggle script (loaded early to prevent flash)
-    final themeScriptTag = config.header.showThemeToggle
-        ? "\n      script(src: '/theme.js'),"
-        : '';
 
     // Server entry point (lib/main.server.dart)
     final serverMain =
@@ -146,7 +288,8 @@ void main() {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap',
       ),
-      script(src: 'main.client.dart.js', defer: true),$themeScriptTag
+      script(src: 'main.client.dart.js', defer: true),
+      script(src: '/theme.js'),
     ],
     body: DocuDartApp(),
   ));
@@ -176,7 +319,6 @@ void main() {
     ).writeAsString(clientMain);
 
     // Client options placeholder (lib/main.client.options.dart)
-    // jaspr_builder will regenerate this with actual component registrations
     final clientOptions = '''
 // ignore_for_file: type=lint
 import 'package:jaspr/client.dart';
@@ -190,7 +332,6 @@ ClientOptions get defaultClientOptions => ClientOptions();
 
   Future<void> _generateApp(
     List<DocPage> pages,
-    List<GeneratedSidebarItem> sidebarItems,
     VersionManager versionManager,
   ) async {
     // Generate routes for all pages
@@ -228,8 +369,8 @@ ClientOptions get defaultClientOptions => ClientOptions();
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr_router/jaspr_router.dart';
-import 'components/layout.dart';
-import 'components/docs_page_content.dart';
+import 'layout.dart';
+import 'docs_page_content.dart';
 import 'pages/home_page.dart';
 
 class DocuDartApp extends StatelessComponent {
@@ -247,9 +388,18 @@ ${routesBuffer.toString()}
 ''';
     await File(p.join(managedDir, 'lib', 'app.dart')).writeAsString(app);
 
-    // Generate pages and components
+    // Generate pages
     await _generatePages();
-    await _generateComponents(sidebarItems, versionManager);
+
+    // Generate docs page content component
+    await _generateDocsPageContent();
+
+    // Generate version switcher if needed
+    if (versionManager.isEnabled) {
+      final componentsDir = p.join(managedDir, 'lib', 'components');
+      await Directory(componentsDir).create(recursive: true);
+      await _generateVersionSwitcher(componentsDir, versionManager);
+    }
   }
 
   Future<void> _generatePages() async {
@@ -298,190 +448,7 @@ class HomePage extends StatelessComponent {
     await File(p.join(pagesDir, 'home_page.dart')).writeAsString(homePage);
   }
 
-  Future<void> _generateComponents(
-    List<GeneratedSidebarItem> sidebarItems,
-    VersionManager versionManager,
-  ) async {
-    final componentsDir = p.join(managedDir, 'lib', 'components');
-    await Directory(componentsDir).create(recursive: true);
-
-    // Layout component with sidebar
-    final title = config.title ?? 'Documentation';
-    final sidebarCode = _generateSidebarCode(sidebarItems);
-
-    // Generate version switcher import and component if versioning is enabled
-    final hasVersioning = versionManager.isEnabled;
-    final versionSwitcherImport = hasVersioning
-        ? "import 'version_switcher.dart';"
-        : '';
-    final versionSwitcherComponent = hasVersioning
-        ? 'const VersionSwitcher(),'
-        : '';
-
-    // Generate nav links from config
-    final navLinksBuffer = StringBuffer();
-    for (final link in config.header.navLinks) {
-      final escapedTitle = _escapeForDart(link.title);
-      navLinksBuffer.writeln(
-        "                    a(href: '${link.href}', [.text('$escapedTitle')]),",
-      );
-    }
-
-    // Generate theme toggle button if enabled
-    final themeToggleComponent = config.header.showThemeToggle
-        ? '''
-                    button(
-                      classes: 'theme-toggle',
-                      attributes: {
-                        'aria-label': 'Toggle dark mode',
-                        'title': 'Toggle dark mode',
-                      },
-                      events: {
-                        'click': (event) {},
-                      },
-                      [
-                        span(classes: 'theme-toggle-icon', [.text('\\u263E')]),
-                      ],
-                    ),'''
-        : '';
-
-    // Generate footer text
-    final footerText = _escapeForDart(
-      config.footer.copyright ?? 'Built with DocuDart',
-    );
-
-    final layout =
-        '''
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart';
-import 'sidebar.dart';
-$versionSwitcherImport
-
-class Layout extends StatelessComponent {
-  final Component child;
-  final bool showSidebar;
-
-  const Layout({
-    required this.child,
-    this.showSidebar = true,
-    super.key,
-  });
-
-  @override
-  Component build(BuildContext context) {
-    return div(
-      classes: 'layout',
-      [
-        // Header
-        header(
-          classes: 'site-header',
-          [
-            div(
-              classes: 'header-content',
-              [
-                a(
-                  href: '/',
-                  classes: 'site-title',
-                  [.text('$title')],
-                ),
-                nav(
-                  classes: 'header-nav',
-                  [
-$navLinksBuffer                    $versionSwitcherComponent
-$themeToggleComponent
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-        // Main content with sidebar
-        div(
-          classes: showSidebar ? 'site-body' : 'site-body no-sidebar',
-          [
-            if (showSidebar) const Sidebar(),
-            div(
-              classes: 'site-main',
-              attributes: {'role': 'main'},
-              [child],
-            ),
-          ],
-        ),
-        // Footer
-        footer(
-          classes: 'site-footer',
-          [
-            div(
-              classes: 'footer-content',
-              [
-                p([.text('$footerText')]),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-''';
-    await File(p.join(componentsDir, 'layout.dart')).writeAsString(layout);
-
-    // Generate version switcher component if versioning is enabled
-    if (hasVersioning) {
-      await _generateVersionSwitcher(componentsDir, versionManager);
-    }
-
-    // Sidebar component
-    final sidebar =
-        '''
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart';
-
-$sidebarCode
-
-class Sidebar extends StatelessComponent {
-  const Sidebar({super.key});
-
-  @override
-  Component build(BuildContext context) {
-    return aside(
-      classes: 'sidebar',
-      [
-        nav(
-          classes: 'sidebar-nav',
-          _buildSidebarItems(sidebarItems),
-        ),
-      ],
-    );
-  }
-}
-
-List<Component> _buildSidebarItems(List<SidebarItemData> items) {
-  return items.map<Component>((item) {
-    if (item.isCategory) {
-      return div(
-        classes: 'sidebar-category',
-        [
-          span(classes: 'sidebar-category-title', [.text(item.title)]),
-          ul(
-            classes: 'sidebar-category-items',
-            _buildSidebarItems(item.children).map((c) => li([c])).toList(),
-          ),
-        ],
-      );
-    } else {
-      return a(
-        href: item.path ?? '#',
-        classes: 'sidebar-link',
-        [.text(item.title)],
-      );
-    }
-  }).toList();
-}
-''';
-    await File(p.join(componentsDir, 'sidebar.dart')).writeAsString(sidebar);
-
-    // Docs page content component (renders HTML)
+  Future<void> _generateDocsPageContent() async {
     final docsPageContent = '''
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
@@ -513,61 +480,8 @@ class DocsPageContent extends StatelessComponent {
 }
 ''';
     await File(
-      p.join(componentsDir, 'docs_page_content.dart'),
+      p.join(managedDir, 'lib', 'docs_page_content.dart'),
     ).writeAsString(docsPageContent);
-  }
-
-  String _generateSidebarCode(List<GeneratedSidebarItem> items) {
-    final buffer = StringBuffer();
-
-    buffer.writeln('class SidebarItemData {');
-    buffer.writeln('  final String title;');
-    buffer.writeln('  final String? path;');
-    buffer.writeln('  final bool isCategory;');
-    buffer.writeln('  final List<SidebarItemData> children;');
-    buffer.writeln('');
-    buffer.writeln('  const SidebarItemData({');
-    buffer.writeln('    required this.title,');
-    buffer.writeln('    this.path,');
-    buffer.writeln('    this.isCategory = false,');
-    buffer.writeln('    this.children = const [],');
-    buffer.writeln('  });');
-    buffer.writeln('}');
-    buffer.writeln('');
-    buffer.writeln('const sidebarItems = <SidebarItemData>[');
-
-    for (final item in items) {
-      _writeSidebarItem(buffer, item, '  ');
-    }
-
-    buffer.writeln('];');
-
-    return buffer.toString();
-  }
-
-  void _writeSidebarItem(
-    StringBuffer buffer,
-    GeneratedSidebarItem item,
-    String indent,
-  ) {
-    buffer.writeln('${indent}SidebarItemData(');
-    buffer.writeln("$indent  title: '${_escapeForDart(item.title)}',");
-
-    if (item.path != null) {
-      buffer.writeln("$indent  path: '${item.path}',");
-    }
-
-    buffer.writeln('$indent  isCategory: ${item.isCategory},');
-
-    if (item.children.isNotEmpty) {
-      buffer.writeln('$indent  children: [');
-      for (final child in item.children) {
-        _writeSidebarItem(buffer, child, '$indent    ');
-      }
-      buffer.writeln('$indent  ],');
-    }
-
-    buffer.writeln('$indent),');
   }
 
   String _escapeForDart(String s) {
@@ -580,7 +494,6 @@ class DocsPageContent extends StatelessComponent {
 
   Future<void> _generateStyles({
     bool includeVersionSwitcher = false,
-    bool includeThemeToggle = false,
   }) async {
     final colors = config.theme.colors;
     final typography = config.theme.typography;
@@ -704,6 +617,7 @@ body {
 .header-nav {
   display: flex;
   gap: 1.5rem;
+  align-items: center;
 }
 
 .header-nav a {
@@ -734,6 +648,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.sidebar-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .sidebar-category {
@@ -1225,6 +1145,33 @@ body {
 :root[data-theme="dark"] .card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
+
+/* ========== Theme Toggle ========== */
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.theme-toggle-icon {
+  font-size: 1.125rem;
+  line-height: 1;
+}
 ''';
 
     // Add version switcher styles if enabled
@@ -1281,49 +1228,14 @@ body {
 '''
         : '';
 
-    // Add theme toggle styles if enabled
-    final themeToggleStyles = includeThemeToggle
-        ? '''
-
-/* ========== Theme Toggle ========== */
-
-.theme-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  padding: 0;
-  border: 1px solid var(--color-border);
-  border-radius: 0.375rem;
-  background-color: var(--color-surface);
-  color: var(--color-text);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.theme-toggle:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-}
-
-.theme-toggle-icon {
-  font-size: 1.125rem;
-  line-height: 1;
-}
-'''
-        : '';
-
     final webDir = p.join(managedDir, 'web');
     await Directory(webDir).create(recursive: true);
     await File(
       p.join(webDir, 'styles.css'),
-    ).writeAsString(styles + versionSwitcherStyles + themeToggleStyles);
+    ).writeAsString(styles + versionSwitcherStyles);
 
-    // Generate theme toggle script if enabled
-    if (includeThemeToggle) {
-      await _generateThemeScript(webDir);
-    }
+    // Always generate theme toggle script
+    await _generateThemeScript(webDir);
   }
 
   Future<void> _generateThemeScript(String webDir) async {

@@ -45,7 +45,7 @@ class VersionedDocs {
 ///   v2/           # Another version
 /// ```
 class VersionManager {
-  final DocuDartConfig config;
+  final Config config;
   final VersioningConfig _versionConfig;
 
   VersionManager(this.config)

@@ -90,7 +90,7 @@ class DocFolder {
 
 /// Processes all documentation files in the docs directory.
 class ContentProcessor {
-  final DocuDartConfig config;
+  final Config config;
   final MarkdownProcessor _markdownProcessor = MarkdownProcessor();
 
   ContentProcessor(this.config);

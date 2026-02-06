@@ -1,5 +1,5 @@
-/// Dark mode configuration options.
-enum DarkModeConfig {
+/// Theme mode configuration options.
+enum ThemeMode {
   /// Follow system preference.
   system,
 
@@ -7,17 +7,14 @@ enum DarkModeConfig {
   light,
 
   /// Always use dark mode.
-  dark,
-
-  /// Show toggle, default to system preference.
-  toggle;
+  dark;
 
   String toJson() => name;
 
-  static DarkModeConfig fromJson(String value) {
-    return DarkModeConfig.values.firstWhere(
+  static ThemeMode fromJson(String value) {
+    return ThemeMode.values.firstWhere(
       (e) => e.name == value,
-      orElse: () => DarkModeConfig.system,
+      orElse: () => ThemeMode.system,
     );
   }
 }

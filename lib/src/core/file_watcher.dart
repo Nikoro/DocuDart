@@ -9,7 +9,7 @@ import '../cli/errors.dart';
 
 /// Watches documentation files for changes and triggers regeneration.
 class DocuDartFileWatcher {
-  final DocuDartConfig config;
+  final Config config;
   final Future<void> Function() onRegenerate;
 
   final List<StreamSubscription<WatchEvent>> _subscriptions = [];

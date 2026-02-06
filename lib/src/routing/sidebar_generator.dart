@@ -1,5 +1,4 @@
 import '../core/content_processor.dart';
-import '../config/sidebar_config.dart';
 
 /// Generated sidebar item for rendering.
 class GeneratedSidebarItem {
@@ -64,28 +63,11 @@ class GeneratedSidebarItem {
 
 /// Generates sidebar structure from documentation pages.
 class SidebarGenerator {
-  /// Generate sidebar items from processed docs and config.
-  ///
-  /// If [config.autoGenerate] is true, generates from folder structure.
-  /// Manual items from config are merged/override auto-generated ones.
+  /// Generate sidebar items from the docs folder structure.
   static List<GeneratedSidebarItem> generate({
     required DocFolder rootFolder,
-    required SidebarConfig config,
   }) {
-    if (!config.autoGenerate) {
-      // Only use manual items
-      return _convertManualItems(config.items, 0);
-    }
-
-    // Auto-generate from folder structure
-    final autoItems = _generateFromFolder(rootFolder, 0);
-
-    // Merge with manual items if any
-    if (config.items.isEmpty) {
-      return autoItems;
-    }
-
-    return _mergeItems(autoItems, _convertManualItems(config.items, 0));
+    return _generateFromFolder(rootFolder, 0);
   }
 
   /// Generate sidebar items from a folder structure.
@@ -125,71 +107,6 @@ class SidebarGenerator {
     }
 
     return items;
-  }
-
-  /// Convert manual sidebar config items to generated items.
-  static List<GeneratedSidebarItem> _convertManualItems(
-    List<SidebarSection> sections,
-    int depth,
-  ) {
-    final items = <GeneratedSidebarItem>[];
-
-    for (final section in sections) {
-      final children = <GeneratedSidebarItem>[];
-
-      for (final item in section.items) {
-        if (item is SidebarLink) {
-          children.add(
-            GeneratedSidebarItem.link(
-              title: item.title,
-              path: item.path,
-              depth: depth + 1,
-            ),
-          );
-        } else if (item is SidebarExternalLink) {
-          children.add(
-            GeneratedSidebarItem.link(
-              title: item.title,
-              path: item.url,
-              depth: depth + 1,
-            ),
-          );
-        }
-      }
-
-      items.add(
-        GeneratedSidebarItem.category(
-          title: section.title,
-          children: children,
-          collapsed: section.collapsed,
-          depth: depth,
-        ),
-      );
-    }
-
-    return items;
-  }
-
-  /// Merge auto-generated items with manual items.
-  /// Manual items override auto-generated ones with the same title.
-  static List<GeneratedSidebarItem> _mergeItems(
-    List<GeneratedSidebarItem> auto,
-    List<GeneratedSidebarItem> manual,
-  ) {
-    final result = <GeneratedSidebarItem>[];
-    final manualTitles = manual.map((m) => m.title.toLowerCase()).toSet();
-
-    // Add auto items that aren't overridden
-    for (final item in auto) {
-      if (!manualTitles.contains(item.title.toLowerCase())) {
-        result.add(item);
-      }
-    }
-
-    // Add all manual items
-    result.addAll(manual);
-
-    return result;
   }
 
   /// Generate Dart code for sidebar items (for site generator).

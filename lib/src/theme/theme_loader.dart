@@ -6,7 +6,6 @@ import 'package:yaml/yaml.dart';
 import 'base_theme.dart';
 import 'theme_colors.dart';
 import 'theme_typography.dart';
-import '../config/theme_config.dart';
 
 /// A theme loaded from a YAML configuration file.
 class CustomTheme extends BaseTheme {
@@ -19,14 +18,10 @@ class CustomTheme extends BaseTheme {
   @override
   final ThemeTypography typography;
 
-  @override
-  final DarkModeConfig darkMode;
-
   const CustomTheme({
     required this.name,
     required this.colors,
     required this.typography,
-    required this.darkMode,
   });
 
   @override
@@ -39,39 +34,6 @@ class CustomTheme extends BaseTheme {
 /// Loads custom themes from YAML files.
 class ThemeLoader {
   /// Load a theme from a YAML file.
-  ///
-  /// Theme YAML format:
-  /// ```yaml
-  /// name: my-theme
-  ///
-  /// colors:
-  ///   primary: "#6366F1"
-  ///   secondary: "#8B5CF6"
-  ///   background: "#FFFFFF"
-  ///   surface: "#F9FAFB"
-  ///   text: "#111827"
-  ///   textMuted: "#6B7280"
-  ///   border: "#E5E7EB"
-  ///   codeBackground: "#F3F4F6"
-  ///
-  /// darkColors:
-  ///   primary: "#818CF8"
-  ///   secondary: "#A78BFA"
-  ///   background: "#111827"
-  ///   surface: "#1F2937"
-  ///   text: "#F9FAFB"
-  ///   textMuted: "#9CA3AF"
-  ///   border: "#374151"
-  ///   codeBackground: "#1F2937"
-  ///
-  /// typography:
-  ///   fontFamily: "Inter, sans-serif"
-  ///   monoFontFamily: "JetBrains Mono, monospace"
-  ///   baseFontSize: 16
-  ///   lineHeight: 1.6
-  ///
-  /// darkMode: system  # system, light, dark, or toggle
-  /// ```
   static Future<CustomTheme?> loadFromFile(String path) async {
     final file = File(path);
     if (!file.existsSync()) {
@@ -172,23 +134,14 @@ class ThemeLoader {
           (typographyYaml['headingLineHeight'] as num?)?.toDouble() ?? 1.3,
     );
 
-    // Parse dark mode config
-    final darkModeStr = yaml['darkMode'] as String? ?? 'system';
-    final darkMode = _parseDarkModeConfig(darkModeStr);
-
     return CustomTheme(
       name: name,
       colors: colors,
       typography: typography,
-      darkMode: darkMode,
     );
   }
 
   /// Parse a color value from string or int.
-  ///
-  /// Supports:
-  /// - Hex strings: "#FF0000", "FF0000", "#F00"
-  /// - Integer values: 0xFF0000
   static int? _parseColor(dynamic value) {
     if (value == null) return null;
 
@@ -218,19 +171,5 @@ class ThemeLoader {
     }
 
     return null;
-  }
-
-  static DarkModeConfig _parseDarkModeConfig(String value) {
-    switch (value.toLowerCase()) {
-      case 'light':
-        return DarkModeConfig.light;
-      case 'dark':
-        return DarkModeConfig.dark;
-      case 'toggle':
-        return DarkModeConfig.toggle;
-      case 'system':
-      default:
-        return DarkModeConfig.system;
-    }
   }
 }

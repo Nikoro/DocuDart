@@ -58,15 +58,14 @@ docudart/
 │       │       ├── build_command.dart   # docudart build
 │       │       └── serve_command.dart   # docudart serve
 │       ├── config/                      # Configuration classes
-│       │   ├── docudart_config.dart     # Main DocuDartConfig (has toJson/fromJson)
+│       │   ├── docudart_config.dart     # Config class (has toJson/fromJson)
 │       │   ├── config_loader.dart       # Load config (evaluates config.dart, falls back to YAML)
 │       │   ├── config_evaluator.dart    # Subprocess evaluation of config.dart
-│       │   ├── sidebar_config.dart      # SidebarConfig, SidebarSection, SidebarLink
-│       │   ├── header_config.dart       # HeaderConfig, NavLink
-│       │   ├── footer_config.dart       # FooterConfig, FooterLink
+│       │   ├── nav_link.dart            # NavLink (internal/external navigation)
+│       │   ├── site_context.dart        # SiteContext (docs + pages passed to layout functions)
 │       │   ├── component_config.dart    # ComponentConfig
 │       │   ├── versioning_config.dart   # VersioningConfig
-│       │   ├── theme_config.dart        # DarkModeConfig enum
+│       │   ├── theme_config.dart        # ThemeMode enum (system, light, dark)
 │       │   └── custom_page.dart         # CustomPage
 │       ├── core/                        # Core functionality
 │       │   ├── project_generator.dart   # Generate website/ project (init)
@@ -90,6 +89,10 @@ docudart/
 │       ├── components/                  # Component system
 │       │   ├── component_registry.dart  # Component registry
 │       │   ├── component_discovery.dart # Auto-discover components
+│       │   ├── defaults/               # Default layout components
+│       │   │   ├── default_header.dart  # DefaultHeader component
+│       │   │   ├── default_footer.dart  # DefaultFooter component
+│       │   │   └── default_sidebar.dart # DefaultSidebar component
 │       │   └── built_in/               # Built-in components
 │       │       ├── callout.dart
 │       │       ├── tabs.dart
@@ -105,8 +108,11 @@ docudart/
 │       ├── pubspec.yaml                 # Depends on docudart via path: ../../
 │       ├── config.dart
 │       ├── docs/
-│       ├── pages/landing.dart
+│       ├── pages/landing_page.dart
 │       ├── components/
+│       │   ├── header.dart              # Header wrapping DefaultHeader
+│       │   ├── footer.dart              # Footer wrapping DefaultFooter
+│       │   └── sidebar.dart             # Sidebar wrapping DefaultSidebar
 │       ├── assets/
 │       └── themes/
 ├── CLAUDE.md                            # This file
@@ -121,53 +127,79 @@ user-project/
   lib/                   # User's own code
   website/               # Created by docudart init
     pubspec.yaml         # Depends on docudart (path dependency)
-    config.dart          # DocuDartConfig instance
+    config.dart          # Config instance with header/footer/sidebar functions
     docs/                # Markdown documentation files
       index.md
       getting-started.md
     pages/               # Custom Jaspr page components
-      landing.dart       # Landing page (imports package:docudart/docudart.dart)
-    components/          # Custom Jaspr components
+      landing_page.dart  # Landing page (imports package:docudart/docudart.dart)
+    components/          # Layout wrapper components
+      header.dart        # Header component wrapping DefaultHeader
+      footer.dart        # Footer component wrapping DefaultFooter
+      sidebar.dart       # Sidebar component wrapping DefaultSidebar
     assets/              # Static assets
     themes/              # Custom theme implementations
 ```
 
 ## Key Classes
 
-### DocuDartConfig (lib/src/config/docudart_config.dart)
+### Config (lib/src/config/docudart_config.dart)
 Main configuration class. All user settings flow through this.
 ```dart
-DocuDartConfig(
+Config(
   title: String?,
   description: String?,
-  docsDir: String,        // default: 'docs' (absolutized by ConfigLoader)
-  outputDir: String,      // default: 'build/web' (absolutized by ConfigLoader)
-  theme: BaseTheme,       // default: DefaultTheme()
-  sidebar: SidebarConfig,
-  header: HeaderConfig,
-  footer: FooterConfig,
+  docsDir: String,          // default: 'docs' (absolutized by ConfigLoader)
+  outputDir: String,        // default: 'build/web' (absolutized by ConfigLoader)
+  theme: BaseTheme,         // default: DefaultTheme()
+  themeMode: ThemeMode,     // default: ThemeMode.system (system | light | dark)
+  header: Component Function(SiteContext)?,   // null = no header
+  footer: Component Function(SiteContext)?,   // null = no footer
+  sidebar: Component Function(SiteContext)?,  // null = no sidebar
   // ...
 )
 ```
+- Header, footer, sidebar are nullable function fields returning Components
+- Functions receive a `SiteContext` with `docs` (sidebar items) and `pages` (custom pages)
+- `toJson()` skips function fields; `fromJson()` sets them to null
+- Not `const` (functions prevent const constructors)
+
+### SiteContext (lib/src/config/site_context.dart)
+Context object passed to header/footer/sidebar builder functions.
+```dart
+class SiteContext {
+  final List<GeneratedSidebarItem> docs;  // auto-generated from docs/ folder
+  final List<CustomPage> pages;           // custom pages from config
+}
+```
+
+### DefaultHeader / DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
+Library-provided default layout components.
+- `DefaultHeader(title, navLinks, showThemeToggle)` - sticky header with nav
+- `DefaultFooter(text)` - simple centered text footer
+- `DefaultSidebar(items)` - navigation tree from docs structure
 
 ### ProjectGenerator (lib/src/core/project_generator.dart)
 Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart init`.
 - `InitTemplate.defaultTemplate` - Basic setup
 - `InitTemplate.full` - All features with examples
 - Uses `PackageResolver` to compute path dependency to docudart
+- Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart)
 - Runs `dart pub get` in website/ after generation
 - Looks for `README.md` in project root to auto-generate docs
 
 ### SiteGenerator (lib/src/core/site_generator.dart)
 Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - Accepts optional `websiteDir` parameter (defaults to cwd)
-- Creates pubspec.yaml, main.dart, app.dart
-- Generates pages, components, styles
-- Copies docs and assets
+- Adds `docudart` as path dependency in managed project's pubspec
+- Copies `config.dart` and `components/` into managed project's `lib/`
+- Generates `site_context_data.dart` with auto-generated sidebar items
+- Generates `layout.dart` that calls `config.header/footer/sidebar` functions
+- If a function is null, that section is simply not rendered
 
 ### PackageResolver (lib/src/core/package_resolver.dart)
 Resolves the docudart package installation path using `Isolate.resolvePackageUri`.
-Used to generate the path dependency in `website/pubspec.yaml`.
+Used to generate the path dependency in `website/pubspec.yaml` and managed project pubspec.
 
 ### WorkspaceResolver (lib/src/core/workspace_resolver.dart)
 Auto-detects the website directory for build/serve commands.
@@ -180,13 +212,14 @@ Loads configuration with a two-step strategy:
 1. **First**: Tries to evaluate `config.dart` via `ConfigEvaluator` (subprocess that runs a temp Dart script)
 2. **Fallback**: If that fails, reads `pubspec.yaml` + `docudart.yaml` (YAML-based)
 - **Important**: Absolutizes directory paths (docsDir, outputDir, assetsDir) relative to the loaded directory
-- This ensures downstream code (ContentProcessor, SiteGenerator) works with absolute paths
+- Function fields (header/footer/sidebar) cannot be serialized — they're always null from ConfigEvaluator
+- The managed Jaspr project imports config.dart directly to access function fields
 
 ### ConfigEvaluator (lib/src/config/config_evaluator.dart)
 Evaluates the user's `config.dart` by running a temporary Dart script as a subprocess.
 - Generates a script at `website/.dart_tool/docudart_config_extract.dart`
 - Script imports `config.dart`, calls `config.toJson()`, prints JSON to stdout
-- CLI parses the JSON output → `DocuDartConfig.fromJson()`
+- CLI parses the JSON output → `Config.fromJson()` (functions are null)
 - Cleans up the temp script after execution
 - Returns `null` on failure (ConfigLoader falls back to YAML)
 
@@ -201,13 +234,16 @@ Flutter docs style theme with:
 ### `docudart init`
 1. `InitCommand` resolves target directory
 2. Checks for existing `website/config.dart`
-3. `ProjectGenerator.generate()` creates `website/` with all files
+3. `ProjectGenerator.generate()` creates `website/` with all files including components/
 4. Runs `dart pub get` in `website/`
 
 ### `docudart build`
 1. `WorkspaceResolver.resolve()` finds `website/` directory
 2. `ConfigLoader.load(websiteDir)` loads config with absolute paths
-3. `SiteGenerator(config, websiteDir: websiteDir).generate()` creates Jaspr project
+3. `SiteGenerator(config, websiteDir: websiteDir).generate()`:
+   - Copies config.dart + components/ into managed project
+   - Generates site_context_data.dart with sidebar items
+   - Generates layout.dart that delegates to config functions
 4. Runs `dart run jaspr build` in `website/.dart_tool/docudart/`
 5. Copies output to `website/build/web/` (or `--output` flag)
 
@@ -219,11 +255,10 @@ Flutter docs style theme with:
 ## Common Tasks
 
 ### Adding a New Config Option
-1. Add field to `DocuDartConfig` in `lib/src/config/docudart_config.dart`
+1. Add field to `Config` in `lib/src/config/docudart_config.dart`
 2. Add to constructor, `copyWith`, `toJson()`, and `fromJson()` methods
-3. If the field is in a sub-config class (e.g., `HeaderConfig`), update its `toJson()`/`fromJson()` too
-4. Update `ProjectGenerator` to use it in generated config.dart template
-5. Update `SiteGenerator` to handle it when generating site
+3. Update `ProjectGenerator` to use it in generated config.dart template
+4. Update `SiteGenerator` to handle it when generating site
 
 ### Adding a New CLI Command
 1. Create `lib/src/cli/commands/my_command.dart`
@@ -232,12 +267,15 @@ Flutter docs style theme with:
 
 ### Modifying Generated Site
 The managed Jaspr site is generated in `SiteGenerator`:
-- `_generatePubspec()` - pubspec.yaml
-- `_generateMain()` - lib/main.dart
+- `_generatePubspec()` - pubspec.yaml (includes docudart path dep)
+- `_generateMain()` - lib/main.server.dart, lib/main.client.dart
+- `_copyUserFiles()` - copies config.dart + components/ into lib/
+- `_generateSiteContextData()` - lib/site_context_data.dart
+- `_generateLayout()` - lib/layout.dart (calls config.header/footer/sidebar)
 - `_generateApp()` - lib/app.dart with Router
 - `_generatePages()` - lib/pages/*.dart
-- `_generateComponents()` - lib/components/*.dart
-- `_generateStyles()` - web/styles.css
+- `_generateDocsPageContent()` - lib/docs_page_content.dart
+- `_generateStyles()` - web/styles.css + web/theme.js
 
 ### Adding a Built-in Component
 1. Create `lib/src/components/built_in/my_component.dart`
@@ -246,21 +284,9 @@ The managed Jaspr site is generated in `SiteGenerator`:
 
 ## Code Patterns
 
-### Immutable Config Classes with Serialization
-All config classes have `toJson()` and `fromJson()` for subprocess evaluation of `config.dart`.
-```dart
-@immutable
-class MyConfig {
-  final String value;
-  const MyConfig({this.value = 'default'});
-
-  Map<String, dynamic> toJson() => {'value': value};
-
-  factory MyConfig.fromJson(Map<String, dynamic> json) =>
-      MyConfig(value: json['value'] as String? ?? 'default');
-}
-```
-For sealed class hierarchies (e.g., `SidebarItem`), use a `type` discriminator field in `toJson()`.
+### Config with Serialization Boundary
+Config classes have `toJson()` and `fromJson()` for subprocess evaluation.
+Function fields (header/footer/sidebar) cannot be serialized — they're skipped in `toJson()` and set to null in `fromJson()`. The managed project imports config.dart directly to access them.
 
 ### Command Pattern (with WorkspaceResolver)
 ```dart
@@ -358,20 +384,19 @@ Use `headless: true` for automated checks. Key things to verify:
 
 - `docudart` re-exports `package:jaspr/jaspr.dart` — users never import jaspr directly
 - User's config is `config.dart` (Dart, not YAML) for IntelliSense and type safety
-- `config.dart` must export a top-level `final config = DocuDartConfig(...)` variable (convention enforced by ProjectGenerator)
+- `config.dart` must export a top-level `final config = Config(...)` variable (convention enforced by ProjectGenerator)
 - `ConfigLoader` evaluates `config.dart` via subprocess (`ConfigEvaluator`), falling back to YAML if it fails
-- All config classes have `toJson()`/`fromJson()` to support the subprocess serialization boundary
+- Function fields (header/footer/sidebar) cannot cross the subprocess boundary — managed project imports config.dart directly
 - All generated user files import `package:docudart/docudart.dart`
 - `website/pubspec.yaml` uses a path dependency to docudart
-- Generated Jaspr project lives in `website/.dart_tool/docudart/`
+- Generated Jaspr project lives in `website/.dart_tool/docudart/` and also has docudart as a path dependency
 - ConfigLoader absolutizes directory paths relative to the website directory
 - Clean URLs by default (`/docs/intro/` not `/docs/intro.html`)
-- Dark mode follows system preference by default; theme toggle button added when `showThemeToggle: true`
+- Theme mode (system/light/dark) via `themeMode` field; theme toggle always included in CSS/JS
 - WorkspaceResolver supports backward compatibility with old flat structure
 
 ## References
 
-- [plan.md](plan.md) - Detailed implementation plan
 - [Jaspr Documentation](https://docs.jaspr.site/)
 - [Jaspr LLMs.txt](https://jaspr.site/llms.txt) - Machine-readable Jaspr documentation (use this for AI-assisted development)
 - [Docusaurus](https://docusaurus.io/) - Inspiration for features

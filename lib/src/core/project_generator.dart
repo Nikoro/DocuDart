@@ -39,6 +39,9 @@ class ProjectGenerator {
     // Generate website/pubspec.yaml with path dependency to docudart
     await _generateWebsitePubspec(websiteDir, title);
 
+    // Generate wrapper components (header, footer, sidebar)
+    await _generateComponents(websiteDir, title);
+
     // Generate config.dart
     await _generateConfig(websiteDir, title, description, template);
 
@@ -72,6 +75,9 @@ class ProjectGenerator {
     print('    docs/');
     print('    pages/');
     print('    components/');
+    print('      header.dart');
+    print('      footer.dart');
+    print('      sidebar.dart');
     print('    assets/');
     print('    themes/');
   }
@@ -100,8 +106,8 @@ class ProjectGenerator {
       final path = p.join(websiteDir, dir);
       await Directory(path).create(recursive: true);
 
-      // Add .gitkeep to empty directories
-      if (dir != 'docs' && dir != 'pages') {
+      // Add .gitkeep to empty directories (not docs, pages, or components)
+      if (dir != 'docs' && dir != 'pages' && dir != 'components') {
         await File(p.join(path, '.gitkeep')).writeAsString('');
       }
     }
@@ -137,6 +143,78 @@ dependencies:
         .replaceAll(RegExp(r'^_|_$'), '');
   }
 
+  /// Generate wrapper components in website/components/.
+  Future<void> _generateComponents(String websiteDir, String title) async {
+    final componentsDir = p.join(websiteDir, 'components');
+
+    // Header component
+    await File(p.join(componentsDir, 'header.dart')).writeAsString('''
+import 'package:docudart/docudart.dart';
+
+/// Site header component.
+///
+/// Customize this component to change the header layout.
+/// The [DefaultHeader] provides a standard header with title, nav links,
+/// and optional theme toggle.
+class Header extends StatelessComponent {
+  const Header({super.key});
+
+  @override
+  Component build(BuildContext context) {
+    return DefaultHeader(
+      title: '$title',
+      navLinks: [
+        NavLink.internal(title: 'Docs', path: '/docs'),
+        // NavLink.external(title: 'GitHub', url: 'https://github.com/...'),
+      ],
+      showThemeToggle: true,
+    );
+  }
+}
+''');
+
+    // Footer component
+    await File(p.join(componentsDir, 'footer.dart')).writeAsString('''
+import 'package:docudart/docudart.dart';
+
+/// Site footer component.
+///
+/// Customize this component to change the footer layout.
+/// The [DefaultFooter] provides a simple centered text footer.
+class Footer extends StatelessComponent {
+  const Footer({super.key});
+
+  @override
+  Component build(BuildContext context) {
+    return DefaultFooter(
+      text: '\u00a9 ${DateTime.now().year} $title',
+    );
+  }
+}
+''');
+
+    // Sidebar component
+    await File(p.join(componentsDir, 'sidebar.dart')).writeAsString('''
+import 'package:docudart/docudart.dart';
+
+/// Site sidebar component.
+///
+/// Customize this component to change the sidebar layout.
+/// The [DefaultSidebar] renders a navigation tree from the docs structure.
+/// The [items] are auto-generated from your docs/ folder.
+class Sidebar extends StatelessComponent {
+  final List<GeneratedSidebarItem> items;
+
+  const Sidebar({required this.items, super.key});
+
+  @override
+  Component build(BuildContext context) {
+    return DefaultSidebar(items: items);
+  }
+}
+''');
+  }
+
   Future<void> _generateConfig(
     String websiteDir,
     String title,
@@ -146,37 +224,25 @@ dependencies:
     final configContent =
         '''
 import 'package:docudart/docudart.dart';
+import 'components/header.dart';
+import 'components/footer.dart';
+import 'components/sidebar.dart';
 
-final config = DocuDartConfig(
+final config = Config(
   title: '$title',
   description: '$description',
 
   // Theme configuration
+  themeMode: ThemeMode.system,
   theme: DefaultTheme(
     // primaryColor: 0xFF0175C2, // Uncomment to customize primary color
-    darkMode: DarkModeConfig.system,
   ),
 
-  // Sidebar configuration
-  sidebar: SidebarConfig(
-    autoGenerate: true,
-    // Add manual sidebar items here if needed
-    items: [],
-  ),
-
-  // Header configuration
-  header: HeaderConfig(
-    showThemeToggle: true,
-    navLinks: [
-      NavLink.internal(title: 'Docs', path: '/docs'),
-      // NavLink.external(title: 'GitHub', url: 'https://github.com/...'),
-    ],
-  ),
-
-  // Footer configuration
-  footer: FooterConfig(
-    copyright: '© ${DateTime.now().year} $title',
-  ),
+  // Header, footer, and sidebar are components.
+  // Set to null to hide any section.
+  header: (context) => Header(),
+  footer: (context) => Footer(),
+  sidebar: (context) => Sidebar(items: context.docs),
 );
 ''';
 
@@ -435,18 +501,16 @@ Edit `config.dart` to change the primary color:
 ```dart
 theme: DefaultTheme(
   primaryColor: 0xFF6366F1, // Indigo
-  darkMode: DarkModeConfig.system,
 ),
 ```
 
-## Dark Mode
+## Theme Mode
 
-The default theme supports dark mode. Configure it in `config.dart`:
+Control dark mode behavior via the `themeMode` field in `config.dart`:
 
-- `DarkModeConfig.system` - Follow system preference
-- `DarkModeConfig.light` - Always light mode
-- `DarkModeConfig.dark` - Always dark mode
-- `DarkModeConfig.toggle` - Show toggle button
+- `ThemeMode.system` - Follow system preference (default)
+- `ThemeMode.light` - Always light mode
+- `ThemeMode.dark` - Always dark mode
 
 ## Custom Themes
 
@@ -476,10 +540,13 @@ docudart serve
 
 ```
 website/
-  config.dart        # Site configuration (title, theme, sidebar, header, footer)
+  config.dart        # Site configuration (title, theme, layout components)
   docs/              # Markdown documentation files
   pages/             # Custom page components (Dart/Jaspr)
-  components/        # Reusable components for embedding in docs
+  components/        # Layout components (header, footer, sidebar)
+    header.dart      # Header component wrapping DefaultHeader
+    footer.dart      # Footer component wrapping DefaultFooter
+    sidebar.dart     # Sidebar component wrapping DefaultSidebar
   assets/            # Static files (images, fonts, etc.)
   themes/            # Custom theme implementations
 ```
@@ -508,82 +575,51 @@ Your content here.
 
 ### Organizing Docs
 
-Create subdirectories inside `docs/` to group related pages. The folder structure is reflected in the sidebar when `autoGenerate` is enabled.
+Create subdirectories inside `docs/` to group related pages. The folder structure is reflected in the sidebar.
 
-## Adding Custom Pages
+## Customizing Layout
 
-Create Dart files in the `pages/` directory using Jaspr components (via the `docudart` package):
+The header, footer, and sidebar are components defined in `components/`. Edit them to customize your site's layout.
+
+### Disabling a Section
+
+Set any layout section to `null` in `config.dart` to hide it:
 
 ```dart
-import 'package:docudart/docudart.dart';
-
-class MyPage extends StatelessComponent {
-  const MyPage({super.key});
-
-  @override
-  Component build(BuildContext context) {
-    return div(classes: 'my-page', [
-      h1([.text('My Custom Page')]),
-      p([.text('This is a custom page built with Jaspr.')]),
-    ]);
-  }
-}
+final config = Config(
+  title: 'My Project',
+  header: (context) => Header(),
+  footer: null,    // No footer
+  sidebar: null,   // No sidebar
+);
 ```
-
-Pages are registered in `config.dart` via the `customPages` option and wired to routes automatically.
 
 ## Configuration
 
-All site settings live in `config.dart`. Here is an overview of the main options:
+All site settings live in `config.dart`:
 
 ```dart
 import 'package:docudart/docudart.dart';
+import 'components/header.dart';
+import 'components/footer.dart';
+import 'components/sidebar.dart';
 
-final config = DocuDartConfig(
-  // Site metadata
+final config = Config(
   title: 'My Project',
   description: 'Project documentation',
 
   // Theme
+  themeMode: ThemeMode.system,  // system | light | dark
   theme: DefaultTheme(
-    primaryColor: 0xFF0175C2,          // custom primary color
-    darkMode: DarkModeConfig.system,   // system | light | dark | toggle
+    primaryColor: 0xFF0175C2,   // custom primary color
   ),
 
-  // Sidebar
-  sidebar: SidebarConfig(
-    autoGenerate: true,  // auto-generate from docs/ folder structure
-    items: [],           // additional manual sidebar entries
-  ),
-
-  // Header navigation
-  header: HeaderConfig(
-    showThemeToggle: true,
-    navLinks: [
-      NavLink.internal(title: 'Docs', path: '/docs'),
-      NavLink.external(title: 'GitHub', url: 'https://github.com/...'),
-    ],
-  ),
-
-  // Footer
-  footer: FooterConfig(
-    copyright: '© 2024 My Project',
-  ),
+  // Layout components (set to null to hide)
+  header: (context) => Header(),
+  footer: (context) => Footer(),
+  sidebar: (context) => Sidebar(items: context.docs),
 );
 ```
-
-### Key Configuration Options
-
-| Option | Description |
-|--------|-------------|
-| `title` | Site title shown in the header and browser tab |
-| `description` | Site description for SEO |
-| `theme` | Theme instance (`DefaultTheme` or custom `BaseTheme` subclass) |
-| `sidebar.autoGenerate` | Automatically build sidebar from `docs/` folder structure |
-| `sidebar.items` | Manually defined sidebar sections and links |
-| `header.navLinks` | Top navigation links (internal or external) |
-| `header.showThemeToggle` | Show the light/dark mode toggle button |
-| `footer.copyright` | Copyright text in the footer |
 
 ## Build Output
 

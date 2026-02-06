@@ -3,7 +3,6 @@ import 'package:meta/meta.dart';
 import 'base_theme.dart';
 import 'theme_colors.dart';
 import 'theme_typography.dart';
-import '../config/theme_config.dart';
 
 /// Default theme with Flutter docs style (blue accents, card-based layout).
 @immutable
@@ -11,12 +10,8 @@ class DefaultTheme extends BaseTheme {
   /// Primary color override.
   final int? primaryColor;
 
-  @override
-  final DarkModeConfig darkMode;
-
   const DefaultTheme({
     this.primaryColor,
-    this.darkMode = DarkModeConfig.system,
   });
 
   @override

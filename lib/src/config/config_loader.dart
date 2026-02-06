@@ -17,7 +17,7 @@ class ConfigLoader {
   /// 1. Try to evaluate config.dart (Dart-based config)
   /// 2. Fall back to pubspec.yaml + docudart.yaml (YAML-based config)
   /// 3. Absolutize directory paths relative to the website directory
-  static Future<DocuDartConfig> load([String? directory]) async {
+  static Future<Config> load([String? directory]) async {
     final dir = directory ?? Directory.current.path;
 
     // Try to evaluate config.dart first (the Dart-based config)
@@ -39,7 +39,7 @@ class ConfigLoader {
     return p.normalize(p.join(dir, path));
   }
 
-  static Future<DocuDartConfig> _loadFromYaml(String dir) async {
+  static Future<Config> _loadFromYaml(String dir) async {
     // Try to load title/description from pubspec.yaml
     String? title;
     String? description;
@@ -97,7 +97,7 @@ class ConfigLoader {
     }
 
     // Return config with absolutized directory paths
-    return DocuDartConfig(
+    return Config(
       title: title,
       description: description,
       theme: theme,
