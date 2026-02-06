@@ -117,7 +117,7 @@ description: Documentation site powered by DocuDart
 publish_to: none
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.10.0
 
 dependencies:
   docudart:
@@ -194,25 +194,25 @@ class LandingPage extends StatelessComponent {
   const LandingPage({super.key});
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield div(
-      classes: ['landing-page'],
+  Component build(BuildContext context) {
+    return div(
+      classes: 'landing-page',
       [
         div(
-          classes: ['hero'],
+          classes: 'hero',
           [
-            h1([text('$title')]),
+            h1([.text('$title')]),
             p(
-              classes: ['hero-description'],
-              [text('$description')],
+              classes: 'hero-description',
+              [.text('$description')],
             ),
             div(
-              classes: ['hero-actions'],
+              classes: 'hero-actions',
               [
                 a(
                   href: '/docs',
-                  classes: ['button', 'button-primary'],
-                  [text('Get Started')],
+                  classes: 'button button-primary',
+                  [.text('Get Started')],
                 ),
               ],
             ),
@@ -224,7 +224,7 @@ class LandingPage extends StatelessComponent {
 }
 ''';
 
-    await File(p.join(websiteDir, 'pages', 'landing.dart'))
+    await File(p.join(websiteDir, 'pages', 'landing_page.dart'))
         .writeAsString(landingContent);
   }
 
@@ -385,8 +385,8 @@ class MyComponent extends StatelessComponent {
   const MyComponent({required this.title, super.key});
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield div([text(title)]);
+  Component build(BuildContext context) {
+    return div([.text(title)]);
   }
 }
 ```

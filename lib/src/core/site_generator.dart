@@ -93,7 +93,7 @@ version: 0.0.1
 publish_to: none
 
 environment:
-  sdk: '>=3.8.0 <4.0.0'
+  sdk: ^3.10.0
 
 dependencies:
   jaspr: ^0.22.0
@@ -119,7 +119,7 @@ jaspr:
     // Server entry point (lib/main.server.dart)
     final serverMain = '''
 import 'package:jaspr/server.dart';
-import 'package:jaspr/dom.dart' show link;
+import 'package:jaspr/dom.dart' show link, script;
 import 'app.dart';
 
 void main() {
@@ -137,6 +137,7 @@ void main() {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap',
       ),
+      script(src: 'main.client.dart.js', defer: true),
     ],
     body: DocuDartApp(),
   ));
@@ -147,16 +148,32 @@ void main() {
 
     // Client entry point (lib/main.client.dart)
     final clientMain = '''
+library;
+
 import 'package:jaspr/client.dart';
+import 'main.client.options.dart';
 
 void main() {
-  Jaspr.initializeApp();
+  Jaspr.initializeApp(
+    options: defaultClientOptions,
+  );
 
-  runApp(ClientApp());
+  runApp(const ClientApp());
 }
 ''';
     await File(p.join(managedDir, 'lib', 'main.client.dart'))
         .writeAsString(clientMain);
+
+    // Client options placeholder (lib/main.client.options.dart)
+    // jaspr_builder will regenerate this with actual component registrations
+    final clientOptions = '''
+// ignore_for_file: type=lint
+import 'package:jaspr/client.dart';
+
+ClientOptions get defaultClientOptions => ClientOptions();
+''';
+    await File(p.join(managedDir, 'lib', 'main.client.options.dart'))
+        .writeAsString(clientOptions);
   }
 
   Future<void> _generateApp(
@@ -244,15 +261,15 @@ class HomePage extends StatelessComponent {
         div(
           classes: 'hero',
           [
-            h1([Component.text('$title')]),
-            p(classes: 'hero-description', [Component.text('$description')]),
+            h1([.text('$title')]),
+            p(classes: 'hero-description', [.text('$description')]),
             div(
               classes: 'hero-actions',
               [
                 a(
                   href: '/docs',
                   classes: 'button button-primary',
-                  [Component.text('Get Started')],
+                  [.text('Get Started')],
                 ),
               ],
             ),
@@ -315,12 +332,12 @@ class Layout extends StatelessComponent {
                 a(
                   href: '/',
                   classes: 'site-title',
-                  [Component.text('$title')],
+                  [.text('$title')],
                 ),
                 nav(
                   classes: 'header-nav',
                   [
-                    a(href: '/docs', [Component.text('Docs')]),
+                    a(href: '/docs', [.text('Docs')]),
                     $versionSwitcherComponent
                   ],
                 ),
@@ -347,7 +364,7 @@ class Layout extends StatelessComponent {
             div(
               classes: 'footer-content',
               [
-                p([Component.text('Built with DocuDart')]),
+                p([.text('Built with DocuDart')]),
               ],
             ),
           ],
@@ -394,7 +411,7 @@ List<Component> _buildSidebarItems(List<SidebarItemData> items) {
       return div(
         classes: 'sidebar-category',
         [
-          span(classes: 'sidebar-category-title', [Component.text(item.title)]),
+          span(classes: 'sidebar-category-title', [.text(item.title)]),
           ul(
             classes: 'sidebar-category-items',
             _buildSidebarItems(item.children).map((c) => li([c])).toList(),
@@ -405,7 +422,7 @@ List<Component> _buildSidebarItems(List<SidebarItemData> items) {
       return a(
         href: item.path ?? '#',
         classes: 'sidebar-link',
-        [Component.text(item.title)],
+        [.text(item.title)],
       );
     }
   }).toList();
@@ -1255,7 +1272,7 @@ class VersionSwitcher extends StatelessComponent {
               option(
                 value: version.urlPrefix,
                 attributes: version.isDefault ? {'selected': 'selected'} : {},
-                [Component.text(version.label)],
+                [.text(version.label)],
               ),
           ],
         ),
