@@ -2,8 +2,7 @@ import 'package:docudart/docudart.dart';
 
 final config = DocuDartConfig(
   title: 'example_project',
-  description:
-      'An example Dart project to demonstrate DocuDart documentation generator.',
+  description: 'An example Dart project to demonstrate DocuDart documentation generator.',
 
   // Theme configuration
   theme: DefaultTheme(
@@ -28,5 +27,7 @@ final config = DocuDartConfig(
   ),
 
   // Footer configuration
-  footer: FooterConfig(copyright: '© 2026 example_project'),
+  footer: FooterConfig(
+    copyright: '© 2026 example_project',
+  ),
 );
