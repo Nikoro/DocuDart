@@ -10,9 +10,14 @@ import '../routing/sidebar_generator.dart';
 /// Generates the managed Jaspr site in .dart_tool/docudart.
 class SiteGenerator {
   final DocuDartConfig config;
-  final String managedDir = '.dart_tool/docudart';
+  final String managedDir;
 
-  SiteGenerator(this.config);
+  SiteGenerator(this.config, {String? websiteDir})
+      : managedDir = p.join(
+            websiteDir ?? Directory.current.path,
+            '.dart_tool',
+            'docudart',
+          );
 
   /// Generate the complete Jaspr site structure.
   Future<void> generate() async {
@@ -88,7 +93,7 @@ version: 0.0.1
 publish_to: none
 
 environment:
-  sdk: ^3.0.0
+  sdk: '>=3.8.0 <4.0.0'
 
 dependencies:
   jaspr: ^0.22.0
@@ -97,6 +102,7 @@ dependencies:
 dev_dependencies:
   build_runner: ^2.4.0
   jaspr_builder: ^0.22.0
+  jaspr_cli: ^0.22.0
 
 jaspr:
   mode: static
@@ -108,8 +114,12 @@ jaspr:
     final title = config.title ?? 'Documentation';
     final description = config.description ?? '';
 
-    final main = '''
+    await Directory(p.join(managedDir, 'lib')).create(recursive: true);
+
+    // Server entry point (lib/main.server.dart)
+    final serverMain = '''
 import 'package:jaspr/server.dart';
+import 'package:jaspr/dom.dart' show link;
 import 'app.dart';
 
 void main() {
@@ -132,8 +142,21 @@ void main() {
   ));
 }
 ''';
-    await Directory(p.join(managedDir, 'lib')).create(recursive: true);
-    await File(p.join(managedDir, 'lib', 'main.dart')).writeAsString(main);
+    await File(p.join(managedDir, 'lib', 'main.server.dart'))
+        .writeAsString(serverMain);
+
+    // Client entry point (lib/main.client.dart)
+    final clientMain = '''
+import 'package:jaspr/client.dart';
+
+void main() {
+  Jaspr.initializeApp();
+
+  runApp(ClientApp());
+}
+''';
+    await File(p.join(managedDir, 'lib', 'main.client.dart'))
+        .writeAsString(clientMain);
   }
 
   Future<void> _generateApp(
@@ -172,6 +195,7 @@ void main() {
 
     final app = '''
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/dom.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 import 'components/layout.dart';
 import 'components/docs_page_content.dart';
@@ -181,8 +205,8 @@ class DocuDartApp extends StatelessComponent {
   const DocuDartApp({super.key});
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield Router(
+  Component build(BuildContext context) {
+    return Router(
       routes: [
 ${routesBuffer.toString()}
       ],
@@ -207,27 +231,28 @@ ${routesBuffer.toString()}
 
     final homePage = '''
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/dom.dart';
 
 class HomePage extends StatelessComponent {
   const HomePage({super.key});
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield div(
-      classes: ['home-page'],
+  Component build(BuildContext context) {
+    return div(
+      classes: 'home-page',
       [
         div(
-          classes: ['hero'],
+          classes: 'hero',
           [
-            h1([text('$title')]),
-            p(classes: ['hero-description'], [text('$description')]),
+            h1([Component.text('$title')]),
+            p(classes: 'hero-description', [Component.text('$description')]),
             div(
-              classes: ['hero-actions'],
+              classes: 'hero-actions',
               [
                 a(
                   href: '/docs',
-                  classes: ['button', 'button-primary'],
-                  [text('Get Started')],
+                  classes: 'button button-primary',
+                  [Component.text('Get Started')],
                 ),
               ],
             ),
@@ -263,6 +288,7 @@ class HomePage extends StatelessComponent {
 
     final layout = '''
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/dom.dart';
 import 'sidebar.dart';
 $versionSwitcherImport
 
@@ -275,26 +301,26 @@ class Layout extends StatelessComponent {
   });
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield div(
-      classes: ['layout'],
+  Component build(BuildContext context) {
+    return div(
+      classes: 'layout',
       [
         // Header
         header(
-          classes: ['site-header'],
+          classes: 'site-header',
           [
             div(
-              classes: ['header-content'],
+              classes: 'header-content',
               [
                 a(
                   href: '/',
-                  classes: ['site-title'],
-                  [text('$title')],
+                  classes: 'site-title',
+                  [Component.text('$title')],
                 ),
                 nav(
-                  classes: ['header-nav'],
+                  classes: 'header-nav',
                   [
-                    a(href: '/docs', [text('Docs')]),
+                    a(href: '/docs', [Component.text('Docs')]),
                     $versionSwitcherComponent
                   ],
                 ),
@@ -304,23 +330,24 @@ class Layout extends StatelessComponent {
         ),
         // Main content with sidebar
         div(
-          classes: ['site-body'],
+          classes: 'site-body',
           [
             const Sidebar(),
-            main(
-              classes: ['site-main'],
+            div(
+              classes: 'site-main',
+              attributes: {'role': 'main'},
               [child],
             ),
           ],
         ),
         // Footer
         footer(
-          classes: ['site-footer'],
+          classes: 'site-footer',
           [
             div(
-              classes: ['footer-content'],
+              classes: 'footer-content',
               [
-                p([text('Built with DocuDart')]),
+                p([Component.text('Built with DocuDart')]),
               ],
             ),
           ],
@@ -340,6 +367,7 @@ class Layout extends StatelessComponent {
     // Sidebar component
     final sidebar = '''
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/dom.dart';
 
 $sidebarCode
 
@@ -347,40 +375,40 @@ class Sidebar extends StatelessComponent {
   const Sidebar({super.key});
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield aside(
-      classes: ['sidebar'],
+  Component build(BuildContext context) {
+    return aside(
+      classes: 'sidebar',
       [
         nav(
-          classes: ['sidebar-nav'],
+          classes: 'sidebar-nav',
           _buildSidebarItems(sidebarItems),
         ),
       ],
     );
   }
+}
 
-  List<Component> _buildSidebarItems(List<SidebarItemData> items) {
-    return items.map((item) {
-      if (item.isCategory) {
-        return div(
-          classes: ['sidebar-category'],
-          [
-            span(classes: ['sidebar-category-title'], [text(item.title)]),
-            ul(
-              classes: ['sidebar-category-items'],
-              _buildSidebarItems(item.children).map((c) => li([c])).toList(),
-            ),
-          ],
-        );
-      } else {
-        return a(
-          href: item.path ?? '#',
-          classes: ['sidebar-link'],
-          [text(item.title)],
-        );
-      }
-    }).toList();
-  }
+List<Component> _buildSidebarItems(List<SidebarItemData> items) {
+  return items.map<Component>((item) {
+    if (item.isCategory) {
+      return div(
+        classes: 'sidebar-category',
+        [
+          span(classes: 'sidebar-category-title', [Component.text(item.title)]),
+          ul(
+            classes: 'sidebar-category-items',
+            _buildSidebarItems(item.children).map((c) => li([c])).toList(),
+          ),
+        ],
+      );
+    } else {
+      return a(
+        href: item.path ?? '#',
+        classes: 'sidebar-link',
+        [Component.text(item.title)],
+      );
+    }
+  }).toList();
 }
 ''';
     await File(p.join(componentsDir, 'sidebar.dart')).writeAsString(sidebar);
@@ -388,6 +416,7 @@ class Sidebar extends StatelessComponent {
     // Docs page content component (renders HTML)
     final docsPageContent = '''
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/dom.dart';
 
 class DocsPageContent extends StatelessComponent {
   final String title;
@@ -400,34 +429,17 @@ class DocsPageContent extends StatelessComponent {
   });
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield article(
-      classes: ['docs-page'],
+  Component build(BuildContext context) {
+    return article(
+      classes: 'docs-page',
       [
         div(
-          classes: ['docs-content'],
+          classes: 'docs-content',
           [
-            // Render HTML content using raw HTML
-            RawHtml(htmlContent),
+            RawText(htmlContent),
           ],
         ),
       ],
-    );
-  }
-}
-
-/// Component that renders raw HTML content.
-class RawHtml extends StatelessComponent {
-  final String html;
-
-  const RawHtml(this.html, {super.key});
-
-  @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield DomComponent(
-      tag: 'div',
-      classes: ['raw-html-content'],
-      child: raw(html),
     );
   }
 }
@@ -1150,41 +1162,9 @@ body {
   }
 
   Future<void> _generateWebFiles() async {
-    final webDir = p.join(managedDir, 'web');
-    await Directory(webDir).create(recursive: true);
-
-    // JavaScript for version switching
-    final versionSwitchScript = '''
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var versionSelect = document.querySelector('.version-select');
-      if (versionSelect) {
-        versionSelect.addEventListener('change', function(e) {
-          var newPath = e.target.value;
-          if (newPath) {
-            window.location.href = newPath;
-          }
-        });
-      }
-    });
-  </script>
-''';
-
-    // index.html
-    final indexHtml = '''
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>${config.title ?? 'Documentation'}</title>
-</head>
-<body>
-  <script src="main.dart.js"></script>
-$versionSwitchScript
-</body>
-</html>
-''';
-    await File(p.join(webDir, 'index.html')).writeAsString(indexHtml);
+    // No custom index.html needed — Jaspr generates it from the Document
+    // component in main.server.dart. Only web/styles.css is needed, which
+    // is already handled by _generateStyles().
   }
 
   Future<void> _copyAssets() async {
@@ -1235,6 +1215,7 @@ $versionSwitchScript
 
     final versionSwitcher = '''
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/dom.dart';
 
 class VersionData {
   final String id;
@@ -1258,12 +1239,12 @@ class VersionSwitcher extends StatelessComponent {
   const VersionSwitcher({super.key});
 
   @override
-  Iterable<Component> build(BuildContext context) sync* {
-    yield div(
-      classes: ['version-switcher'],
+  Component build(BuildContext context) {
+    return div(
+      classes: 'version-switcher',
       [
         select(
-          classes: ['version-select'],
+          classes: 'version-select',
           events: {
             'change': (event) {
               // JavaScript will handle the navigation
@@ -1274,7 +1255,7 @@ class VersionSwitcher extends StatelessComponent {
               option(
                 value: version.urlPrefix,
                 attributes: version.isDefault ? {'selected': 'selected'} : {},
-                [text(version.label)],
+                [Component.text(version.label)],
               ),
           ],
         ),

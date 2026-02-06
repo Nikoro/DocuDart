@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
+import 'package_resolver.dart';
 import 'readme_parser.dart';
 
 /// Template options for project initialization.
@@ -14,45 +15,62 @@ enum InitTemplate {
   full,
 }
 
-/// Generates a new DocuDart project structure.
+/// Generates a new DocuDart project structure inside a website/ subdirectory.
 class ProjectGenerator {
-  /// Generate project files in the target directory.
+  /// Generate project files in a website/ subdirectory of [directory].
   Future<void> generate({
     required String directory,
     required InitTemplate template,
   }) async {
-    final dir = Directory(directory);
+    final websiteDir = p.join(directory, 'website');
+    final dir = Directory(websiteDir);
     if (!dir.existsSync()) {
       await dir.create(recursive: true);
     }
 
-    // Load info from pubspec.yaml if it exists
+    // Load info from the project root's pubspec.yaml
     final pubspecInfo = await _loadPubspecInfo(directory);
     final title = pubspecInfo['name'] ?? 'My Documentation';
     final description = pubspecInfo['description'] ?? 'Documentation site';
 
-    // Create directory structure
-    await _createDirectories(directory);
+    // Create directory structure inside website/
+    await _createDirectories(websiteDir);
+
+    // Generate website/pubspec.yaml with path dependency to docudart
+    await _generateWebsitePubspec(websiteDir, title);
 
     // Generate config.dart
-    await _generateConfig(directory, title, description, template);
+    await _generateConfig(websiteDir, title, description, template);
 
     // Generate landing page
-    await _generateLandingPage(directory, title, description);
+    await _generateLandingPage(websiteDir, title, description);
 
-    // Generate documentation files
-    await _generateDocs(directory, template);
+    // Generate documentation files (look for README.md in project root)
+    await _generateDocs(websiteDir, directory, template);
 
-    // Update .gitignore
+    // Update .gitignore at project root
     await _updateGitignore(directory);
 
+    // Run dart pub get in website/
+    print('Installing dependencies...');
+    final result = await Process.run(
+      'dart',
+      ['pub', 'get'],
+      workingDirectory: websiteDir,
+    );
+    if (result.exitCode != 0) {
+      print('Warning: dart pub get failed: ${result.stderr}');
+    }
+
     print('Created project structure:');
-    print('  config.dart');
-    print('  docs/');
-    print('  pages/');
-    print('  components/');
-    print('  assets/');
-    print('  themes/');
+    print('  website/');
+    print('    pubspec.yaml');
+    print('    config.dart');
+    print('    docs/');
+    print('    pages/');
+    print('    components/');
+    print('    assets/');
+    print('    themes/');
   }
 
   Future<Map<String, String?>> _loadPubspecInfo(String directory) async {
@@ -73,10 +91,10 @@ class ProjectGenerator {
     }
   }
 
-  Future<void> _createDirectories(String directory) async {
+  Future<void> _createDirectories(String websiteDir) async {
     final dirs = ['docs', 'pages', 'components', 'assets', 'themes'];
     for (final dir in dirs) {
-      final path = p.join(directory, dir);
+      final path = p.join(websiteDir, dir);
       await Directory(path).create(recursive: true);
 
       // Add .gitkeep to empty directories
@@ -86,8 +104,40 @@ class ProjectGenerator {
     }
   }
 
+  Future<void> _generateWebsitePubspec(
+    String websiteDir,
+    String title,
+  ) async {
+    final docudartPath = await PackageResolver.relativePathTo(websiteDir);
+    final packageName = _sanitizePackageName(title);
+
+    final pubspec = '''
+name: ${packageName}_docs
+description: Documentation site powered by DocuDart
+publish_to: none
+
+environment:
+  sdk: ^3.0.0
+
+dependencies:
+  docudart:
+    path: $docudartPath
+''';
+
+    await File(p.join(websiteDir, 'pubspec.yaml')).writeAsString(pubspec);
+  }
+
+  String _sanitizePackageName(String name) {
+    // Convert to lowercase, replace non-alphanumeric with underscore
+    return name
+        .toLowerCase()
+        .replaceAll(RegExp(r'[^a-z0-9_]'), '_')
+        .replaceAll(RegExp(r'_+'), '_')
+        .replaceAll(RegExp(r'^_|_$'), '');
+  }
+
   Future<void> _generateConfig(
-    String directory,
+    String websiteDir,
     String title,
     String description,
     InitTemplate template,
@@ -128,16 +178,16 @@ final config = DocuDartConfig(
 );
 ''';
 
-    await File(p.join(directory, 'config.dart')).writeAsString(configContent);
+    await File(p.join(websiteDir, 'config.dart')).writeAsString(configContent);
   }
 
   Future<void> _generateLandingPage(
-    String directory,
+    String websiteDir,
     String title,
     String description,
   ) async {
     final landingContent = '''
-import 'package:jaspr/jaspr.dart';
+import 'package:docudart/docudart.dart';
 
 /// Landing page component.
 class LandingPage extends StatelessComponent {
@@ -174,12 +224,16 @@ class LandingPage extends StatelessComponent {
 }
 ''';
 
-    await File(p.join(directory, 'pages', 'landing.dart'))
+    await File(p.join(websiteDir, 'pages', 'landing.dart'))
         .writeAsString(landingContent);
   }
 
-  Future<void> _generateDocs(String directory, InitTemplate template) async {
-    final docsDir = Directory(p.join(directory, 'docs'));
+  Future<void> _generateDocs(
+    String websiteDir,
+    String projectDir,
+    InitTemplate template,
+  ) async {
+    final docsDir = Directory(p.join(websiteDir, 'docs'));
 
     // Check if docs already has .md files
     final existingMdFiles = await docsDir
@@ -192,25 +246,25 @@ class LandingPage extends StatelessComponent {
       return;
     }
 
-    // Try to parse README.md
-    final readmeFile = File(p.join(directory, 'README.md'));
+    // Try to parse README.md from project root
+    final readmeFile = File(p.join(projectDir, 'README.md'));
     if (readmeFile.existsSync()) {
-      await _generateDocsFromReadme(directory, readmeFile);
+      await _generateDocsFromReadme(websiteDir, readmeFile);
       return;
     }
 
     // Generate example docs
-    await _generateExampleDocs(directory, template);
+    await _generateExampleDocs(websiteDir, template);
   }
 
   Future<void> _generateDocsFromReadme(
-      String directory, File readmeFile) async {
+      String websiteDir, File readmeFile) async {
     final sections = await ReadmeParser.parseFile(readmeFile.path);
 
     if (sections.isEmpty) {
       // Just copy README as index
       final content = await readmeFile.readAsString();
-      await File(p.join(directory, 'docs', 'index.md')).writeAsString('''
+      await File(p.join(websiteDir, 'docs', 'index.md')).writeAsString('''
 ---
 title: Introduction
 sidebar_position: 1
@@ -231,7 +285,7 @@ sidebar_position: ${section.position}
 
 ${section.content}
 ''';
-      await File(p.join(directory, 'docs', '${section.filename}.md'))
+      await File(p.join(websiteDir, 'docs', '${section.filename}.md'))
           .writeAsString(mdContent);
     }
 
@@ -239,9 +293,9 @@ ${section.content}
   }
 
   Future<void> _generateExampleDocs(
-      String directory, InitTemplate template) async {
+      String websiteDir, InitTemplate template) async {
     // Index page
-    await File(p.join(directory, 'docs', 'index.md')).writeAsString('''
+    await File(p.join(websiteDir, 'docs', 'index.md')).writeAsString('''
 ---
 title: Introduction
 sidebar_position: 1
@@ -264,7 +318,7 @@ Edit the files in the `docs/` folder to add your content.
 ''');
 
     // Getting started page
-    await File(p.join(directory, 'docs', 'getting-started.md')).writeAsString('''
+    await File(p.join(websiteDir, 'docs', 'getting-started.md')).writeAsString('''
 ---
 title: Getting Started
 sidebar_position: 2
@@ -308,7 +362,7 @@ Run `docudart serve` to start a local development server with hot reload.
 
     if (template == InitTemplate.full) {
       // Add more example files for full template
-      await File(p.join(directory, 'docs', 'components.md')).writeAsString('''
+      await File(p.join(websiteDir, 'docs', 'components.md')).writeAsString('''
 ---
 title: Custom Components
 sidebar_position: 3
@@ -323,7 +377,7 @@ You can embed custom Jaspr components in your Markdown files.
 Create a Dart file in the `components/` folder:
 
 ```dart
-import 'package:jaspr/jaspr.dart';
+import 'package:docudart/docudart.dart';
 
 class MyComponent extends StatelessComponent {
   final String title;
@@ -348,7 +402,7 @@ Reference your component in Markdown:
 The component will be rendered in place.
 ''');
 
-      await File(p.join(directory, 'docs', 'theming.md')).writeAsString('''
+      await File(p.join(websiteDir, 'docs', 'theming.md')).writeAsString('''
 ---
 title: Theming
 sidebar_position: 4
@@ -389,8 +443,8 @@ Create a custom theme by extending `BaseTheme` in the `themes/` folder.
     }
   }
 
-  Future<void> _updateGitignore(String directory) async {
-    final gitignoreFile = File(p.join(directory, '.gitignore'));
+  Future<void> _updateGitignore(String projectDir) async {
+    final gitignoreFile = File(p.join(projectDir, '.gitignore'));
     final content = gitignoreFile.existsSync()
         ? await gitignoreFile.readAsString()
         : '';
@@ -398,11 +452,11 @@ Create a custom theme by extending `BaseTheme` in the `themes/` folder.
     final additions = <String>[];
 
     // Add DocuDart-specific entries
-    if (!content.contains('.dart_tool/docudart/')) {
-      additions.add('.dart_tool/docudart/');
+    if (!content.contains('website/.dart_tool/')) {
+      additions.add('website/.dart_tool/');
     }
-    if (!content.contains('build/')) {
-      additions.add('build/');
+    if (!content.contains('website/build/')) {
+      additions.add('website/build/');
     }
 
     if (additions.isNotEmpty) {

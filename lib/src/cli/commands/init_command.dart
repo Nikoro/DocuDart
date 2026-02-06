@@ -38,8 +38,8 @@ class InitCommand extends Command<int> {
     CliPrinter.info('Target directory: $targetDir');
     CliPrinter.blank();
 
-    // Check if directory already has a config.dart
-    final existingConfig = File(p.join(targetDir, 'config.dart'));
+    // Check if directory already has a website/config.dart
+    final existingConfig = File(p.join(targetDir, 'website', 'config.dart'));
     if (existingConfig.existsSync()) {
       CliPrinter.warning('A DocuDart project already exists in this directory.');
       stdout.write('Overwrite? (y/N): ');
@@ -75,7 +75,6 @@ class InitCommand extends Command<int> {
       if (directory != '.') {
         print('  cd $directory');
       }
-      print('  dart pub get');
       print('  docudart serve');
       CliPrinter.blank();
 

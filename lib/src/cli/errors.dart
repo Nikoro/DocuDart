@@ -35,8 +35,9 @@ class DocuDartErrors {
   /// Config file not found.
   static DocuDartException configNotFound() {
     return const DocuDartException(
-      'config.dart not found in current directory.',
-      hint: 'Make sure you are in a DocuDart project directory.',
+      'DocuDart project not found.',
+      hint: 'Make sure you are in a project with a website/ directory, '
+          'or inside the website/ directory itself.',
       command: 'docudart init',
     );
   }

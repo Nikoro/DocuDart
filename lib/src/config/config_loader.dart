@@ -75,14 +75,14 @@ class ConfigLoader {
       }
     }
 
-    // Return config with loaded values
+    // Return config with absolutized directory paths
     return DocuDartConfig(
       title: title,
       description: description,
       theme: theme,
-      docsDir: docsDir ?? 'docs',
-      outputDir: outputDir ?? 'build/web',
-      assetsDir: assetsDir ?? 'assets',
+      docsDir: p.normalize(p.join(dir, docsDir ?? 'docs')),
+      outputDir: p.normalize(p.join(dir, outputDir ?? 'build/web')),
+      assetsDir: p.normalize(p.join(dir, assetsDir ?? 'assets')),
     );
   }
 }

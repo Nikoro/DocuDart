@@ -4,6 +4,7 @@ import 'package:args/command_runner.dart';
 import 'package:path/path.dart' as p;
 
 import '../../core/site_generator.dart';
+import '../../core/workspace_resolver.dart';
 import '../../config/config_loader.dart';
 import '../errors.dart';
 
@@ -27,9 +28,9 @@ class BuildCommand extends Command<int> {
   Future<int> run() async {
     CliPrinter.header('DocuDart Build');
 
-    // Check if config.dart exists
-    final configFile = File('config.dart');
-    if (!configFile.existsSync()) {
+    // Auto-detect website directory
+    final websiteDir = WorkspaceResolver.resolve();
+    if (websiteDir == null) {
       CliPrinter.exception(DocuDartErrors.configNotFound());
       return 1;
     }
@@ -37,7 +38,7 @@ class BuildCommand extends Command<int> {
     try {
       // Load configuration
       CliPrinter.step('Loading configuration');
-      final config = await ConfigLoader.load();
+      final config = await ConfigLoader.load(websiteDir);
 
       // Check if docs directory exists
       final docsDir = Directory(config.docsDir);
@@ -47,20 +48,23 @@ class BuildCommand extends Command<int> {
       }
 
       // Determine output directory
-      final outputDir = argResults!['output'] as String? ?? config.outputDir;
-      final absoluteOutput = p.normalize(p.absolute(outputDir));
+      final outputArg = argResults!['output'] as String?;
+      final absoluteOutput = outputArg != null
+          ? p.normalize(p.absolute(outputArg))
+          : config.outputDir;
 
       // Generate the managed Jaspr site
       CliPrinter.step('Generating site structure');
-      final generator = SiteGenerator(config);
+      final generator = SiteGenerator(config, websiteDir: websiteDir);
       await generator.generate();
 
       // Run jaspr build
       CliPrinter.step('Running Jaspr build');
+      final managedDir = p.join(websiteDir, '.dart_tool', 'docudart');
       final result = await Process.run(
         'dart',
-        ['run', 'jaspr', 'build'],
-        workingDirectory: '.dart_tool/docudart',
+        ['run', 'jaspr_cli:jaspr', 'build'],
+        workingDirectory: managedDir,
       );
 
       if (result.exitCode != 0) {
@@ -72,7 +76,7 @@ class BuildCommand extends Command<int> {
 
       // Copy build output to target directory
       CliPrinter.step('Copying build output');
-      await _copyBuildOutput(absoluteOutput);
+      await _copyBuildOutput(absoluteOutput, managedDir);
 
       CliPrinter.blank();
       CliPrinter.success('Build complete!');
@@ -88,8 +92,8 @@ class BuildCommand extends Command<int> {
     }
   }
 
-  Future<void> _copyBuildOutput(String outputDir) async {
-    final sourceDir = Directory('.dart_tool/docudart/build/jaspr');
+  Future<void> _copyBuildOutput(String outputDir, String managedDir) async {
+    final sourceDir = Directory(p.join(managedDir, 'build', 'jaspr'));
     final targetDir = Directory(outputDir);
 
     if (!sourceDir.existsSync()) {

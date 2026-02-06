@@ -35,3 +35,6 @@ export 'src/components/component_registry.dart';
 
 // Routing
 export 'src/routing/sidebar_generator.dart';
+
+// Re-export Jaspr so user pages can use Jaspr APIs via docudart
+export 'package:jaspr/jaspr.dart';

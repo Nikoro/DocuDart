@@ -1,0 +1,23 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+      - name: Set up dart
+        uses: dart-lang/setup-dart@v1
+      - name: Get dependencies
+        run: dart pub get --no-example
+      - name: Static code analysis
+        run: dart analyze --fatal-infos
+      - name: Check code formatting
+        run: dart format --output=none --set-exit-if-changed .
+      - name: Unit tests
+        run: dart test --test-randomize-ordering-seed=random

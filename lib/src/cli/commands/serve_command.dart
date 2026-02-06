@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
+import 'package:path/path.dart' as p;
 
 import '../../core/site_generator.dart';
 import '../../core/file_watcher.dart';
+import '../../core/workspace_resolver.dart';
 import '../../config/config_loader.dart';
 import '../errors.dart';
 
@@ -38,9 +40,9 @@ class ServeCommand extends Command<int> {
 
     CliPrinter.header('DocuDart Development Server');
 
-    // Check if config.dart exists
-    final configFile = File('config.dart');
-    if (!configFile.existsSync()) {
+    // Auto-detect website directory
+    final websiteDir = WorkspaceResolver.resolve();
+    if (websiteDir == null) {
       CliPrinter.exception(DocuDartErrors.configNotFound());
       return 1;
     }
@@ -50,7 +52,7 @@ class ServeCommand extends Command<int> {
     try {
       // Load configuration
       CliPrinter.step('Loading configuration');
-      final config = await ConfigLoader.load();
+      final config = await ConfigLoader.load(websiteDir);
 
       // Check if docs directory exists
       final docsDir = Directory(config.docsDir);
@@ -61,7 +63,7 @@ class ServeCommand extends Command<int> {
 
       // Generate the managed Jaspr site
       CliPrinter.step('Generating site structure');
-      final generator = SiteGenerator(config);
+      final generator = SiteGenerator(config, websiteDir: websiteDir);
       await generator.generate();
 
       // Start file watcher if enabled
@@ -70,8 +72,8 @@ class ServeCommand extends Command<int> {
           config: config,
           onRegenerate: () async {
             // Reload config in case it changed
-            final newConfig = await ConfigLoader.load();
-            final newGenerator = SiteGenerator(newConfig);
+            final newConfig = await ConfigLoader.load(websiteDir);
+            final newGenerator = SiteGenerator(newConfig, websiteDir: websiteDir);
             await newGenerator.generate();
           },
         );
@@ -87,10 +89,11 @@ class ServeCommand extends Command<int> {
       CliPrinter.blank();
 
       // Run jaspr serve
+      final managedDir = p.join(websiteDir, '.dart_tool', 'docudart');
       final process = await Process.start(
         'dart',
-        ['run', 'jaspr', 'serve', '--port', port],
-        workingDirectory: '.dart_tool/docudart',
+        ['run', 'jaspr_cli:jaspr', 'serve', '--port', port],
+        workingDirectory: managedDir,
         mode: ProcessStartMode.inheritStdio,
       );
 
