@@ -1,0 +1,15 @@
+fix:
+  script: dart fix --apply
+
+format: 
+  script: dart format . ...args
+
+analyze: 
+  script: dart analyze
+
+tests:
+  script: |
+    dart test --test-randomize-ordering-seed=random
+
+push:
+  script: git push ...args
