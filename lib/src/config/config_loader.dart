@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
+import 'config_evaluator.dart';
 import 'docudart_config.dart';
 import '../theme/base_theme.dart';
 import '../theme/default_theme.dart';
@@ -13,13 +14,32 @@ class ConfigLoader {
   /// Load configuration from the current directory.
   ///
   /// The loader will:
-  /// 1. Read pubspec.yaml for title/description
-  /// 2. Look for docudart.yaml for additional configuration
-  /// 3. Try to load a custom theme if specified
-  /// 4. Fall back to defaults for any missing values
+  /// 1. Try to evaluate config.dart (Dart-based config)
+  /// 2. Fall back to pubspec.yaml + docudart.yaml (YAML-based config)
+  /// 3. Absolutize directory paths relative to the website directory
   static Future<DocuDartConfig> load([String? directory]) async {
     final dir = directory ?? Directory.current.path;
 
+    // Try to evaluate config.dart first (the Dart-based config)
+    final dartConfig = await ConfigEvaluator.evaluate(dir);
+    if (dartConfig != null) {
+      return dartConfig.copyWith(
+        docsDir: _absolutize(dir, dartConfig.docsDir),
+        outputDir: _absolutize(dir, dartConfig.outputDir),
+        assetsDir: _absolutize(dir, dartConfig.assetsDir),
+      );
+    }
+
+    // Fall back to YAML-based loading
+    return _loadFromYaml(dir);
+  }
+
+  static String _absolutize(String dir, String path) {
+    if (p.isAbsolute(path)) return p.normalize(path);
+    return p.normalize(p.join(dir, path));
+  }
+
+  static Future<DocuDartConfig> _loadFromYaml(String dir) async {
     // Try to load title/description from pubspec.yaml
     String? title;
     String? description;
@@ -67,7 +87,8 @@ class ConfigLoader {
           if (customTheme != null) {
             theme = customTheme;
           } else {
-            print('Warning: Theme "$themeName" not found, using default theme');
+            print(
+                'Warning: Theme "$themeName" not found, using default theme');
           }
         }
       } catch (e) {

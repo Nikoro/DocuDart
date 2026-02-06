@@ -25,6 +25,25 @@ class HeaderConfig {
     this.showThemeToggle = true,
     this.showVersionSwitcher = true,
   });
+
+  Map<String, dynamic> toJson() => {
+    'showTitle': showTitle,
+    'showLogo': showLogo,
+    'navLinks': navLinks.map((l) => l.toJson()).toList(),
+    'showThemeToggle': showThemeToggle,
+    'showVersionSwitcher': showVersionSwitcher,
+  };
+
+  factory HeaderConfig.fromJson(Map<String, dynamic> json) => HeaderConfig(
+    showTitle: json['showTitle'] as bool? ?? true,
+    showLogo: json['showLogo'] as bool? ?? true,
+    navLinks: (json['navLinks'] as List<dynamic>?)
+            ?.map((e) => NavLink.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        const [],
+    showThemeToggle: json['showThemeToggle'] as bool? ?? true,
+    showVersionSwitcher: json['showVersionSwitcher'] as bool? ?? true,
+  );
 }
 
 /// A navigation link in the header.
@@ -53,4 +72,16 @@ class NavLink {
 
   const NavLink.external({required this.title, required String this.url})
     : path = null;
+
+  Map<String, dynamic> toJson() => {
+    'title': title,
+    if (path != null) 'path': path,
+    if (url != null) 'url': url,
+  };
+
+  factory NavLink.fromJson(Map<String, dynamic> json) => NavLink(
+    title: json['title'] as String,
+    path: json['path'] as String?,
+    url: json['url'] as String?,
+  );
 }

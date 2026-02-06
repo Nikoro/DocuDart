@@ -63,7 +63,10 @@ class SiteGenerator {
     await _generatePubspec();
     await _generateMain();
     await _generateApp(allPages, defaultSidebarItems, versionManager);
-    await _generateStyles(versionManager.isEnabled);
+    await _generateStyles(
+      includeVersionSwitcher: versionManager.isEnabled,
+      includeThemeToggle: config.header.showThemeToggle,
+    );
     await _generateWebFiles();
     await _copyAssets();
 
@@ -116,6 +119,11 @@ jaspr:
 
     await Directory(p.join(managedDir, 'lib')).create(recursive: true);
 
+    // Theme toggle script (loaded early to prevent flash)
+    final themeScriptTag = config.header.showThemeToggle
+        ? "\n      script(src: '/theme.js'),"
+        : '';
+
     // Server entry point (lib/main.server.dart)
     final serverMain =
         '''
@@ -138,7 +146,7 @@ void main() {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap',
       ),
-      script(src: 'main.client.dart.js', defer: true),
+      script(src: 'main.client.dart.js', defer: true),$themeScriptTag
     ],
     body: DocuDartApp(),
   ));
@@ -309,6 +317,38 @@ class HomePage extends StatelessComponent {
         ? 'const VersionSwitcher(),'
         : '';
 
+    // Generate nav links from config
+    final navLinksBuffer = StringBuffer();
+    for (final link in config.header.navLinks) {
+      final escapedTitle = _escapeForDart(link.title);
+      navLinksBuffer.writeln(
+        "                    a(href: '${link.href}', [.text('$escapedTitle')]),",
+      );
+    }
+
+    // Generate theme toggle button if enabled
+    final themeToggleComponent = config.header.showThemeToggle
+        ? '''
+                    button(
+                      classes: 'theme-toggle',
+                      attributes: {
+                        'aria-label': 'Toggle dark mode',
+                        'title': 'Toggle dark mode',
+                      },
+                      events: {
+                        'click': (event) {},
+                      },
+                      [
+                        span(classes: 'theme-toggle-icon', [.text('\\u263E')]),
+                      ],
+                    ),'''
+        : '';
+
+    // Generate footer text
+    final footerText = _escapeForDart(
+      config.footer.copyright ?? 'Built with DocuDart',
+    );
+
     final layout =
         '''
 import 'package:jaspr/jaspr.dart';
@@ -344,8 +384,8 @@ class Layout extends StatelessComponent {
                 nav(
                   classes: 'header-nav',
                   [
-                    a(href: '/docs', [.text('Docs')]),
-                    $versionSwitcherComponent
+$navLinksBuffer                    $versionSwitcherComponent
+$themeToggleComponent
                   ],
                 ),
               ],
@@ -371,7 +411,7 @@ class Layout extends StatelessComponent {
             div(
               classes: 'footer-content',
               [
-                p([.text('Built with DocuDart')]),
+                p([.text('$footerText')]),
               ],
             ),
           ],
@@ -535,7 +575,10 @@ class DocsPageContent extends StatelessComponent {
         .replaceAll('\n', '\\n');
   }
 
-  Future<void> _generateStyles([bool includeVersionSwitcher = false]) async {
+  Future<void> _generateStyles({
+    bool includeVersionSwitcher = false,
+    bool includeThemeToggle = false,
+  }) async {
     final colors = config.theme.colors;
     final typography = config.theme.typography;
 
@@ -565,8 +608,9 @@ class DocsPageContent extends StatelessComponent {
   --line-height: ${typography.lineHeight};
 }
 
+/* Dark mode via system preference */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --color-primary: ${toHex(colors.darkPrimary)};
     --color-secondary: ${toHex(colors.darkSecondary)};
     --color-background: ${toHex(colors.darkBackground)};
@@ -576,6 +620,18 @@ class DocsPageContent extends StatelessComponent {
     --color-border: ${toHex(colors.darkBorder)};
     --color-code-background: ${toHex(colors.darkCodeBackground)};
   }
+}
+
+/* Dark mode via toggle */
+:root[data-theme="dark"] {
+  --color-primary: ${toHex(colors.darkPrimary)};
+  --color-secondary: ${toHex(colors.darkSecondary)};
+  --color-background: ${toHex(colors.darkBackground)};
+  --color-surface: ${toHex(colors.darkSurface)};
+  --color-text: ${toHex(colors.darkText)};
+  --color-text-muted: ${toHex(colors.darkTextMuted)};
+  --color-border: ${toHex(colors.darkBorder)};
+  --color-code-background: ${toHex(colors.darkCodeBackground)};
 }
 
 /* Reset */
@@ -1109,29 +1165,53 @@ body {
 
 /* Dark Mode for Components */
 @media (prefers-color-scheme: dark) {
-  .callout-info {
+  :root:not([data-theme="light"]) .callout-info {
     background-color: rgba(59, 130, 246, 0.15);
   }
 
-  .callout-tip {
+  :root:not([data-theme="light"]) .callout-tip {
     background-color: rgba(34, 197, 94, 0.15);
   }
 
-  .callout-warning {
+  :root:not([data-theme="light"]) .callout-warning {
     background-color: rgba(234, 179, 8, 0.15);
   }
 
-  .callout-danger {
+  :root:not([data-theme="light"]) .callout-danger {
     background-color: rgba(239, 68, 68, 0.15);
   }
 
-  .callout-note {
+  :root:not([data-theme="light"]) .callout-note {
     background-color: rgba(107, 114, 128, 0.2);
   }
 
-  .card:hover {
+  :root:not([data-theme="light"]) .card:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
+}
+
+:root[data-theme="dark"] .callout-info {
+  background-color: rgba(59, 130, 246, 0.15);
+}
+
+:root[data-theme="dark"] .callout-tip {
+  background-color: rgba(34, 197, 94, 0.15);
+}
+
+:root[data-theme="dark"] .callout-warning {
+  background-color: rgba(234, 179, 8, 0.15);
+}
+
+:root[data-theme="dark"] .callout-danger {
+  background-color: rgba(239, 68, 68, 0.15);
+}
+
+:root[data-theme="dark"] .callout-note {
+  background-color: rgba(107, 114, 128, 0.2);
+}
+
+:root[data-theme="dark"] .card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 ''';
 
@@ -1189,11 +1269,109 @@ body {
 '''
         : '';
 
+    // Add theme toggle styles if enabled
+    final themeToggleStyles = includeThemeToggle
+        ? '''
+
+/* ========== Theme Toggle ========== */
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.theme-toggle-icon {
+  font-size: 1.125rem;
+  line-height: 1;
+}
+'''
+        : '';
+
     final webDir = p.join(managedDir, 'web');
     await Directory(webDir).create(recursive: true);
     await File(
       p.join(webDir, 'styles.css'),
-    ).writeAsString(styles + versionSwitcherStyles);
+    ).writeAsString(styles + versionSwitcherStyles + themeToggleStyles);
+
+    // Generate theme toggle script if enabled
+    if (includeThemeToggle) {
+      await _generateThemeScript(webDir);
+    }
+  }
+
+  Future<void> _generateThemeScript(String webDir) async {
+    final themeScript = '''
+(function() {
+  var stored = localStorage.getItem('docudart-theme');
+  if (stored) {
+    document.documentElement.setAttribute('data-theme', stored);
+  }
+
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.theme-toggle');
+    if (!btn) return;
+
+    var current = document.documentElement.getAttribute('data-theme');
+    var isDark;
+    if (current === 'dark') {
+      isDark = false;
+    } else if (current === 'light') {
+      isDark = true;
+    } else {
+      isDark = !window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+
+    var next = isDark ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('docudart-theme', next);
+
+    // Update icon
+    var icon = btn.querySelector('.theme-toggle-icon');
+    if (icon) icon.textContent = isDark ? '\\u2600' : '\\u263E';
+  });
+
+  // Set initial icon based on current theme
+  function updateIcon() {
+    var btn = document.querySelector('.theme-toggle');
+    if (!btn) return;
+    var icon = btn.querySelector('.theme-toggle-icon');
+    if (!icon) return;
+
+    var theme = document.documentElement.getAttribute('data-theme');
+    var isDark;
+    if (theme === 'dark') {
+      isDark = true;
+    } else if (theme === 'light') {
+      isDark = false;
+    } else {
+      isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    icon.textContent = isDark ? '\\u2600' : '\\u263E';
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateIcon);
+  } else {
+    updateIcon();
+  }
+})();
+''';
+    await File(p.join(webDir, 'theme.js')).writeAsString(themeScript);
   }
 
   Future<void> _generateWebFiles() async {

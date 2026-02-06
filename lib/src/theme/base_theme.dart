@@ -20,4 +20,11 @@ abstract class BaseTheme {
   DarkModeConfig get darkMode;
 
   const BaseTheme();
+
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'colors': colors.toJson(),
+    'typography': typography.toJson(),
+    'darkMode': darkMode.toJson(),
+  };
 }

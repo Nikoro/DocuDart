@@ -51,4 +51,11 @@ class DefaultTheme extends BaseTheme {
     lineHeight: 1.6,
     headingLineHeight: 1.3,
   );
+
+  @override
+  Map<String, dynamic> toJson() => {
+    ...super.toJson(),
+    'type': 'default',
+    if (primaryColor != null) 'primaryColor': primaryColor,
+  };
 }

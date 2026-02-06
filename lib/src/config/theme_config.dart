@@ -10,5 +10,14 @@ enum DarkModeConfig {
   dark,
 
   /// Show toggle, default to system preference.
-  toggle,
+  toggle;
+
+  String toJson() => name;
+
+  static DarkModeConfig fromJson(String value) {
+    return DarkModeConfig.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => DarkModeConfig.system,
+    );
+  }
 }

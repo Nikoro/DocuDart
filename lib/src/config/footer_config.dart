@@ -10,6 +10,19 @@ class FooterConfig {
   final List<FooterColumn> columns;
 
   const FooterConfig({this.copyright, this.columns = const []});
+
+  Map<String, dynamic> toJson() => {
+    if (copyright != null) 'copyright': copyright,
+    'columns': columns.map((c) => c.toJson()).toList(),
+  };
+
+  factory FooterConfig.fromJson(Map<String, dynamic> json) => FooterConfig(
+    copyright: json['copyright'] as String?,
+    columns: (json['columns'] as List<dynamic>?)
+            ?.map((e) => FooterColumn.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        const [],
+  );
 }
 
 /// A column of links in the footer.
@@ -22,6 +35,18 @@ class FooterColumn {
   final List<FooterLink> links;
 
   const FooterColumn({required this.title, required this.links});
+
+  Map<String, dynamic> toJson() => {
+    'title': title,
+    'links': links.map((l) => l.toJson()).toList(),
+  };
+
+  factory FooterColumn.fromJson(Map<String, dynamic> json) => FooterColumn(
+    title: json['title'] as String,
+    links: (json['links'] as List<dynamic>)
+        .map((e) => FooterLink.fromJson(e as Map<String, dynamic>))
+        .toList(),
+  );
 }
 
 /// A link in the footer.
@@ -50,4 +75,16 @@ class FooterLink {
 
   const FooterLink.external({required this.title, required String this.url})
     : path = null;
+
+  Map<String, dynamic> toJson() => {
+    'title': title,
+    if (path != null) 'path': path,
+    if (url != null) 'url': url,
+  };
+
+  factory FooterLink.fromJson(Map<String, dynamic> json) => FooterLink(
+    title: json['title'] as String,
+    path: json['path'] as String?,
+    url: json['url'] as String?,
+  );
 }

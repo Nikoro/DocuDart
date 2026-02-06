@@ -28,6 +28,12 @@ class CustomTheme extends BaseTheme {
     required this.typography,
     required this.darkMode,
   });
+
+  @override
+  Map<String, dynamic> toJson() => {
+    ...super.toJson(),
+    'type': 'custom',
+  };
 }
 
 /// Loads custom themes from YAML files.

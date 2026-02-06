@@ -58,8 +58,9 @@ docudart/
 │       │       ├── build_command.dart   # docudart build
 │       │       └── serve_command.dart   # docudart serve
 │       ├── config/                      # Configuration classes
-│       │   ├── docudart_config.dart     # Main DocuDartConfig
-│       │   ├── config_loader.dart       # Load config (absolutizes paths)
+│       │   ├── docudart_config.dart     # Main DocuDartConfig (has toJson/fromJson)
+│       │   ├── config_loader.dart       # Load config (evaluates config.dart, falls back to YAML)
+│       │   ├── config_evaluator.dart    # Subprocess evaluation of config.dart
 │       │   ├── sidebar_config.dart      # SidebarConfig, SidebarSection, SidebarLink
 │       │   ├── header_config.dart       # HeaderConfig, NavLink
 │       │   ├── footer_config.dart       # FooterConfig, FooterLink
@@ -175,9 +176,19 @@ Auto-detects the website directory for build/serve commands.
 - Legacy: supports old-style config.dart directly in cwd
 
 ### ConfigLoader (lib/src/config/config_loader.dart)
-Loads configuration from `pubspec.yaml` and `docudart.yaml`.
+Loads configuration with a two-step strategy:
+1. **First**: Tries to evaluate `config.dart` via `ConfigEvaluator` (subprocess that runs a temp Dart script)
+2. **Fallback**: If that fails, reads `pubspec.yaml` + `docudart.yaml` (YAML-based)
 - **Important**: Absolutizes directory paths (docsDir, outputDir, assetsDir) relative to the loaded directory
 - This ensures downstream code (ContentProcessor, SiteGenerator) works with absolute paths
+
+### ConfigEvaluator (lib/src/config/config_evaluator.dart)
+Evaluates the user's `config.dart` by running a temporary Dart script as a subprocess.
+- Generates a script at `website/.dart_tool/docudart_config_extract.dart`
+- Script imports `config.dart`, calls `config.toJson()`, prints JSON to stdout
+- CLI parses the JSON output → `DocuDartConfig.fromJson()`
+- Cleans up the temp script after execution
+- Returns `null` on failure (ConfigLoader falls back to YAML)
 
 ### DefaultTheme (lib/src/theme/default_theme.dart)
 Flutter docs style theme with:
@@ -209,9 +220,10 @@ Flutter docs style theme with:
 
 ### Adding a New Config Option
 1. Add field to `DocuDartConfig` in `lib/src/config/docudart_config.dart`
-2. Add to constructor and `copyWith` method
-3. Update `ProjectGenerator` to use it in generated config.dart template
-4. Update `SiteGenerator` to handle it when generating site
+2. Add to constructor, `copyWith`, `toJson()`, and `fromJson()` methods
+3. If the field is in a sub-config class (e.g., `HeaderConfig`), update its `toJson()`/`fromJson()` too
+4. Update `ProjectGenerator` to use it in generated config.dart template
+5. Update `SiteGenerator` to handle it when generating site
 
 ### Adding a New CLI Command
 1. Create `lib/src/cli/commands/my_command.dart`
@@ -234,14 +246,21 @@ The managed Jaspr site is generated in `SiteGenerator`:
 
 ## Code Patterns
 
-### Immutable Config Classes
+### Immutable Config Classes with Serialization
+All config classes have `toJson()` and `fromJson()` for subprocess evaluation of `config.dart`.
 ```dart
 @immutable
 class MyConfig {
   final String value;
   const MyConfig({this.value = 'default'});
+
+  Map<String, dynamic> toJson() => {'value': value};
+
+  factory MyConfig.fromJson(Map<String, dynamic> json) =>
+      MyConfig(value: json['value'] as String? ?? 'default');
 }
 ```
+For sealed class hierarchies (e.g., `SidebarItem`), use a `type` discriminator field in `toJson()`.
 
 ### Command Pattern (with WorkspaceResolver)
 ```dart
@@ -274,21 +293,24 @@ await File(path).writeAsString(content);
 
 ## Testing
 
+**After making changes to code generation (SiteGenerator, ProjectGenerator, etc.), always test by regenerating the example project.** Use the `/regenerate` skill (or `/regenerate example`) which will:
+1. Delete the `example/website/` directory
+2. Re-run `docudart init --full` in the `example/` directory
+
+This ensures the generated output reflects your changes. Then verify with `docudart build` and/or `docudart serve`.
+
 ```bash
-# Test init command
+# Quick test workflow (preferred):
+# 1. Use /regenerate skill to regenerate example/website/
+# 2. Then build:
+cd example
+dart run ../bin/docudart.dart build
+
+# Manual test with a fresh project:
 mkdir /tmp/test-docudart
 cd /tmp/test-docudart
 dart run /path/to/docudart/bin/docudart.dart init --full
-ls -la website/  # Verify structure
-cat website/pubspec.yaml  # Verify path dependency
-cat website/pages/landing.dart  # Verify docudart import
-
-# Test build (requires init first)
 dart run /path/to/docudart/bin/docudart.dart build
-
-# Test from example project
-cd example
-dart run ../bin/docudart.dart build
 ```
 
 ## Dependencies
@@ -308,13 +330,16 @@ dart run ../bin/docudart.dart build
 ## Important Notes
 
 - `docudart` re-exports `package:jaspr/jaspr.dart` — users never import jaspr directly
-- User's config is `config.dart` (Dart, not YAML) for IntelliSense
+- User's config is `config.dart` (Dart, not YAML) for IntelliSense and type safety
+- `config.dart` must export a top-level `final config = DocuDartConfig(...)` variable (convention enforced by ProjectGenerator)
+- `ConfigLoader` evaluates `config.dart` via subprocess (`ConfigEvaluator`), falling back to YAML if it fails
+- All config classes have `toJson()`/`fromJson()` to support the subprocess serialization boundary
 - All generated user files import `package:docudart/docudart.dart`
 - `website/pubspec.yaml` uses a path dependency to docudart
 - Generated Jaspr project lives in `website/.dart_tool/docudart/`
 - ConfigLoader absolutizes directory paths relative to the website directory
 - Clean URLs by default (`/docs/intro/` not `/docs/intro.html`)
-- Dark mode follows system preference by default
+- Dark mode follows system preference by default; theme toggle button added when `showThemeToggle: true`
 - WorkspaceResolver supports backward compatibility with old flat structure
 
 ## References

@@ -70,4 +70,42 @@ class ThemeColors {
     '--color-border': toHex(darkBorder),
     '--color-code-background': toHex(darkCodeBackground),
   };
+
+  Map<String, dynamic> toJson() => {
+    'primary': primary,
+    'secondary': secondary,
+    'background': background,
+    'surface': surface,
+    'text': text,
+    'textMuted': textMuted,
+    'border': border,
+    'codeBackground': codeBackground,
+    'darkPrimary': darkPrimary,
+    'darkSecondary': darkSecondary,
+    'darkBackground': darkBackground,
+    'darkSurface': darkSurface,
+    'darkText': darkText,
+    'darkTextMuted': darkTextMuted,
+    'darkBorder': darkBorder,
+    'darkCodeBackground': darkCodeBackground,
+  };
+
+  factory ThemeColors.fromJson(Map<String, dynamic> json) => ThemeColors(
+    primary: json['primary'] as int,
+    secondary: json['secondary'] as int,
+    background: json['background'] as int,
+    surface: json['surface'] as int,
+    text: json['text'] as int,
+    textMuted: json['textMuted'] as int,
+    border: json['border'] as int,
+    codeBackground: json['codeBackground'] as int,
+    darkPrimary: json['darkPrimary'] as int,
+    darkSecondary: json['darkSecondary'] as int,
+    darkBackground: json['darkBackground'] as int,
+    darkSurface: json['darkSurface'] as int,
+    darkText: json['darkText'] as int,
+    darkTextMuted: json['darkTextMuted'] as int,
+    darkBorder: json['darkBorder'] as int,
+    darkCodeBackground: json['darkCodeBackground'] as int,
+  );
 }

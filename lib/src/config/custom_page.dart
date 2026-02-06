@@ -10,4 +10,14 @@ class CustomPage {
   final String filePath;
 
   const CustomPage({required this.path, required this.filePath});
+
+  Map<String, dynamic> toJson() => {
+    'path': path,
+    'filePath': filePath,
+  };
+
+  factory CustomPage.fromJson(Map<String, dynamic> json) => CustomPage(
+    path: json['path'] as String,
+    filePath: json['filePath'] as String,
+  );
 }

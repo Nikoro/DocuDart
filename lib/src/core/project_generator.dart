@@ -456,7 +456,8 @@ Create a custom theme by extending `BaseTheme` in the `themes/` folder.
   }
 
   Future<void> _generateReadme(String websiteDir, String title) async {
-    final readme = '''
+    final readme =
+        '''
 # $title - Documentation Site
 
 This documentation site is powered by [DocuDart](https://github.com/docudart/docudart).

@@ -21,4 +21,22 @@ class VersioningConfig {
     this.defaultVersion = '',
     this.versionDir = 'versions',
   });
+
+  Map<String, dynamic> toJson() => {
+    'enabled': enabled,
+    'versions': versions,
+    'defaultVersion': defaultVersion,
+    'versionDir': versionDir,
+  };
+
+  factory VersioningConfig.fromJson(Map<String, dynamic> json) =>
+      VersioningConfig(
+        enabled: json['enabled'] as bool? ?? false,
+        versions: (json['versions'] as List<dynamic>?)
+                ?.map((e) => e as String)
+                .toList() ??
+            const [],
+        defaultVersion: json['defaultVersion'] as String? ?? '',
+        versionDir: json['versionDir'] as String? ?? 'versions',
+      );
 }
