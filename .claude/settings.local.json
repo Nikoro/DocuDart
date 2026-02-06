@@ -4,5 +4,8 @@
       "Bash(dart run:*)",
       "Bash(dart analyze:*)"
     ]
+  },
+  "enabledPlugins": {
+    "playwright-skill@playwright-skill": true
   }
 }

@@ -1,0 +1,11 @@
+init:
+  script: dart ../bin/docudart.dart init
+
+serve:
+  script: dart ../bin/docudart.dart serve
+
+regenerate:
+  script: |
+    rm -rf website
+    init
+    serve

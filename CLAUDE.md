@@ -313,6 +313,33 @@ dart run /path/to/docudart/bin/docudart.dart init --full
 dart run /path/to/docudart/bin/docudart.dart build
 ```
 
+### Visual Testing with Playwright
+
+**After changes that affect the generated website's appearance (styles, layout, templates, theme, landing page, etc.), you SHOULD visually verify the result using the Playwright skill.** This catches visual regressions that `dart analyze` and `dart test` cannot detect.
+
+Workflow:
+1. Build and serve the example site:
+   ```bash
+   cd example && dart run ../bin/docudart.dart serve &
+   ```
+2. Use the Playwright skill to take full-page screenshots (light + dark mode) and review them:
+   - Write a Playwright script to `/tmp/playwright-test-*.js`
+   - Capture screenshots at `http://localhost:8080`
+   - Toggle the theme (click `.theme-toggle` button) and capture dark mode
+   - Read the screenshot files to visually inspect the result
+3. Stop the server when done:
+   ```bash
+   pkill -f "docudart.dart serve"; pkill -f "jaspr"
+   ```
+
+Use `headless: true` for automated checks. Key things to verify:
+- Header renders correctly (title, nav links, theme toggle)
+- Sidebar links are present and properly listed
+- Landing page hero section (title, description, CTA button)
+- Footer with copyright text
+- Dark mode colors apply correctly
+- Doc pages render markdown content properly
+
 ## Dependencies
 
 | Package | Purpose |

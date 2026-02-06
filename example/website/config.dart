@@ -22,10 +22,12 @@ final config = DocuDartConfig(
     showThemeToggle: true,
     navLinks: [
       NavLink.internal(title: 'Docs', path: '/docs'),
-      NavLink.external(title: 'GitHub', url: 'https://github.com/...'),
+      // NavLink.external(title: 'GitHub', url: 'https://github.com/...'),
     ],
   ),
 
   // Footer configuration
-  footer: FooterConfig(copyright: '© 2027 example_project'),
+  footer: FooterConfig(
+    copyright: '© 2026 example_project',
+  ),
 );

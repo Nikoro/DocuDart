@@ -196,11 +196,12 @@ ClientOptions get defaultClientOptions => ClientOptions();
     // Generate routes for all pages
     final routesBuffer = StringBuffer();
 
-    // Home route
+    // Home route (no sidebar for landing page)
     routesBuffer.writeln('''
         Route(
           path: '/',
           builder: (context, state) => const Layout(
+            showSidebar: false,
             child: HomePage(),
           ),
         ),''');
@@ -358,9 +359,11 @@ $versionSwitcherImport
 
 class Layout extends StatelessComponent {
   final Component child;
+  final bool showSidebar;
 
   const Layout({
     required this.child,
+    this.showSidebar = true,
     super.key,
   });
 
@@ -394,9 +397,9 @@ $themeToggleComponent
         ),
         // Main content with sidebar
         div(
-          classes: 'site-body',
+          classes: showSidebar ? 'site-body' : 'site-body no-sidebar',
           [
-            const Sidebar(),
+            if (showSidebar) const Sidebar(),
             div(
               classes: 'site-main',
               attributes: {'role': 'main'},
@@ -776,6 +779,15 @@ body {
 .sidebar-link.active {
   background-color: var(--color-primary);
   color: white;
+}
+
+/* No sidebar layout (landing page) */
+.site-body.no-sidebar {
+  max-width: 100%;
+}
+
+.site-body.no-sidebar .site-main {
+  max-width: 100%;
 }
 
 /* Main */
