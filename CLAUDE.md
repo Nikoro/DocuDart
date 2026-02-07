@@ -119,7 +119,7 @@ docudart/
 └── pubspec.yaml
 ```
 
-## Generated User Project Structure (after `docudart init`)
+## Generated User Project Structure (after `docudart init --full`)
 
 ```
 user-project/
@@ -131,6 +131,14 @@ user-project/
     docs/                # Markdown documentation files
       index.md
       getting-started.md
+      01-guides_expanded/  # _expanded suffix → starts open in sidebar
+        components.md
+        theming.md
+      02-advanced/         # No suffix → starts collapsed
+        configuration.md
+        deployment/        # Nested subfolder → also collapsed
+          github-pages.md
+          netlify.md
     pages/               # Custom Jaspr page components
       landing_page.dart  # Landing page (imports package:docudart/docudart.dart)
     components/          # Layout wrapper components
@@ -186,11 +194,12 @@ Library-provided default layout components.
 ### ProjectGenerator (lib/src/core/project_generator.dart)
 Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart init`.
 - `InitTemplate.defaultTemplate` - Basic setup
-- `InitTemplate.full` - All features with examples
+- `InitTemplate.full` - All features with examples, including sidebar subfolder showcase
 - Uses `PackageResolver` to compute path dependency to docudart
 - Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart)
 - Runs `dart pub get` in website/ after generation
 - Looks for `README.md` in project root to auto-generate docs
+- `_generateFullTemplateSubfolders()` - creates example subfolders for full template (always runs, even when README.md exists): `01-guides_expanded/` (expanded sidebar) and `02-advanced/` with nested `deployment/` (collapsed)
 
 ### SiteGenerator (lib/src/core/site_generator.dart)
 Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
@@ -414,7 +423,8 @@ Use `headless: true` for automated checks. Key things to verify:
   - **Active link highlighting**: `.sidebar-link.active` class applied via JS matching `window.location.pathname` against `data-path` attributes
   - **SPA navigation detection**: monkey-patches `history.pushState`/`replaceState` to dispatch `docudart-navigate` event; also listens for `popstate`; MutationObserver fallback if Jaspr re-renders sidebar
   - **Auto-expand**: parent categories of active link automatically expand on navigation
-- **Docs ordering**: numeric filename prefix (`01-guides/`) or `sidebar_position` frontmatter field; `index.md`/`intro.md` default to position 0; no prefix defaults to 999
+- **Sidebar collapse default**: ALL categories start collapsed by default. Add `_expanded` suffix to folder name (e.g., `01-guides_expanded/`) to make it start expanded. The suffix is stripped from display names, URLs, and sort order. `DocFolder.expanded` field carries this flag; `SidebarGenerator` sets `collapsed: !subfolder.expanded`.
+- **Docs ordering**: numeric filename prefix (`01-guides/`) or `sidebar_position` frontmatter field; `index.md`/`intro.md` default to position 0; no prefix defaults to 999. The `_expanded` suffix is stripped before extracting numeric prefix.
 
 ## References
 

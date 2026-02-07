@@ -310,11 +310,15 @@ class LandingPage extends StatelessComponent {
     final readmeFile = File(p.join(projectDir, 'README.md'));
     if (readmeFile.existsSync()) {
       await _generateDocsFromReadme(websiteDir, readmeFile);
-      return;
+    } else {
+      // Generate example docs
+      await _generateExampleDocs(websiteDir, template);
     }
 
-    // Generate example docs
-    await _generateExampleDocs(websiteDir, template);
+    // For full template, always add example subfolders to showcase sidebar features
+    if (template == InitTemplate.full) {
+      await _generateFullTemplateSubfolders(websiteDir);
+    }
   }
 
   Future<void> _generateDocsFromReadme(
@@ -428,12 +432,19 @@ Run `docudart serve` to start a local development server with hot reload.
 ''',
     );
 
-    if (template == InitTemplate.full) {
-      // Add more example files for full template
-      await File(p.join(websiteDir, 'docs', 'components.md')).writeAsString('''
+  }
+
+  /// Generate example subfolders for the full template.
+  /// Showcases the `_expanded` suffix and deeply nested categories.
+  Future<void> _generateFullTemplateSubfolders(String websiteDir) async {
+      // Guides folder — uses _expanded suffix so it starts open in the sidebar
+      final guidesDir = p.join(websiteDir, 'docs', '01-guides_expanded');
+      await Directory(guidesDir).create(recursive: true);
+
+      await File(p.join(guidesDir, 'components.md')).writeAsString('''
 ---
 title: Custom Components
-sidebar_position: 3
+sidebar_position: 1
 ---
 
 # Custom Components
@@ -470,10 +481,10 @@ Reference your component in Markdown:
 The component will be rendered in place.
 ''');
 
-      await File(p.join(websiteDir, 'docs', 'theming.md')).writeAsString('''
+      await File(p.join(guidesDir, 'theming.md')).writeAsString('''
 ---
 title: Theming
-sidebar_position: 4
+sidebar_position: 2
 ---
 
 # Theming
@@ -506,7 +517,69 @@ Control dark mode behavior via the `themeMode` field in `config.dart`:
 
 Create a custom theme by extending `BaseTheme` in the `themes/` folder.
 ''');
-    }
+
+      // Advanced folder — collapsed by default, with a nested subfolder
+      final advancedDir = p.join(websiteDir, 'docs', '02-advanced');
+      await Directory(advancedDir).create(recursive: true);
+
+      await File(p.join(advancedDir, 'configuration.md')).writeAsString('''
+---
+title: Configuration
+sidebar_position: 1
+---
+
+# Configuration
+
+All site settings live in `config.dart`.
+
+## Config Fields
+
+- `title` — Site title displayed in the header
+- `description` — SEO description
+- `themeMode` — `system`, `light`, or `dark`
+- `header` / `footer` / `sidebar` — Layout component functions (set to `null` to hide)
+
+## Disabling a Section
+
+```dart
+Config get config => Config(
+  title: 'My Project',
+  header: (context) => Header(),
+  footer: null,    // No footer
+  sidebar: null,   // No sidebar
+);
+```
+''');
+
+      // Deeply nested: advanced/deployment/
+      final deploymentDir = p.join(advancedDir, 'deployment');
+      await Directory(deploymentDir).create(recursive: true);
+
+      await File(p.join(deploymentDir, 'github-pages.md')).writeAsString('''
+---
+title: GitHub Pages
+sidebar_position: 1
+---
+
+# Deploy to GitHub Pages
+
+Run `docudart build` and deploy the `website/build/web/` directory.
+
+## GitHub Actions
+
+Add a workflow file at `.github/workflows/docs.yml` to automate deployment on every push.
+''');
+
+      await File(p.join(deploymentDir, 'netlify.md')).writeAsString('''
+---
+title: Netlify
+sidebar_position: 2
+---
+
+# Deploy to Netlify
+
+Connect your repository and set the build command to `docudart build` with the publish directory set to `website/build/web/`.
+''');
   }
 
   Future<void> _generateReadme(String websiteDir, String title) async {

@@ -73,6 +73,10 @@ class DocFolder {
   /// Order for sorting.
   final int order;
 
+  /// Whether the folder's sidebar category starts expanded.
+  /// Set by the `_expanded` suffix on the folder name.
+  final bool expanded;
+
   /// Child pages.
   final List<DocPage> pages;
 
@@ -83,6 +87,7 @@ class DocFolder {
     required this.relativePath,
     required this.name,
     required this.order,
+    this.expanded = false,
     required this.pages,
     required this.folders,
   });
@@ -176,12 +181,14 @@ class ContentProcessor {
     pages.sort((a, b) => a.order.compareTo(b.order));
     folders.sort((a, b) => a.order.compareTo(b.order));
 
+    final baseName = p.basename(relativePath.isEmpty ? 'docs' : relativePath);
+    final isExpanded = baseName.endsWith('_expanded');
+
     return DocFolder(
       relativePath: relativePath,
       name: _folderName(relativePath),
-      order: _extractOrder(
-        p.basename(relativePath.isEmpty ? 'docs' : relativePath),
-      ),
+      order: _extractOrder(baseName),
+      expanded: isExpanded,
       pages: pages,
       folders: folders,
     );
@@ -221,11 +228,15 @@ class ContentProcessor {
     // Remove .md extension
     var path = relativePath.replaceAll('.md', '');
 
-    // Remove numeric prefixes from path segments
+    // Remove _expanded suffix and numeric prefixes from path segments
     path = path
         .split(p.separator)
         .map((segment) {
-          return segment.replaceFirst(RegExp(r'^\d+[-_]?'), '');
+          var s = segment;
+          if (s.endsWith('_expanded')) {
+            s = s.substring(0, s.length - '_expanded'.length);
+          }
+          return s.replaceFirst(RegExp(r'^\d+[-_]?'), '');
         })
         .join('/');
 
@@ -243,6 +254,10 @@ class ContentProcessor {
   }
 
   int _extractOrder(String name) {
+    // Strip _expanded suffix before extracting order
+    if (name.endsWith('_expanded')) {
+      name = name.substring(0, name.length - '_expanded'.length);
+    }
     // Extract numeric prefix (e.g., "01-getting-started" -> 1)
     final match = RegExp(r'^(\d+)').firstMatch(name);
     if (match != null) {
@@ -260,7 +275,11 @@ class ContentProcessor {
   String _folderName(String relativePath) {
     if (relativePath.isEmpty) return 'Documentation';
 
-    final name = p.basename(relativePath);
+    var name = p.basename(relativePath);
+    // Remove _expanded suffix
+    if (name.endsWith('_expanded')) {
+      name = name.substring(0, name.length - '_expanded'.length);
+    }
     // Remove numeric prefix and convert to title case
     final withoutPrefix = name.replaceFirst(RegExp(r'^\d+[-_]?'), '');
     return withoutPrefix
