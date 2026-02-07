@@ -3,12 +3,12 @@ import 'components/header.dart';
 import 'components/footer.dart';
 import 'components/sidebar.dart';
 
-final config = Config(
+Config get config => Config(
   title: 'example_project',
   description: 'An example Dart project to demonstrate DocuDart documentation generator.',
 
   // Theme configuration
-  themeMode: ThemeMode.light,
+  themeMode: ThemeMode.system,
   theme: DefaultTheme(
     // primaryColor: 0xFF0175C2, // Uncomment to customize primary color
   ),

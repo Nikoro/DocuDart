@@ -228,7 +228,7 @@ import 'components/header.dart';
 import 'components/footer.dart';
 import 'components/sidebar.dart';
 
-final config = Config(
+Config get config => Config(
   title: '$title',
   description: '$description',
 
@@ -586,7 +586,7 @@ The header, footer, and sidebar are components defined in `components/`. Edit th
 Set any layout section to `null` in `config.dart` to hide it:
 
 ```dart
-final config = Config(
+Config get config => Config(
   title: 'My Project',
   header: (context) => Header(),
   footer: null,    // No footer
@@ -604,7 +604,7 @@ import 'components/header.dart';
 import 'components/footer.dart';
 import 'components/sidebar.dart';
 
-final config = Config(
+Config get config => Config(
   title: 'My Project',
   description: 'Project documentation',
 

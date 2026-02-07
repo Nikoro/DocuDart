@@ -23,12 +23,16 @@ class SiteGenerator {
       );
 
   /// Generate the complete Jaspr site structure.
-  Future<void> generate() async {
+  ///
+  /// When [fullClean] is true (default), deletes and recreates the managed
+  /// directory from scratch. Set to false during hot reload to update files
+  /// in-place without disrupting the running Jaspr dev server.
+  Future<void> generate({bool fullClean = true}) async {
     print('Generating site structure...');
 
     // Ensure managed directory exists
     final dir = Directory(managedDir);
-    if (dir.existsSync()) {
+    if (fullClean && dir.existsSync()) {
       await dir.delete(recursive: true);
     }
     await dir.create(recursive: true);
@@ -74,15 +78,17 @@ class SiteGenerator {
     await _generateWebFiles();
     await _copyAssets();
 
-    // Run pub get
-    print('Installing dependencies...');
-    final result = await Process.run('dart', [
-      'pub',
-      'get',
-    ], workingDirectory: managedDir);
+    // Run pub get (skip on incremental regeneration — deps don't change)
+    if (fullClean) {
+      print('Installing dependencies...');
+      final result = await Process.run('dart', [
+        'pub',
+        'get',
+      ], workingDirectory: managedDir);
 
-    if (result.exitCode != 0) {
-      throw Exception('Failed to install dependencies: ${result.stderr}');
+      if (result.exitCode != 0) {
+        throw Exception('Failed to install dependencies: ${result.stderr}');
+      }
     }
 
     print('Site structure generated successfully.');

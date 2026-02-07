@@ -66,18 +66,21 @@ class ServeCommand extends Command<int> {
       final generator = SiteGenerator(config, websiteDir: websiteDir);
       await generator.generate();
 
-      // Start file watcher if enabled
+      // Start file watcher if enabled.
+      // On change, regenerate files in-place. Jaspr's own hot reload
+      // detects the updated files and re-renders automatically.
+      // Config uses a getter (not final) so hot reload re-evaluates it.
       if (watchEnabled) {
         fileWatcher = DocuDartFileWatcher(
           config: config,
+          websiteDir: websiteDir,
           onRegenerate: () async {
-            // Reload config in case it changed
             final newConfig = await ConfigLoader.load(websiteDir);
             final newGenerator = SiteGenerator(
               newConfig,
               websiteDir: websiteDir,
             );
-            await newGenerator.generate();
+            await newGenerator.generate(fullClean: false);
           },
         );
         await fileWatcher.start();
@@ -91,7 +94,8 @@ class ServeCommand extends Command<int> {
       CliPrinter.info('Press Ctrl+C to stop');
       CliPrinter.blank();
 
-      // Run jaspr serve
+      // Run jaspr serve — it has its own hot reload that detects
+      // file changes in the managed project's lib/ directory.
       final managedDir = p.join(websiteDir, '.dart_tool', 'docudart');
       final process = await Process.start(
         'dart',

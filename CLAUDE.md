@@ -191,6 +191,7 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 ### SiteGenerator (lib/src/core/site_generator.dart)
 Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - Accepts optional `websiteDir` parameter (defaults to cwd)
+- `generate({bool fullClean = true})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
 - Adds `docudart` as path dependency in managed project's pubspec
 - Copies `config.dart` and `components/` into managed project's `lib/`
 - Generates `site_context_data.dart` with auto-generated sidebar items
@@ -248,9 +249,12 @@ Flutter docs style theme with:
 5. Copies output to `website/build/web/` (or `--output` flag)
 
 ### `docudart serve`
-1. Same as build steps 1-3
-2. Starts `DocuDartFileWatcher` (watches docs, assets, config)
+1. Same as build steps 1-3 (uses `generate()` with `fullClean: true` for initial build)
+2. Starts `DocuDartFileWatcher` (watches docs, assets, config.dart, components/, pages/)
 3. Runs `dart run jaspr serve` in `website/.dart_tool/docudart/`
+4. On file change: regenerates with `fullClean: false` (in-place update, no pub get) — Jaspr's native hot reload detects the changed files and re-renders
+
+**Hot reload architecture**: `config.dart` uses a getter (`Config get config => Config(...)`) instead of a `final` variable. This is critical because Dart VM hot reload does NOT re-evaluate top-level `final` variables, but DOES re-evaluate getters on each access. When a file changes, `DocuDartFileWatcher` copies the updated files into the managed Jaspr project's `lib/`, and Jaspr's built-in `HotReloader` detects the changes, patches the VM, and re-evaluates the getter on the next request.
 
 ## Common Tasks
 
@@ -384,7 +388,7 @@ Use `headless: true` for automated checks. Key things to verify:
 
 - `docudart` re-exports `package:jaspr/jaspr.dart` — users never import jaspr directly
 - User's config is `config.dart` (Dart, not YAML) for IntelliSense and type safety
-- `config.dart` must export a top-level `final config = Config(...)` variable (convention enforced by ProjectGenerator)
+- `config.dart` must export a top-level getter `Config get config => Config(...)` (convention enforced by ProjectGenerator — getter is required for hot reload to work)
 - `ConfigLoader` evaluates `config.dart` via subprocess (`ConfigEvaluator`), falling back to YAML if it fails
 - Function fields (header/footer/sidebar) cannot cross the subprocess boundary — managed project imports config.dart directly
 - All generated user files import `package:docudart/docudart.dart`
@@ -394,6 +398,8 @@ Use `headless: true` for automated checks. Key things to verify:
 - Clean URLs by default (`/docs/intro/` not `/docs/intro.html`)
 - Theme mode (system/light/dark) via `themeMode` field; theme toggle always included in CSS/JS
 - WorkspaceResolver supports backward compatibility with old flat structure
+- **Dart hot reload caveat**: Top-level `final` variables are NOT re-evaluated on hot reload — that's why `config.dart` uses a getter (`Config get config =>`) instead of `final config =`
+- `DocuDartFileWatcher` watches: docs/, assets/, config.dart (FileWatcher), components/, pages/; uses debounce + pending-regeneration queue to handle rapid edits
 
 ## References
 

@@ -3,7 +3,9 @@
     "allow": [
       "Bash(dart run:*)",
       "Bash(dart analyze:*)",
-      "Bash(dart test:*)"
+      "Bash(dart test:*)",
+      "WebFetch(domain:jaspr.site)",
+      "WebFetch(domain:docs.jaspr.site)"
     ]
   },
   "enabledPlugins": {

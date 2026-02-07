@@ -10,13 +10,19 @@ import '../cli/errors.dart';
 /// Watches documentation files for changes and triggers regeneration.
 class DocuDartFileWatcher {
   final Config config;
+  final String websiteDir;
   final Future<void> Function() onRegenerate;
 
   final List<StreamSubscription<WatchEvent>> _subscriptions = [];
   Timer? _debounceTimer;
   bool _isRegenerating = false;
+  bool _pendingRegeneration = false;
 
-  DocuDartFileWatcher({required this.config, required this.onRegenerate});
+  DocuDartFileWatcher({
+    required this.config,
+    required this.websiteDir,
+    required this.onRegenerate,
+  });
 
   /// Start watching for file changes.
   Future<void> start() async {
@@ -37,6 +43,24 @@ class DocuDartFileWatcher {
       if (Directory(versionDir).existsSync()) {
         await _watchDirectory(versionDir);
       }
+    }
+
+    // Watch config.dart file
+    final configFile = File(p.join(websiteDir, 'config.dart'));
+    if (configFile.existsSync()) {
+      await _watchFile(configFile.path);
+    }
+
+    // Watch components directory
+    final componentsDir = Directory(p.join(websiteDir, 'components'));
+    if (componentsDir.existsSync()) {
+      await _watchDirectory(componentsDir.path);
+    }
+
+    // Watch pages directory
+    final pagesDir = Directory(p.join(websiteDir, 'pages'));
+    if (pagesDir.existsSync()) {
+      await _watchDirectory(pagesDir.path);
     }
   }
 
@@ -60,6 +84,12 @@ class DocuDartFileWatcher {
     _subscriptions.add(subscription);
   }
 
+  Future<void> _watchFile(String path) async {
+    final watcher = FileWatcher(path);
+    final subscription = watcher.events.listen(_handleEvent);
+    _subscriptions.add(subscription);
+  }
+
   void _handleEvent(WatchEvent event) {
     // Only watch relevant files
     if (!_isWatchedFile(event.path)) {
@@ -69,22 +99,37 @@ class DocuDartFileWatcher {
     // Debounce rapid changes
     _debounceTimer?.cancel();
     _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
-      if (_isRegenerating) return;
-
-      _isRegenerating = true;
-      try {
-        final relativePath = p.relative(event.path);
-        CliPrinter.blank();
-        CliPrinter.info('File changed: $relativePath');
-        CliPrinter.step('Regenerating site...');
-        await onRegenerate();
-        CliPrinter.success('Site regenerated');
-      } catch (e) {
-        CliPrinter.error('Regeneration failed: $e');
-      } finally {
-        _isRegenerating = false;
+      // If already regenerating, mark as pending so we re-run after it finishes
+      if (_isRegenerating) {
+        _pendingRegeneration = true;
+        return;
       }
+
+      await _runRegeneration(event.path);
     });
+  }
+
+  Future<void> _runRegeneration(String changedPath) async {
+    _isRegenerating = true;
+    _pendingRegeneration = false;
+    try {
+      final relativePath = p.relative(changedPath);
+      CliPrinter.blank();
+      CliPrinter.info('File changed: $relativePath');
+      CliPrinter.step('Regenerating site...');
+      await onRegenerate();
+      CliPrinter.success('Site regenerated');
+    } catch (e) {
+      CliPrinter.error('Regeneration failed: $e');
+    } finally {
+      _isRegenerating = false;
+
+      // If another change came in while we were regenerating, run again
+      if (_pendingRegeneration) {
+        _pendingRegeneration = false;
+        await _runRegeneration(changedPath);
+      }
+    }
   }
 
   bool _isWatchedFile(String path) {
@@ -108,8 +153,8 @@ class DocuDartFileWatcher {
       return true;
     }
 
-    // Config file
-    if (path.endsWith('config.dart')) {
+    // Dart files (config.dart, components/*.dart, pages/*.dart)
+    if (ext == '.dart') {
       return true;
     }
 
