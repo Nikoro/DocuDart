@@ -48,6 +48,9 @@ class ProjectGenerator {
     // Generate icons.dart
     await _generateIcons(websiteDir);
 
+    // Generate labels.dart
+    await _generateLabels(websiteDir);
+
     // Generate landing page
     await _generateLandingPage(websiteDir, title, description);
 
@@ -78,6 +81,7 @@ class ProjectGenerator {
     print('    pubspec.yaml');
     print('    config.dart');
     print('    icons.dart');
+    print('    labels.dart');
     print('    README.md');
     print('    docs/');
     print('    pages/');
@@ -204,25 +208,20 @@ class Header extends StatelessComponent {
     await File(p.join(componentsDir, 'footer.dart')).writeAsString('''
 import 'package:docudart/docudart.dart';
 
-import '../config.dart';
-
 /// Site footer component.
 ///
 /// Customize this component to change the footer layout.
 /// The [DefaultFooter] provides a simple centered text footer
 /// with optional leading/trailing slots.
 class Footer extends StatelessComponent {
-  final List<NavLink>? socialLinks;
+  const Footer({required this.text, this.trailing, super.key});
 
-  const Footer({this.socialLinks, super.key});
+  final String text;
+  final Component? trailing;
 
   @override
   Component build(BuildContext context) {
-    final year = DateTime.now().year;
-    return DefaultFooter(
-      text: '© \$year \${config.title}',
-      trailing: socialLinks != null ? Socials(links: socialLinks!) : null,
-    );
+    return DefaultFooter(text: text, trailing: trailing);
   }
 }
 ''');
@@ -262,39 +261,40 @@ import 'components/header.dart';
 import 'components/footer.dart';
 import 'components/sidebar.dart';
 import 'icons.dart';
+import 'labels.dart';
 import 'pages/landing_page.dart';
 
 Config get config => Config(
   title: '$title',
   description: '$description',
-
-  // Theme configuration
   themeMode: ThemeMode.system,
-  theme: DefaultTheme(
-    // primaryColor: 0xFF0175C2, // Uncomment to customize primary color
-  ),
-
+  theme: DefaultTheme(),
   // Home page component. Set to null to redirect '/' to '/docs'.
   home: (context) => LandingPage(),
-
   // Header, footer, and sidebar are components.
   // Set to null to hide any section.
   header: (context) => Header(
     title: '$title',
     navLinks: [
-      .path('/docs', label: 'Docs', icon: Icons.docs),
-      .url('https://github.com', label: 'GitHub', icon: Icons.github),
-      .url('https://pub.dev', label: 'pub.dev', icon: Icons.dart),
+      .path('/docs', label: Labels.docs, icon: Icons.docs),
+      .url('https://github.com', label: Labels.github, icon: Icons.github),
+      .url('https://pub.dev', label: Labels.pubDev, icon: Icons.pubDev),
     ],
     trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
   ),
-  footer: (context) => Footer(
-    socialLinks: [
-      .url('https://github.com', icon: Icons.github),
-      .url('https://youtube.com', icon: Icons.youtube),
-      .url('https://x.com', icon: Icons.xTwitter),
-    ],
-  ),
+  footer: (context) {
+    final year = DateTime.now().year;
+    return Footer(
+      text: '© \$year $title',
+      trailing: Socials(
+        links: [
+          .url('https://youtube.com', icon: Icons.youtube),
+          .url('https://discord.com', icon: Icons.discord),
+          .url('https://x.com', icon: Icons.xTwitter),
+        ],
+      ),
+    );
+  },
   sidebar: (context) => Sidebar(items: context.docs),
 );
 ''';
@@ -367,7 +367,7 @@ abstract class Icons {
 
   // --- Developer / Ecosystem ---
 
-  static const dart = RawText(
+  static const pubDev = RawText(
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M442.6 142.9C439.8 142.8 437 142.7 434.1 142.7L170 142.7L313.2 70.7C320.6 66.3 332 64 343.6 64C357.1 64 373 73.2 380.6 80.8L442.6 142.8L442.6 142.9zM171.3 160.5L434.1 160.5C450.1 160.5 459.5 161.9 469.5 169.8L576 276.2L576 485L496.7 485.7L171.3 160.5zM160.5 437L160.5 174.8L484.3 498.6L485 576L272.8 576L174.7 477.8C163.4 466.5 160.5 462.5 160.5 437zM142.7 169.3L142.7 437C142.7 440.3 142.8 443.3 142.9 446.1L80.9 384.1C70.5 373.3 64 358.3 64 343.6C64 336.8 67.9 326.1 70.7 320L142.7 169.3z"/></svg>',
   );
 
@@ -384,6 +384,41 @@ abstract class Icons {
   static const lightMode = RawText(
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M376.7 376.7q23.3-23.3 23.3-56.7t-23.3-56.7q-23.3-23.3-56.7-23.3t-56.7 23.3q-23.3 23.3-23.3 56.7t23.3 56.7q23.3 23.3 56.7 23.3t56.7-23.3zM225.7 414.3Q186.7 375.3 186.7 320t39-94.3Q264.7 186.7 320 186.7t94.3 39q39 39 39 94.3t-39 94.3Q375.3 453.3 320 453.3t-94.3-39zM133.3 346.7H26.7v-53.3h106.7v53.3zm480 0H506.7v-53.3h106.7v53.3zM293.3 133.3V26.7h53.3v106.7h-53.3zm0 480V506.7h53.3v106.7h-53.3zM170.7 206.7l-67.3-64.7 38-39.3 64 66.7-34.7 37.3zm328 330.7l-64.7-67.3 35.3-36.7 67.3 64.7-38 39.3zm-65.3-366.7l64.7-67.3 39.3 38-66.7 64-37.3-34.7zM102.7 525.3l67.3-64.7 36.7 35.3-64.7 67.3-39.3-38zM320 320z"/></svg>',
   );
+}
+''');
+  }
+
+  Future<void> _generateLabels(String websiteDir) async {
+    await File(p.join(websiteDir, 'labels.dart')).writeAsString('''
+/// Label constants for use in navigation links and components.
+///
+/// Use these instead of hardcoded strings to keep labels consistent
+/// and easy to update across your site.
+abstract class Labels {
+  Labels._();
+
+  // --- Code Hosting ---
+
+  static const bitbucket = 'Bitbucket';
+  static const github = 'GitHub';
+  static const gitlab = 'GitLab';
+
+  // --- Social Media ---
+
+  static const discord = 'Discord';
+  static const instagram = 'Instagram';
+  static const linkedin = 'LinkedIn';
+  static const medium = 'Medium';
+  static const reddit = 'Reddit';
+  static const slack = 'Slack';
+  static const tiktok = 'TikTok';
+  static const xTwitter = 'X';
+  static const youtube = 'YouTube';
+
+  // --- Developer / Ecosystem ---
+
+  static const pubDev = 'pub.dev';
+  static const docs = 'Docs';
 }
 ''');
   }
