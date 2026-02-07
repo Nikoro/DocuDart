@@ -177,7 +177,11 @@ class SiteContext {
 Library-provided default layout components.
 - `DefaultHeader(title, navLinks, showThemeToggle)` - sticky header with nav
 - `DefaultFooter(text)` - simple centered text footer
-- `DefaultSidebar(items)` - navigation tree from docs structure
+- `DefaultSidebar(items)` - collapsible navigation tree from docs structure
+  - Renders `data-category`, `data-collapsed` attributes on categories for JS interactivity
+  - Renders `data-path` attributes on links for active page highlighting
+  - Categories have `role="button"` + `tabindex="0"` for keyboard accessibility
+  - Uses `_slugify()` helper to generate stable category IDs for localStorage persistence
 
 ### ProjectGenerator (lib/src/core/project_generator.dart)
 Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart init`.
@@ -281,7 +285,8 @@ The managed Jaspr site is generated in `SiteGenerator`:
 - `_generateApp()` - lib/app.dart with Router
 - `_generatePages()` - lib/pages/*.dart (uses user's LandingPage if exists, otherwise generates HomePage)
 - `_generateDocsPageContent()` - lib/docs_page_content.dart
-- `_generateStyles()` - web/styles.css + web/theme.js (injects config.themeMode as forcedMode)
+- `_generateStyles()` - web/styles.css (includes collapsible sidebar CSS with chevron + transitions)
+- `_generateThemeScript()` - web/theme.js (theme toggle + sidebar collapse/expand + active link highlighting)
 
 ### Adding a Built-in Component
 1. Create `lib/src/components/built_in/my_component.dart`
@@ -366,7 +371,9 @@ Workflow:
 
 Use `headless: true` for automated checks. Key things to verify:
 - Header renders correctly (title, nav links, theme toggle)
-- Sidebar links are present and properly listed
+- Sidebar links are present with active item highlighted (blue bg)
+- Sidebar categories have collapsible chevron, click to toggle
+- Nested doc pages auto-expand parent categories
 - Landing page hero section (title, description, CTA button)
 - Footer with copyright text
 - Dark mode colors apply correctly
@@ -402,6 +409,12 @@ Use `headless: true` for automated checks. Key things to verify:
 - WorkspaceResolver supports backward compatibility with old flat structure
 - **Dart hot reload caveat**: Top-level `final` variables are NOT re-evaluated on hot reload — that's why `config.dart` uses a getter (`Config get config =>`) instead of `final config =`
 - `DocuDartFileWatcher` watches: docs/, assets/, config.dart (FileWatcher), components/, pages/; uses debounce + pending-regeneration queue to handle rapid edits
+- **Sidebar interactivity** (all via vanilla JS in `theme.js`):
+  - **Collapsible categories**: click/keyboard toggle, CSS chevron rotation + `max-height` transition, state persisted in `localStorage` (`docudart-sidebar-state` key)
+  - **Active link highlighting**: `.sidebar-link.active` class applied via JS matching `window.location.pathname` against `data-path` attributes
+  - **SPA navigation detection**: monkey-patches `history.pushState`/`replaceState` to dispatch `docudart-navigate` event; also listens for `popstate`; MutationObserver fallback if Jaspr re-renders sidebar
+  - **Auto-expand**: parent categories of active link automatically expand on navigation
+- **Docs ordering**: numeric filename prefix (`01-guides/`) or `sidebar_position` frontmatter field; `index.md`/`intro.md` default to position 0; no prefix defaults to 999
 
 ## References
 

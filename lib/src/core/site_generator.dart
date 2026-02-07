@@ -690,24 +690,59 @@ body {
 }
 
 .sidebar-category {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .sidebar-category-title {
-  display: block;
-  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--color-text-muted);
-  margin-bottom: 0.5rem;
-  padding: 0 0.75rem;
+  margin-bottom: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  transition: color 0.15s;
+}
+
+.sidebar-category-title:hover {
+  color: var(--color-text);
+}
+
+.sidebar-category-title::before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid currentColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.sidebar-category[data-collapsed="false"] > .sidebar-category-title::before {
+  transform: rotate(90deg);
 }
 
 .sidebar-category-items {
   list-style: none;
   padding: 0;
   margin: 0;
+  overflow: hidden;
+  max-height: 2000px;
+  opacity: 1;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+}
+
+.sidebar-category[data-collapsed="true"] > .sidebar-category-items {
+  max-height: 0;
+  opacity: 0;
 }
 
 .sidebar-category-items li {
@@ -1350,6 +1385,147 @@ body {
     document.addEventListener('DOMContentLoaded', updateIcon);
   } else {
     updateIcon();
+  }
+})();
+
+// Sidebar: collapsible categories + active link highlighting
+(function() {
+  var STORAGE_KEY = 'docudart-sidebar-state';
+
+  function loadState() {
+    try {
+      var stored = localStorage.getItem(STORAGE_KEY);
+      return stored ? JSON.parse(stored) : {};
+    } catch(e) { return {}; }
+  }
+
+  function saveState(state) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch(e) {}
+  }
+
+  function initCollapse() {
+    var state = loadState();
+    var categories = document.querySelectorAll('.sidebar-category[data-category]');
+
+    categories.forEach(function(cat) {
+      var id = cat.getAttribute('data-category');
+      if (state.hasOwnProperty(id)) {
+        cat.setAttribute('data-collapsed', state[id] ? 'true' : 'false');
+      }
+    });
+  }
+
+  // Click handler for category titles
+  document.addEventListener('click', function(e) {
+    var title = e.target.closest('.sidebar-category-title');
+    if (!title) return;
+
+    var cat = title.closest('.sidebar-category');
+    if (!cat) return;
+
+    var id = cat.getAttribute('data-category');
+    var isCollapsed = cat.getAttribute('data-collapsed') === 'true';
+
+    cat.setAttribute('data-collapsed', isCollapsed ? 'false' : 'true');
+
+    var currentState = loadState();
+    currentState[id] = !isCollapsed;
+    saveState(currentState);
+  });
+
+  // Keyboard accessibility for category titles
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      var title = e.target.closest('.sidebar-category-title');
+      if (title) {
+        e.preventDefault();
+        title.click();
+      }
+    }
+  });
+
+  // Active link highlighting
+  function expandParents(element) {
+    var state = loadState();
+    var parent = element.closest('.sidebar-category');
+    while (parent) {
+      parent.setAttribute('data-collapsed', 'false');
+      var id = parent.getAttribute('data-category');
+      if (id) state[id] = false;
+      var grandparent = parent.parentElement;
+      parent = grandparent ? grandparent.closest('.sidebar-category') : null;
+    }
+    saveState(state);
+  }
+
+  function updateActiveLink() {
+    var path = window.location.pathname;
+    if (path.length > 1 && path.endsWith('/')) {
+      path = path.slice(0, -1);
+    }
+
+    var links = document.querySelectorAll('.sidebar-link[data-path]');
+    var found = false;
+    links.forEach(function(link) {
+      var linkPath = link.getAttribute('data-path');
+      if (linkPath && linkPath.length > 1 && linkPath.endsWith('/')) {
+        linkPath = linkPath.slice(0, -1);
+      }
+
+      if (linkPath === path) {
+        link.classList.add('active');
+        expandParents(link);
+        found = true;
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  // SPA navigation detection
+  var _pushState = history.pushState;
+  var _replaceState = history.replaceState;
+
+  history.pushState = function() {
+    _pushState.apply(history, arguments);
+    window.dispatchEvent(new Event('docudart-navigate'));
+  };
+
+  history.replaceState = function() {
+    _replaceState.apply(history, arguments);
+    window.dispatchEvent(new Event('docudart-navigate'));
+  };
+
+  window.addEventListener('popstate', function() {
+    setTimeout(updateActiveLink, 50);
+  });
+
+  window.addEventListener('docudart-navigate', function() {
+    setTimeout(updateActiveLink, 50);
+  });
+
+  // MutationObserver: re-apply if Jaspr re-renders sidebar
+  function startObserver() {
+    var sidebar = document.querySelector('.sidebar');
+    if (!sidebar) return;
+    var observer = new MutationObserver(function() {
+      updateActiveLink();
+    });
+    observer.observe(sidebar, { childList: true, subtree: true });
+  }
+
+  function init() {
+    initCollapse();
+    updateActiveLink();
+    startObserver();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();
 ''';
