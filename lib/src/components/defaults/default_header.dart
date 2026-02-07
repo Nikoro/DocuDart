@@ -1,15 +1,18 @@
 import 'package:docudart/docudart.dart';
 
-/// Default header component with site title, navigation links, and theme toggle.
+/// Default header component with site title, navigation links, and optional
+/// leading/trailing component slots.
 class DefaultHeader extends StatelessComponent {
   final String title;
   final List<NavLink> navLinks;
-  final bool showThemeToggle;
+  final Component? leading;
+  final Component? trailing;
 
   const DefaultHeader({
     required this.title,
     this.navLinks = const [],
-    this.showThemeToggle = true,
+    this.leading,
+    this.trailing,
     super.key,
   });
 
@@ -17,6 +20,7 @@ class DefaultHeader extends StatelessComponent {
   Component build(BuildContext context) {
     return header(classes: 'site-header', [
       div(classes: 'header-content', [
+        ?leading,
         a(href: '/', classes: 'site-title', [.text(title)]),
         nav(classes: 'header-nav', [
           for (final link in navLinks)
@@ -32,15 +36,7 @@ class DefaultHeader extends StatelessComponent {
                 if (link.label != null) .text(link.label!),
               ],
             ),
-          if (showThemeToggle)
-            button(
-              classes: 'theme-toggle',
-              attributes: {
-                'aria-label': 'Toggle dark mode',
-                'title': 'Toggle dark mode',
-              },
-              [span(classes: 'theme-toggle-icon', [.text('\u263E')])],
-            ),
+          ?trailing,
         ]),
       ]),
     ]);

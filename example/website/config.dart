@@ -20,11 +20,15 @@ Config get config => Config(
 
   // Header, footer, and sidebar are components.
   // Set to null to hide any section.
-  header: (context) => Header(title: 'example_project', [
-    .path('/docs', label: 'Docs', icon: Icons.docs),
-    .url('https://github.com', label: 'GitHub', icon: Icons.github),
-    .url('https://pub.dev', label: 'pub.dev', icon: Icons.dart),
-  ]),
+  header: (context) => Header(
+    title: 'example_project',
+    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
+    [
+      .path('/docs', label: 'Docs', icon: Icons.docs),
+      .url('https://github.com', label: 'GitHub', icon: Icons.github),
+      .url('https://pub.dev', label: 'pub.dev', icon: Icons.dart),
+    ],
+  ),
   footer: (context) => Footer(),
   sidebar: (context) => Sidebar(items: context.docs),
 );

@@ -181,18 +181,20 @@ import 'package:docudart/docudart.dart';
 ///
 /// Customize this component to change the header layout.
 /// The [DefaultHeader] provides a standard header with title, nav links,
-/// and optional theme toggle.
+/// and optional leading/trailing component slots.
 class Header extends StatelessComponent {
-  const Header(this.navLinks, {required this.title, super.key});
+  const Header(this.navLinks, {required this.title, this.trailing, super.key});
 
   final String title;
   final List<NavLink> navLinks;
+  final Component? trailing;
 
   @override
   Component build(BuildContext context) {
     return DefaultHeader(
       title: title,
       navLinks: navLinks,
+      trailing: trailing,
     );
   }
 }
@@ -271,11 +273,15 @@ Config get config => Config(
 
   // Header, footer, and sidebar are components.
   // Set to null to hide any section.
-  header: (context) => Header(title: '$title', [
-    .path('/docs', label: 'Docs', icon: Icons.docs),
-    .url('https://github.com', label: 'GitHub', icon: Icons.github),
-    .url('https://pub.dev', label: 'pub.dev', icon: Icons.dart),
-  ]),
+  header: (context) => Header(
+    title: '$title',
+    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
+    [
+      .path('/docs', label: 'Docs', icon: Icons.docs),
+      .url('https://github.com', label: 'GitHub', icon: Icons.github),
+      .url('https://pub.dev', label: 'pub.dev', icon: Icons.dart),
+    ],
+  ),
   footer: (context) => Footer(),
   sidebar: (context) => Sidebar(items: context.docs),
 );

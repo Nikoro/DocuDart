@@ -1239,9 +1239,32 @@ body {
   color: var(--color-primary);
 }
 
-.theme-toggle-icon {
-  font-size: 1.125rem;
-  line-height: 1;
+.theme-toggle-light,
+.theme-toggle-dark {
+  display: inline-flex;
+  align-items: center;
+  width: 1.125em;
+  height: 1.125em;
+}
+
+.theme-toggle-light svg,
+.theme-toggle-dark svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* Default: light icon visible, dark icon hidden */
+.theme-toggle-dark { display: none; }
+
+/* Dark mode via attribute */
+:root[data-theme="dark"] .theme-toggle-dark { display: inline-flex; }
+:root[data-theme="dark"] .theme-toggle-light { display: none; }
+
+/* Dark mode via system preference (no explicit toggle yet) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle-dark { display: inline-flex; }
+  :root:not([data-theme="light"]) .theme-toggle-light { display: none; }
 }
 ''';
 
@@ -1343,36 +1366,7 @@ body {
     var next = isDark ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('docudart-theme', next);
-
-    // Update icon
-    var icon = btn.querySelector('.theme-toggle-icon');
-    if (icon) icon.textContent = isDark ? '\\u2600' : '\\u263E';
   });
-
-  // Set initial icon based on current theme
-  function updateIcon() {
-    var btn = document.querySelector('.theme-toggle');
-    if (!btn) return;
-    var icon = btn.querySelector('.theme-toggle-icon');
-    if (!icon) return;
-
-    var theme = document.documentElement.getAttribute('data-theme');
-    var isDark;
-    if (theme === 'dark') {
-      isDark = true;
-    } else if (theme === 'light') {
-      isDark = false;
-    } else {
-      isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    icon.textContent = isDark ? '\\u2600' : '\\u263E';
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateIcon);
-  } else {
-    updateIcon();
-  }
 })();
 
 // Sidebar: collapsible categories + active link highlighting
