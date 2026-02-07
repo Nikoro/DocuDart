@@ -127,7 +127,7 @@ user-project/
   lib/                   # User's own code
   website/               # Created by docudart init
     pubspec.yaml         # Depends on docudart (path dependency)
-    config.dart          # Config instance with header/footer/sidebar functions
+    config.dart          # Config getter with header/footer/sidebar functions
     docs/                # Markdown documentation files
       index.md
       getting-started.md
@@ -193,10 +193,12 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - Accepts optional `websiteDir` parameter (defaults to cwd)
 - `generate({bool fullClean = true})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
 - Adds `docudart` as path dependency in managed project's pubspec
-- Copies `config.dart` and `components/` into managed project's `lib/`
+- Copies `config.dart`, `components/`, and `pages/` into managed project's `lib/`
+- If `pages/landing_page.dart` exists, uses user's `LandingPage`; otherwise generates a default `HomePage`
 - Generates `site_context_data.dart` with auto-generated sidebar items
 - Generates `layout.dart` that calls `config.header/footer/sidebar` functions
-- If a function is null, that section is simply not rendered
+- Injects `config.themeMode` into generated `theme.js` as `forcedMode` (overrides localStorage when set to light/dark)
+- If a layout function is null, that section is simply not rendered
 
 ### PackageResolver (lib/src/core/package_resolver.dart)
 Resolves the docudart package installation path using `Isolate.resolvePackageUri`.
@@ -242,7 +244,7 @@ Flutter docs style theme with:
 1. `WorkspaceResolver.resolve()` finds `website/` directory
 2. `ConfigLoader.load(websiteDir)` loads config with absolute paths
 3. `SiteGenerator(config, websiteDir: websiteDir).generate()`:
-   - Copies config.dart + components/ into managed project
+   - Copies config.dart + components/ + pages/ into managed project
    - Generates site_context_data.dart with sidebar items
    - Generates layout.dart that delegates to config functions
 4. Runs `dart run jaspr build` in `website/.dart_tool/docudart/`
@@ -273,13 +275,13 @@ Flutter docs style theme with:
 The managed Jaspr site is generated in `SiteGenerator`:
 - `_generatePubspec()` - pubspec.yaml (includes docudart path dep)
 - `_generateMain()` - lib/main.server.dart, lib/main.client.dart
-- `_copyUserFiles()` - copies config.dart + components/ into lib/
+- `_copyUserFiles()` - copies config.dart + components/ + pages/ into lib/
 - `_generateSiteContextData()` - lib/site_context_data.dart
 - `_generateLayout()` - lib/layout.dart (calls config.header/footer/sidebar)
 - `_generateApp()` - lib/app.dart with Router
-- `_generatePages()` - lib/pages/*.dart
+- `_generatePages()` - lib/pages/*.dart (uses user's LandingPage if exists, otherwise generates HomePage)
 - `_generateDocsPageContent()` - lib/docs_page_content.dart
-- `_generateStyles()` - web/styles.css + web/theme.js
+- `_generateStyles()` - web/styles.css + web/theme.js (injects config.themeMode as forcedMode)
 
 ### Adding a Built-in Component
 1. Create `lib/src/components/built_in/my_component.dart`
@@ -396,7 +398,7 @@ Use `headless: true` for automated checks. Key things to verify:
 - Generated Jaspr project lives in `website/.dart_tool/docudart/` and also has docudart as a path dependency
 - ConfigLoader absolutizes directory paths relative to the website directory
 - Clean URLs by default (`/docs/intro/` not `/docs/intro.html`)
-- Theme mode (system/light/dark) via `themeMode` field; theme toggle always included in CSS/JS
+- Theme mode (system/light/dark) via `themeMode` field — injected into `theme.js` as `forcedMode`; when set to light/dark it overrides localStorage; toggle still works for user override
 - WorkspaceResolver supports backward compatibility with old flat structure
 - **Dart hot reload caveat**: Top-level `final` variables are NOT re-evaluated on hot reload — that's why `config.dart` uses a getter (`Config get config =>`) instead of `final config =`
 - `DocuDartFileWatcher` watches: docs/, assets/, config.dart (FileWatcher), components/, pages/; uses debounce + pending-regeneration queue to handle rapid edits

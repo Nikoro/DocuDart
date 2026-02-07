@@ -1,5 +1,7 @@
 import 'package:docudart/docudart.dart';
 
+import '../config.dart';
+
 /// Site footer component.
 ///
 /// Customize this component to change the footer layout.
@@ -9,8 +11,7 @@ class Footer extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return DefaultFooter(
-      text: '© 2026 example_project',
-    );
+    final year = DateTime.now().year;
+    return DefaultFooter(text: '© $year ${config.title}');
   }
 }

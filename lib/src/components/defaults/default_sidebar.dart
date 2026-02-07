@@ -1,7 +1,4 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' show aside, nav, a, span, ul, li;
-
-import '../../routing/sidebar_generator.dart';
+import 'package:docudart/docudart.dart';
 
 /// Default sidebar component that renders doc navigation items.
 class DefaultSidebar extends StatelessComponent {

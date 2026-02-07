@@ -14,7 +14,8 @@ class Header extends StatelessComponent {
       title: 'example_project',
       navLinks: [
         NavLink.internal(title: 'Docs', path: '/docs'),
-        // NavLink.external(title: 'GitHub', url: 'https://github.com/...'),
+        NavLink.external(title: 'GitHub', url: 'https://github.com'),
+        NavLink.external(title: 'pub.dev', url: 'https://pub.dev'),
       ],
       showThemeToggle: true,
     );

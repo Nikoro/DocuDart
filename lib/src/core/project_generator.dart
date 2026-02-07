@@ -165,7 +165,8 @@ class Header extends StatelessComponent {
       title: '$title',
       navLinks: [
         NavLink.internal(title: 'Docs', path: '/docs'),
-        // NavLink.external(title: 'GitHub', url: 'https://github.com/...'),
+        NavLink.external(title: 'GitHub', url: 'https://github.com'),
+        NavLink.external(title: 'pub.dev', url: 'https://pub.dev'),
       ],
       showThemeToggle: true,
     );
@@ -177,6 +178,8 @@ class Header extends StatelessComponent {
     await File(p.join(componentsDir, 'footer.dart')).writeAsString('''
 import 'package:docudart/docudart.dart';
 
+import '../config.dart';
+
 /// Site footer component.
 ///
 /// Customize this component to change the footer layout.
@@ -186,9 +189,8 @@ class Footer extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return DefaultFooter(
-      text: '\u00a9 ${DateTime.now().year} $title',
-    );
+    final year = DateTime.now().year;
+    return DefaultFooter(text: '© \$year \${config.title}');
   }
 }
 ''');
@@ -258,37 +260,25 @@ Config get config => Config(
         '''
 import 'package:docudart/docudart.dart';
 
+import '../config.dart';
+
 /// Landing page component.
 class LandingPage extends StatelessComponent {
   const LandingPage({super.key});
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'landing-page',
-      [
-        div(
-          classes: 'hero',
-          [
-            h1([.text('$title')]),
-            p(
-              classes: 'hero-description',
-              [.text('$description')],
-            ),
-            div(
-              classes: 'hero-actions',
-              [
-                a(
-                  href: '/docs',
-                  classes: 'button button-primary',
-                  [.text('Get Started')],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
+    final title = config.title;
+    final description = config.description;
+    return div(classes: 'landing-page', [
+      div(classes: 'hero', [
+        if (title != null) h1([.text(title)]),
+        if (description != null) p(classes: 'hero-description', [.text(description)]),
+        div(classes: 'hero-actions', [
+          a(href: '/docs', classes: 'button button-primary', [.text('Get Started')]),
+        ]),
+      ]),
+    ]);
   }
 }
 ''';

@@ -139,18 +139,32 @@ jaspr:
     }
 
     // Copy components/ directory
-    final componentsSrc = Directory(p.join(websiteDir, 'components'));
-    if (componentsSrc.existsSync()) {
-      final componentsTarget = Directory(p.join(libDir, 'components'));
-      await componentsTarget.create(recursive: true);
+    await _copyDirectory(
+      p.join(websiteDir, 'components'),
+      p.join(libDir, 'components'),
+    );
 
-      await for (final entity in componentsSrc.list(recursive: true)) {
-        if (entity is File) {
-          final relativePath = p.relative(entity.path, from: componentsSrc.path);
-          final targetPath = p.join(componentsTarget.path, relativePath);
-          await File(targetPath).parent.create(recursive: true);
-          await entity.copy(targetPath);
-        }
+    // Copy pages/ directory
+    await _copyDirectory(
+      p.join(websiteDir, 'pages'),
+      p.join(libDir, 'pages'),
+    );
+  }
+
+  /// Copy a directory recursively, creating target dirs as needed.
+  Future<void> _copyDirectory(String srcPath, String targetPath) async {
+    final srcDir = Directory(srcPath);
+    if (!srcDir.existsSync()) return;
+
+    final targetDir = Directory(targetPath);
+    await targetDir.create(recursive: true);
+
+    await for (final entity in srcDir.list(recursive: true)) {
+      if (entity is File) {
+        final relativePath = p.relative(entity.path, from: srcPath);
+        final dest = p.join(targetPath, relativePath);
+        await File(dest).parent.create(recursive: true);
+        await entity.copy(dest);
       }
     }
   }
@@ -344,12 +358,13 @@ ClientOptions get defaultClientOptions => ClientOptions();
     final routesBuffer = StringBuffer();
 
     // Home route (no sidebar for landing page)
+    final homeComponent = _hasCustomLandingPage ? 'LandingPage' : 'HomePage';
     routesBuffer.writeln('''
         Route(
           path: '/',
           builder: (context, state) => const Layout(
             showSidebar: false,
-            child: HomePage(),
+            child: $homeComponent(),
           ),
         ),''');
 
@@ -370,6 +385,10 @@ ClientOptions get defaultClientOptions => ClientOptions();
         ),''');
     }
 
+    final homeImport = _hasCustomLandingPage
+        ? "import 'pages/landing_page.dart';"
+        : "import 'pages/home_page.dart';";
+
     final app =
         '''
 import 'package:jaspr/jaspr.dart';
@@ -377,7 +396,7 @@ import 'package:jaspr/dom.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 import 'layout.dart';
 import 'docs_page_content.dart';
-import 'pages/home_page.dart';
+$homeImport
 
 class DocuDartApp extends StatelessComponent {
   const DocuDartApp({super.key});
@@ -408,16 +427,23 @@ ${routesBuffer.toString()}
     }
   }
 
+  /// Check if the user has a custom landing page.
+  bool get _hasCustomLandingPage {
+    return File(p.join(websiteDir, 'pages', 'landing_page.dart')).existsSync();
+  }
+
   Future<void> _generatePages() async {
     final pagesDir = p.join(managedDir, 'lib', 'pages');
     await Directory(pagesDir).create(recursive: true);
 
-    // Home page
-    final title = config.title ?? 'Documentation';
-    final description = config.description ?? 'Welcome to the documentation';
+    // If user has a custom landing page, it was already copied by _copyUserFiles.
+    // Only generate a default home page if no custom landing page exists.
+    if (!_hasCustomLandingPage) {
+      final title = config.title ?? 'Documentation';
+      final description = config.description ?? 'Welcome to the documentation';
 
-    final homePage =
-        '''
+      final homePage =
+          '''
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 
@@ -451,7 +477,8 @@ class HomePage extends StatelessComponent {
   }
 }
 ''';
-    await File(p.join(pagesDir, 'home_page.dart')).writeAsString(homePage);
+      await File(p.join(pagesDir, 'home_page.dart')).writeAsString(homePage);
+    }
   }
 
   Future<void> _generateDocsPageContent() async {
@@ -735,6 +762,22 @@ body {
   margin: 0 auto;
   text-align: center;
   color: var(--color-text-muted);
+}
+
+.built-with {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+}
+
+.built-with a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.built-with a:hover {
+  text-decoration: underline;
 }
 
 /* Hero */
@@ -1245,11 +1288,20 @@ body {
   }
 
   Future<void> _generateThemeScript(String webDir) async {
+    final mode = config.themeMode.name; // 'system', 'light', or 'dark'
+
     final themeScript = '''
 (function() {
-  var stored = localStorage.getItem('docudart-theme');
-  if (stored) {
-    document.documentElement.setAttribute('data-theme', stored);
+  var forcedMode = '$mode'; // from config.themeMode
+
+  // Apply initial theme: forced mode overrides localStorage
+  if (forcedMode === 'light' || forcedMode === 'dark') {
+    document.documentElement.setAttribute('data-theme', forcedMode);
+  } else {
+    var stored = localStorage.getItem('docudart-theme');
+    if (stored) {
+      document.documentElement.setAttribute('data-theme', stored);
+    }
   }
 
   document.addEventListener('click', function(e) {

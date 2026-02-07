@@ -1,5 +1,4 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart';
+import 'package:docudart/docudart.dart';
 
 /// Default footer component with copyright text.
 class DefaultFooter extends StatelessComponent {
@@ -12,6 +11,12 @@ class DefaultFooter extends StatelessComponent {
     return footer(classes: 'site-footer', [
       div(classes: 'footer-content', [
         p([.text(text)]),
+        p(classes: 'built-with', [
+          .text('Built with '),
+          a(href: 'https://pub.dev/packages/docudart', target: Target.blank, [
+            .text('DocuDart'),
+          ]),
+        ]),
       ]),
     ]);
   }

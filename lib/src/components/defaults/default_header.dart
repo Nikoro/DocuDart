@@ -1,7 +1,4 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' show header, nav, a, span, div, button;
-
-import '../../config/nav_link.dart';
+import 'package:docudart/docudart.dart';
 
 /// Default header component with site title, navigation links, and theme toggle.
 class DefaultHeader extends StatelessComponent {

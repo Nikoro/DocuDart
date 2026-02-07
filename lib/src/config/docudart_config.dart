@@ -1,15 +1,4 @@
-import 'package:jaspr/jaspr.dart';
-
-import 'component_config.dart';
-import 'custom_page.dart';
-import 'site_context.dart';
-import 'theme_config.dart';
-import 'versioning_config.dart';
-import '../theme/base_theme.dart';
-import '../theme/default_theme.dart';
-import '../theme/theme_colors.dart';
-import '../theme/theme_typography.dart';
-import '../theme/theme_loader.dart';
+import 'package:docudart/docudart.dart';
 
 /// Main configuration class for DocuDart.
 class Config {
@@ -98,7 +87,7 @@ class Config {
     'themeMode': themeMode.toJson(),
     'components': components.toJson(),
     if (versioning != null) 'versioning': versioning!.toJson(),
-    'customPages': customPages.map((p) => p.toJson()).toList(),
+    'customPages': customPages.map((page) => page.toJson()).toList(),
   };
 
   factory Config.fromJson(Map<String, dynamic> json) {
