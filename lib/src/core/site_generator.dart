@@ -735,7 +735,7 @@ body {
 
 .sidebar-category-items {
   list-style: none;
-  padding: 0;
+  padding: 0 0 0 0.75rem;
   margin: 0;
   overflow: hidden;
   max-height: 2000px;
