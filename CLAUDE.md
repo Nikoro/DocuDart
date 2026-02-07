@@ -60,7 +60,7 @@ docudart/
 │       ├── config/                      # Configuration classes
 │       │   ├── docudart_config.dart     # Config class (has toJson/fromJson)
 │       │   ├── config_loader.dart       # Load config (evaluates config.dart, falls back to YAML)
-│       │   ├── config_evaluator.dart    # Subprocess evaluation of config.dart
+│       │   ├── config_evaluator.dart    # Text-based parsing of config.dart
 │       │   ├── nav_link.dart            # NavLink (internal/external navigation)
 │       │   ├── site_context.dart        # SiteContext (docs + pages passed to layout functions)
 │       │   ├── component_config.dart    # ComponentConfig
@@ -161,19 +161,21 @@ Config(
   outputDir: String,        // default: 'build/web' (absolutized by ConfigLoader)
   theme: BaseTheme,         // default: DefaultTheme()
   themeMode: ThemeMode,     // default: ThemeMode.system (system | light | dark)
+  home: Component Function(SiteContext)?,      // null = redirect '/' to '/docs'
   header: Component Function(SiteContext)?,   // null = no header
   footer: Component Function(SiteContext)?,   // null = no footer
   sidebar: Component Function(SiteContext)?,  // null = no sidebar
   // ...
 )
 ```
-- Header, footer, sidebar are nullable function fields returning Components
+- Home, header, footer, sidebar are nullable function fields returning Components
+- When `home` is set, `/` renders the home component (no sidebar); when null, `/` redirects to `/docs`
 - Functions receive a `SiteContext` with `docs` (sidebar items) and `pages` (custom pages)
 - `toJson()` skips function fields; `fromJson()` sets them to null
 - Not `const` (functions prevent const constructors)
 
 ### SiteContext (lib/src/config/site_context.dart)
-Context object passed to header/footer/sidebar builder functions.
+Context object passed to home/header/footer/sidebar builder functions.
 ```dart
 class SiteContext {
   final List<GeneratedSidebarItem> docs;  // auto-generated from docs/ folder
@@ -207,7 +209,7 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - `generate({bool fullClean = true})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
 - Adds `docudart` as path dependency in managed project's pubspec
 - Copies `config.dart`, `components/`, and `pages/` into managed project's `lib/`
-- If `pages/landing_page.dart` exists, uses user's `LandingPage`; otherwise generates a default `HomePage`
+- Home route uses `config.home` at runtime: if set, renders the home component; if null, redirects `/` to `/docs`
 - Generates `site_context_data.dart` with auto-generated sidebar items
 - Generates `layout.dart` that calls `config.header/footer/sidebar` functions
 - Injects `config.themeMode` into generated `theme.js` as `forcedMode` (overrides localStorage when set to light/dark)
@@ -225,19 +227,19 @@ Auto-detects the website directory for build/serve commands.
 
 ### ConfigLoader (lib/src/config/config_loader.dart)
 Loads configuration with a two-step strategy:
-1. **First**: Tries to evaluate `config.dart` via `ConfigEvaluator` (subprocess that runs a temp Dart script)
+1. **First**: Tries to parse `config.dart` via `ConfigEvaluator` (text-based regex parsing)
 2. **Fallback**: If that fails, reads `pubspec.yaml` + `docudart.yaml` (YAML-based)
 - **Important**: Absolutizes directory paths (docsDir, outputDir, assetsDir) relative to the loaded directory
-- Function fields (header/footer/sidebar) cannot be serialized — they're always null from ConfigEvaluator
+- Function fields (home/header/footer/sidebar) are not extractable from text parsing — they're always null from ConfigEvaluator
 - The managed Jaspr project imports config.dart directly to access function fields
 
 ### ConfigEvaluator (lib/src/config/config_evaluator.dart)
-Evaluates the user's `config.dart` by running a temporary Dart script as a subprocess.
-- Generates a script at `website/.dart_tool/docudart_config_extract.dart`
-- Script imports `config.dart`, calls `config.toJson()`, prints JSON to stdout
-- CLI parses the JSON output → `Config.fromJson()` (functions are null)
-- Cleans up the temp script after execution
-- Returns `null` on failure (ConfigLoader falls back to YAML)
+Parses serializable fields from `config.dart` by reading it as text (no subprocess).
+- Reads `config.dart` as a string and extracts fields with regex
+- Extracts: title, description, logo, docsDir, pagesDir, assetsDir, outputDir, baseUrl, cleanUrls, themeMode, primaryColor
+- Skips commented lines for primaryColor extraction
+- Returns `null` if config.dart doesn't exist or parsing fails (ConfigLoader falls back to YAML)
+- **Why text-based?** Running config.dart as a subprocess fails because it imports `package:docudart` and user components that aren't resolvable in the CLI context
 
 ### DefaultTheme (lib/src/theme/default_theme.dart)
 Flutter docs style theme with:
@@ -291,8 +293,8 @@ The managed Jaspr site is generated in `SiteGenerator`:
 - `_copyUserFiles()` - copies config.dart + components/ + pages/ into lib/
 - `_generateSiteContextData()` - lib/site_context_data.dart
 - `_generateLayout()` - lib/layout.dart (calls config.header/footer/sidebar)
-- `_generateApp()` - lib/app.dart with Router
-- `_generatePages()` - lib/pages/*.dart (uses user's LandingPage if exists, otherwise generates HomePage)
+- `_generateApp()` - lib/app.dart with Router (home route uses config.home at runtime)
+- `_generatePages()` - lib/pages/ directory (user pages copied by _copyUserFiles)
 - `_generateDocsPageContent()` - lib/docs_page_content.dart
 - `_generateStyles()` - web/styles.css (includes collapsible sidebar CSS with chevron + transitions)
 - `_generateThemeScript()` - web/theme.js (theme toggle + sidebar collapse/expand + active link highlighting)
@@ -305,8 +307,8 @@ The managed Jaspr site is generated in `SiteGenerator`:
 ## Code Patterns
 
 ### Config with Serialization Boundary
-Config classes have `toJson()` and `fromJson()` for subprocess evaluation.
-Function fields (header/footer/sidebar) cannot be serialized — they're skipped in `toJson()` and set to null in `fromJson()`. The managed project imports config.dart directly to access them.
+Config classes have `toJson()` and `fromJson()` for serialization.
+Function fields (home/header/footer/sidebar) cannot be serialized — they're skipped in `toJson()` and set to null in `fromJson()`. The managed project imports config.dart directly to access them.
 
 ### Command Pattern (with WorkspaceResolver)
 ```dart
@@ -407,8 +409,8 @@ Use `headless: true` for automated checks. Key things to verify:
 - `docudart` re-exports `package:jaspr/jaspr.dart` — users never import jaspr directly
 - User's config is `config.dart` (Dart, not YAML) for IntelliSense and type safety
 - `config.dart` must export a top-level getter `Config get config => Config(...)` (convention enforced by ProjectGenerator — getter is required for hot reload to work)
-- `ConfigLoader` evaluates `config.dart` via subprocess (`ConfigEvaluator`), falling back to YAML if it fails
-- Function fields (header/footer/sidebar) cannot cross the subprocess boundary — managed project imports config.dart directly
+- `ConfigLoader` parses `config.dart` via text-based regex (`ConfigEvaluator`), falling back to YAML if it fails
+- Function fields (home/header/footer/sidebar) cannot be extracted from text parsing — managed project imports config.dart directly
 - All generated user files import `package:docudart/docudart.dart`
 - `website/pubspec.yaml` uses a path dependency to docudart
 - Generated Jaspr project lives in `website/.dart_tool/docudart/` and also has docudart as a path dependency

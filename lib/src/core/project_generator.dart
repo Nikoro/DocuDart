@@ -251,6 +251,7 @@ import 'package:docudart/docudart.dart';
 import 'components/header.dart';
 import 'components/footer.dart';
 import 'components/sidebar.dart';
+import 'pages/landing_page.dart';
 
 Config get config => Config(
   title: '$title',
@@ -261,6 +262,9 @@ Config get config => Config(
   theme: DefaultTheme(
     // primaryColor: 0xFF0175C2, // Uncomment to customize primary color
   ),
+
+  // Home page component. Set to null to redirect '/' to '/docs'.
+  home: (context) => LandingPage(),
 
   // Header, footer, and sidebar are components.
   // Set to null to hide any section.

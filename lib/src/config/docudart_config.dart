@@ -53,6 +53,9 @@ class Config {
   /// Sidebar builder function. If null, no sidebar is rendered.
   final Component Function(SiteContext context)? sidebar;
 
+  /// Home page builder function. If null, '/' redirects to '/docs'.
+  final Component Function(SiteContext context)? home;
+
   Config({
     this.title,
     this.description,
@@ -71,6 +74,7 @@ class Config {
     this.header,
     this.footer,
     this.sidebar,
+    this.home,
   }) : theme = theme ?? const DefaultTheme();
 
   Map<String, dynamic> toJson() => {
@@ -162,6 +166,7 @@ class Config {
     Component Function(SiteContext context)? header,
     Component Function(SiteContext context)? footer,
     Component Function(SiteContext context)? sidebar,
+    Component Function(SiteContext context)? home,
   }) {
     return Config(
       title: title ?? this.title,
@@ -181,6 +186,7 @@ class Config {
       header: header ?? this.header,
       footer: footer ?? this.footer,
       sidebar: sidebar ?? this.sidebar,
+      home: home ?? this.home,
     );
   }
 }

@@ -360,16 +360,21 @@ ClientOptions get defaultClientOptions => ClientOptions();
     // Generate routes for all pages
     final routesBuffer = StringBuffer();
 
-    // Home route (no sidebar for landing page)
-    final homeComponent = _hasCustomLandingPage ? 'LandingPage' : 'HomePage';
+    // Home route: if config.home is set, render it; otherwise redirect to /docs
     routesBuffer.writeln('''
-        Route(
-          path: '/',
-          builder: (context, state) => const Layout(
-            showSidebar: false,
-            child: $homeComponent(),
-          ),
-        ),''');
+        if (config.home != null)
+          Route(
+            path: '/',
+            builder: (context, state) => Layout(
+              showSidebar: false,
+              child: config.home!(siteContext),
+            ),
+          )
+        else
+          Route(
+            path: '/',
+            redirect: (_, _) => '/docs',
+          ),''');
 
     // Generate a route for each doc page
     for (final page in pages) {
@@ -388,18 +393,15 @@ ClientOptions get defaultClientOptions => ClientOptions();
         ),''');
     }
 
-    final homeImport = _hasCustomLandingPage
-        ? "import 'pages/landing_page.dart';"
-        : "import 'pages/home_page.dart';";
-
     final app =
         '''
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr_router/jaspr_router.dart';
+import 'config.dart';
+import 'site_context_data.dart';
 import 'layout.dart';
 import 'docs_page_content.dart';
-$homeImport
 
 class DocuDartApp extends StatelessComponent {
   const DocuDartApp({super.key});
@@ -430,58 +432,10 @@ ${routesBuffer.toString()}
     }
   }
 
-  /// Check if the user has a custom landing page.
-  bool get _hasCustomLandingPage {
-    return File(p.join(websiteDir, 'pages', 'landing_page.dart')).existsSync();
-  }
-
   Future<void> _generatePages() async {
     final pagesDir = p.join(managedDir, 'lib', 'pages');
     await Directory(pagesDir).create(recursive: true);
-
-    // If user has a custom landing page, it was already copied by _copyUserFiles.
-    // Only generate a default home page if no custom landing page exists.
-    if (!_hasCustomLandingPage) {
-      final title = config.title ?? 'Documentation';
-      final description = config.description ?? 'Welcome to the documentation';
-
-      final homePage =
-          '''
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart';
-
-class HomePage extends StatelessComponent {
-  const HomePage({super.key});
-
-  @override
-  Component build(BuildContext context) {
-    return div(
-      classes: 'home-page',
-      [
-        div(
-          classes: 'hero',
-          [
-            h1([.text('$title')]),
-            p(classes: 'hero-description', [.text('$description')]),
-            div(
-              classes: 'hero-actions',
-              [
-                a(
-                  href: '/docs',
-                  classes: 'button button-primary',
-                  [.text('Get Started')],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-''';
-      await File(p.join(pagesDir, 'home_page.dart')).writeAsString(homePage);
-    }
+    // User pages (landing_page.dart, etc.) are copied by _copyUserFiles()
   }
 
   Future<void> _generateDocsPageContent() async {
