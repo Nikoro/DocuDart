@@ -72,9 +72,7 @@ class SiteGenerator {
     await _generateSiteContextData(defaultSidebarItems);
     await _generateLayout();
     await _generateApp(allPages, versionManager);
-    await _generateStyles(
-      includeVersionSwitcher: versionManager.isEnabled,
-    );
+    await _generateStyles(includeVersionSwitcher: versionManager.isEnabled);
     await _generateWebFiles();
     await _copyAssets();
 
@@ -101,7 +99,8 @@ class SiteGenerator {
   Future<void> _generatePubspec() async {
     final docudartRelPath = await PackageResolver.relativePathTo(managedDir);
 
-    final pubspec = '''
+    final pubspec =
+        '''
 name: docudart_site
 description: Generated DocuDart site
 version: 0.0.1
@@ -145,10 +144,7 @@ jaspr:
     );
 
     // Copy pages/ directory
-    await _copyDirectory(
-      p.join(websiteDir, 'pages'),
-      p.join(libDir, 'pages'),
-    );
+    await _copyDirectory(p.join(websiteDir, 'pages'), p.join(libDir, 'pages'));
 
     // Copy other root-level .dart files (e.g. icons.dart)
     final websiteDirEntity = Directory(websiteDir);
@@ -179,7 +175,6 @@ jaspr:
     }
   }
 
-
   /// Generate site_context_data.dart with sidebar items and custom pages.
   Future<void> _generateSiteContextData(
     List<GeneratedSidebarItem> sidebarItems,
@@ -199,7 +194,9 @@ jaspr:
     buffer.writeln('  pages: [');
 
     for (final page in config.customPages) {
-      buffer.writeln("    CustomPage(path: '${_escapeForDart(page.path)}', filePath: '${_escapeForDart(page.filePath)}'),");
+      buffer.writeln(
+        "    CustomPage(path: '${_escapeForDart(page.path)}', filePath: '${_escapeForDart(page.filePath)}'),",
+      );
     }
 
     buffer.writeln('  ],');
@@ -493,9 +490,7 @@ class DocsPageContent extends StatelessComponent {
         .replaceAll('\n', '\\n');
   }
 
-  Future<void> _generateStyles({
-    bool includeVersionSwitcher = false,
-  }) async {
+  Future<void> _generateStyles({bool includeVersionSwitcher = false}) async {
     final colors = config.theme.colors;
     final typography = config.theme.typography;
 
@@ -641,8 +636,8 @@ body {
 .nav-link-icon {
   display: inline-flex;
   align-items: center;
-  width: 1.125em;
-  height: 1.125em;
+  width: 1.25em;
+  height: 1.25em;
 }
 
 .nav-link-icon svg {
@@ -1220,22 +1215,19 @@ body {
 /* ========== Theme Toggle ========== */
 
 .theme-toggle {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
   padding: 0;
-  border: 1px solid var(--color-border);
-  border-radius: 0.375rem;
-  background-color: var(--color-surface);
-  color: var(--color-text);
+  border: none;
+  background: none;
+  color: var(--color-text-muted);
   cursor: pointer;
-  transition: all 0.15s;
+  transition: color 0.2s;
+  font-size: 1em;
 }
 
 .theme-toggle:hover {
-  border-color: var(--color-primary);
   color: var(--color-primary);
 }
 
@@ -1243,8 +1235,8 @@ body {
 .theme-toggle-dark {
   display: inline-flex;
   align-items: center;
-  width: 1.125em;
-  height: 1.125em;
+  width: 1.375em;
+  height: 1.375em;
 }
 
 .theme-toggle-light svg,
@@ -1335,7 +1327,8 @@ body {
   Future<void> _generateThemeScript(String webDir) async {
     final mode = config.themeMode.name; // 'system', 'light', or 'dark'
 
-    final themeScript = '''
+    final themeScript =
+        '''
 (function() {
   var forcedMode = '$mode'; // from config.themeMode
 
@@ -1537,20 +1530,22 @@ body {
   String _buildFaviconLinks() {
     final buffer = StringBuffer();
     if (_hasFavicon('favicon.ico')) {
-      buffer.writeln(
-          "      link(rel: 'icon', href: '/favicon.ico'),");
+      buffer.writeln("      link(rel: 'icon', href: '/favicon.ico'),");
     }
     if (_hasFavicon('favicon-32x32.png')) {
       buffer.writeln(
-          "      link(rel: 'icon', type: 'image/png', href: '/favicon-32x32.png', attributes: {'sizes': '32x32'}),");
+        "      link(rel: 'icon', type: 'image/png', href: '/favicon-32x32.png', attributes: {'sizes': '32x32'}),",
+      );
     }
     if (_hasFavicon('favicon-16x16.png')) {
       buffer.writeln(
-          "      link(rel: 'icon', type: 'image/png', href: '/favicon-16x16.png', attributes: {'sizes': '16x16'}),");
+        "      link(rel: 'icon', type: 'image/png', href: '/favicon-16x16.png', attributes: {'sizes': '16x16'}),",
+      );
     }
     if (_hasFavicon('apple-touch-icon.png')) {
       buffer.writeln(
-          "      link(rel: 'apple-touch-icon', href: '/apple-touch-icon.png', attributes: {'sizes': '180x180'}),");
+        "      link(rel: 'apple-touch-icon', href: '/apple-touch-icon.png', attributes: {'sizes': '180x180'}),",
+      );
     }
     return buffer.toString();
   }

@@ -28,7 +28,8 @@ class ComponentConfig {
       ComponentConfig(
         autoDiscover: json['autoDiscover'] as bool? ?? true,
         componentsDir: json['componentsDir'] as String? ?? 'components',
-        register: (json['register'] as List<dynamic>?)
+        register:
+            (json['register'] as List<dynamic>?)
                 ?.map(
                   (e) =>
                       ComponentRegistration.fromJson(e as Map<String, dynamic>),

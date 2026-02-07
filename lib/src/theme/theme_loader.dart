@@ -25,10 +25,7 @@ class CustomTheme extends BaseTheme {
   });
 
   @override
-  Map<String, dynamic> toJson() => {
-    ...super.toJson(),
-    'type': 'custom',
-  };
+  Map<String, dynamic> toJson() => {...super.toJson(), 'type': 'custom'};
 }
 
 /// Loads custom themes from YAML files.
@@ -134,11 +131,7 @@ class ThemeLoader {
           (typographyYaml['headingLineHeight'] as num?)?.toDouble() ?? 1.3,
     );
 
-    return CustomTheme(
-      name: name,
-      colors: colors,
-      typography: typography,
-    );
+    return CustomTheme(name: name, colors: colors, typography: typography);
   }
 
   /// Parse a color value from string or int.

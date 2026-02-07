@@ -110,14 +110,15 @@ class Config {
           ? ThemeMode.fromJson(json['themeMode'] as String)
           : ThemeMode.system,
       components: json['components'] != null
-          ? ComponentConfig.fromJson(
-              json['components'] as Map<String, dynamic>)
+          ? ComponentConfig.fromJson(json['components'] as Map<String, dynamic>)
           : const ComponentConfig(),
       versioning: json['versioning'] != null
           ? VersioningConfig.fromJson(
-              json['versioning'] as Map<String, dynamic>)
+              json['versioning'] as Map<String, dynamic>,
+            )
           : null,
-      customPages: (json['customPages'] as List<dynamic>?)
+      customPages:
+          (json['customPages'] as List<dynamic>?)
               ?.map((e) => CustomPage.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
@@ -129,9 +130,7 @@ class Config {
 
     final type = json['type'] as String?;
     if (type == 'default') {
-      return DefaultTheme(
-        primaryColor: json['primaryColor'] as int?,
-      );
+      return DefaultTheme(primaryColor: json['primaryColor'] as int?);
     }
 
     // Reconstruct as CustomTheme for any other type
@@ -141,8 +140,7 @@ class Config {
           ? ThemeColors.fromJson(json['colors'] as Map<String, dynamic>)
           : const DefaultTheme().colors,
       typography: json['typography'] != null
-          ? ThemeTypography.fromJson(
-              json['typography'] as Map<String, dynamic>)
+          ? ThemeTypography.fromJson(json['typography'] as Map<String, dynamic>)
           : const ThemeTypography(),
     );
   }

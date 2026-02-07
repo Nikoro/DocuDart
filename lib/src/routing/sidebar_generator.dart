@@ -64,9 +64,7 @@ class GeneratedSidebarItem {
 /// Generates sidebar structure from documentation pages.
 class SidebarGenerator {
   /// Generate sidebar items from the docs folder structure.
-  static List<GeneratedSidebarItem> generate({
-    required DocFolder rootFolder,
-  }) {
+  static List<GeneratedSidebarItem> generate({required DocFolder rootFolder}) {
     return _generateFromFolder(rootFolder, 0);
   }
 
@@ -99,7 +97,8 @@ class SidebarGenerator {
           GeneratedSidebarItem.category(
             title: subfolder.name,
             children: children,
-            collapsed: !subfolder.expanded, // All collapsed unless _expanded suffix
+            collapsed:
+                !subfolder.expanded, // All collapsed unless _expanded suffix
             depth: depth,
           ),
         );

@@ -14,10 +14,6 @@ class Header extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return DefaultHeader(
-      title: title,
-      navLinks: navLinks,
-      trailing: trailing,
-    );
+    return DefaultHeader(title: title, navLinks: navLinks, trailing: trailing);
   }
 }

@@ -381,8 +381,7 @@ abstract class Icons {
     String title,
     String description,
   ) async {
-    final landingContent =
-        '''
+    final landingContent = '''
 import 'package:docudart/docudart.dart';
 
 import '../config.dart';
@@ -556,17 +555,16 @@ Run `docudart build` to generate static files.
 Run `docudart serve` to start a local development server with hot reload.
 ''',
     );
-
   }
 
   /// Generate example subfolders for the full template.
   /// Showcases the `_expanded` suffix and deeply nested categories.
   Future<void> _generateFullTemplateSubfolders(String websiteDir) async {
-      // Guides folder — uses _expanded suffix so it starts open in the sidebar
-      final guidesDir = p.join(websiteDir, 'docs', '01-guides_expanded');
-      await Directory(guidesDir).create(recursive: true);
+    // Guides folder — uses _expanded suffix so it starts open in the sidebar
+    final guidesDir = p.join(websiteDir, 'docs', '01-guides_expanded');
+    await Directory(guidesDir).create(recursive: true);
 
-      await File(p.join(guidesDir, 'components.md')).writeAsString('''
+    await File(p.join(guidesDir, 'components.md')).writeAsString('''
 ---
 title: Custom Components
 sidebar_position: 1
@@ -606,7 +604,7 @@ Reference your component in Markdown:
 The component will be rendered in place.
 ''');
 
-      await File(p.join(guidesDir, 'theming.md')).writeAsString('''
+    await File(p.join(guidesDir, 'theming.md')).writeAsString('''
 ---
 title: Theming
 sidebar_position: 2
@@ -643,11 +641,11 @@ Control dark mode behavior via the `themeMode` field in `config.dart`:
 Create a custom theme by extending `BaseTheme` in the `themes/` folder.
 ''');
 
-      // Advanced folder — collapsed by default, with a nested subfolder
-      final advancedDir = p.join(websiteDir, 'docs', '02-advanced');
-      await Directory(advancedDir).create(recursive: true);
+    // Advanced folder — collapsed by default, with a nested subfolder
+    final advancedDir = p.join(websiteDir, 'docs', '02-advanced');
+    await Directory(advancedDir).create(recursive: true);
 
-      await File(p.join(advancedDir, 'configuration.md')).writeAsString('''
+    await File(p.join(advancedDir, 'configuration.md')).writeAsString('''
 ---
 title: Configuration
 sidebar_position: 1
@@ -676,11 +674,11 @@ Config get config => Config(
 ```
 ''');
 
-      // Deeply nested: advanced/deployment/
-      final deploymentDir = p.join(advancedDir, 'deployment');
-      await Directory(deploymentDir).create(recursive: true);
+    // Deeply nested: advanced/deployment/
+    final deploymentDir = p.join(advancedDir, 'deployment');
+    await Directory(deploymentDir).create(recursive: true);
 
-      await File(p.join(deploymentDir, 'github-pages.md')).writeAsString('''
+    await File(p.join(deploymentDir, 'github-pages.md')).writeAsString('''
 ---
 title: GitHub Pages
 sidebar_position: 1
@@ -695,7 +693,7 @@ Run `docudart build` and deploy the `website/build/web/` directory.
 Add a workflow file at `.github/workflows/docs.yml` to automate deployment on every push.
 ''');
 
-      await File(p.join(deploymentDir, 'netlify.md')).writeAsString('''
+    await File(p.join(deploymentDir, 'netlify.md')).writeAsString('''
 ---
 title: Netlify
 sidebar_position: 2

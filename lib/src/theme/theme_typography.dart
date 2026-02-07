@@ -43,14 +43,14 @@ class ThemeTypography {
     'headingLineHeight': headingLineHeight,
   };
 
-  factory ThemeTypography.fromJson(Map<String, dynamic> json) =>
-      ThemeTypography(
-        fontFamily: json['fontFamily'] as String? ??
-            'system-ui, -apple-system, sans-serif',
-        monoFontFamily: json['monoFontFamily'] as String? ?? 'monospace',
-        baseFontSize: (json['baseFontSize'] as num?)?.toDouble() ?? 16,
-        lineHeight: (json['lineHeight'] as num?)?.toDouble() ?? 1.6,
-        headingLineHeight:
-            (json['headingLineHeight'] as num?)?.toDouble() ?? 1.3,
-      );
+  factory ThemeTypography.fromJson(
+    Map<String, dynamic> json,
+  ) => ThemeTypography(
+    fontFamily:
+        json['fontFamily'] as String? ?? 'system-ui, -apple-system, sans-serif',
+    monoFontFamily: json['monoFontFamily'] as String? ?? 'monospace',
+    baseFontSize: (json['baseFontSize'] as num?)?.toDouble() ?? 16,
+    lineHeight: (json['lineHeight'] as num?)?.toDouble() ?? 1.6,
+    headingLineHeight: (json['headingLineHeight'] as num?)?.toDouble() ?? 1.3,
+  );
 }

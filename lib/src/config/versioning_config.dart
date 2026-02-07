@@ -32,7 +32,8 @@ class VersioningConfig {
   factory VersioningConfig.fromJson(Map<String, dynamic> json) =>
       VersioningConfig(
         enabled: json['enabled'] as bool? ?? false,
-        versions: (json['versions'] as List<dynamic>?)
+        versions:
+            (json['versions'] as List<dynamic>?)
                 ?.map((e) => e as String)
                 .toList() ??
             const [],

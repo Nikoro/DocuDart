@@ -10,9 +10,7 @@ class DefaultTheme extends BaseTheme {
   /// Primary color override.
   final int? primaryColor;
 
-  const DefaultTheme({
-    this.primaryColor,
-  });
+  const DefaultTheme({this.primaryColor});
 
   @override
   String get name => 'default';

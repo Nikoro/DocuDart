@@ -4,10 +4,7 @@ import 'package:docudart/docudart.dart';
 class DefaultSidebar extends StatelessComponent {
   final List<GeneratedSidebarItem> items;
 
-  const DefaultSidebar({
-    required this.items,
-    super.key,
-  });
+  const DefaultSidebar({required this.items, super.key});
 
   @override
   Component build(BuildContext context) {
@@ -18,8 +15,10 @@ class DefaultSidebar extends StatelessComponent {
     ]);
   }
 
-  List<Component> _buildItems(List<GeneratedSidebarItem> items,
-      [String parentSlug = '']) {
+  List<Component> _buildItems(
+    List<GeneratedSidebarItem> items, [
+    String parentSlug = '',
+  ]) {
     return items.map<Component>((item) {
       if (item.isCategory) {
         final slug = parentSlug.isEmpty

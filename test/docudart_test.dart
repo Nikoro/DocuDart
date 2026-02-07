@@ -150,10 +150,7 @@ void main() {
     });
 
     test('supports icon-only link', () {
-      final link = NavLink.url(
-        'https://github.com',
-        icon: span([.text('*')]),
-      );
+      final link = NavLink.url('https://github.com', icon: span([.text('*')]));
       expect(link.label, isNull);
       expect(link.icon, isNotNull);
       expect(link.href, equals('https://github.com'));

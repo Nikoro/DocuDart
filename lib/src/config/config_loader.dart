@@ -87,8 +87,7 @@ class ConfigLoader {
           if (customTheme != null) {
             theme = customTheme;
           } else {
-            print(
-                'Warning: Theme "$themeName" not found, using default theme');
+            print('Warning: Theme "$themeName" not found, using default theme');
           }
         }
       } catch (e) {
