@@ -149,6 +149,16 @@ jaspr:
       p.join(websiteDir, 'pages'),
       p.join(libDir, 'pages'),
     );
+
+    // Copy other root-level .dart files (e.g. icons.dart)
+    final websiteDirEntity = Directory(websiteDir);
+    await for (final entity in websiteDirEntity.list()) {
+      if (entity is File &&
+          entity.path.endsWith('.dart') &&
+          p.basename(entity.path) != 'config.dart') {
+        await entity.copy(p.join(libDir, p.basename(entity.path)));
+      }
+    }
   }
 
   /// Copy a directory recursively, creating target dirs as needed.
@@ -168,6 +178,7 @@ jaspr:
       }
     }
   }
+
 
   /// Generate site_context_data.dart with sidebar items and custom pages.
   Future<void> _generateSiteContextData(
@@ -619,6 +630,25 @@ body {
 
 .header-nav a:hover {
   color: var(--color-primary);
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.nav-link-icon {
+  display: inline-flex;
+  align-items: center;
+  width: 1.125em;
+  height: 1.125em;
+}
+
+.nav-link-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
 }
 
 /* Sidebar */

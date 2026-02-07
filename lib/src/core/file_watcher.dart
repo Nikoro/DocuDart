@@ -45,10 +45,12 @@ class DocuDartFileWatcher {
       }
     }
 
-    // Watch config.dart file
-    final configFile = File(p.join(websiteDir, 'config.dart'));
-    if (configFile.existsSync()) {
-      await _watchFile(configFile.path);
+    // Watch root-level .dart files (config.dart, icons.dart, etc.)
+    final websiteDirEntity = Directory(websiteDir);
+    await for (final entity in websiteDirEntity.list()) {
+      if (entity is File && entity.path.endsWith('.dart')) {
+        await _watchFile(entity.path);
+      }
     }
 
     // Watch components directory

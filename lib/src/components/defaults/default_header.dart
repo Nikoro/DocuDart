@@ -22,8 +22,15 @@ class DefaultHeader extends StatelessComponent {
           for (final link in navLinks)
             a(
               href: link.href,
-              attributes: link.external ? {'target': '_blank', 'rel': 'noopener noreferrer'} : {},
-              [.text(link.title)],
+              classes: 'nav-link',
+              attributes: link.isExternal
+                  ? {'target': '_blank', 'rel': 'noopener noreferrer'}
+                  : {},
+              [
+                if (link.icon != null)
+                  span(classes: 'nav-link-icon', [link.icon!]),
+                if (link.label != null) .text(link.label!),
+              ],
             ),
           if (showThemeToggle)
             button(

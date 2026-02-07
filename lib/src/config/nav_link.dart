@@ -1,41 +1,62 @@
-import 'package:meta/meta.dart';
+import 'package:jaspr/jaspr.dart';
 
 /// A navigation link in the header.
 @immutable
 class NavLink {
-  /// Display title.
-  final String title;
+  /// Display label text. Optional if [icon] is set.
+  final String? label;
 
-  /// Internal path (mutually exclusive with url).
-  final String? path;
+  /// Icon component rendered to the left of the label. Optional if [label] is set.
+  final Component? icon;
 
-  /// External URL (mutually exclusive with path).
-  final String? url;
+  final String? _path;
+  final String? _url;
 
   /// Whether this is an external link.
-  bool get external => url != null;
+  bool get isExternal => _url != null;
 
   /// The href to use (path or url).
-  String get href => url ?? path ?? '/';
+  String get href => _url ?? _path ?? '/';
 
-  const NavLink({required this.title, this.path, this.url})
-    : assert(path != null || url != null, 'Either path or url must be set');
+  NavLink._({this.label, this.icon, String? path, String? url})
+      : _path = path,
+        _url = url,
+        assert(
+          label != null || icon != null,
+          'Either label or icon must be set',
+        ),
+        assert(
+          path != null || url != null,
+          'Either path or url must be set',
+        );
 
-  const NavLink.internal({required this.title, required String this.path})
-    : url = null;
+  /// Creates a nav link to an internal path.
+  NavLink.path(String path, {this.label, this.icon})
+      : _path = path,
+        _url = null,
+        assert(
+          label != null || icon != null,
+          'Either label or icon must be set',
+        );
 
-  const NavLink.external({required this.title, required String this.url})
-    : path = null;
+  /// Creates a nav link to an external URL.
+  NavLink.url(String url, {this.label, this.icon})
+      : _path = null,
+        _url = url,
+        assert(
+          label != null || icon != null,
+          'Either label or icon must be set',
+        );
 
   Map<String, dynamic> toJson() => {
-    'title': title,
-    if (path != null) 'path': path,
-    if (url != null) 'url': url,
-  };
+        if (label != null) 'label': label,
+        if (_path != null) 'path': _path,
+        if (_url != null) 'url': _url,
+      };
 
-  factory NavLink.fromJson(Map<String, dynamic> json) => NavLink(
-    title: json['title'] as String,
-    path: json['path'] as String?,
-    url: json['url'] as String?,
-  );
+  factory NavLink.fromJson(Map<String, dynamic> json) => NavLink._(
+        label: json['label'] as String? ?? json['title'] as String?,
+        path: json['path'] as String?,
+        url: json['url'] as String?,
+      );
 }

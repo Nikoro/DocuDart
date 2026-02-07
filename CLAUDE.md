@@ -61,7 +61,7 @@ docudart/
 │       │   ├── docudart_config.dart     # Config class (has toJson/fromJson)
 │       │   ├── config_loader.dart       # Load config (evaluates config.dart, falls back to YAML)
 │       │   ├── config_evaluator.dart    # Text-based parsing of config.dart
-│       │   ├── nav_link.dart            # NavLink (internal/external navigation)
+│       │   ├── nav_link.dart            # NavLink (path/url navigation with icon support)
 │       │   ├── site_context.dart        # SiteContext (docs + pages passed to layout functions)
 │       │   ├── component_config.dart    # ComponentConfig
 │       │   ├── versioning_config.dart   # VersioningConfig
@@ -107,6 +107,7 @@ docudart/
 │   └── website/                         # DocuDart documentation site
 │       ├── pubspec.yaml                 # Depends on docudart via path: ../../
 │       ├── config.dart
+│       ├── icons.dart                       # SVG icon constants (Icons.github, etc.)
 │       ├── docs/
 │       ├── pages/landing_page.dart
 │       ├── components/
@@ -128,6 +129,7 @@ user-project/
   website/               # Created by docudart init
     pubspec.yaml         # Depends on docudart (path dependency)
     config.dart          # Config getter with header/footer/sidebar functions
+    icons.dart           # SVG icon constants (Icons.github, Icons.dart, Icons.docs)
     docs/                # Markdown documentation files
       index.md
       getting-started.md
@@ -183,9 +185,24 @@ class SiteContext {
 }
 ```
 
+### NavLink (lib/src/config/nav_link.dart)
+Navigation link with optional icon and label. Uses dot shorthand-friendly constructors.
+```dart
+NavLink.path('/docs', label: 'Docs', icon: Icons.docs)       // internal path
+NavLink.url('https://github.com', label: 'GitHub', icon: Icons.github)  // external URL
+NavLink.url('https://pub.dev', icon: someIconComponent)       // icon-only
+NavLink.path('/about', label: 'About')                        // label-only
+```
+- `label` (`String?`) and `icon` (`Component?`) — at least one required
+- `icon` accepts any Jaspr `Component` (typically `RawText('<svg>...</svg>')`)
+- Fields `_path`/`_url` are private; public API: `.href`, `.isExternal`
+- `toJson()` uses `'label'` key, skips `icon`; `fromJson()` accepts legacy `'title'` key
+- Default constructor is private (`NavLink._`); only `.path()` and `.url()` are public
+- **Dart keyword gotcha**: `external`/`internal` are reserved — that's why constructors are `.url()`/`.path()` (fields renamed to `_url`/`_path` to avoid clash)
+
 ### DefaultHeader / DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
 Library-provided default layout components.
-- `DefaultHeader(title, navLinks, showThemeToggle)` - sticky header with nav
+- `DefaultHeader(title, navLinks, showThemeToggle)` - sticky header with nav + icon support
 - `DefaultFooter(text)` - simple centered text footer
 - `DefaultSidebar(items)` - collapsible navigation tree from docs structure
   - Renders `data-category`, `data-collapsed` attributes on categories for JS interactivity
@@ -199,6 +216,7 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - `InitTemplate.full` - All features with examples, including sidebar subfolder showcase
 - Uses `PackageResolver` to compute path dependency to docudart
 - Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart)
+- Generates `icons.dart` at website root with default SVG icons (github, dart, docs)
 - Runs `dart pub get` in website/ after generation
 - Looks for `README.md` in project root to auto-generate docs
 - `_generateFullTemplateSubfolders()` - creates example subfolders for full template (always runs, even when README.md exists): `01-guides_expanded/` (expanded sidebar) and `02-advanced/` with nested `deployment/` (collapsed)
@@ -208,7 +226,7 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - Accepts optional `websiteDir` parameter (defaults to cwd)
 - `generate({bool fullClean = true})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
 - Adds `docudart` as path dependency in managed project's pubspec
-- Copies `config.dart`, `components/`, and `pages/` into managed project's `lib/`
+- Copies `config.dart`, `components/`, `pages/`, and root-level `.dart` files (e.g. `icons.dart`) into managed project's `lib/`
 - Home route uses `config.home` at runtime: if set, renders the home component; if null, redirects `/` to `/docs`
 - Generates `site_context_data.dart` with auto-generated sidebar items
 - Generates `layout.dart` that calls `config.header/footer/sidebar` functions
@@ -259,7 +277,7 @@ Flutter docs style theme with:
 1. `WorkspaceResolver.resolve()` finds `website/` directory
 2. `ConfigLoader.load(websiteDir)` loads config with absolute paths
 3. `SiteGenerator(config, websiteDir: websiteDir).generate()`:
-   - Copies config.dart + components/ + pages/ into managed project
+   - Copies config.dart, root `.dart` files, components/, pages/ into managed project
    - Generates site_context_data.dart with sidebar items
    - Generates layout.dart that delegates to config functions
 4. Runs `dart run jaspr build` in `website/.dart_tool/docudart/`
@@ -267,7 +285,7 @@ Flutter docs style theme with:
 
 ### `docudart serve`
 1. Same as build steps 1-3 (uses `generate()` with `fullClean: true` for initial build)
-2. Starts `DocuDartFileWatcher` (watches docs, assets, config.dart, components/, pages/)
+2. Starts `DocuDartFileWatcher` (watches docs, assets, all root `.dart` files, components/, pages/)
 3. Runs `dart run jaspr serve` in `website/.dart_tool/docudart/`
 4. On file change: regenerates with `fullClean: false` (in-place update, no pub get) — Jaspr's native hot reload detects the changed files and re-renders
 
@@ -290,7 +308,7 @@ Flutter docs style theme with:
 The managed Jaspr site is generated in `SiteGenerator`:
 - `_generatePubspec()` - pubspec.yaml (includes docudart path dep)
 - `_generateMain()` - lib/main.server.dart, lib/main.client.dart
-- `_copyUserFiles()` - copies config.dart + components/ + pages/ into lib/
+- `_copyUserFiles()` - copies config.dart, root `.dart` files, components/, pages/ into lib/
 - `_generateSiteContextData()` - lib/site_context_data.dart
 - `_generateLayout()` - lib/layout.dart (calls config.header/footer/sidebar)
 - `_generateApp()` - lib/app.dart with Router (home route uses config.home at runtime)
@@ -419,7 +437,7 @@ Use `headless: true` for automated checks. Key things to verify:
 - Theme mode (system/light/dark) via `themeMode` field — injected into `theme.js` as `forcedMode`; when set to light/dark it overrides localStorage; toggle still works for user override
 - WorkspaceResolver supports backward compatibility with old flat structure
 - **Dart hot reload caveat**: Top-level `final` variables are NOT re-evaluated on hot reload — that's why `config.dart` uses a getter (`Config get config =>`) instead of `final config =`
-- `DocuDartFileWatcher` watches: docs/, assets/, config.dart (FileWatcher), components/, pages/; uses debounce + pending-regeneration queue to handle rapid edits
+- `DocuDartFileWatcher` watches: docs/, assets/, all root `.dart` files (config.dart, icons.dart, etc.), components/, pages/; uses debounce + pending-regeneration queue to handle rapid edits
 - **Sidebar interactivity** (all via vanilla JS in `theme.js`):
   - **Collapsible categories**: click/keyboard toggle, CSS chevron rotation + `max-height` transition, state persisted in `localStorage` (`docudart-sidebar-state` key)
   - **Active link highlighting**: `.sidebar-link.active` class applied via JS matching `window.location.pathname` against `data-path` attributes

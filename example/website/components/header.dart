@@ -6,18 +6,16 @@ import 'package:docudart/docudart.dart';
 /// The [DefaultHeader] provides a standard header with title, nav links,
 /// and optional theme toggle.
 class Header extends StatelessComponent {
-  const Header({super.key});
+  const Header(this.navLinks, {required this.title, super.key});
+
+  final String title;
+  final List<NavLink> navLinks;
 
   @override
   Component build(BuildContext context) {
     return DefaultHeader(
-      title: 'example_project',
-      navLinks: [
-        NavLink.internal(title: 'Docs', path: '/docs'),
-        NavLink.external(title: 'GitHub', url: 'https://github.com'),
-        NavLink.external(title: 'pub.dev', url: 'https://pub.dev'),
-      ],
-      showThemeToggle: true,
+      title: title,
+      navLinks: navLinks,
     );
   }
 }
