@@ -754,10 +754,13 @@ body {
 /* No sidebar layout (landing page) */
 .site-body.no-sidebar {
   max-width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 .site-body.no-sidebar .site-main {
   max-width: 100%;
+  padding: 0;
 }
 
 /* Main */

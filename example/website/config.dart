@@ -1,15 +1,13 @@
 import 'package:docudart/docudart.dart';
-
-import 'components/footer.dart';
 import 'components/header.dart';
+import 'components/footer.dart';
 import 'components/sidebar.dart';
 import 'icons.dart';
 import 'pages/landing_page.dart';
 
 Config get config => Config(
   title: 'example_project',
-  description:
-      'An example Dart project to demonstrate DocuDart documentation generator.',
+  description: 'An example Dart project to demonstrate DocuDart documentation generator.',
 
   // Theme configuration
   themeMode: ThemeMode.system,
