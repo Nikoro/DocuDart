@@ -286,6 +286,9 @@ class Layout extends StatelessComponent {
 
     await Directory(p.join(managedDir, 'lib')).create(recursive: true);
 
+    // Check for favicon files in assets/favicon/
+    final faviconLinks = _buildFaviconLinks();
+
     // Server entry point (lib/main.server.dart)
     final serverMain =
         '''
@@ -303,7 +306,7 @@ void main() {
       'viewport': 'width=device-width, initial-scale=1',
     },
     head: [
-      link(rel: 'stylesheet', href: '/styles.css'),
+$faviconLinks      link(rel: 'stylesheet', href: '/styles.css'),
       link(
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap',
@@ -1538,6 +1541,42 @@ body {
     // is already handled by _generateStyles().
   }
 
+  static const _faviconFiles = {
+    'favicon.ico',
+    'favicon-16x16.png',
+    'favicon-32x32.png',
+    'apple-touch-icon.png',
+    'android-chrome-192x192.png',
+    'android-chrome-512x512.png',
+  };
+
+  bool _hasFavicon(String fileName) {
+    final faviconDir = Directory(p.join(config.assetsDir, 'favicon'));
+    if (!faviconDir.existsSync()) return false;
+    return File(p.join(faviconDir.path, fileName)).existsSync();
+  }
+
+  String _buildFaviconLinks() {
+    final buffer = StringBuffer();
+    if (_hasFavicon('favicon.ico')) {
+      buffer.writeln(
+          "      link(rel: 'icon', href: '/favicon.ico'),");
+    }
+    if (_hasFavicon('favicon-32x32.png')) {
+      buffer.writeln(
+          "      link(rel: 'icon', type: 'image/png', href: '/favicon-32x32.png', attributes: {'sizes': '32x32'}),");
+    }
+    if (_hasFavicon('favicon-16x16.png')) {
+      buffer.writeln(
+          "      link(rel: 'icon', type: 'image/png', href: '/favicon-16x16.png', attributes: {'sizes': '16x16'}),");
+    }
+    if (_hasFavicon('apple-touch-icon.png')) {
+      buffer.writeln(
+          "      link(rel: 'apple-touch-icon', href: '/apple-touch-icon.png', attributes: {'sizes': '180x180'}),");
+    }
+    return buffer.toString();
+  }
+
   Future<void> _copyAssets() async {
     final sourceDir = Directory(config.assetsDir);
     if (!sourceDir.existsSync()) return;
@@ -1548,6 +1587,18 @@ body {
     await for (final entity in sourceDir.list(recursive: true)) {
       if (entity is File) {
         final relativePath = p.relative(entity.path, from: sourceDir.path);
+
+        // Copy favicon files to web root for browser discovery
+        if (relativePath.startsWith('favicon${p.separator}') ||
+            relativePath.startsWith('favicon/')) {
+          final fileName = p.basename(entity.path);
+          if (_faviconFiles.contains(fileName)) {
+            final targetPath = p.join(managedDir, 'web', fileName);
+            await entity.copy(targetPath);
+            continue;
+          }
+        }
+
         final targetPath = p.join(targetDir.path, relativePath);
         await File(targetPath).parent.create(recursive: true);
         await entity.copy(targetPath);

@@ -51,6 +51,9 @@ class ProjectGenerator {
     // Generate documentation files (look for README.md in project root)
     await _generateDocs(websiteDir, directory, template);
 
+    // Generate default favicon files
+    await _generateFavicons(websiteDir);
+
     // Generate README.md
     await _generateReadme(websiteDir, title);
 
@@ -79,6 +82,7 @@ class ProjectGenerator {
     print('      footer.dart');
     print('      sidebar.dart');
     print('    assets/');
+    print('      favicon/');
     print('    themes/');
   }
 
@@ -109,6 +113,24 @@ class ProjectGenerator {
       // Add .gitkeep to empty directories (not docs, pages, or components)
       if (dir != 'docs' && dir != 'pages' && dir != 'components') {
         await File(p.join(path, '.gitkeep')).writeAsString('');
+      }
+    }
+  }
+
+  Future<void> _generateFavicons(String websiteDir) async {
+    final docudartRoot = await PackageResolver.resolveDocudartPath();
+    final sourceDir = Directory(
+      p.join(docudartRoot, 'lib', 'src', 'assets', 'favicon'),
+    );
+    if (!sourceDir.existsSync()) return;
+
+    final targetDir = Directory(p.join(websiteDir, 'assets', 'favicon'));
+    await targetDir.create(recursive: true);
+
+    await for (final entity in sourceDir.list()) {
+      if (entity is File) {
+        final targetPath = p.join(targetDir.path, p.basename(entity.path));
+        await entity.copy(targetPath);
       }
     }
   }
