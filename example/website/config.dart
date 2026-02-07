@@ -7,7 +7,8 @@ import 'pages/landing_page.dart';
 
 Config get config => Config(
   title: 'example_project',
-  description: 'An example Dart project to demonstrate DocuDart documentation generator.',
+  description:
+      'An example Dart project to demonstrate DocuDart documentation generator.',
 
   // Theme configuration
   themeMode: ThemeMode.system,
@@ -22,12 +23,12 @@ Config get config => Config(
   // Set to null to hide any section.
   header: (context) => Header(
     title: 'example_project',
-    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
-    [
+    navLinks: [
       .path('/docs', label: 'Docs', icon: Icons.docs),
       .url('https://github.com', label: 'GitHub', icon: Icons.github),
       .url('https://pub.dev', label: 'pub.dev', icon: Icons.dart),
     ],
+    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
   ),
   footer: (context) => Footer(),
   sidebar: (context) => Sidebar(items: context.docs),

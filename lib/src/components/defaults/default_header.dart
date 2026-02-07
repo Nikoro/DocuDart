@@ -4,17 +4,17 @@ import 'package:docudart/docudart.dart';
 /// leading/trailing component slots.
 class DefaultHeader extends StatelessComponent {
   final String title;
-  final List<NavLink> navLinks;
+  final List<NavLink> _navLinks;
   final Component? leading;
   final Component? trailing;
 
   const DefaultHeader({
     required this.title,
-    this.navLinks = const [],
     this.leading,
     this.trailing,
+    List<NavLink>? navLinks,
     super.key,
-  });
+  }) : _navLinks = navLinks ?? const [];
 
   @override
   Component build(BuildContext context) {
@@ -23,7 +23,7 @@ class DefaultHeader extends StatelessComponent {
         ?leading,
         a(href: '/', classes: 'site-title', [.text(title)]),
         nav(classes: 'header-nav', [
-          for (final link in navLinks)
+          for (final link in _navLinks)
             a(
               href: link.href,
               classes: 'nav-link',

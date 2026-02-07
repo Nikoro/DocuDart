@@ -183,10 +183,10 @@ import 'package:docudart/docudart.dart';
 /// The [DefaultHeader] provides a standard header with title, nav links,
 /// and optional leading/trailing component slots.
 class Header extends StatelessComponent {
-  const Header(this.navLinks, {required this.title, this.trailing, super.key});
+  const Header({required this.title, this.navLinks, this.trailing, super.key});
 
   final String title;
-  final List<NavLink> navLinks;
+  final List<NavLink>? navLinks;
   final Component? trailing;
 
   @override
@@ -275,12 +275,12 @@ Config get config => Config(
   // Set to null to hide any section.
   header: (context) => Header(
     title: '$title',
-    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
-    [
+    navLinks: [
       .path('/docs', label: 'Docs', icon: Icons.docs),
       .url('https://github.com', label: 'GitHub', icon: Icons.github),
       .url('https://pub.dev', label: 'pub.dev', icon: Icons.dart),
     ],
+    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
   ),
   footer: (context) => Footer(),
   sidebar: (context) => Sidebar(items: context.docs),
