@@ -780,8 +780,29 @@ body {
 .footer-content {
   max-width: 1400px;
   margin: 0 auto;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: var(--color-text-muted);
+}
+
+.footer-leading,
+.footer-trailing {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.footer-leading {
+  justify-content: flex-start;
+}
+
+.footer-trailing {
+  justify-content: flex-end;
+}
+
+.footer-center {
+  text-align: center;
 }
 
 .built-with {
@@ -798,6 +819,36 @@ body {
 
 .built-with a:hover {
   text-decoration: underline;
+}
+
+/* Socials */
+.socials {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-muted);
+  transition: color 0.2s;
+}
+
+.social-link:hover {
+  color: var(--color-primary);
+}
+
+.social-link-icon {
+  display: inline-flex;
+  align-items: center;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.social-link-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
 }
 
 /* Hero */

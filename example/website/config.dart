@@ -7,8 +7,7 @@ import 'pages/landing_page.dart';
 
 Config get config => Config(
   title: 'example_project',
-  description:
-      'An example Dart project to demonstrate DocuDart documentation generator.',
+  description: 'An example Dart project to demonstrate DocuDart documentation generator.',
 
   // Theme configuration
   themeMode: ThemeMode.system,
@@ -30,6 +29,12 @@ Config get config => Config(
     ],
     trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
   ),
-  footer: (context) => Footer(),
+  footer: (context) => Footer(
+    socialLinks: [
+      .url('https://github.com', icon: Icons.github),
+      .url('https://youtube.com', icon: Icons.youtube),
+      .url('https://x.com', icon: Icons.xTwitter),
+    ],
+  ),
   sidebar: (context) => Sidebar(items: context.docs),
 );
