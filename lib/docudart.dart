@@ -6,7 +6,6 @@ export 'src/config/docudart_config.dart';
 export 'src/config/nav_link.dart';
 export 'src/config/site_context.dart';
 export 'src/config/theme_config.dart';
-export 'src/config/component_config.dart';
 export 'src/config/versioning_config.dart';
 export 'src/config/custom_page.dart';
 export 'src/config/config_loader.dart';

@@ -8,7 +8,8 @@ import 'pages/landing_page.dart';
 
 Config get config => Config(
   title: 'example_project',
-  description: 'An example Dart project to demonstrate DocuDart documentation generator.',
+  description:
+      'An example Dart project to demonstrate DocuDart documentation generator.',
   themeMode: ThemeMode.system,
   theme: DefaultTheme(),
   // Home page component. Set to null to redirect '/' to '/docs'.

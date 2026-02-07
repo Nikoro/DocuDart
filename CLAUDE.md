@@ -63,7 +63,6 @@ docudart/
 │       │   ├── config_evaluator.dart    # Text-based parsing of config.dart
 │       │   ├── nav_link.dart            # NavLink (path/url navigation with icon support)
 │       │   ├── site_context.dart        # SiteContext (docs + pages passed to layout functions)
-│       │   ├── component_config.dart    # ComponentConfig
 │       │   ├── versioning_config.dart   # VersioningConfig
 │       │   ├── theme_config.dart        # ThemeMode enum (system, light, dark)
 │       │   └── custom_page.dart         # CustomPage
@@ -88,12 +87,13 @@ docudart/
 │       │   └── theme_loader.dart        # Load custom themes
 │       ├── components/                  # Component system
 │       │   ├── component_registry.dart  # Component registry
-│       │   ├── component_discovery.dart # Auto-discover components
-│       │   ├── defaults/               # Default layout components
+│       │   ├── defaults/               # Default layout + composable components
 │       │   │   ├── default_header.dart  # DefaultHeader component
 │       │   │   ├── default_footer.dart  # DefaultFooter component
-│       │   │   └── default_sidebar.dart # DefaultSidebar component
-│       │   └── built_in/               # Built-in components
+│       │   │   ├── default_sidebar.dart # DefaultSidebar component
+│       │   │   ├── theme_toggle.dart    # ThemeToggle (light/dark icon swap)
+│       │   │   └── socials.dart         # Socials (social media icon links)
+│       │   └── built_in/               # Built-in markdown component styles/scripts
 │       │       ├── callout.dart
 │       │       ├── tabs.dart
 │       │       ├── code_block.dart
@@ -107,7 +107,8 @@ docudart/
 │   └── website/                         # DocuDart documentation site
 │       ├── pubspec.yaml                 # Depends on docudart via path: ../../
 │       ├── config.dart
-│       ├── icons.dart                       # SVG icon constants (Icons.github, etc.)
+│       ├── icons.dart                       # SVG icon constants (Icons.github, Icons.pubDev, etc.)
+│       ├── labels.dart                      # Label string constants (Labels.github, Labels.docs, etc.)
 │       ├── docs/
 │       ├── pages/landing_page.dart
 │       ├── components/
@@ -129,7 +130,8 @@ user-project/
   website/               # Created by docudart init
     pubspec.yaml         # Depends on docudart (path dependency)
     config.dart          # Config getter with header/footer/sidebar functions
-    icons.dart           # SVG icon constants (Icons.github, Icons.dart, Icons.docs)
+    icons.dart           # SVG icon constants (Icons.github, Icons.pubDev, Icons.docs, etc.)
+    labels.dart          # Label string constants (Labels.github, Labels.docs, etc.)
     docs/                # Markdown documentation files
       index.md
       getting-started.md
@@ -160,14 +162,16 @@ Config(
   title: String?,
   description: String?,
   docsDir: String,          // default: 'docs' (absolutized by ConfigLoader)
+  assetsDir: String,        // default: 'assets' (absolutized by ConfigLoader)
   outputDir: String,        // default: 'build/web' (absolutized by ConfigLoader)
   theme: BaseTheme,         // default: DefaultTheme()
   themeMode: ThemeMode,     // default: ThemeMode.system (system | light | dark)
+  versioning: VersioningConfig?, // optional versioning support
+  customPages: List<CustomPage>, // custom Dart/Jaspr pages
   home: Component Function(SiteContext)?,      // null = redirect '/' to '/docs'
   header: Component Function(SiteContext)?,   // null = no header
   footer: Component Function(SiteContext)?,   // null = no footer
   sidebar: Component Function(SiteContext)?,  // null = no sidebar
-  // ...
 )
 ```
 - Home, header, footer, sidebar are nullable function fields returning Components
@@ -202,8 +206,8 @@ NavLink.path('/about', label: 'About')                        // label-only
 
 ### DefaultHeader / DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
 Library-provided default layout components.
-- `DefaultHeader(title, navLinks, showThemeToggle)` - sticky header with nav + icon support
-- `DefaultFooter(text)` - simple centered text footer
+- `DefaultHeader(title:, navLinks:, leading:, trailing:)` - sticky header with nav, icon support, and composable slots
+- `DefaultFooter(text:, leading:, trailing:)` - centered text footer with composable slots
 - `DefaultSidebar(items)` - collapsible navigation tree from docs structure
   - Renders `data-category`, `data-collapsed` attributes on categories for JS interactivity
   - Renders `data-path` attributes on links for active page highlighting
@@ -216,7 +220,8 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - `InitTemplate.full` - All features with examples, including sidebar subfolder showcase
 - Uses `PackageResolver` to compute path dependency to docudart
 - Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart)
-- Generates `icons.dart` at website root with default SVG icons (github, dart, docs)
+- Generates `icons.dart` at website root with default SVG icons (github, pubDev, docs, discord, youtube, etc.)
+- Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, etc.)
 - Runs `dart pub get` in website/ after generation
 - Looks for `README.md` in project root to auto-generate docs
 - `_generateFullTemplateSubfolders()` - creates example subfolders for full template (always runs, even when README.md exists): `01-guides_expanded/` (expanded sidebar) and `02-advanced/` with nested `deployment/` (collapsed)
@@ -254,7 +259,7 @@ Loads configuration with a two-step strategy:
 ### ConfigEvaluator (lib/src/config/config_evaluator.dart)
 Parses serializable fields from `config.dart` by reading it as text (no subprocess).
 - Reads `config.dart` as a string and extracts fields with regex
-- Extracts: title, description, logo, docsDir, pagesDir, assetsDir, outputDir, baseUrl, cleanUrls, themeMode, primaryColor
+- Extracts: title, description, docsDir, assetsDir, outputDir, themeMode, primaryColor
 - Skips commented lines for primaryColor extraction
 - Returns `null` if config.dart doesn't exist or parsing fails (ConfigLoader falls back to YAML)
 - **Why text-based?** Running config.dart as a subprocess fails because it imports `package:docudart` and user components that aren't resolvable in the CLI context

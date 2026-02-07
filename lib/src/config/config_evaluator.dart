@@ -34,26 +34,18 @@ class ConfigEvaluator {
   static Config? _parseConfig(String content) {
     final title = _extractString(content, 'title');
     final description = _extractString(content, 'description');
-    final logo = _extractString(content, 'logo');
     final docsDir = _extractString(content, 'docsDir') ?? 'docs';
-    final pagesDir = _extractString(content, 'pagesDir') ?? 'pages';
     final assetsDir = _extractString(content, 'assetsDir') ?? 'assets';
     final outputDir = _extractString(content, 'outputDir') ?? 'build/web';
-    final baseUrl = _extractString(content, 'baseUrl') ?? '/';
-    final cleanUrls = _extractBool(content, 'cleanUrls') ?? true;
     final themeMode = _extractThemeMode(content);
     final primaryColor = _extractPrimaryColor(content);
 
     return Config(
       title: title,
       description: description,
-      logo: logo,
       docsDir: docsDir,
-      pagesDir: pagesDir,
       assetsDir: assetsDir,
       outputDir: outputDir,
-      baseUrl: baseUrl,
-      cleanUrls: cleanUrls,
       themeMode: themeMode,
       theme: primaryColor != null
           ? DefaultTheme(primaryColor: primaryColor)
@@ -69,16 +61,6 @@ class ConfigEvaluator {
     );
     final match = pattern.firstMatch(content);
     return match?.group(2);
-  }
-
-  /// Extract a bool value for a named field: `fieldName: true/false`
-  static bool? _extractBool(String content, String field) {
-    final pattern = RegExp(
-      r'''(?:^|\s)''' + RegExp.escape(field) + r'''\s*:\s*(true|false)''',
-    );
-    final match = pattern.firstMatch(content);
-    if (match == null) return null;
-    return match.group(1) == 'true';
   }
 
   /// Extract ThemeMode from: `themeMode: ThemeMode.system`

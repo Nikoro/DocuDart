@@ -9,7 +9,6 @@ void main() {
       expect(config.docsDir, equals('docs'));
       expect(config.outputDir, equals('build/web'));
       expect(config.assetsDir, equals('assets'));
-      expect(config.cleanUrls, isTrue);
       expect(config.themeMode, equals(ThemeMode.system));
       expect(config.header, isNull);
       expect(config.footer, isNull);

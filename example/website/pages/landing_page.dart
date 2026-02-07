@@ -13,9 +13,12 @@ class LandingPage extends StatelessComponent {
     return div(classes: 'landing-page', [
       div(classes: 'hero', [
         if (title != null) h1([.text(title)]),
-        if (description != null) p(classes: 'hero-description', [.text(description)]),
+        if (description != null)
+          p(classes: 'hero-description', [.text(description)]),
         div(classes: 'hero-actions', [
-          a(href: '/docs', classes: 'button button-primary', [.text('Get Started')]),
+          a(href: '/docs', classes: 'button button-primary', [
+            .text('Get Started'),
+          ]),
         ]),
       ]),
     ]);
