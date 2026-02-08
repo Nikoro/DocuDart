@@ -6,6 +6,7 @@ import 'package:yaml/yaml.dart';
 import 'config_evaluator.dart';
 import 'docudart_config.dart';
 import 'pubspec.dart';
+import 'repository.dart';
 import '../theme/base_theme.dart';
 import '../theme/default_theme.dart';
 import '../theme/theme_loader.dart';
@@ -72,7 +73,9 @@ class ConfigLoader {
         version: yaml['version']?.toString(),
         description: yaml['description'] as String?,
         homepage: yaml['homepage'] as String?,
-        repository: yaml['repository'] as String?,
+        repository: yaml['repository'] != null
+            ? Repository(yaml['repository'] as String)
+            : null,
         issueTracker: yaml['issue_tracker'] as String?,
         documentation: yaml['documentation'] as String?,
         publishTo: yaml['publish_to'] as String?,

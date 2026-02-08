@@ -195,7 +195,7 @@ void main() {
         version: '1.0.0',
         description: 'A test package',
         homepage: 'https://example.com',
-        repository: 'https://github.com/example/my_package',
+        repository: Repository('https://github.com/example/my_package'),
         issueTracker: 'https://github.com/example/my_package/issues',
         documentation: 'https://example.com/docs',
         publishTo: 'none',
@@ -209,7 +209,7 @@ void main() {
       expect(pubspec.homepage, equals('https://example.com'));
       expect(
         pubspec.repository,
-        equals('https://github.com/example/my_package'),
+        equals(const Repository('https://github.com/example/my_package')),
       );
       expect(
         pubspec.issueTracker,
@@ -303,6 +303,49 @@ void main() {
       final config = resolveConfig(project);
       expect(config.title, equals('my_app v2.0.0'));
       expect(config.description, equals('My app description'));
+    });
+  });
+
+  group('Repository', () {
+    test('detects GitHub from URL', () {
+      const repo = Repository('https://github.com/user/repo');
+      expect(repo.link, equals('https://github.com/user/repo'));
+      expect(repo.label, equals('GitHub'));
+      expect(repo.icon, isA<Component>());
+    });
+
+    test('detects GitHub from subdomain', () {
+      const repo = Repository('https://enterprise.github.com/user/repo');
+      expect(repo.label, equals('GitHub'));
+    });
+
+    test('detects GitLab from URL', () {
+      const repo = Repository('https://gitlab.com/user/repo');
+      expect(repo.label, equals('GitLab'));
+    });
+
+    test('detects Bitbucket from URL', () {
+      const repo = Repository('https://bitbucket.org/user/repo');
+      expect(repo.label, equals('Bitbucket'));
+    });
+
+    test('returns generic label for unknown host', () {
+      const repo = Repository('https://example.com/user/repo');
+      expect(repo.label, equals('Repository'));
+      expect(repo.icon, isA<Component>());
+    });
+
+    test('equality based on link', () {
+      const repo1 = Repository('https://github.com/user/repo');
+      const repo2 = Repository('https://github.com/user/repo');
+      const repo3 = Repository('https://gitlab.com/user/repo');
+      expect(repo1, equals(repo2));
+      expect(repo1, isNot(equals(repo3)));
+    });
+
+    test('toString returns readable format', () {
+      const repo = Repository('https://github.com/user/repo');
+      expect(repo.toString(), equals('Repository(https://github.com/user/repo)'));
     });
   });
 

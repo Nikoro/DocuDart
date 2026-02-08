@@ -202,7 +202,9 @@ jaspr:
       buffer.writeln("  homepage: '${_escapeForDart(pubspec.homepage!)}',");
     }
     if (pubspec.repository != null) {
-      buffer.writeln("  repository: '${_escapeForDart(pubspec.repository!)}',");
+      buffer.writeln(
+        "  repository: Repository('${_escapeForDart(pubspec.repository!.link)}'),",
+      );
     }
     if (pubspec.issueTracker != null) {
       buffer.writeln(

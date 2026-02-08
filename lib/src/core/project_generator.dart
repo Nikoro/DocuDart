@@ -32,6 +32,11 @@ class ProjectGenerator {
     final pubspecInfo = await _loadPubspecInfo(directory);
     final title = pubspecInfo['name'] ?? 'My Documentation';
     final description = pubspecInfo['description'] ?? 'Documentation site';
+    final repository = pubspecInfo['repository'];
+
+    // Check if the package exists on pub.dev
+    print('Checking pub.dev for package...');
+    final pubDevUrl = await _resolvePubDevUrl(pubspecInfo['name']);
 
     // Create directory structure inside website/
     await _createDirectories(websiteDir);
@@ -43,7 +48,9 @@ class ProjectGenerator {
     await _generateComponents(websiteDir, title);
 
     // Generate config.dart
-    await _generateConfig(websiteDir, title, description, template);
+    await _generateConfig(
+      websiteDir, title, description, template, pubDevUrl, repository,
+    );
 
     // Generate icons.dart
     await _generateIcons(websiteDir);
@@ -106,9 +113,36 @@ class ProjectGenerator {
       return {
         'name': yaml['name'] as String?,
         'description': yaml['description'] as String?,
+        'repository': yaml['repository'] as String?,
       };
     } catch (_) {
       return {};
+    }
+  }
+
+  /// Check if a package exists on pub.dev by making a HEAD request.
+  /// Returns the specific package URL if it exists, or the generic pub.dev URL.
+  Future<String> _resolvePubDevUrl(String? packageName) async {
+    if (packageName == null || packageName.isEmpty) {
+      return 'https://pub.dev';
+    }
+
+    try {
+      final client = HttpClient();
+      client.connectionTimeout = const Duration(seconds: 5);
+      final request = await client.headUrl(
+        Uri.parse('https://pub.dev/packages/$packageName'),
+      );
+      final response = await request.close();
+      client.close();
+
+      if (response.statusCode == 200) {
+        return 'https://pub.dev/packages/$packageName';
+      }
+      return 'https://pub.dev';
+    } catch (_) {
+      // No internet, timeout, DNS failure, etc.
+      return 'https://pub.dev';
     }
   }
 
@@ -254,6 +288,8 @@ class Sidebar extends StatelessComponent {
     String title,
     String description,
     InitTemplate template,
+    String pubDevUrl,
+    String? repository,
   ) async {
     final configContent =
         "import 'package:docudart/docudart.dart';\n"
@@ -281,8 +317,11 @@ class Sidebar extends StatelessComponent {
         '      title: project.pubspec.name,\n'
         '      navLinks: [\n'
         "        .path('/docs', label: Labels.docs, icon: Icons.docs),\n"
-        "        .url('https://github.com', label: Labels.github, icon: Icons.github),\n"
-        "        .url('https://pub.dev', label: Labels.pubDev, icon: Icons.pubDev),\n"
+        "        if (project.pubspec.repository case final repo?)\n"
+        "          .url(repo.link, label: repo.label, icon: repo.icon)\n"
+        "        else\n"
+        "          .url('https://github.com', label: Labels.github, icon: Icons.github),\n"
+        "        .url('$pubDevUrl', label: Labels.pubDev, icon: Icons.pubDev),\n"
         '      ],\n'
         '      trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),\n'
         '    ),\n'

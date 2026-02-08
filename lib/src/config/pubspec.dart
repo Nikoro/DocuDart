@@ -1,5 +1,7 @@
 import 'package:meta/meta.dart';
 
+import 'repository.dart';
+
 /// Represents the user's project pubspec.yaml fields.
 ///
 /// Provides access to metadata like package name, version, description,
@@ -18,8 +20,8 @@ class Pubspec {
   /// Homepage URL.
   final String? homepage;
 
-  /// Source code repository URL.
-  final String? repository;
+  /// Source code repository with auto-detected provider info.
+  final Repository? repository;
 
   /// Issue tracker URL.
   final String? issueTracker;

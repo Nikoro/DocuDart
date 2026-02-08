@@ -23,7 +23,10 @@ final init = setup(
       title: project.pubspec.name,
       navLinks: [
         .path('/docs', label: Labels.docs, icon: Icons.docs),
-        .url('https://github.com', label: Labels.github, icon: Icons.github),
+        if (project.pubspec.repository case final repo?)
+          .url(repo.link, label: repo.label, icon: repo.icon)
+        else
+          .url('https://github.com', label: Labels.github, icon: Icons.github),
         .url('https://pub.dev', label: Labels.pubDev, icon: Icons.pubDev),
       ],
       trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),

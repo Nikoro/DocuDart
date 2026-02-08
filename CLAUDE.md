@@ -62,6 +62,7 @@ docudart/
 │       │   ├── config_loader.dart       # Load config (evaluates config.dart, falls back to YAML)
 │       │   ├── config_evaluator.dart    # Text-based parsing of config.dart
 │       │   ├── nav_link.dart            # NavLink (path/url navigation with icon support)
+│       │   ├── repository.dart         # Repository (URL with auto-detected provider label/icon)
 │       │   ├── setup.dart              # setup() + resolveConfig() (config registration pattern)
 │       │   ├── project.dart            # Project (pubspec + docs + pages context object)
 │       │   ├── pubspec.dart            # Pubspec model (parsed from pubspec.yaml)
@@ -205,7 +206,7 @@ final init = setup(
 - `.let()` extension (Kotlin-style) on `T?` — enables null-safe scoping: `value.let((it) => transform(it))` returns null if value is null
 - `setup()` stores the callback; `resolveConfig(project)` invokes it (called by generated layout/app code)
 - `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<CustomPage>)
-- `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository`, `issueTracker`, `documentation`, `publishTo`, `funding`, `topics`, `environment`
+- `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository` (`Repository?`), `issueTracker`, `documentation`, `publishTo`, `funding`, `topics`, `environment`
 - **Lazy init gotcha**: `final init = setup(...)` is a top-level `final` variable — Dart initializes lazily. The generated `main.server.dart` references `init;` to force initialization.
 - **Must be public**: The variable must NOT be `_` (private) — private variables can't be referenced from other files to force initialization.
 - `resetSetup()` (annotated `@visibleForTesting`) resets the callback for tests.
@@ -225,6 +226,20 @@ NavLink.path('/about', label: 'About')                        // label-only
 - Default constructor is private (`NavLink._`); only `.path()` and `.url()` are public
 - **Dart keyword gotcha**: `external`/`internal` are reserved — that's why constructors are `.url()`/`.path()` (fields renamed to `_url`/`_path` to avoid clash)
 
+### Repository (lib/src/config/repository.dart)
+Wraps a repository URL string with auto-detected provider label and icon.
+```dart
+const repo = Repository('https://github.com/user/repo');
+repo.link   // 'https://github.com/user/repo'
+repo.label  // 'GitHub' (auto-detected from host)
+repo.icon   // Component (SVG icon for GitHub)
+```
+- `const` constructible — works in `const Pubspec(repository: Repository('...'))`
+- Provider detection uses `host.contains()`: `github` → GitHub, `gitlab` → GitLab, `bitbucket` → Bitbucket, else generic link icon
+- SVG icons embedded as static constants (same SVGs as generated `icons.dart`)
+- Used in generated config.dart: `if (project.pubspec.repository case final repo?) .url(repo.link, label: repo.label, icon: repo.icon)`
+- `==` / `hashCode` based on `link` field
+
 ### DefaultHeader / DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
 Library-provided default layout components.
 - `DefaultHeader(title:, navLinks:, leading:, trailing:)` - sticky header with nav, icon support, and composable slots
@@ -243,6 +258,8 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart)
 - Generates `icons.dart` at website root with default SVG icons (github, pubDev, docs, discord, youtube, etc.)
 - Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, Labels.topics, etc.)
+- **Smart pub.dev URL**: `_resolvePubDevUrl()` makes a HEAD request to `https://pub.dev/packages/{name}` at init time; if 200, uses specific package URL, else falls back to generic `https://pub.dev` (5s timeout, graceful fallback on errors)
+- **Smart repository link**: Generated config.dart uses `if (project.pubspec.repository case final repo?) .url(repo.link, label: repo.label, icon: repo.icon)` for runtime provider detection; falls back to hardcoded GitHub link if repository is null
 - Runs `dart pub get` in website/ after generation
 - Looks for `README.md` in project root to auto-generate docs
 - `_generateFullTemplateSubfolders()` - creates example subfolders for full template (always runs, even when README.md exists): `01-guides_expanded/` (expanded sidebar) and `02-advanced/` with nested `deployment/` (collapsed)
@@ -254,7 +271,7 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - Adds `docudart` as path dependency in managed project's pubspec
 - Copies `config.dart`, `components/`, `pages/`, and root-level `.dart` files (e.g. `icons.dart`) into managed project's `lib/`
 - Home route uses `resolveConfig(project).home?.call()` with pattern matching (`case final homeComponent?`): if non-null, renders the home component; otherwise redirects `/` to `/docs`
-- Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml
+- Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml (repository field uses `Repository('...')` constructor)
 - Generates `project_data.dart` with Project containing pubspec + auto-generated sidebar items
 - Generates `layout.dart` that calls `resolveConfig(project)` then `config.header?.call()` etc.
 - Injects `config.themeMode` into generated `theme.js` as `forcedMode` (overrides localStorage when set to light/dark)
@@ -298,6 +315,9 @@ Flutter docs style theme with:
 1. `InitCommand` resolves target directory
 2. Checks for existing `website/config.dart`
 3. `ProjectGenerator.generate()` creates `website/` with all files including components/
+   - Loads pubspec.yaml for name, description, and repository
+   - Checks pub.dev for package existence (HEAD request with 5s timeout)
+   - Generates config.dart with smart pub.dev URL and runtime repository detection
 4. Runs `dart pub get` in `website/`
 
 ### `docudart build`
