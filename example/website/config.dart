@@ -13,20 +13,14 @@ final init = setup(
     themeMode: ThemeMode.system,
     theme: DefaultTheme(),
     // Home page component. Set to null to redirect '/' to '/docs'.
-    home: () => project.pubspec.let(
-      (pubspec) =>
-          LandingPage(title: pubspec.name, description: pubspec.description),
-    ),
+    home: () => project.pubspec.let((pubspec) => LandingPage(title: pubspec.name, description: pubspec.description)),
     // Header, footer, and sidebar are components.
     // Set to null to hide any section.
     header: () => Header(
       title: project.pubspec.name,
       navLinks: [
         .path('/docs', label: Labels.docs, icon: Icons.docs),
-        if (project.pubspec.repository case final repo?)
-          .url(repo.link, label: repo.label, icon: repo.icon)
-        else
-          .url('https://github.com', label: Labels.github, icon: Icons.github),
+        ?project.pubspec.repository.let((repo) => .url(repo.link, label: repo.label, icon: repo.icon)),
         .url('https://pub.dev', label: Labels.pubDev, icon: Icons.pubDev),
       ],
       trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
@@ -38,10 +32,7 @@ final init = setup(
         leading: pubspec.topics.let(
           (topics) => Topics(
             title: Labels.topics,
-            links: [
-              for (final topic in topics)
-                .url('https://pub.dev/packages?q=topic%3A$topic', label: '#$topic'),
-            ],
+            links: [for (final topic in topics) .url('https://pub.dev/packages?q=topic%3A$topic', label: '#$topic')],
           ),
         ),
         trailing: Socials(

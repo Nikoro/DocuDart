@@ -2,7 +2,7 @@ name: example_project
 description: An example Dart project to demonstrate DocuDart documentation generator.
 version: 1.0.0
 publish_to: none
-repository: https://github.com/Nikoro/commands_cli
+repository: https://github.com/Nikoro/example
 topics: [dart, example, docudart]
 
 environment:
