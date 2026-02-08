@@ -31,9 +31,11 @@ class DefaultHeader extends StatelessComponent {
                   ? {'target': '_blank', 'rel': 'noopener noreferrer'}
                   : {},
               [
-                if (link.icon != null)
-                  span(classes: 'nav-link-icon', [link.icon!]),
+                if (link.leading != null)
+                  span(classes: 'nav-link-icon', [link.leading!]),
                 if (link.label != null) .text(link.label!),
+                if (link.trailing != null)
+                  span(classes: 'nav-link-icon', [link.trailing!]),
               ],
             ),
           ?trailing,

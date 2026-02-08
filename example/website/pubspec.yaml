@@ -1,6 +1,7 @@
 name: example_project_docs
 description: Documentation site powered by DocuDart
 publish_to: none
+
 environment:
   sdk: ^3.10.0
 

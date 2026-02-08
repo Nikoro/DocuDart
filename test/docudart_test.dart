@@ -57,10 +57,7 @@ void main() {
     });
 
     test('toJson excludes function fields', () {
-      final config = Config(
-        title: 'Test',
-        header: () => div([.text('header')]),
-      );
+      final config = Config(title: 'Test', header: () => div([.text('header')]));
 
       final json = config.toJson();
       expect(json['title'], equals('Test'));
@@ -120,10 +117,7 @@ void main() {
   group('NavLink', () {
     test('creates path and url nav links', () {
       final pathLink = NavLink.path('/docs', label: 'Docs');
-      final urlLink = NavLink.url(
-        'https://github.com/example',
-        label: 'GitHub',
-      );
+      final urlLink = NavLink.url('https://github.com/example', label: 'GitHub');
 
       expect(pathLink.isExternal, isFalse);
       expect(pathLink.href, equals('/docs'));
@@ -147,31 +141,29 @@ void main() {
       expect(link.href, equals('/docs'));
     });
 
-    test('supports icon-only link', () {
-      final link = NavLink.url('https://github.com', icon: span([.text('*')]));
+    test('supports leading-only link', () {
+      final link = NavLink.url('https://github.com', leading: span([.text('*')]));
       expect(link.label, isNull);
-      expect(link.icon, isNotNull);
+      expect(link.leading, isNotNull);
       expect(link.href, equals('https://github.com'));
     });
 
-    test('supports icon and label together', () {
-      final link = NavLink.url(
-        'https://github.com',
-        label: 'GitHub',
-        icon: span([.text('*')]),
-      );
+    test('supports leading and label together', () {
+      final link = NavLink.url('https://github.com', label: 'GitHub', leading: span([.text('*')]));
       expect(link.label, equals('GitHub'));
-      expect(link.icon, isNotNull);
+      expect(link.leading, isNotNull);
     });
 
-    test('toJson skips icon field', () {
+    test('toJson skips leading and trailing fields', () {
       final link = NavLink.url(
         'https://example.com',
         label: 'Test',
-        icon: span([.text('*')]),
+        leading: span([.text('*')]),
+        trailing: span([.text('>')]),
       );
       final json = link.toJson();
-      expect(json.containsKey('icon'), isFalse);
+      expect(json.containsKey('leading'), isFalse);
+      expect(json.containsKey('trailing'), isFalse);
       expect(json['label'], equals('Test'));
     });
   });
@@ -207,14 +199,8 @@ void main() {
       expect(pubspec.version, equals('1.0.0'));
       expect(pubspec.description, equals('A test package'));
       expect(pubspec.homepage, equals('https://example.com'));
-      expect(
-        pubspec.repository,
-        equals(const Repository('https://github.com/example/my_package')),
-      );
-      expect(
-        pubspec.issueTracker,
-        equals('https://github.com/example/my_package/issues'),
-      );
+      expect(pubspec.repository, equals(const Repository('https://github.com/example/my_package')));
+      expect(pubspec.issueTracker, equals('https://github.com/example/my_package/issues'));
       expect(pubspec.documentation, equals('https://example.com/docs'));
       expect(pubspec.publishTo, equals('none'));
       expect(pubspec.funding, equals(['https://github.com/sponsors/example']));
@@ -291,11 +277,7 @@ void main() {
       );
 
       const project = Project(
-        pubspec: Pubspec(
-          name: 'my_app',
-          version: '2.0.0',
-          description: 'My app description',
-        ),
+        pubspec: Pubspec(name: 'my_app', version: '2.0.0', description: 'My app description'),
         docs: [],
         pages: [],
       );
@@ -358,11 +340,7 @@ void main() {
     });
 
     test('can be enabled with versions', () {
-      const config = VersioningConfig(
-        enabled: true,
-        versions: ['v1', 'v2'],
-        defaultVersion: 'v2',
-      );
+      const config = VersioningConfig(enabled: true, versions: ['v1', 'v2'], defaultVersion: 'v2');
 
       expect(config.enabled, isTrue);
       expect(config.versions, equals(['v1', 'v2']));

@@ -313,9 +313,11 @@ class Sidebar extends StatelessComponent {
         '    header: () => Header(\n'
         '      title: project.pubspec.name,\n'
         '      navLinks: [\n'
-        "        .path('/docs', label: Labels.docs, icon: Icons.docs),\n"
-        "        ?project.pubspec.repository.let((repo) => .url(repo.link, label: repo.label, icon: repo.icon)),\n"
-        "        .url('$pubDevUrl', label: Labels.pubDev, icon: Icons.pubDev),\n"
+        "        .path('/docs', label: Labels.docs, leading: Icons.docs),\n"
+        "        ?project.pubspec.repository.let(\n"
+        "          (repo) => .url(repo.link, label: repo.label, leading: repo.icon, trailing: Icons.openInNew),\n"
+        "        ),\n"
+        "        .url('$pubDevUrl', label: Labels.pubDev, leading: Icons.pubDev, trailing: Icons.openInNew),\n"
         '      ],\n'
         '      trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),\n'
         '    ),\n'
@@ -336,9 +338,9 @@ class Sidebar extends StatelessComponent {
         '        ),\n'
         '        trailing: Socials(\n'
         '          links: [\n'
-        "            .url('https://youtube.com', icon: Icons.youtube),\n"
-        "            .url('https://discord.com', icon: Icons.discord),\n"
-        "            .url('https://x.com', icon: Icons.xTwitter),\n"
+        "            .url('https://youtube.com', leading: Icons.youtube),\n"
+        "            .url('https://discord.com', leading: Icons.discord),\n"
+        "            .url('https://x.com', leading: Icons.xTwitter),\n"
         '          ],\n'
         '        ),\n'
         '      );\n'

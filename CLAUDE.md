@@ -61,7 +61,7 @@ docudart/
 │       │   ├── docudart_config.dart     # Config class (has toJson/fromJson)
 │       │   ├── config_loader.dart       # Load config (evaluates config.dart, falls back to YAML)
 │       │   ├── config_evaluator.dart    # Text-based parsing of config.dart
-│       │   ├── nav_link.dart            # NavLink (path/url navigation with icon support)
+│       │   ├── nav_link.dart            # NavLink (path/url navigation with leading/trailing support)
 │       │   ├── repository.dart         # Repository (URL with auto-detected provider label/icon)
 │       │   ├── setup.dart              # setup() + resolveConfig() (config registration pattern)
 │       │   ├── project.dart            # Project (pubspec + docs + pages context object)
@@ -212,17 +212,17 @@ final init = setup(
 - `resetSetup()` (annotated `@visibleForTesting`) resets the callback for tests.
 
 ### NavLink (lib/src/config/nav_link.dart)
-Navigation link with optional icon and label. Uses dot shorthand-friendly constructors.
+Navigation link with optional leading/trailing components and label. Uses dot shorthand-friendly constructors.
 ```dart
-NavLink.path('/docs', label: 'Docs', icon: Icons.docs)       // internal path
-NavLink.url('https://github.com', label: 'GitHub', icon: Icons.github)  // external URL
-NavLink.url('https://pub.dev', icon: someIconComponent)       // icon-only
-NavLink.path('/about', label: 'About')                        // label-only
+NavLink.path('/docs', label: 'Docs', leading: Icons.docs)                              // internal path
+NavLink.url('https://github.com', label: 'GitHub', leading: Icons.github, trailing: Icons.openInNew)  // external URL with trailing icon
+NavLink.url('https://pub.dev', leading: someIconComponent)                              // leading-only
+NavLink.path('/about', label: 'About')                                                  // label-only
 ```
-- `label` (`String?`) and `icon` (`Component?`) — at least one required
-- `icon` accepts any Jaspr `Component` (typically `RawText('<svg>...</svg>')`)
+- `label` (`String?`), `leading` (`Component?`), `trailing` (`Component?`) — at least one required
+- `leading`/`trailing` accept any Jaspr `Component` (typically `RawText('<svg>...</svg>')`)
 - Fields `_path`/`_url` are private; public API: `.href`, `.isExternal`
-- `toJson()` uses `'label'` key, skips `icon`; `fromJson()` accepts legacy `'title'` key
+- `toJson()` uses `'label'` key, skips `leading`/`trailing`; `fromJson()` accepts legacy `'title'` key
 - Default constructor is private (`NavLink._`); only `.path()` and `.url()` are public
 - **Dart keyword gotcha**: `external`/`internal` are reserved — that's why constructors are `.url()`/`.path()` (fields renamed to `_url`/`_path` to avoid clash)
 
@@ -237,7 +237,7 @@ repo.icon   // Component (SVG icon for GitHub)
 - `const` constructible — works in `const Pubspec(repository: Repository('...'))`
 - Provider detection uses `host.contains()`: `github` → GitHub, `gitlab` → GitLab, `bitbucket` → Bitbucket, else generic link icon
 - SVG icons embedded as static constants (same SVGs as generated `icons.dart`)
-- Used in generated config.dart: `if (project.pubspec.repository case final repo?) .url(repo.link, label: repo.label, icon: repo.icon)`
+- Used in generated config.dart: `?project.pubspec.repository.let((repo) => .url(repo.link, label: repo.label, leading: repo.icon, trailing: Icons.openInNew))`
 - `==` / `hashCode` based on `link` field
 
 ### DefaultHeader / DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
@@ -259,7 +259,7 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - Generates `icons.dart` at website root with default SVG icons (github, pubDev, docs, discord, youtube, etc.)
 - Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, Labels.topics, etc.)
 - **Smart pub.dev URL**: `_resolvePubDevUrl()` makes a HEAD request to `https://pub.dev/packages/{name}` at init time; if 200, uses specific package URL, else falls back to generic `https://pub.dev` (5s timeout, graceful fallback on errors)
-- **Smart repository link**: Generated config.dart uses `if (project.pubspec.repository case final repo?) .url(repo.link, label: repo.label, icon: repo.icon)` for runtime provider detection; falls back to hardcoded GitHub link if repository is null
+- **Smart repository link**: Generated config.dart uses `?project.pubspec.repository.let((repo) => .url(repo.link, label: repo.label, leading: repo.icon, trailing: Icons.openInNew))` for runtime provider detection with external link indicator; null-safe via `.let()` — if no repository, the entry is omitted
 - Runs `dart pub get` in website/ after generation
 - Looks for `README.md` in project root to auto-generate docs
 - `_generateFullTemplateSubfolders()` - creates example subfolders for full template (always runs, even when README.md exists): `01-guides_expanded/` (expanded sidebar) and `02-advanced/` with nested `deployment/` (collapsed)

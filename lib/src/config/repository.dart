@@ -48,10 +48,7 @@ class Repository {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Repository &&
-          runtimeType == other.runtimeType &&
-          link == other.link;
+      identical(this, other) || other is Repository && runtimeType == other.runtimeType && link == other.link;
 
   @override
   int get hashCode => link.hashCode;

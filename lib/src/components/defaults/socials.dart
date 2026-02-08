@@ -7,8 +7,8 @@ import 'package:docudart/docudart.dart';
 ///
 /// ```dart
 /// Socials(links: [
-///   NavLink.url('https://youtube.com', icon: Icons.youtube),
-///   NavLink.url('https://github.com', icon: Icons.github),
+///   NavLink.url('https://youtube.com', leading: Icons.youtube),
+///   NavLink.url('https://github.com', leading: Icons.github),
 /// ])
 /// ```
 class Socials extends StatelessComponent {
@@ -27,9 +27,11 @@ class Socials extends StatelessComponent {
               ? {'target': '_blank', 'rel': 'noopener noreferrer'}
               : {},
           [
-            if (link.icon != null)
-              span(classes: 'social-link-icon', [link.icon!]),
+            if (link.leading != null)
+              span(classes: 'social-link-icon', [link.leading!]),
             if (link.label != null) .text(link.label!),
+            if (link.trailing != null)
+              span(classes: 'social-link-icon', [link.trailing!]),
           ],
         ),
     ]);
