@@ -214,14 +214,15 @@ import 'package:docudart/docudart.dart';
 /// The [DefaultFooter] provides a simple centered text footer
 /// with optional leading/trailing slots.
 class Footer extends StatelessComponent {
-  const Footer({required this.text, this.trailing, super.key});
+  const Footer({required this.text, this.leading, this.trailing, super.key});
 
   final String text;
+  final Component? leading;
   final Component? trailing;
 
   @override
   Component build(BuildContext context) {
-    return DefaultFooter(text: text, trailing: trailing);
+    return DefaultFooter(text: text, leading: leading, trailing: trailing);
   }
 }
 ''');
@@ -288,6 +289,16 @@ class Sidebar extends StatelessComponent {
         '    return Footer(\n'
         r"      text: '© $year ${project.pubspec.name}',"
         '\n'
+        '      leading: project.pubspec.topics.isNotEmpty\n'
+        '          ? Topics(\n'
+        '              title: Labels.topics,\n'
+        '              links: [\n'
+        "                for (final topic in project.pubspec.topics)\n"
+        r"                  .url('https://pub.dev/packages?q=topic%3A$topic', label: '#$topic'),"
+        '\n'
+        '              ],\n'
+        '            )\n'
+        '          : null,\n'
         '      trailing: Socials(\n'
         '        links: [\n'
         "          .url('https://youtube.com', icon: Icons.youtube),\n"
@@ -420,6 +431,7 @@ abstract class Labels {
 
   static const pubDev = 'pub.dev';
   static const docs = 'Docs';
+  static const topics = 'Topics';
 }
 ''');
   }

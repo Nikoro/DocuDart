@@ -925,6 +925,46 @@ body {
   fill: currentColor;
 }
 
+/* Topics */
+.topics {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.topics-title {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
+.topics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.topic-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 1rem;
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border, rgba(128, 128, 128, 0.25));
+  transition: color 0.2s, border-color 0.2s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.topic-link:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
 /* Hero */
 .home-page {
   max-width: 800px;

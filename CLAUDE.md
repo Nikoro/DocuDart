@@ -94,7 +94,8 @@ docudart/
 │       │   │   ├── default_footer.dart  # DefaultFooter component
 │       │   │   ├── default_sidebar.dart # DefaultSidebar component
 │       │   │   ├── theme_toggle.dart    # ThemeToggle (light/dark icon swap)
-│       │   │   └── socials.dart         # Socials (social media icon links)
+│       │   │   ├── socials.dart         # Socials (social media icon links)
+│       │   │   └── topics.dart          # Topics (topic tag links with optional title)
 │       │   └── built_in/               # Built-in markdown component styles/scripts
 │       │       ├── callout.dart
 │       │       ├── tabs.dart
@@ -232,7 +233,7 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - Uses `PackageResolver` to compute path dependency to docudart
 - Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart)
 - Generates `icons.dart` at website root with default SVG icons (github, pubDev, docs, discord, youtube, etc.)
-- Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, etc.)
+- Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, Labels.topics, etc.)
 - Runs `dart pub get` in website/ after generation
 - Looks for `README.md` in project root to auto-generate docs
 - `_generateFullTemplateSubfolders()` - creates example subfolders for full template (always runs, even when README.md exists): `01-guides_expanded/` (expanded sidebar) and `02-advanced/` with nested `deployment/` (collapsed)

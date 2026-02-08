@@ -27,4 +27,5 @@ abstract class Labels {
 
   static const pubDev = 'pub.dev';
   static const docs = 'Docs';
+  static const topics = 'Topics';
 }

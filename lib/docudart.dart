@@ -37,6 +37,7 @@ export 'src/components/defaults/default_footer.dart';
 export 'src/components/defaults/default_sidebar.dart';
 export 'src/components/defaults/theme_toggle.dart';
 export 'src/components/defaults/socials.dart';
+export 'src/components/defaults/topics.dart';
 
 // Routing
 export 'src/routing/sidebar_generator.dart';
