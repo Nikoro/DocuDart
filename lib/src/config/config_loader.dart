@@ -5,6 +5,7 @@ import 'package:yaml/yaml.dart';
 
 import 'config_evaluator.dart';
 import 'docudart_config.dart';
+import 'pubspec.dart';
 import '../theme/base_theme.dart';
 import '../theme/default_theme.dart';
 import '../theme/theme_loader.dart';
@@ -37,6 +38,59 @@ class ConfigLoader {
   static String _absolutize(String dir, String path) {
     if (p.isAbsolute(path)) return p.normalize(path);
     return p.normalize(p.join(dir, path));
+  }
+
+  /// Load the parent project's pubspec.yaml from the website directory.
+  ///
+  /// Looks one directory up from [websiteDir] for the project root's
+  /// pubspec.yaml. Falls back to the website's own pubspec if the
+  /// parent doesn't exist.
+  static Future<Pubspec> loadParentPubspec(String websiteDir) async {
+    final parentDir = p.dirname(websiteDir);
+    final parentPubspec = File(p.join(parentDir, 'pubspec.yaml'));
+
+    if (parentPubspec.existsSync()) {
+      return _parsePubspecFile(parentPubspec.path);
+    }
+
+    // Fallback: use the website's own pubspec
+    final websitePubspec = File(p.join(websiteDir, 'pubspec.yaml'));
+    if (websitePubspec.existsSync()) {
+      return _parsePubspecFile(websitePubspec.path);
+    }
+
+    return const Pubspec(name: 'unknown');
+  }
+
+  static Future<Pubspec> _parsePubspecFile(String path) async {
+    try {
+      final content = await File(path).readAsString();
+      final yaml = loadYaml(content) as YamlMap;
+
+      return Pubspec(
+        name: yaml['name'] as String? ?? 'unknown',
+        version: yaml['version']?.toString(),
+        description: yaml['description'] as String?,
+        homepage: yaml['homepage'] as String?,
+        repository: yaml['repository'] as String?,
+        issueTracker: yaml['issue_tracker'] as String?,
+        documentation: yaml['documentation'] as String?,
+        publishTo: yaml['publish_to'] as String?,
+        funding: (yaml['funding'] as YamlList?)
+                ?.map((e) => e.toString())
+                .toList() ??
+            const [],
+        topics: (yaml['topics'] as YamlList?)
+                ?.map((e) => e.toString())
+                .toList() ??
+            const [],
+        environment: (yaml['environment'] as YamlMap?)
+                ?.map((k, v) => MapEntry(k.toString(), v.toString())) ??
+            const {},
+      );
+    } catch (_) {
+      return const Pubspec(name: 'unknown');
+    }
   }
 
   static Future<Config> _loadFromYaml(String dir) async {

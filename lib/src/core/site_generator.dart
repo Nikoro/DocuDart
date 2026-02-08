@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
+import '../config/config_loader.dart';
 import '../config/docudart_config.dart';
+import '../config/pubspec.dart';
 import 'content_processor.dart';
 import 'package_resolver.dart';
 import 'version_manager.dart';
@@ -27,7 +29,7 @@ class SiteGenerator {
   /// When [fullClean] is true (default), deletes and recreates the managed
   /// directory from scratch. Set to false during hot reload to update files
   /// in-place without disrupting the running Jaspr dev server.
-  Future<void> generate({bool fullClean = true}) async {
+  Future<void> generate({bool fullClean = true, Pubspec? pubspec}) async {
     print('Generating site structure...');
 
     // Ensure managed directory exists
@@ -65,11 +67,16 @@ class SiteGenerator {
         sidebarItemsByVersion.values.firstOrNull ??
         <GeneratedSidebarItem>[];
 
+    // Load parent pubspec if not provided
+    final resolvedPubspec =
+        pubspec ?? await ConfigLoader.loadParentPubspec(websiteDir);
+
     // Generate all required files
     await _generatePubspec();
     await _generateMain();
     await _copyUserFiles();
-    await _generateSiteContextData(defaultSidebarItems);
+    await _generatePubspecData(resolvedPubspec);
+    await _generateProjectData(defaultSidebarItems);
     await _generateLayout();
     await _generateApp(allPages, versionManager);
     await _generateStyles(includeVersionSwitcher: versionManager.isEnabled);
@@ -175,15 +182,78 @@ jaspr:
     }
   }
 
-  /// Generate site_context_data.dart with sidebar items and custom pages.
-  Future<void> _generateSiteContextData(
+  /// Generate pubspec_data.dart with const Pubspec from the parent project.
+  Future<void> _generatePubspecData(Pubspec pubspec) async {
+    final buffer = StringBuffer();
+    buffer.writeln("import 'package:docudart/docudart.dart';");
+    buffer.writeln();
+    buffer.writeln('/// Auto-generated from the parent project pubspec.yaml.');
+    buffer.writeln('const projectPubspec = Pubspec(');
+    buffer.writeln("  name: '${_escapeForDart(pubspec.name)}',");
+    if (pubspec.version != null) {
+      buffer.writeln("  version: '${_escapeForDart(pubspec.version!)}',");
+    }
+    if (pubspec.description != null) {
+      buffer.writeln(
+        "  description: '${_escapeForDart(pubspec.description!)}',",
+      );
+    }
+    if (pubspec.homepage != null) {
+      buffer.writeln("  homepage: '${_escapeForDart(pubspec.homepage!)}',");
+    }
+    if (pubspec.repository != null) {
+      buffer.writeln("  repository: '${_escapeForDart(pubspec.repository!)}',");
+    }
+    if (pubspec.issueTracker != null) {
+      buffer.writeln(
+        "  issueTracker: '${_escapeForDart(pubspec.issueTracker!)}',",
+      );
+    }
+    if (pubspec.documentation != null) {
+      buffer.writeln(
+        "  documentation: '${_escapeForDart(pubspec.documentation!)}',",
+      );
+    }
+    if (pubspec.publishTo != null) {
+      buffer.writeln("  publishTo: '${_escapeForDart(pubspec.publishTo!)}',");
+    }
+    if (pubspec.funding.isNotEmpty) {
+      buffer.writeln(
+        "  funding: [${pubspec.funding.map((f) => "'${_escapeForDart(f)}'").join(', ')}],",
+      );
+    }
+    if (pubspec.topics.isNotEmpty) {
+      buffer.writeln(
+        "  topics: [${pubspec.topics.map((t) => "'${_escapeForDart(t)}'").join(', ')}],",
+      );
+    }
+    if (pubspec.environment.isNotEmpty) {
+      buffer.writeln('  environment: {');
+      for (final entry in pubspec.environment.entries) {
+        buffer.writeln(
+          "    '${_escapeForDart(entry.key)}': '${_escapeForDart(entry.value)}',",
+        );
+      }
+      buffer.writeln('  },');
+    }
+    buffer.writeln(');');
+
+    await File(
+      p.join(managedDir, 'lib', 'pubspec_data.dart'),
+    ).writeAsString(buffer.toString());
+  }
+
+  /// Generate project_data.dart with sidebar items and custom pages.
+  Future<void> _generateProjectData(
     List<GeneratedSidebarItem> sidebarItems,
   ) async {
     final buffer = StringBuffer();
     buffer.writeln("import 'package:docudart/docudart.dart';");
+    buffer.writeln("import 'pubspec_data.dart';");
     buffer.writeln();
-    buffer.writeln('/// Auto-generated site context data.');
-    buffer.writeln('const siteContext = SiteContext(');
+    buffer.writeln('/// Auto-generated project data.');
+    buffer.writeln('const project = Project(');
+    buffer.writeln('  pubspec: projectPubspec,');
     buffer.writeln('  docs: [');
 
     for (final item in sidebarItems) {
@@ -203,7 +273,7 @@ jaspr:
     buffer.writeln(');');
 
     await File(
-      p.join(managedDir, 'lib', 'site_context_data.dart'),
+      p.join(managedDir, 'lib', 'project_data.dart'),
     ).writeAsString(buffer.toString());
   }
 
@@ -245,8 +315,9 @@ jaspr:
     final layout = '''
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
+import 'package:docudart/docudart.dart';
 import 'config.dart';
-import 'site_context_data.dart';
+import 'project_data.dart';
 
 class Layout extends StatelessComponent {
   final Component child;
@@ -260,9 +331,10 @@ class Layout extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final headerComponent = config.header?.call(siteContext);
-    final sidebarComponent = showSidebar ? config.sidebar?.call(siteContext) : null;
-    final footerComponent = config.footer?.call(siteContext);
+    final config = resolveConfig(project);
+    final headerComponent = config.header?.call();
+    final sidebarComponent = showSidebar ? config.sidebar?.call() : null;
+    final footerComponent = config.footer?.call();
 
     return div(
       classes: 'layout',
@@ -302,9 +374,11 @@ class Layout extends StatelessComponent {
         '''
 import 'package:jaspr/server.dart';
 import 'package:jaspr/dom.dart' show link, script;
+import 'config.dart';
 import 'app.dart';
 
 void main() {
+  init; // Force lazy top-level initializer in config.dart to run setup().
   Jaspr.initializeApp();
 
   runApp(Document(
@@ -370,12 +444,12 @@ ClientOptions get defaultClientOptions => ClientOptions();
 
     // Home route: if config.home is set, render it; otherwise redirect to /docs
     routesBuffer.writeln('''
-        if (config.home != null)
+        if (resolveConfig(project).home != null)
           Route(
             path: '/',
             builder: (context, state) => Layout(
               showSidebar: false,
-              child: config.home!(siteContext),
+              child: resolveConfig(project).home!(),
             ),
           )
         else
@@ -406,8 +480,8 @@ ClientOptions get defaultClientOptions => ClientOptions();
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr_router/jaspr_router.dart';
-import 'config.dart';
-import 'site_context_data.dart';
+import 'package:docudart/docudart.dart';
+import 'project_data.dart';
 import 'layout.dart';
 import 'docs_page_content.dart';
 

@@ -62,7 +62,9 @@ docudart/
 │       │   ├── config_loader.dart       # Load config (evaluates config.dart, falls back to YAML)
 │       │   ├── config_evaluator.dart    # Text-based parsing of config.dart
 │       │   ├── nav_link.dart            # NavLink (path/url navigation with icon support)
-│       │   ├── site_context.dart        # SiteContext (docs + pages passed to layout functions)
+│       │   ├── setup.dart              # setup() + resolveConfig() (config registration pattern)
+│       │   ├── project.dart            # Project (pubspec + docs + pages context object)
+│       │   ├── pubspec.dart            # Pubspec model (parsed from pubspec.yaml)
 │       │   ├── versioning_config.dart   # VersioningConfig
 │       │   ├── theme_config.dart        # ThemeMode enum (system, light, dark)
 │       │   └── custom_page.dart         # CustomPage
@@ -129,7 +131,7 @@ user-project/
   lib/                   # User's own code
   website/               # Created by docudart init
     pubspec.yaml         # Depends on docudart (path dependency)
-    config.dart          # Config getter with header/footer/sidebar functions
+    config.dart          # setup() call with Config + header/footer/sidebar functions
     icons.dart           # SVG icon constants (Icons.github, Icons.pubDev, Icons.docs, etc.)
     labels.dart          # Label string constants (Labels.github, Labels.docs, etc.)
     docs/                # Markdown documentation files
@@ -168,26 +170,35 @@ Config(
   themeMode: ThemeMode,     // default: ThemeMode.system (system | light | dark)
   versioning: VersioningConfig?, // optional versioning support
   customPages: List<CustomPage>, // custom Dart/Jaspr pages
-  home: Component Function(SiteContext)?,      // null = redirect '/' to '/docs'
-  header: Component Function(SiteContext)?,   // null = no header
-  footer: Component Function(SiteContext)?,   // null = no footer
-  sidebar: Component Function(SiteContext)?,  // null = no sidebar
+  home: Component Function()?,      // null = redirect '/' to '/docs'
+  header: Component Function()?,   // null = no header
+  footer: Component Function()?,   // null = no footer
+  sidebar: Component Function()?,  // null = no sidebar
 )
 ```
-- Home, header, footer, sidebar are nullable function fields returning Components
+- Home, header, footer, sidebar are nullable zero-arg function fields returning Components
 - When `home` is set, `/` renders the home component (no sidebar); when null, `/` redirects to `/docs`
-- Functions receive a `SiteContext` with `docs` (sidebar items) and `pages` (custom pages)
+- Context (pubspec, docs, pages) is available via closure from the `setup()` callback — no params needed
 - `toJson()` skips function fields; `fromJson()` sets them to null
 - Not `const` (functions prevent const constructors)
 
-### SiteContext (lib/src/config/site_context.dart)
-Context object passed to home/header/footer/sidebar builder functions.
+### setup() + Project + Pubspec (lib/src/config/setup.dart, project.dart, pubspec.dart)
+The `setup()` function registers a config callback that receives a `Project` context object.
 ```dart
-class SiteContext {
-  final List<GeneratedSidebarItem> docs;  // auto-generated from docs/ folder
-  final List<CustomPage> pages;           // custom pages from config
-}
+// config.dart — user writes this:
+final init = setup((project) => Config(
+  title: project.pubspec.name,
+  description: project.pubspec.description,
+  home: () => LandingPage(title: project.pubspec.name),
+  sidebar: () => Sidebar(items: project.docs),
+));
 ```
+- `setup()` stores the callback; `resolveConfig(project)` invokes it (called by generated layout/app code)
+- `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<CustomPage>)
+- `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository`, `issueTracker`, `documentation`, `publishTo`, `funding`, `topics`, `environment`
+- **Lazy init gotcha**: `final init = setup(...)` is a top-level `final` variable — Dart initializes lazily. The generated `main.server.dart` references `init;` to force initialization.
+- **Must be public**: The variable must NOT be `_` (private) — private variables can't be referenced from other files to force initialization.
+- `resetSetup()` (annotated `@visibleForTesting`) resets the callback for tests.
 
 ### NavLink (lib/src/config/nav_link.dart)
 Navigation link with optional icon and label. Uses dot shorthand-friendly constructors.
@@ -229,12 +240,13 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 ### SiteGenerator (lib/src/core/site_generator.dart)
 Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - Accepts optional `websiteDir` parameter (defaults to cwd)
-- `generate({bool fullClean = true})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
+- `generate({bool fullClean = true, Pubspec? pubspec})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
 - Adds `docudart` as path dependency in managed project's pubspec
 - Copies `config.dart`, `components/`, `pages/`, and root-level `.dart` files (e.g. `icons.dart`) into managed project's `lib/`
-- Home route uses `config.home` at runtime: if set, renders the home component; if null, redirects `/` to `/docs`
-- Generates `site_context_data.dart` with auto-generated sidebar items
-- Generates `layout.dart` that calls `config.header/footer/sidebar` functions
+- Home route uses `resolveConfig(project).home` at runtime: if set, renders the home component; if null, redirects `/` to `/docs`
+- Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml
+- Generates `project_data.dart` with Project containing pubspec + auto-generated sidebar items
+- Generates `layout.dart` that calls `resolveConfig(project)` then `config.header?.call()` etc.
 - Injects `config.themeMode` into generated `theme.js` as `forcedMode` (overrides localStorage when set to light/dark)
 - If a layout function is null, that section is simply not rendered
 
@@ -281,12 +293,13 @@ Flutter docs style theme with:
 ### `docudart build`
 1. `WorkspaceResolver.resolve()` finds `website/` directory
 2. `ConfigLoader.load(websiteDir)` loads config with absolute paths
-3. `SiteGenerator(config, websiteDir: websiteDir).generate()`:
+3. `ConfigLoader.loadParentPubspec(websiteDir)` reads parent project's pubspec.yaml
+4. `SiteGenerator(config, websiteDir: websiteDir).generate(pubspec: pubspec)`:
    - Copies config.dart, root `.dart` files, components/, pages/ into managed project
-   - Generates site_context_data.dart with sidebar items
-   - Generates layout.dart that delegates to config functions
-4. Runs `dart run jaspr build` in `website/.dart_tool/docudart/`
-5. Copies output to `website/build/web/` (or `--output` flag)
+   - Generates pubspec_data.dart + project_data.dart with Project/Pubspec data
+   - Generates layout.dart that calls `resolveConfig(project)` then delegates to config functions
+5. Runs `dart run jaspr build` in `website/.dart_tool/docudart/`
+6. Copies output to `website/build/web/` (or `--output` flag)
 
 ### `docudart serve`
 1. Same as build steps 1-3 (uses `generate()` with `fullClean: true` for initial build)
@@ -294,7 +307,7 @@ Flutter docs style theme with:
 3. Runs `dart run jaspr serve` in `website/.dart_tool/docudart/`
 4. On file change: regenerates with `fullClean: false` (in-place update, no pub get) — Jaspr's native hot reload detects the changed files and re-renders
 
-**Hot reload architecture**: `config.dart` uses a getter (`Config get config => Config(...)`) instead of a `final` variable. This is critical because Dart VM hot reload does NOT re-evaluate top-level `final` variables, but DOES re-evaluate getters on each access. When a file changes, `DocuDartFileWatcher` copies the updated files into the managed Jaspr project's `lib/`, and Jaspr's built-in `HotReloader` detects the changes, patches the VM, and re-evaluates the getter on the next request.
+**Hot reload architecture**: `config.dart` uses `final init = setup((project) => Config(...))` — the `setup()` call stores the callback, and `resolveConfig(project)` invokes it fresh each time. When a file changes, `DocuDartFileWatcher` copies the updated files into the managed Jaspr project's `lib/`, and Jaspr's built-in `HotReloader` detects the changes and patches the VM. The top-level `final init` is re-evaluated on hot reload (replacing the stored callback), and subsequent calls to `resolveConfig()` use the new callback.
 
 ## Common Tasks
 
@@ -314,9 +327,10 @@ The managed Jaspr site is generated in `SiteGenerator`:
 - `_generatePubspec()` - pubspec.yaml (includes docudart path dep)
 - `_generateMain()` - lib/main.server.dart, lib/main.client.dart
 - `_copyUserFiles()` - copies config.dart, root `.dart` files, components/, pages/ into lib/
-- `_generateSiteContextData()` - lib/site_context_data.dart
-- `_generateLayout()` - lib/layout.dart (calls config.header/footer/sidebar)
-- `_generateApp()` - lib/app.dart with Router (home route uses config.home at runtime)
+- `_generatePubspecData()` - lib/pubspec_data.dart (const Pubspec from parent pubspec.yaml)
+- `_generateProjectData()` - lib/project_data.dart (Project with pubspec + sidebar items)
+- `_generateLayout()` - lib/layout.dart (calls resolveConfig(project) then config.header/footer/sidebar)
+- `_generateApp()` - lib/app.dart with Router (home route uses resolveConfig(project).home at runtime)
 - `_generatePages()` - lib/pages/ directory (user pages copied by _copyUserFiles)
 - `_generateDocsPageContent()` - lib/docs_page_content.dart
 - `_generateStyles()` - web/styles.css (includes collapsible sidebar CSS with chevron + transitions)
@@ -431,7 +445,7 @@ Use `headless: true` for automated checks. Key things to verify:
 
 - `docudart` re-exports `package:jaspr/jaspr.dart` — users never import jaspr directly
 - User's config is `config.dart` (Dart, not YAML) for IntelliSense and type safety
-- `config.dart` must export a top-level getter `Config get config => Config(...)` (convention enforced by ProjectGenerator — getter is required for hot reload to work)
+- `config.dart` must call `final init = setup((project) => Config(...))` at the top level (convention enforced by ProjectGenerator — the `init` variable must be public so generated code can reference it to force Dart's lazy initializer to run)
 - `ConfigLoader` parses `config.dart` via text-based regex (`ConfigEvaluator`), falling back to YAML if it fails
 - Function fields (home/header/footer/sidebar) cannot be extracted from text parsing — managed project imports config.dart directly
 - All generated user files import `package:docudart/docudart.dart`
@@ -441,7 +455,8 @@ Use `headless: true` for automated checks. Key things to verify:
 - Clean URLs by default (`/docs/intro/` not `/docs/intro.html`)
 - Theme mode (system/light/dark) via `themeMode` field — injected into `theme.js` as `forcedMode`; when set to light/dark it overrides localStorage; toggle still works for user override
 - WorkspaceResolver supports backward compatibility with old flat structure
-- **Dart hot reload caveat**: Top-level `final` variables are NOT re-evaluated on hot reload — that's why `config.dart` uses a getter (`Config get config =>`) instead of `final config =`
+- **Dart lazy init caveat**: Top-level `final` variables are lazily initialized — they only evaluate when first accessed. The generated `main.server.dart` references `init;` from config.dart to force the `setup()` callback to run. The variable must be public (not `_`) for this to work.
+- **Hot reload**: `setup()` stores a callback; on hot reload Dart re-evaluates top-level initializers, replacing the stored callback. `resolveConfig(project)` always invokes the latest callback.
 - `DocuDartFileWatcher` watches: docs/, assets/, all root `.dart` files (config.dart, icons.dart, etc.), components/, pages/; uses debounce + pending-regeneration queue to handle rapid edits
 - **Sidebar interactivity** (all via vanilla JS in `theme.js`):
   - **Collapsible categories**: click/keyboard toggle, CSS chevron rotation + `max-height` transition, state persisted in `localStorage` (`docudart-sidebar-state` key)

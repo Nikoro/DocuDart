@@ -64,6 +64,12 @@ class DocuDartFileWatcher {
     if (pagesDir.existsSync()) {
       await _watchDirectory(pagesDir.path);
     }
+
+    // Watch parent project's pubspec.yaml (for title, description, etc.)
+    final parentPubspec = p.join(p.dirname(websiteDir), 'pubspec.yaml');
+    if (File(parentPubspec).existsSync()) {
+      await _watchFile(parentPubspec);
+    }
   }
 
   /// Stop watching for file changes.
@@ -157,6 +163,11 @@ class DocuDartFileWatcher {
 
     // Dart files (config.dart, components/*.dart, pages/*.dart)
     if (ext == '.dart') {
+      return true;
+    }
+
+    // YAML files (parent pubspec.yaml)
+    if (ext == '.yaml' || ext == '.yml') {
       return true;
     }
 

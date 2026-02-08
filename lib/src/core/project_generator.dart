@@ -254,50 +254,51 @@ class Sidebar extends StatelessComponent {
     String description,
     InitTemplate template,
   ) async {
-    final configContent =
-        '''
-import 'package:docudart/docudart.dart';
-import 'components/header.dart';
-import 'components/footer.dart';
-import 'components/sidebar.dart';
-import 'icons.dart';
-import 'labels.dart';
-import 'pages/landing_page.dart';
-
-Config get config => Config(
-  title: '$title',
-  description: '$description',
-  themeMode: ThemeMode.system,
-  theme: DefaultTheme(),
-  // Home page component. Set to null to redirect '/' to '/docs'.
-  home: (context) => LandingPage(),
-  // Header, footer, and sidebar are components.
-  // Set to null to hide any section.
-  header: (context) => Header(
-    title: '$title',
-    navLinks: [
-      .path('/docs', label: Labels.docs, icon: Icons.docs),
-      .url('https://github.com', label: Labels.github, icon: Icons.github),
-      .url('https://pub.dev', label: Labels.pubDev, icon: Icons.pubDev),
-    ],
-    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
-  ),
-  footer: (context) {
-    final year = DateTime.now().year;
-    return Footer(
-      text: '© \$year $title',
-      trailing: Socials(
-        links: [
-          .url('https://youtube.com', icon: Icons.youtube),
-          .url('https://discord.com', icon: Icons.discord),
-          .url('https://x.com', icon: Icons.xTwitter),
-        ],
-      ),
-    );
-  },
-  sidebar: (context) => Sidebar(items: context.docs),
-);
-''';
+    final configContent = "import 'package:docudart/docudart.dart';\n"
+        "import 'components/header.dart';\n"
+        "import 'components/footer.dart';\n"
+        "import 'components/sidebar.dart';\n"
+        "import 'icons.dart';\n"
+        "import 'labels.dart';\n"
+        "import 'pages/landing_page.dart';\n"
+        '\n'
+        'final init = setup((project) => Config(\n'
+        '  title: project.pubspec.name,\n'
+        '  description: project.pubspec.description,\n'
+        '  themeMode: ThemeMode.system,\n'
+        '  theme: DefaultTheme(),\n'
+        "  // Home page component. Set to null to redirect '/' to '/docs'.\n"
+        '  home: () => LandingPage(\n'
+        '    title: project.pubspec.name,\n'
+        '    description: project.pubspec.description,\n'
+        '  ),\n'
+        '  // Header, footer, and sidebar are components.\n'
+        '  // Set to null to hide any section.\n'
+        '  header: () => Header(\n'
+        '    title: project.pubspec.name,\n'
+        '    navLinks: [\n'
+        "      .path('/docs', label: Labels.docs, icon: Icons.docs),\n"
+        "      .url('https://github.com', label: Labels.github, icon: Icons.github),\n"
+        "      .url('https://pub.dev', label: Labels.pubDev, icon: Icons.pubDev),\n"
+        '    ],\n'
+        '    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),\n'
+        '  ),\n'
+        '  footer: () {\n'
+        '    final year = DateTime.now().year;\n'
+        '    return Footer(\n'
+        r"      text: '© $year ${project.pubspec.name}',"
+        '\n'
+        '      trailing: Socials(\n'
+        '        links: [\n'
+        "          .url('https://youtube.com', icon: Icons.youtube),\n"
+        "          .url('https://discord.com', icon: Icons.discord),\n"
+        "          .url('https://x.com', icon: Icons.xTwitter),\n"
+        '        ],\n'
+        '      ),\n'
+        '    );\n'
+        '  },\n'
+        '  sidebar: () => Sidebar(items: project.docs),\n'
+        '));\n';
 
     await File(p.join(websiteDir, 'config.dart')).writeAsString(configContent);
   }
@@ -431,20 +432,19 @@ abstract class Labels {
     final landingContent = '''
 import 'package:docudart/docudart.dart';
 
-import '../config.dart';
-
 /// Landing page component.
 class LandingPage extends StatelessComponent {
-  const LandingPage({super.key});
+  final String? title;
+  final String? description;
+
+  const LandingPage({this.title, this.description, super.key});
 
   @override
   Component build(BuildContext context) {
-    final title = config.title;
-    final description = config.description;
     return div(classes: 'landing-page', [
       div(classes: 'hero', [
-        if (title != null) h1([.text(title)]),
-        if (description != null) p(classes: 'hero-description', [.text(description)]),
+        if (title != null) h1([.text(title!)]),
+        if (description != null) p(classes: 'hero-description', [.text(description!)]),
         div(classes: 'hero-actions', [
           a(href: '/docs', classes: 'button button-primary', [.text('Get Started')]),
         ]),
@@ -712,12 +712,12 @@ All site settings live in `config.dart`.
 ## Disabling a Section
 
 ```dart
-Config get config => Config(
-  title: 'My Project',
-  header: (context) => Header(),
+final init = setup((project) => Config(
+  title: project.pubspec.name,
+  header: () => Header(title: project.pubspec.name),
   footer: null,    // No footer
   sidebar: null,   // No sidebar
-);
+));
 ```
 ''');
 
@@ -819,12 +819,12 @@ The header, footer, and sidebar are components defined in `components/`. Edit th
 Set any layout section to `null` in `config.dart` to hide it:
 
 ```dart
-Config get config => Config(
-  title: 'My Project',
-  header: (context) => Header(),
+final init = setup((project) => Config(
+  title: project.pubspec.name,
+  header: () => Header(title: project.pubspec.name),
   footer: null,    // No footer
   sidebar: null,   // No sidebar
-);
+));
 ```
 
 ## Configuration
@@ -837,9 +837,9 @@ import 'components/header.dart';
 import 'components/footer.dart';
 import 'components/sidebar.dart';
 
-Config get config => Config(
-  title: 'My Project',
-  description: 'Project documentation',
+final init = setup((project) => Config(
+  title: project.pubspec.name,
+  description: project.pubspec.description,
 
   // Theme
   themeMode: ThemeMode.system,  // system | light | dark
@@ -848,10 +848,10 @@ Config get config => Config(
   ),
 
   // Layout components (set to null to hide)
-  header: (context) => Header(),
-  footer: (context) => Footer(),
-  sidebar: (context) => Sidebar(items: context.docs),
-);
+  header: () => Header(title: project.pubspec.name),
+  footer: () => Footer(text: project.pubspec.name),
+  sidebar: () => Sidebar(items: project.docs),
+));
 ```
 
 ## Build Output

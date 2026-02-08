@@ -1,4 +1,4 @@
-# example_project - Documentation Site
+# example_project2 - Documentation Site
 
 This documentation site is powered by [DocuDart](https://github.com/docudart/docudart).
 
@@ -62,12 +62,12 @@ The header, footer, and sidebar are components defined in `components/`. Edit th
 Set any layout section to `null` in `config.dart` to hide it:
 
 ```dart
-Config get config => Config(
-  title: 'My Project',
-  header: (context) => Header(),
+final init = setup((project) => Config(
+  title: project.pubspec.name,
+  header: () => Header(title: project.pubspec.name),
   footer: null,    // No footer
   sidebar: null,   // No sidebar
-);
+));
 ```
 
 ## Configuration
@@ -80,9 +80,9 @@ import 'components/header.dart';
 import 'components/footer.dart';
 import 'components/sidebar.dart';
 
-Config get config => Config(
-  title: 'My Project',
-  description: 'Project documentation',
+final init = setup((project) => Config(
+  title: project.pubspec.name,
+  description: project.pubspec.description,
 
   // Theme
   themeMode: ThemeMode.system,  // system | light | dark
@@ -91,10 +91,10 @@ Config get config => Config(
   ),
 
   // Layout components (set to null to hide)
-  header: (context) => Header(),
-  footer: (context) => Footer(),
-  sidebar: (context) => Sidebar(items: context.docs),
-);
+  header: () => Header(title: project.pubspec.name),
+  footer: () => Footer(text: project.pubspec.name),
+  sidebar: () => Sidebar(items: project.docs),
+));
 ```
 
 ## Build Output

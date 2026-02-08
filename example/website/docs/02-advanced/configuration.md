@@ -17,10 +17,10 @@ All site settings live in `config.dart`.
 ## Disabling a Section
 
 ```dart
-Config get config => Config(
-  title: 'My Project',
-  header: (context) => Header(),
+final init = setup((project) => Config(
+  title: project.pubspec.name,
+  header: () => Header(title: project.pubspec.name),
   footer: null,    // No footer
   sidebar: null,   // No sidebar
-);
+));
 ```

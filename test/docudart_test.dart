@@ -42,25 +42,24 @@ void main() {
 
     test('header/footer/sidebar accept functions', () {
       final config = Config(
-        header: (context) => div([.text('header')]),
-        footer: (context) => div([.text('footer')]),
-        sidebar: (context) => div([.text('sidebar')]),
+        header: () => div([.text('header')]),
+        footer: () => div([.text('footer')]),
+        sidebar: () => div([.text('sidebar')]),
       );
 
       expect(config.header, isNotNull);
       expect(config.footer, isNotNull);
       expect(config.sidebar, isNotNull);
 
-      final context = SiteContext(docs: [], pages: []);
-      expect(config.header!(context), isA<Component>());
-      expect(config.footer!(context), isA<Component>());
-      expect(config.sidebar!(context), isA<Component>());
+      expect(config.header!(), isA<Component>());
+      expect(config.footer!(), isA<Component>());
+      expect(config.sidebar!(), isA<Component>());
     });
 
     test('toJson excludes function fields', () {
       final config = Config(
         title: 'Test',
-        header: (context) => div([.text('header')]),
+        header: () => div([.text('header')]),
       );
 
       final json = config.toJson();
@@ -177,12 +176,125 @@ void main() {
     });
   });
 
-  group('SiteContext', () {
-    test('creates with required fields', () {
-      const context = SiteContext(docs: [], pages: []);
+  group('Pubspec', () {
+    test('creates with required name', () {
+      const pubspec = Pubspec(name: 'my_package');
+      expect(pubspec.name, equals('my_package'));
+      expect(pubspec.version, isNull);
+      expect(pubspec.description, isNull);
+      expect(pubspec.homepage, isNull);
+      expect(pubspec.repository, isNull);
+      expect(pubspec.funding, isEmpty);
+      expect(pubspec.topics, isEmpty);
+      expect(pubspec.environment, isEmpty);
+    });
 
-      expect(context.docs, isEmpty);
-      expect(context.pages, isEmpty);
+    test('creates with all fields', () {
+      const pubspec = Pubspec(
+        name: 'my_package',
+        version: '1.0.0',
+        description: 'A test package',
+        homepage: 'https://example.com',
+        repository: 'https://github.com/example/my_package',
+        issueTracker: 'https://github.com/example/my_package/issues',
+        documentation: 'https://example.com/docs',
+        publishTo: 'none',
+        funding: ['https://github.com/sponsors/example'],
+        topics: ['dart', 'test'],
+        environment: {'sdk': '^3.10.0'},
+      );
+      expect(pubspec.name, equals('my_package'));
+      expect(pubspec.version, equals('1.0.0'));
+      expect(pubspec.description, equals('A test package'));
+      expect(pubspec.homepage, equals('https://example.com'));
+      expect(pubspec.repository,
+          equals('https://github.com/example/my_package'));
+      expect(pubspec.issueTracker,
+          equals('https://github.com/example/my_package/issues'));
+      expect(pubspec.documentation, equals('https://example.com/docs'));
+      expect(pubspec.publishTo, equals('none'));
+      expect(pubspec.funding, equals(['https://github.com/sponsors/example']));
+      expect(pubspec.topics, equals(['dart', 'test']));
+      expect(pubspec.environment, equals({'sdk': '^3.10.0'}));
+    });
+  });
+
+  group('Project', () {
+    test('creates with required fields', () {
+      const project = Project(
+        pubspec: Pubspec(name: 'test'),
+        docs: [],
+        pages: [],
+      );
+
+      expect(project.pubspec.name, equals('test'));
+      expect(project.docs, isEmpty);
+      expect(project.pages, isEmpty);
+    });
+  });
+
+  group('setup', () {
+    tearDown(() {
+      resetSetup();
+    });
+
+    test('stores and resolves config', () {
+      setup((project) => Config(title: project.pubspec.name));
+
+      const project = Project(
+        pubspec: Pubspec(name: 'test_project'),
+        docs: [],
+        pages: [],
+      );
+
+      final config = resolveConfig(project);
+      expect(config.title, equals('test_project'));
+    });
+
+    test('resolveConfig throws if setup not called', () {
+      expect(
+        () => resolveConfig(const Project(
+          pubspec: Pubspec(name: 'x'),
+          docs: [],
+          pages: [],
+        )),
+        throwsStateError,
+      );
+    });
+
+    test('setup replaces previous callback', () {
+      setup((project) => Config(title: 'first'));
+      setup((project) => Config(title: 'second'));
+
+      const project = Project(
+        pubspec: Pubspec(name: 'test'),
+        docs: [],
+        pages: [],
+      );
+
+      final config = resolveConfig(project);
+      expect(config.title, equals('second'));
+    });
+
+    test('callback receives pubspec data', () {
+      setup((project) => Config(
+            title: '${project.pubspec.name} v${project.pubspec.version}',
+            description: project.pubspec.description,
+          ));
+
+      const project = Project(
+        pubspec: Pubspec(
+          name: 'my_app',
+          version: '2.0.0',
+          description: 'My app description',
+        ),
+        docs: [],
+        pages: [],
+      );
+
+      final config = resolveConfig(project);
+      expect(config.title, equals('my_app v2.0.0'));
+      expect(config.description, equals('My app description'));
     });
   });
 

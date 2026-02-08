@@ -6,18 +6,20 @@ import 'icons.dart';
 import 'labels.dart';
 import 'pages/landing_page.dart';
 
-Config get config => Config(
-  title: 'example_project',
-  description:
-      'An example Dart project to demonstrate DocuDart documentation generator.',
+final init = setup((project) => Config(
+  title: project.pubspec.name,
+  description: project.pubspec.description,
   themeMode: ThemeMode.system,
   theme: DefaultTheme(),
   // Home page component. Set to null to redirect '/' to '/docs'.
-  home: (context) => LandingPage(),
+  home: () => LandingPage(
+    title: project.pubspec.name,
+    description: project.pubspec.description,
+  ),
   // Header, footer, and sidebar are components.
   // Set to null to hide any section.
-  header: (context) => Header(
-    title: 'example_project',
+  header: () => Header(
+    title: project.pubspec.name,
     navLinks: [
       .path('/docs', label: Labels.docs, icon: Icons.docs),
       .url('https://github.com', label: Labels.github, icon: Icons.github),
@@ -25,10 +27,10 @@ Config get config => Config(
     ],
     trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
   ),
-  footer: (context) {
+  footer: () {
     final year = DateTime.now().year;
     return Footer(
-      text: '© $year example_project',
+      text: '© $year ${project.pubspec.name}',
       trailing: Socials(
         links: [
           .url('https://youtube.com', icon: Icons.youtube),
@@ -38,5 +40,5 @@ Config get config => Config(
       ),
     );
   },
-  sidebar: (context) => Sidebar(items: context.docs),
-);
+  sidebar: () => Sidebar(items: project.docs),
+));

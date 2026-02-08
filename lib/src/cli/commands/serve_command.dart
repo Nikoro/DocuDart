@@ -61,10 +61,13 @@ class ServeCommand extends Command<int> {
         return 1;
       }
 
+      // Load parent project pubspec
+      final pubspec = await ConfigLoader.loadParentPubspec(websiteDir);
+
       // Generate the managed Jaspr site
       CliPrinter.step('Generating site structure');
       final generator = SiteGenerator(config, websiteDir: websiteDir);
-      await generator.generate();
+      await generator.generate(pubspec: pubspec);
 
       // Start file watcher if enabled.
       // On change, regenerate files in-place. Jaspr's own hot reload
@@ -76,11 +79,16 @@ class ServeCommand extends Command<int> {
           websiteDir: websiteDir,
           onRegenerate: () async {
             final newConfig = await ConfigLoader.load(websiteDir);
+            final newPubspec =
+                await ConfigLoader.loadParentPubspec(websiteDir);
             final newGenerator = SiteGenerator(
               newConfig,
               websiteDir: websiteDir,
             );
-            await newGenerator.generate(fullClean: false);
+            await newGenerator.generate(
+              fullClean: false,
+              pubspec: newPubspec,
+            );
           },
         );
         await fileWatcher.start();
