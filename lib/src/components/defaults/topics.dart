@@ -33,9 +33,7 @@ class Topics extends StatelessComponent {
             attributes: link.isExternal
                 ? {'target': '_blank', 'rel': 'noopener noreferrer'}
                 : {},
-            [
-              if (link.label != null) .text(link.label!),
-            ],
+            [if (link.label != null) .text(link.label!)],
           ),
       ]),
     ]);

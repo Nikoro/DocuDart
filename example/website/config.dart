@@ -13,7 +13,10 @@ final init = setup(
     themeMode: ThemeMode.system,
     theme: DefaultTheme(),
     // Home page component. Set to null to redirect '/' to '/docs'.
-    home: () => LandingPage(title: project.pubspec.name, description: project.pubspec.description),
+    home: () => project.pubspec.let(
+      (pubspec) =>
+          LandingPage(title: pubspec.name, description: pubspec.description),
+    ),
     // Header, footer, and sidebar are components.
     // Set to null to hide any section.
     header: () => Header(
@@ -25,19 +28,19 @@ final init = setup(
       ],
       trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
     ),
-    footer: () {
+    footer: () => project.pubspec.let((pubspec) {
       final year = DateTime.now().year;
       return Footer(
-        text: '© $year ${project.pubspec.name}',
-        leading: project.pubspec.topics.isNotEmpty
-            ? Topics(
-                title: Labels.topics,
-                links: [
-                  for (final topic in project.pubspec.topics)
-                    .url('https://pub.dev/packages?q=topic%3A$topic', label: '#$topic'),
-                ],
-              )
-            : null,
+        text: '© $year ${pubspec.name}',
+        leading: pubspec.topics.let(
+          (topics) => Topics(
+            title: Labels.topics,
+            links: [
+              for (final topic in topics)
+                .url('https://pub.dev/packages?q=topic%3A$topic', label: '#$topic'),
+            ],
+          ),
+        ),
         trailing: Socials(
           links: [
             .url('https://youtube.com', icon: Icons.youtube),
@@ -46,7 +49,7 @@ final init = setup(
           ],
         ),
       );
-    },
+    }),
     sidebar: () => Sidebar(items: project.docs),
   ),
 );

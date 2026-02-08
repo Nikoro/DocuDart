@@ -79,16 +79,12 @@ class ServeCommand extends Command<int> {
           websiteDir: websiteDir,
           onRegenerate: () async {
             final newConfig = await ConfigLoader.load(websiteDir);
-            final newPubspec =
-                await ConfigLoader.loadParentPubspec(websiteDir);
+            final newPubspec = await ConfigLoader.loadParentPubspec(websiteDir);
             final newGenerator = SiteGenerator(
               newConfig,
               websiteDir: websiteDir,
             );
-            await newGenerator.generate(
-              fullClean: false,
-              pubspec: newPubspec,
-            );
+            await newGenerator.generate(fullClean: false, pubspec: newPubspec);
           },
         );
         await fileWatcher.start();

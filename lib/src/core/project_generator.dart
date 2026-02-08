@@ -255,7 +255,8 @@ class Sidebar extends StatelessComponent {
     String description,
     InitTemplate template,
   ) async {
-    final configContent = "import 'package:docudart/docudart.dart';\n"
+    final configContent =
+        "import 'package:docudart/docudart.dart';\n"
         "import 'components/header.dart';\n"
         "import 'components/footer.dart';\n"
         "import 'components/sidebar.dart';\n"
@@ -263,53 +264,55 @@ class Sidebar extends StatelessComponent {
         "import 'labels.dart';\n"
         "import 'pages/landing_page.dart';\n"
         '\n'
-        'final init = setup((project) => Config(\n'
-        '  title: project.pubspec.name,\n'
-        '  description: project.pubspec.description,\n'
-        '  themeMode: ThemeMode.system,\n'
-        '  theme: DefaultTheme(),\n'
-        "  // Home page component. Set to null to redirect '/' to '/docs'.\n"
-        '  home: () => LandingPage(\n'
+        'final init = setup(\n'
+        '  (project) => Config(\n'
         '    title: project.pubspec.name,\n'
         '    description: project.pubspec.description,\n'
-        '  ),\n'
-        '  // Header, footer, and sidebar are components.\n'
-        '  // Set to null to hide any section.\n'
-        '  header: () => Header(\n'
-        '    title: project.pubspec.name,\n'
-        '    navLinks: [\n'
-        "      .path('/docs', label: Labels.docs, icon: Icons.docs),\n"
-        "      .url('https://github.com', label: Labels.github, icon: Icons.github),\n"
-        "      .url('https://pub.dev', label: Labels.pubDev, icon: Icons.pubDev),\n"
-        '    ],\n'
-        '    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),\n'
-        '  ),\n'
-        '  footer: () {\n'
-        '    final year = DateTime.now().year;\n'
-        '    return Footer(\n'
-        r"      text: '© $year ${project.pubspec.name}',"
+        '    themeMode: ThemeMode.system,\n'
+        '    theme: DefaultTheme(),\n'
+        "    // Home page component. Set to null to redirect '/' to '/docs'.\n"
+        '    home: () => project.pubspec.let(\n'
+        '      (pubspec) =>\n'
+        '          LandingPage(title: pubspec.name, description: pubspec.description),\n'
+        '    ),\n'
+        '    // Header, footer, and sidebar are components.\n'
+        '    // Set to null to hide any section.\n'
+        '    header: () => Header(\n'
+        '      title: project.pubspec.name,\n'
+        '      navLinks: [\n'
+        "        .path('/docs', label: Labels.docs, icon: Icons.docs),\n"
+        "        .url('https://github.com', label: Labels.github, icon: Icons.github),\n"
+        "        .url('https://pub.dev', label: Labels.pubDev, icon: Icons.pubDev),\n"
+        '      ],\n'
+        '      trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),\n'
+        '    ),\n'
+        '    footer: () => project.pubspec.let((pubspec) {\n'
+        '      final year = DateTime.now().year;\n'
+        '      return Footer(\n'
+        r"        text: '© $year ${pubspec.name}',"
         '\n'
-        '      leading: project.pubspec.topics.isNotEmpty\n'
-        '          ? Topics(\n'
-        '              title: Labels.topics,\n'
-        '              links: [\n'
-        "                for (final topic in project.pubspec.topics)\n"
-        r"                  .url('https://pub.dev/packages?q=topic%3A$topic', label: '#$topic'),"
+        '        leading: pubspec.topics.let(\n'
+        '          (topics) => Topics(\n'
+        '            title: Labels.topics,\n'
+        '            links: [\n'
+        "              for (final topic in topics)\n"
+        r"                .url('https://pub.dev/packages?q=topic%3A$topic', label: '#$topic'),"
         '\n'
-        '              ],\n'
-        '            )\n'
-        '          : null,\n'
-        '      trailing: Socials(\n'
-        '        links: [\n'
-        "          .url('https://youtube.com', icon: Icons.youtube),\n"
-        "          .url('https://discord.com', icon: Icons.discord),\n"
-        "          .url('https://x.com', icon: Icons.xTwitter),\n"
-        '        ],\n'
-        '      ),\n'
-        '    );\n'
-        '  },\n'
-        '  sidebar: () => Sidebar(items: project.docs),\n'
-        '));\n';
+        '            ],\n'
+        '          ),\n'
+        '        ),\n'
+        '        trailing: Socials(\n'
+        '          links: [\n'
+        "            .url('https://youtube.com', icon: Icons.youtube),\n"
+        "            .url('https://discord.com', icon: Icons.discord),\n"
+        "            .url('https://x.com', icon: Icons.xTwitter),\n"
+        '          ],\n'
+        '        ),\n'
+        '      );\n'
+        '    }),\n'
+        '    sidebar: () => Sidebar(items: project.docs),\n'
+        '  ),\n'
+        ');\n';
 
     await File(p.join(websiteDir, 'config.dart')).writeAsString(configContent);
   }

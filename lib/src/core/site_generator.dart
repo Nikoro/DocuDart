@@ -442,14 +442,14 @@ ClientOptions get defaultClientOptions => ClientOptions();
     // Generate routes for all pages
     final routesBuffer = StringBuffer();
 
-    // Home route: if config.home is set, render it; otherwise redirect to /docs
+    // Home route: if config.home is set and returns non-null, render it; otherwise redirect to /docs
     routesBuffer.writeln('''
-        if (resolveConfig(project).home != null)
+        if (resolveConfig(project).home?.call() case final homeComponent?)
           Route(
             path: '/',
             builder: (context, state) => Layout(
               showSidebar: false,
-              child: resolveConfig(project).home!(),
+              child: homeComponent,
             ),
           )
         else

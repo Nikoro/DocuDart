@@ -207,10 +207,14 @@ void main() {
       expect(pubspec.version, equals('1.0.0'));
       expect(pubspec.description, equals('A test package'));
       expect(pubspec.homepage, equals('https://example.com'));
-      expect(pubspec.repository,
-          equals('https://github.com/example/my_package'));
-      expect(pubspec.issueTracker,
-          equals('https://github.com/example/my_package/issues'));
+      expect(
+        pubspec.repository,
+        equals('https://github.com/example/my_package'),
+      );
+      expect(
+        pubspec.issueTracker,
+        equals('https://github.com/example/my_package/issues'),
+      );
       expect(pubspec.documentation, equals('https://example.com/docs'));
       expect(pubspec.publishTo, equals('none'));
       expect(pubspec.funding, equals(['https://github.com/sponsors/example']));
@@ -253,11 +257,13 @@ void main() {
 
     test('resolveConfig throws if setup not called', () {
       expect(
-        () => resolveConfig(const Project(
-          pubspec: Pubspec(name: 'x'),
-          docs: [],
-          pages: [],
-        )),
+        () => resolveConfig(
+          const Project(
+            pubspec: Pubspec(name: 'x'),
+            docs: [],
+            pages: [],
+          ),
+        ),
         throwsStateError,
       );
     });
@@ -277,10 +283,12 @@ void main() {
     });
 
     test('callback receives pubspec data', () {
-      setup((project) => Config(
-            title: '${project.pubspec.name} v${project.pubspec.version}',
-            description: project.pubspec.description,
-          ));
+      setup(
+        (project) => Config(
+          title: '${project.pubspec.name} v${project.pubspec.version}',
+          description: project.pubspec.description,
+        ),
+      );
 
       const project = Project(
         pubspec: Pubspec(

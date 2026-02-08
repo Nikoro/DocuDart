@@ -101,6 +101,9 @@ docudart/
 │       │       ├── tabs.dart
 │       │       ├── code_block.dart
 │       │       └── version_switcher.dart
+│       ├── extensions/                  # Dart extensions (re-exported to users)
+│       │   ├── extensions.dart          # Barrel file
+│       │   └── object_extensions.dart   # .let() extension on T?
 │       └── routing/
 │           └── sidebar_generator.dart   # Generate sidebar from folder structure
 ├── example/                             # Example DocuDart project
@@ -171,13 +174,14 @@ Config(
   themeMode: ThemeMode,     // default: ThemeMode.system (system | light | dark)
   versioning: VersioningConfig?, // optional versioning support
   customPages: List<CustomPage>, // custom Dart/Jaspr pages
-  home: Component Function()?,      // null = redirect '/' to '/docs'
-  header: Component Function()?,   // null = no header
-  footer: Component Function()?,   // null = no footer
-  sidebar: Component Function()?,  // null = no sidebar
+  home: Component? Function()?,      // null function = redirect '/' to '/docs'; null return = same
+  header: Component? Function()?,   // null = no header
+  footer: Component? Function()?,   // null = no footer
+  sidebar: Component? Function()?,  // null = no sidebar
 )
 ```
-- Home, header, footer, sidebar are nullable zero-arg function fields returning Components
+- Home, header, footer, sidebar are nullable zero-arg function fields returning `Component?`
+- **Double nullability**: both the function itself and its return value can be null — if the function is null or returns null, the section is not rendered
 - When `home` is set, `/` renders the home component (no sidebar); when null, `/` redirects to `/docs`
 - Context (pubspec, docs, pages) is available via closure from the `setup()` callback — no params needed
 - `toJson()` skips function fields; `fromJson()` sets them to null
@@ -187,13 +191,18 @@ Config(
 The `setup()` function registers a config callback that receives a `Project` context object.
 ```dart
 // config.dart — user writes this:
-final init = setup((project) => Config(
-  title: project.pubspec.name,
-  description: project.pubspec.description,
-  home: () => LandingPage(title: project.pubspec.name),
-  sidebar: () => Sidebar(items: project.docs),
-));
+final init = setup(
+  (project) => Config(
+    title: project.pubspec.name,
+    description: project.pubspec.description,
+    home: () => project.pubspec.let(
+      (pubspec) => LandingPage(title: pubspec.name, description: pubspec.description),
+    ),
+    sidebar: () => Sidebar(items: project.docs),
+  ),
+);
 ```
+- `.let()` extension (Kotlin-style) on `T?` — enables null-safe scoping: `value.let((it) => transform(it))` returns null if value is null
 - `setup()` stores the callback; `resolveConfig(project)` invokes it (called by generated layout/app code)
 - `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<CustomPage>)
 - `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository`, `issueTracker`, `documentation`, `publishTo`, `funding`, `topics`, `environment`
@@ -244,7 +253,7 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - `generate({bool fullClean = true, Pubspec? pubspec})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
 - Adds `docudart` as path dependency in managed project's pubspec
 - Copies `config.dart`, `components/`, `pages/`, and root-level `.dart` files (e.g. `icons.dart`) into managed project's `lib/`
-- Home route uses `resolveConfig(project).home` at runtime: if set, renders the home component; if null, redirects `/` to `/docs`
+- Home route uses `resolveConfig(project).home?.call()` with pattern matching (`case final homeComponent?`): if non-null, renders the home component; otherwise redirects `/` to `/docs`
 - Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml
 - Generates `project_data.dart` with Project containing pubspec + auto-generated sidebar items
 - Generates `layout.dart` that calls `resolveConfig(project)` then `config.header?.call()` etc.
@@ -444,7 +453,7 @@ Use `headless: true` for automated checks. Key things to verify:
 
 ## Important Notes
 
-- `docudart` re-exports `package:jaspr/jaspr.dart` — users never import jaspr directly
+- `docudart` re-exports `package:jaspr/jaspr.dart` and Dart extensions (`.let()`) — users never import jaspr directly
 - User's config is `config.dart` (Dart, not YAML) for IntelliSense and type safety
 - `config.dart` must call `final init = setup((project) => Config(...))` at the top level (convention enforced by ProjectGenerator — the `init` variable must be public so generated code can reference it to force Dart's lazy initializer to run)
 - `ConfigLoader` parses `config.dart` via text-based regex (`ConfigEvaluator`), falling back to YAML if it fails

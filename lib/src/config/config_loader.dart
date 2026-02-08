@@ -76,16 +76,16 @@ class ConfigLoader {
         issueTracker: yaml['issue_tracker'] as String?,
         documentation: yaml['documentation'] as String?,
         publishTo: yaml['publish_to'] as String?,
-        funding: (yaml['funding'] as YamlList?)
-                ?.map((e) => e.toString())
-                .toList() ??
+        funding:
+            (yaml['funding'] as YamlList?)?.map((e) => e.toString()).toList() ??
             const [],
-        topics: (yaml['topics'] as YamlList?)
-                ?.map((e) => e.toString())
-                .toList() ??
+        topics:
+            (yaml['topics'] as YamlList?)?.map((e) => e.toString()).toList() ??
             const [],
-        environment: (yaml['environment'] as YamlMap?)
-                ?.map((k, v) => MapEntry(k.toString(), v.toString())) ??
+        environment:
+            (yaml['environment'] as YamlMap?)?.map(
+              (k, v) => MapEntry(k.toString(), v.toString()),
+            ) ??
             const {},
       );
     } catch (_) {

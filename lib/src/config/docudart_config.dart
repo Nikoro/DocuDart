@@ -30,16 +30,16 @@ class Config {
   final List<CustomPage> customPages;
 
   /// Header builder function. If null, no header is rendered.
-  final Component Function()? header;
+  final Component? Function()? header;
 
   /// Footer builder function. If null, no footer is rendered.
-  final Component Function()? footer;
+  final Component? Function()? footer;
 
   /// Sidebar builder function. If null, no sidebar is rendered.
-  final Component Function()? sidebar;
+  final Component? Function()? sidebar;
 
   /// Home page builder function. If null, '/' redirects to '/docs'.
-  final Component Function()? home;
+  final Component? Function()? home;
 
   Config({
     this.title,
@@ -124,10 +124,10 @@ class Config {
     ThemeMode? themeMode,
     VersioningConfig? versioning,
     List<CustomPage>? customPages,
-    Component Function()? header,
-    Component Function()? footer,
-    Component Function()? sidebar,
-    Component Function()? home,
+    Component? Function()? header,
+    Component? Function()? footer,
+    Component? Function()? sidebar,
+    Component? Function()? home,
   }) {
     return Config(
       title: title ?? this.title,

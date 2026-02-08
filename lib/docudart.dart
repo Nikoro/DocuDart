@@ -39,6 +39,9 @@ export 'src/components/defaults/theme_toggle.dart';
 export 'src/components/defaults/socials.dart';
 export 'src/components/defaults/topics.dart';
 
+// Extensions
+export 'src/extensions/extensions.dart';
+
 // Routing
 export 'src/routing/sidebar_generator.dart';
 
