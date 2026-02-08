@@ -24,9 +24,19 @@ final init = setup(
       navLinks: [
         .path('/docs', label: Labels.docs, leading: Icons.docs),
         ?project.pubspec.repository.let(
-          (repo) => .url(repo.link, label: repo.label, leading: repo.icon, trailing: Icons.openInNew),
+          (repo) => .url(
+            repo.link,
+            label: repo.label,
+            leading: repo.icon,
+            trailing: Icons.openInNew,
+          ),
         ),
-        .url('https://pub.dev', label: Labels.pubDev, leading: Icons.pubDev, trailing: Icons.openInNew),
+        .url(
+          'https://pub.dev',
+          label: Labels.pubDev,
+          leading: Icons.pubDev,
+          trailing: Icons.openInNew,
+        ),
       ],
       trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
     ),
@@ -39,7 +49,10 @@ final init = setup(
             title: Labels.topics,
             links: [
               for (final topic in topics)
-                .url('https://pub.dev/packages?q=topic%3A$topic', label: '#$topic'),
+                .url(
+                  'https://pub.dev/packages?q=topic%3A$topic',
+                  label: '#$topic',
+                ),
             ],
           ),
         ),
