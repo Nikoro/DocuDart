@@ -345,56 +345,59 @@ class Sidebar extends StatelessComponent {
         "import 'labels.dart';\n"
         "import 'pages/landing_page.dart';\n"
         '\n'
-        'final init = setup(\n'
-        '  (project) => Config(\n'
+        'Config configure(Project project) => Config(\n'
+        '  title: project.pubspec.name,\n'
+        '  description: project.pubspec.description,\n'
+        '  themeMode: ThemeMode.system,\n'
+        '  theme: DefaultTheme(),\n'
+        "  // Home page component. Set to null to redirect '/' to '/docs'.\n"
+        '  home: () => project.pubspec.let(\n'
+        '    (pubspec) =>\n'
+        '        LandingPage(title: pubspec.name, description: pubspec.description),\n'
+        '  ),\n'
+        '  // Header, footer, and sidebar are components.\n'
+        '  // Set to null to hide any section.\n'
+        '  header: () => Header(\n'
         '    title: project.pubspec.name,\n'
-        '    description: project.pubspec.description,\n'
-        '    themeMode: ThemeMode.system,\n'
-        '    theme: DefaultTheme(),\n'
-        "    // Home page component. Set to null to redirect '/' to '/docs'.\n"
-        '    home: () => project.pubspec.let(\n'
-        '      (pubspec) =>\n'
-        '          LandingPage(title: pubspec.name, description: pubspec.description),\n'
-        '    ),\n'
-        '    // Header, footer, and sidebar are components.\n'
-        '    // Set to null to hide any section.\n'
-        '    header: () => Header(\n'
-        '      title: project.pubspec.name,\n'
-        '      navLinks: [\n'
-        "        .path('/docs', label: Labels.docs, leading: Icons.docs),\n"
-        "        ?project.pubspec.repository.let(\n"
-        "          (repo) => .url(repo.link, label: repo.label, leading: repo.icon, trailing: Icons.openInNew),\n"
+        '    navLinks: [\n'
+        "      .path('/docs', label: Labels.docs, leading: Icons.docs),\n"
+        "      ?project.pubspec.repository.let(\n"
+        "        (repository) => .url(\n"
+        "          repository.link,\n"
+        "          label: repository.label,\n"
+        "          leading: repository.icon,\n"
+        "          trailing: Icons.openInNew,\n"
         "        ),\n"
-        "        .url('$pubDevUrl', label: Labels.pubDev, leading: Icons.pubDev, trailing: Icons.openInNew),\n"
-        '      ],\n'
-        '      trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),\n'
-        '    ),\n'
-        '    footer: () => project.pubspec.let((pubspec) {\n'
-        '      final year = DateTime.now().year;\n'
-        '      return Footer(\n'
-        r"        text: '© $year ${pubspec.name}',"
+        "      ),\n"
+        "      .url('$pubDevUrl', label: Labels.pubDev, leading: Icons.pubDev, trailing: Icons.openInNew),\n"
+        '    ],\n'
+        '    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),\n'
+        '  ),\n'
+        '  footer: () => project.pubspec.let((pubspec) {\n'
+        '    final year = DateTime.now().year;\n'
+        '    return Footer(\n'
+        r"      text: '© $year ${pubspec.name}',"
         '\n'
-        '        leading: pubspec.topics.let(\n'
-        '          (topics) => Topics(\n'
-        '            title: Labels.topics,\n'
-        '            links: [\n'
-        "              for (final topic in topics)\n"
-        r"                .url('https://pub.dev/packages?q=topic%3A$topic', label: '#$topic'),"
-        '\n'
-        '            ],\n'
-        '          ),\n'
-        '        ),\n'
-        '        trailing: Socials(\n'
+        '      leading: pubspec.topics.let(\n'
+        '        (topics) => Topics(\n'
+        '          title: Labels.topics,\n'
         '          links: [\n'
-        "            .url('https://youtube.com', leading: Icons.youtube),\n"
-        "            .url('https://discord.com', leading: Icons.discord),\n"
-        "            .url('https://x.com', leading: Icons.xTwitter),\n"
+        "            for (final topic in topics)\n"
+        r"              .url('https://pub.dev/packages?q=topic%3A$topic', label: '#$topic'),"
+        '\n'
         '          ],\n'
         '        ),\n'
-        '      );\n'
-        '    }),\n'
-        '    sidebar: () => Sidebar(items: project.docs),\n'
-        '  ),\n'
+        '      ),\n'
+        '      trailing: Socials(\n'
+        '        links: [\n'
+        "          .url('https://youtube.com', leading: Icons.youtube),\n"
+        "          .url('https://discord.com', leading: Icons.discord),\n"
+        "          .url('https://x.com', leading: Icons.xTwitter),\n"
+        '        ],\n'
+        '      ),\n'
+        '    );\n'
+        '  }),\n'
+        '  sidebar: () => Sidebar(items: project.docs),\n'
         ');\n';
 
     await File(p.join(websiteDir, 'config.dart')).writeAsString(configContent);
@@ -822,12 +825,12 @@ All site settings live in `config.dart`.
 ## Disabling a Section
 
 ```dart
-final init = setup((project) => Config(
+Config configure(Project project) => Config(
   title: project.pubspec.name,
   header: () => Header(title: project.pubspec.name),
   footer: null,    // No footer
   sidebar: null,   // No sidebar
-));
+);
 ```
 ''');
 
@@ -929,12 +932,12 @@ The header, footer, and sidebar are components defined in `components/`. Edit th
 Set any layout section to `null` in `config.dart` to hide it:
 
 ```dart
-final init = setup((project) => Config(
+Config configure(Project project) => Config(
   title: project.pubspec.name,
   header: () => Header(title: project.pubspec.name),
   footer: null,    // No footer
   sidebar: null,   // No sidebar
-));
+);
 ```
 
 ## Configuration
@@ -947,7 +950,7 @@ import 'components/header.dart';
 import 'components/footer.dart';
 import 'components/sidebar.dart';
 
-final init = setup((project) => Config(
+Config configure(Project project) => Config(
   title: project.pubspec.name,
   description: project.pubspec.description,
 
@@ -961,7 +964,7 @@ final init = setup((project) => Config(
   header: () => Header(title: project.pubspec.name),
   footer: () => Footer(text: project.pubspec.name),
   sidebar: () => Sidebar(items: project.docs),
-));
+);
 ```
 
 ## Build Output

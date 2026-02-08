@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
@@ -66,13 +67,16 @@ class ServeCommand extends Command<int> {
 
       // Generate the managed Jaspr site
       CliPrinter.step('Generating site structure');
-      final generator = SiteGenerator(config, websiteDir: websiteDir);
+      final generator = SiteGenerator(
+        config,
+        websiteDir: websiteDir,
+        serveMode: true,
+      );
       await generator.generate(pubspec: pubspec);
 
       // Start file watcher if enabled.
-      // On change, regenerate files in-place. Jaspr's own hot reload
-      // detects the updated files and re-renders automatically.
-      // Config uses a getter (not final) so hot reload re-evaluates it.
+      // On change, regenerate files in-place and bump live-reload version.
+      // The browser polls live-reload-version.txt and auto-refreshes.
       if (watchEnabled) {
         fileWatcher = DocuDartFileWatcher(
           config: config,
@@ -83,8 +87,10 @@ class ServeCommand extends Command<int> {
             final newGenerator = SiteGenerator(
               newConfig,
               websiteDir: websiteDir,
+              serveMode: true,
             );
             await newGenerator.generate(fullClean: false, pubspec: newPubspec);
+            await newGenerator.bumpLiveReloadVersion();
           },
         );
         await fileWatcher.start();
@@ -98,15 +104,28 @@ class ServeCommand extends Command<int> {
       CliPrinter.info('Press Ctrl+C to stop');
       CliPrinter.blank();
 
-      // Run jaspr serve — it has its own hot reload that detects
-      // file changes in the managed project's lib/ directory.
+      // Run jaspr serve in the managed project directory.
       final managedDir = p.join(websiteDir, '.dart_tool', 'docudart');
       final process = await Process.start(
         'dart',
         ['run', 'jaspr_cli:jaspr', 'serve', '--port', port],
         workingDirectory: managedDir,
-        mode: ProcessStartMode.inheritStdio,
       );
+
+      // Filter Jaspr output — suppress noisy internal logs.
+      process.stdout.transform(utf8.decoder).transform(const LineSplitter()).listen((line) {
+        if (_shouldShowLog(line)) {
+          stdout.writeln(line);
+        }
+      });
+      process.stderr.transform(utf8.decoder).transform(const LineSplitter()).listen((line) {
+        if (_shouldShowLog(line)) {
+          stderr.writeln(line);
+        }
+      });
+
+      // Forward stdin to the process.
+      stdin.listen(process.stdin.add);
 
       // Handle Ctrl+C
       ProcessSignal.sigint.watch().listen((_) async {
@@ -135,5 +154,39 @@ class ServeCommand extends Command<int> {
       CliPrinter.error('Unexpected error: $e');
       return 1;
     }
+  }
+
+  /// Filter out noisy Jaspr internal logs (proxy errors, stack traces, etc.).
+  /// Only show lines that are useful to the user.
+  static bool _shouldShowLog(String line) {
+    // Suppress empty lines from filtered blocks
+    if (line.trim().isEmpty) return true;
+
+    // Suppress proxy socket errors (transient during reload)
+    if (line.contains('SocketException') ||
+        line.contains('Connection attempt cancelled') ||
+        line.contains('ClientException with SocketException')) {
+      return false;
+    }
+
+    // Suppress internal stack frames
+    if (line.contains('dart:_http') ||
+        line.contains('package:http/') ||
+        line.contains('package:shelf_proxy/') ||
+        line.contains('package:shelf_gzip/') ||
+        line.contains('package:shelf/shelf_io.dart') ||
+        line.contains('package:jaspr/src/server/')) {
+      return false;
+    }
+
+    // Suppress generic error headers for suppressed errors
+    if (line.contains('[SERVER] [ERROR] ERROR -') ||
+        line.contains('[SERVER] [ERROR] Asynchronous error') ||
+        line.contains('[SERVER] [ERROR] Error thrown by handler.') ||
+        line.contains('[SERVER] [ERROR] GET /')) {
+      return false;
+    }
+
+    return true;
   }
 }

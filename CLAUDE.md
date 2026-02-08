@@ -63,7 +63,7 @@ docudart/
 │       │   ├── config_evaluator.dart    # Text-based parsing of config.dart
 │       │   ├── nav_link.dart            # NavLink (path/url navigation with leading/trailing support)
 │       │   ├── repository.dart         # Repository (URL with auto-detected provider label/icon)
-│       │   ├── setup.dart              # setup() + resolveConfig() (config registration pattern)
+│       │   ├── setup.dart              # ConfigureFunction typedef
 │       │   ├── project.dart            # Project (pubspec + docs + pages context object)
 │       │   ├── pubspec.dart            # Pubspec model (parsed from pubspec.yaml)
 │       │   ├── versioning_config.dart   # VersioningConfig
@@ -136,7 +136,7 @@ user-project/
   lib/                   # User's own code
   website/               # Created by docudart init
     pubspec.yaml         # Depends on docudart (path dependency)
-    config.dart          # setup() call with Config + header/footer/sidebar functions
+    config.dart          # configure() function returning Config + header/footer/sidebar
     icons.dart           # SVG icon constants (Icons.github, Icons.pubDev, Icons.docs, etc.)
     labels.dart          # Label string constants (Labels.github, Labels.docs, etc.)
     docs/                # Markdown documentation files
@@ -184,32 +184,27 @@ Config(
 - Home, header, footer, sidebar are nullable zero-arg function fields returning `Component?`
 - **Double nullability**: both the function itself and its return value can be null — if the function is null or returns null, the section is not rendered
 - When `home` is set, `/` renders the home component (no sidebar); when null, `/` redirects to `/docs`
-- Context (pubspec, docs, pages) is available via closure from the `setup()` callback — no params needed
+- Context (pubspec, docs, pages) is available via the `project` parameter of `configure()` — accessed through closures in function fields
 - `toJson()` skips function fields; `fromJson()` sets them to null
 - Not `const` (functions prevent const constructors)
 
-### setup() + Project + Pubspec (lib/src/config/setup.dart, project.dart, pubspec.dart)
-The `setup()` function registers a config callback that receives a `Project` context object.
+### configure() + Project + Pubspec (config.dart, lib/src/config/project.dart, pubspec.dart)
+The user exports a `configure()` function from `config.dart` that receives a `Project` and returns a `Config`.
 ```dart
 // config.dart — user writes this:
-final init = setup(
-  (project) => Config(
-    title: project.pubspec.name,
-    description: project.pubspec.description,
-    home: () => project.pubspec.let(
-      (pubspec) => LandingPage(title: pubspec.name, description: pubspec.description),
-    ),
-    sidebar: () => Sidebar(items: project.docs),
+Config configure(Project project) => Config(
+  title: project.pubspec.name,
+  description: project.pubspec.description,
+  home: () => project.pubspec.let(
+    (pubspec) => LandingPage(title: pubspec.name, description: pubspec.description),
   ),
+  sidebar: () => Sidebar(items: project.docs),
 );
 ```
 - `.let()` extension (Kotlin-style) on `T?` — enables null-safe scoping: `value.let((it) => transform(it))` returns null if value is null
-- `setup()` stores the callback; `resolveConfig(project)` invokes it (called by generated layout/app code)
+- Generated layout/app code imports `config.dart` and calls `configure(project)` directly — no registration pattern
 - `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<CustomPage>)
 - `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository` (`Repository?`), `issueTracker`, `documentation`, `publishTo`, `funding`, `topics`, `environment`
-- **Lazy init gotcha**: `final init = setup(...)` is a top-level `final` variable — Dart initializes lazily. The generated `main.server.dart` references `init;` to force initialization.
-- **Must be public**: The variable must NOT be `_` (private) — private variables can't be referenced from other files to force initialization.
-- `resetSetup()` (annotated `@visibleForTesting`) resets the callback for tests.
 
 ### NavLink (lib/src/config/nav_link.dart)
 Navigation link with optional leading/trailing components and label. Uses dot shorthand-friendly constructors.
@@ -237,7 +232,7 @@ repo.icon   // Component (SVG icon for GitHub)
 - `const` constructible — works in `const Pubspec(repository: Repository('...'))`
 - Provider detection uses `host.contains()`: `github` → GitHub, `gitlab` → GitLab, `bitbucket` → Bitbucket, else generic link icon
 - SVG icons embedded as static constants (same SVGs as generated `icons.dart`)
-- Used in generated config.dart: `?project.pubspec.repository.let((repo) => .url(repo.link, label: repo.label, leading: repo.icon, trailing: Icons.openInNew))`
+- Used in generated config.dart: `?project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icons.openInNew))`
 - `==` / `hashCode` based on `link` field
 
 ### DefaultHeader / DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
@@ -259,7 +254,7 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - Generates `icons.dart` at website root with default SVG icons (github, pubDev, docs, discord, youtube, etc.)
 - Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, Labels.topics, etc.)
 - **Smart pub.dev URL**: `_resolvePubDevUrl()` makes a HEAD request to `https://pub.dev/packages/{name}` at init time; if 200, uses specific package URL, else falls back to generic `https://pub.dev` (5s timeout, graceful fallback on errors)
-- **Smart repository link**: Generated config.dart uses `?project.pubspec.repository.let((repo) => .url(repo.link, label: repo.label, leading: repo.icon, trailing: Icons.openInNew))` for runtime provider detection with external link indicator; null-safe via `.let()` — if no repository, the entry is omitted
+- **Smart repository link**: Generated config.dart uses `?project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icons.openInNew))` for runtime provider detection with external link indicator; null-safe via `.let()` — if no repository, the entry is omitted
 - **Lint dependency propagation**: `_resolveLintDependency()` checks parent's `pubspec.yaml` for `lints` or `flutter_lints` (in `dev_dependencies` then `dependencies`), propagates as `dev_dependency` in generated `website/pubspec.yaml`
 - Runs `dart pub get` then `dart format .` in website/ after generation
 - Looks for `README.md` in project root to auto-generate docs
@@ -267,14 +262,15 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 
 ### SiteGenerator (lib/src/core/site_generator.dart)
 Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
-- Accepts optional `websiteDir` parameter (defaults to cwd)
+- Accepts optional `websiteDir` parameter (defaults to cwd) and `serveMode` flag (default: false)
+- `serveMode: true` enables live-reload script injection (only during `docudart serve`)
 - `generate({bool fullClean = true, Pubspec? pubspec})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
 - Adds `docudart` as path dependency in managed project's pubspec
 - Copies `config.dart`, `components/`, `pages/`, and root-level `.dart` files (e.g. `icons.dart`) into managed project's `lib/`
-- Home route uses `resolveConfig(project).home?.call()` with pattern matching (`case final homeComponent?`): if non-null, renders the home component; otherwise redirects `/` to `/docs`
+- Home route uses `configure(project).home?.call()` with pattern matching (`case final homeComponent?`): if non-null, renders the home component; otherwise redirects `/` to `/docs`
 - Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml (repository field uses `Repository('...')` constructor)
 - Generates `project_data.dart` with Project containing pubspec + auto-generated sidebar items
-- Generates `layout.dart` that calls `resolveConfig(project)` then `config.header?.call()` etc.
+- Generates `layout.dart` that calls `configure(project)` then `config.header?.call()` etc.
 - Injects `config.themeMode` into generated `theme.js` as `forcedMode` (overrides localStorage when set to light/dark)
 - If a layout function is null, that section is simply not rendered
 
@@ -330,7 +326,7 @@ Flutter docs style theme with:
 4. `SiteGenerator(config, websiteDir: websiteDir).generate(pubspec: pubspec)`:
    - Copies config.dart, root `.dart` files, components/, pages/ into managed project
    - Generates pubspec_data.dart + project_data.dart with Project/Pubspec data
-   - Generates layout.dart that calls `resolveConfig(project)` then delegates to config functions
+   - Generates layout.dart that calls `configure(project)` then delegates to config functions
 5. Runs `dart run jaspr build` in `website/.dart_tool/docudart/`
 6. Copies output to `website/build/web/` (or `--output` flag)
 
@@ -338,9 +334,12 @@ Flutter docs style theme with:
 1. Same as build steps 1-3 (uses `generate()` with `fullClean: true` for initial build)
 2. Starts `DocuDartFileWatcher` (watches docs, assets, all root `.dart` files, components/, pages/)
 3. Runs `dart run jaspr serve` in `website/.dart_tool/docudart/`
-4. On file change: regenerates with `fullClean: false` (in-place update, no pub get) — Jaspr's native hot reload detects the changed files and re-renders
+4. On file change: regenerates with `fullClean: false` (in-place update, no pub get) → Jaspr rebuilds → browser auto-refreshes via live-reload polling
+5. Jaspr's internal proxy logs (SocketException, shelf_proxy errors) are filtered out by `_shouldShowLog()` in `ServeCommand`
 
-**Hot reload architecture**: `config.dart` uses `final init = setup((project) => Config(...))` — the `setup()` call stores the callback, and `resolveConfig(project)` invokes it fresh each time. When a file changes, `DocuDartFileWatcher` copies the updated files into the managed Jaspr project's `lib/`, and Jaspr's built-in `HotReloader` detects the changes and patches the VM. The top-level `final init` is re-evaluated on hot reload (replacing the stored callback), and subsequent calls to `resolveConfig()` use the new callback.
+**Live reload**: During `docudart serve`, a `live-reload.js` script is injected into the HTML and a `live-reload-version.txt` file is written to the web directory. The JS polls the version file every 1 second. After each file change, DocuDart regenerates the site and bumps the version file — the browser detects the change and calls `location.reload()` automatically. This only runs during serve mode (`serveMode: true`); `docudart build` does not include the live-reload script.
+
+**Log filtering**: Jaspr's serve runs an internal build daemon on a separate port; during reload transitions the proxy briefly disconnects, producing transient SocketException errors. `ServeCommand._shouldShowLog()` suppresses these noisy internal logs while preserving user-facing output. Process output is piped (not `inheritStdio`) and filtered line-by-line.
 
 ## Common Tasks
 
@@ -362,12 +361,14 @@ The managed Jaspr site is generated in `SiteGenerator`:
 - `_copyUserFiles()` - copies config.dart, root `.dart` files, components/, pages/ into lib/
 - `_generatePubspecData()` - lib/pubspec_data.dart (const Pubspec from parent pubspec.yaml)
 - `_generateProjectData()` - lib/project_data.dart (Project with pubspec + sidebar items)
-- `_generateLayout()` - lib/layout.dart (calls resolveConfig(project) then config.header/footer/sidebar)
-- `_generateApp()` - lib/app.dart with Router (home route uses resolveConfig(project).home at runtime)
+- `_generateLayout()` - lib/layout.dart (calls configure(project) then config.header/footer/sidebar)
+- `_generateApp()` - lib/app.dart with Router (home route uses configure(project).home at runtime)
 - `_generatePages()` - lib/pages/ directory (user pages copied by _copyUserFiles)
 - `_generateDocsPageContent()` - lib/docs_page_content.dart
 - `_generateStyles()` - web/styles.css (includes collapsible sidebar CSS with chevron + transitions)
 - `_generateThemeScript()` - web/theme.js (theme toggle + sidebar collapse/expand + active link highlighting)
+- `_generateLiveReload()` - web/live-reload.js + web/live-reload-version.txt (only when `serveMode: true`)
+- `bumpLiveReloadVersion()` - public method; writes new timestamp to version file after each regeneration during serve
 
 ### Adding a Built-in Component
 1. Create `lib/src/components/built_in/my_component.dart`
@@ -462,60 +463,17 @@ Use `headless: true` for automated checks. Key things to verify:
 
 ### Verifying Hot Reload with Playwright
 
-**Known Bug: Hot reload does NOT reliably apply changes to root-level `.dart` files (icons.dart, labels.dart, etc.) — see Known Bugs section below.** Because of this, always use `build` (not `serve`) to verify `.dart` file changes.
+Live reload works automatically during `docudart serve`. To verify with Playwright:
 
-To test hot reload for other file types (markdown, CSS), or to verify the bug is fixed:
-
-1. Start the server and wait for it to be ready:
-   ```bash
-   cd example && dart run ../bin/docudart.dart serve &
-   # Poll until ready:
-   for i in $(seq 1 30); do
-     curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/docs 2>/dev/null | grep -q 200 && break
-     sleep 10
-   done
-   ```
-
-2. Take a **before** screenshot with Playwright — extract specific DOM attributes to compare:
-   ```javascript
-   // Check actual rendered SVG viewBox values
-   const svgs = await page.evaluate(() => {
-     const navLinks = document.querySelectorAll('.nav-link');
-     return Array.from(navLinks).map(link => {
-       const svg = link.querySelector('svg');
-       return {
-         text: link.textContent.trim(),
-         viewBox: svg ? svg.getAttribute('viewBox') : 'no svg',
-       };
-     });
-   });
-   console.log(JSON.stringify(svgs, null, 2));
-   ```
-
-3. Make a change to a watched file (e.g., modify a viewBox in `icons.dart`)
-
-4. Wait for hot reload (15+ seconds), then take an **after** screenshot
-
-5. **Compare** the DOM attribute values or screenshots — if unchanged, hot reload did not apply
-
-6. Stop the server:
-   ```bash
-   pkill -f "docudart.dart serve"; pkill -f "jaspr"
-   ```
+1. Start the server and open a page in Playwright (keep the same browser tab open)
+2. Make a change to a watched file (e.g., change `Icons.docs` to `Icons.flutter` in `config.dart`)
+3. Wait for `page.waitForEvent('framenavigated')` — the browser reloads itself via `live-reload.js`
+4. Extract DOM values and compare — they should reflect the change
+5. Stop the server: `pkill -f "docudart.dart serve"; pkill -f "jaspr"`
 
 ## Known Bugs
 
-### Hot reload not applying `.dart` file changes (icons.dart, labels.dart, etc.)
-
-**Status:** Open
-
-The `DocuDartFileWatcher` correctly detects changes and `_copyUserFiles()` copies updated files to the managed Jaspr project, but **changes are not reflected in the browser**. Jaspr's build daemon reports "Rebuilt web assets" but the rendered output is stale.
-
-**Suspected cause:** `static const` values (like SVG icons) may be baked in at compile time and survive Dart VM hot reload. Additionally, `File.copy()` may not trigger filesystem events the same way as in-place writes.
-
-**Workaround:** Stop the server, run `docudart build`, then restart `docudart serve`.
-
-**Investigation notes:** See `memory/hot_reload_bug.md` in the agent memory directory for detailed analysis and potential fixes.
+None currently tracked.
 
 ## Dependencies
 
@@ -535,7 +493,7 @@ The `DocuDartFileWatcher` correctly detects changes and `_copyUserFiles()` copie
 
 - `docudart` re-exports `package:jaspr/jaspr.dart` and Dart extensions (`.let()`) — users never import jaspr directly
 - User's config is `config.dart` (Dart, not YAML) for IntelliSense and type safety
-- `config.dart` must call `final init = setup((project) => Config(...))` at the top level (convention enforced by ProjectGenerator — the `init` variable must be public so generated code can reference it to force Dart's lazy initializer to run)
+- `config.dart` must export a `Config configure(Project project)` function (convention enforced by ProjectGenerator — generated code imports config.dart and calls `configure(project)` directly)
 - `ConfigLoader` parses `config.dart` via text-based regex (`ConfigEvaluator`), falling back to YAML if it fails
 - Function fields (home/header/footer/sidebar) cannot be extracted from text parsing — managed project imports config.dart directly
 - All generated user files import `package:docudart/docudart.dart`
@@ -545,9 +503,8 @@ The `DocuDartFileWatcher` correctly detects changes and `_copyUserFiles()` copie
 - Clean URLs by default (`/docs/intro/` not `/docs/intro.html`)
 - Theme mode (system/light/dark) via `themeMode` field — injected into `theme.js` as `forcedMode`; when set to light/dark it overrides localStorage; toggle still works for user override
 - WorkspaceResolver supports backward compatibility with old flat structure
-- **Dart lazy init caveat**: Top-level `final` variables are lazily initialized — they only evaluate when first accessed. The generated `main.server.dart` references `init;` from config.dart to force the `setup()` callback to run. The variable must be public (not `_`) for this to work.
-- **Hot reload**: `setup()` stores a callback; on hot reload Dart re-evaluates top-level initializers, replacing the stored callback. `resolveConfig(project)` always invokes the latest callback.
-- `DocuDartFileWatcher` watches: docs/, assets/, all root `.dart` files (config.dart, icons.dart, etc.), components/, pages/; uses debounce + pending-regeneration queue to handle rapid edits
+- **Live reload**: `configure()` is a plain function — no lazy init, no stored callbacks. `_copyUserFiles()` uses `writeAsString` (not `File.copy()`) for reliable filesystem events. During serve, `live-reload.js` polls `live-reload-version.txt` every 1s; after regeneration, version is bumped and the browser auto-refreshes. The live-reload script is only injected during `docudart serve` (`serveMode: true`), not during `docudart build`.
+- `DocuDartFileWatcher` watches: docs/, assets/, all root `.dart` files (config.dart, icons.dart, etc.), components/, pages/, and parent project's `pubspec.yaml`; uses debounce + pending-regeneration queue to handle rapid edits
 - **Sidebar interactivity** (all via vanilla JS in `theme.js`):
   - **Collapsible categories**: click/keyboard toggle, CSS chevron rotation + `max-height` transition, state persisted in `localStorage` (`docudart-sidebar-state` key)
   - **Active link highlighting**: `.sidebar-link.active` class applied via JS matching `window.location.pathname` against `data-path` attributes

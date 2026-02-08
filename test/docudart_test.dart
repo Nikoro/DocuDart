@@ -223,13 +223,9 @@ void main() {
     });
   });
 
-  group('setup', () {
-    tearDown(() {
-      resetSetup();
-    });
-
-    test('stores and resolves config', () {
-      setup((project) => Config(title: project.pubspec.name));
+  group('configure pattern', () {
+    test('configure function returns config from project', () {
+      Config configure(Project project) => Config(title: project.pubspec.name);
 
       const project = Project(
         pubspec: Pubspec(name: 'test_project'),
@@ -237,43 +233,14 @@ void main() {
         pages: [],
       );
 
-      final config = resolveConfig(project);
+      final config = configure(project);
       expect(config.title, equals('test_project'));
     });
 
-    test('resolveConfig throws if setup not called', () {
-      expect(
-        () => resolveConfig(
-          const Project(
-            pubspec: Pubspec(name: 'x'),
-            docs: [],
-            pages: [],
-          ),
-        ),
-        throwsStateError,
-      );
-    });
-
-    test('setup replaces previous callback', () {
-      setup((project) => Config(title: 'first'));
-      setup((project) => Config(title: 'second'));
-
-      const project = Project(
-        pubspec: Pubspec(name: 'test'),
-        docs: [],
-        pages: [],
-      );
-
-      final config = resolveConfig(project);
-      expect(config.title, equals('second'));
-    });
-
-    test('callback receives pubspec data', () {
-      setup(
-        (project) => Config(
-          title: '${project.pubspec.name} v${project.pubspec.version}',
-          description: project.pubspec.description,
-        ),
+    test('configure function receives pubspec data', () {
+      Config configure(Project project) => Config(
+        title: '${project.pubspec.name} v${project.pubspec.version}',
+        description: project.pubspec.description,
       );
 
       const project = Project(
@@ -282,7 +249,7 @@ void main() {
         pages: [],
       );
 
-      final config = resolveConfig(project);
+      final config = configure(project);
       expect(config.title, equals('my_app v2.0.0'));
       expect(config.description, equals('My app description'));
     });

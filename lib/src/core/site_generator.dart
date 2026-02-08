@@ -15,8 +15,9 @@ class SiteGenerator {
   final Config config;
   final String websiteDir;
   final String managedDir;
+  final bool serveMode;
 
-  SiteGenerator(this.config, {String? websiteDir})
+  SiteGenerator(this.config, {String? websiteDir, this.serveMode = false})
     : websiteDir = websiteDir ?? Directory.current.path,
       managedDir = p.join(
         websiteDir ?? Directory.current.path,
@@ -138,10 +139,11 @@ jaspr:
     final libDir = p.join(managedDir, 'lib');
     await Directory(libDir).create(recursive: true);
 
-    // Copy config.dart
+    // Copy config.dart (use writeAsString to trigger filesystem events for hot reload)
     final configSrc = File(p.join(websiteDir, 'config.dart'));
     if (configSrc.existsSync()) {
-      await configSrc.copy(p.join(libDir, 'config.dart'));
+      await File(p.join(libDir, 'config.dart'))
+          .writeAsString(await configSrc.readAsString());
     }
 
     // Copy components/ directory
@@ -154,17 +156,20 @@ jaspr:
     await _copyDirectory(p.join(websiteDir, 'pages'), p.join(libDir, 'pages'));
 
     // Copy other root-level .dart files (e.g. icons.dart)
+    // Use writeAsString instead of copy to trigger filesystem events for hot reload.
     final websiteDirEntity = Directory(websiteDir);
     await for (final entity in websiteDirEntity.list()) {
       if (entity is File &&
           entity.path.endsWith('.dart') &&
           p.basename(entity.path) != 'config.dart') {
-        await entity.copy(p.join(libDir, p.basename(entity.path)));
+        await File(p.join(libDir, p.basename(entity.path)))
+            .writeAsString(await entity.readAsString());
       }
     }
   }
 
   /// Copy a directory recursively, creating target dirs as needed.
+  /// Uses writeAsString instead of copy to trigger filesystem events for hot reload.
   Future<void> _copyDirectory(String srcPath, String targetPath) async {
     final srcDir = Directory(srcPath);
     if (!srcDir.existsSync()) return;
@@ -177,7 +182,7 @@ jaspr:
         final relativePath = p.relative(entity.path, from: srcPath);
         final dest = p.join(targetPath, relativePath);
         await File(dest).parent.create(recursive: true);
-        await entity.copy(dest);
+        await File(dest).writeAsString(await entity.readAsString());
       }
     }
   }
@@ -333,7 +338,7 @@ class Layout extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final config = resolveConfig(project);
+    final config = configure(project);
     final headerComponent = config.header?.call();
     final sidebarComponent = showSidebar ? config.sidebar?.call() : null;
     final footerComponent = config.footer?.call();
@@ -376,11 +381,9 @@ class Layout extends StatelessComponent {
         '''
 import 'package:jaspr/server.dart';
 import 'package:jaspr/dom.dart' show link, script;
-import 'config.dart';
 import 'app.dart';
 
 void main() {
-  init; // Force lazy top-level initializer in config.dart to run setup().
   Jaspr.initializeApp();
 
   runApp(Document(
@@ -397,7 +400,7 @@ $faviconLinks      link(rel: 'stylesheet', href: '/styles.css'),
       ),
       script(src: 'main.client.dart.js', defer: true),
       script(src: '/theme.js'),
-    ],
+${serveMode ? "      script(src: '/live-reload.js', defer: true),\n" : ''}    ],
     body: DocuDartApp(),
   ));
 }
@@ -446,7 +449,7 @@ ClientOptions get defaultClientOptions => ClientOptions();
 
     // Home route: if config.home is set and returns non-null, render it; otherwise redirect to /docs
     routesBuffer.writeln('''
-        if (resolveConfig(project).home?.call() case final homeComponent?)
+        if (configure(project).home?.call() case final homeComponent?)
           Route(
             path: '/',
             builder: (context, state) => Layout(
@@ -483,6 +486,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 import 'package:docudart/docudart.dart';
+import 'config.dart';
 import 'project_data.dart';
 import 'layout.dart';
 import 'docs_page_content.dart';
@@ -1495,6 +1499,11 @@ body {
 
     // Always generate theme toggle script
     await _generateThemeScript(webDir);
+
+    // Generate live-reload script during serve mode
+    if (serveMode) {
+      await _generateLiveReload(webDir);
+    }
   }
 
   Future<void> _generateThemeScript(String webDir) async {
@@ -1677,6 +1686,48 @@ body {
 })();
 ''';
     await File(p.join(webDir, 'theme.js')).writeAsString(themeScript);
+  }
+
+  Future<void> _generateLiveReload(String webDir) async {
+    // Write initial version file
+    await bumpLiveReloadVersion();
+
+    final script = '''
+(function() {
+  var currentVersion = null;
+  var url = '/live-reload-version.txt';
+
+  function poll() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url + '?t=' + Date.now(), true);
+    xhr.timeout = 2000;
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        var version = xhr.responseText.trim();
+        if (currentVersion === null) {
+          currentVersion = version;
+        } else if (version !== currentVersion) {
+          console.log('[docudart] Reloading...');
+          location.reload();
+        }
+      }
+    };
+    xhr.send();
+  }
+
+  setInterval(poll, 1000);
+})();
+''';
+    await File(p.join(webDir, 'live-reload.js')).writeAsString(script);
+  }
+
+  /// Writes a new version timestamp to the live-reload version file.
+  /// Called after each regeneration during serve mode.
+  Future<void> bumpLiveReloadVersion() async {
+    final webDir = p.join(managedDir, 'web');
+    await Directory(webDir).create(recursive: true);
+    await File(p.join(webDir, 'live-reload-version.txt'))
+        .writeAsString(DateTime.now().millisecondsSinceEpoch.toString());
   }
 
   Future<void> _generateWebFiles() async {
