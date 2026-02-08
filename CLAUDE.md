@@ -460,6 +460,63 @@ Use `headless: true` for automated checks. Key things to verify:
 - Dark mode colors apply correctly
 - Doc pages render markdown content properly
 
+### Verifying Hot Reload with Playwright
+
+**Known Bug: Hot reload does NOT reliably apply changes to root-level `.dart` files (icons.dart, labels.dart, etc.) — see Known Bugs section below.** Because of this, always use `build` (not `serve`) to verify `.dart` file changes.
+
+To test hot reload for other file types (markdown, CSS), or to verify the bug is fixed:
+
+1. Start the server and wait for it to be ready:
+   ```bash
+   cd example && dart run ../bin/docudart.dart serve &
+   # Poll until ready:
+   for i in $(seq 1 30); do
+     curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/docs 2>/dev/null | grep -q 200 && break
+     sleep 10
+   done
+   ```
+
+2. Take a **before** screenshot with Playwright — extract specific DOM attributes to compare:
+   ```javascript
+   // Check actual rendered SVG viewBox values
+   const svgs = await page.evaluate(() => {
+     const navLinks = document.querySelectorAll('.nav-link');
+     return Array.from(navLinks).map(link => {
+       const svg = link.querySelector('svg');
+       return {
+         text: link.textContent.trim(),
+         viewBox: svg ? svg.getAttribute('viewBox') : 'no svg',
+       };
+     });
+   });
+   console.log(JSON.stringify(svgs, null, 2));
+   ```
+
+3. Make a change to a watched file (e.g., modify a viewBox in `icons.dart`)
+
+4. Wait for hot reload (15+ seconds), then take an **after** screenshot
+
+5. **Compare** the DOM attribute values or screenshots — if unchanged, hot reload did not apply
+
+6. Stop the server:
+   ```bash
+   pkill -f "docudart.dart serve"; pkill -f "jaspr"
+   ```
+
+## Known Bugs
+
+### Hot reload not applying `.dart` file changes (icons.dart, labels.dart, etc.)
+
+**Status:** Open
+
+The `DocuDartFileWatcher` correctly detects changes and `_copyUserFiles()` copies updated files to the managed Jaspr project, but **changes are not reflected in the browser**. Jaspr's build daemon reports "Rebuilt web assets" but the rendered output is stale.
+
+**Suspected cause:** `static const` values (like SVG icons) may be baked in at compile time and survive Dart VM hot reload. Additionally, `File.copy()` may not trigger filesystem events the same way as in-place writes.
+
+**Workaround:** Stop the server, run `docudart build`, then restart `docudart serve`.
+
+**Investigation notes:** See `memory/hot_reload_bug.md` in the agent memory directory for detailed analysis and potential fixes.
+
 ## Dependencies
 
 | Package | Purpose |

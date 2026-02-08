@@ -712,8 +712,11 @@ body {
 .nav-link-icon {
   display: inline-flex;
   align-items: center;
-  width: 1.25em;
-  height: 1.25em;
+  justify-content: center;
+  width: 1.125em;
+  height: 1.125em;
+  line-height: 0;
+  flex-shrink: 0;
 }
 
 .nav-link-icon svg {
