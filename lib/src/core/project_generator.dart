@@ -36,11 +36,14 @@ class ProjectGenerator {
     print('Checking pub.dev for package...');
     final pubDevUrl = await _resolvePubDevUrl(pubspecInfo['name']);
 
+    // Resolve linting dependency from parent's analysis_options.yaml
+    final lintDependency = await _resolveLintDependency(directory);
+
     // Create directory structure inside website/
     await _createDirectories(websiteDir);
 
     // Generate website/pubspec.yaml with path dependency to docudart
-    await _generateWebsitePubspec(websiteDir, title);
+    await _generateWebsitePubspec(websiteDir, title, lintDependency: lintDependency);
 
     // Generate wrapper components (header, footer, sidebar)
     await _generateComponents(websiteDir, title);
@@ -81,6 +84,9 @@ class ProjectGenerator {
       print('Warning: dart pub get failed: ${result.stderr}');
     }
 
+    // Format generated Dart files
+    await Process.run('dart', ['format', '.'], workingDirectory: websiteDir);
+
     print('Created project structure:');
     print('  website/');
     print('    pubspec.yaml');
@@ -115,6 +121,40 @@ class ProjectGenerator {
       };
     } catch (_) {
       return {};
+    }
+  }
+
+  /// Resolve a linting package from the parent project's pubspec.yaml.
+  ///
+  /// Checks for `lints` or `flutter_lints` in dev_dependencies/dependencies
+  /// and returns the name and version if found.
+  Future<Map<String, String>?> _resolveLintDependency(String directory) async {
+    final pubspecFile = File(p.join(directory, 'pubspec.yaml'));
+    if (!pubspecFile.existsSync()) return null;
+
+    try {
+      final content = await pubspecFile.readAsString();
+      final yaml = loadYaml(content);
+      if (yaml is! YamlMap) return null;
+
+      const lintPackages = ['lints', 'flutter_lints'];
+
+      for (final section in ['dev_dependencies', 'dependencies']) {
+        final deps = yaml[section];
+        if (deps is! YamlMap) continue;
+        for (final package in lintPackages) {
+          if (deps.containsKey(package)) {
+            final version = deps[package];
+            if (version is String) {
+              return {'name': package, 'version': version};
+            }
+          }
+        }
+      }
+
+      return null;
+    } catch (_) {
+      return null;
     }
   }
 
@@ -175,9 +215,17 @@ class ProjectGenerator {
     }
   }
 
-  Future<void> _generateWebsitePubspec(String websiteDir, String title) async {
+  Future<void> _generateWebsitePubspec(
+    String websiteDir,
+    String title, {
+    Map<String, String>? lintDependency,
+  }) async {
     final docudartPath = await PackageResolver.relativePathTo(websiteDir);
     final packageName = _sanitizePackageName(title);
+
+    final devDeps = lintDependency != null
+        ? "\ndev_dependencies:\n  ${lintDependency['name']}: ${lintDependency['version']}\n"
+        : '';
 
     final pubspec =
         '''
@@ -191,7 +239,7 @@ environment:
 dependencies:
   docudart:
     path: $docudartPath
-''';
+$devDeps''';
 
     await File(p.join(websiteDir, 'pubspec.yaml')).writeAsString(pubspec);
   }

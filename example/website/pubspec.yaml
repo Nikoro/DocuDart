@@ -8,3 +8,6 @@ environment:
 dependencies:
   docudart:
     path: ../..
+
+dev_dependencies:
+  lints: ^6.1.0
