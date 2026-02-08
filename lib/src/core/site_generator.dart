@@ -713,8 +713,8 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.125em;
-  height: 1.125em;
+  width: 1.25em;
+  height: 1.25em;
   line-height: 0;
   flex-shrink: 0;
 }
