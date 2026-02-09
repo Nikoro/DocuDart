@@ -96,6 +96,25 @@ class ConfigLoader {
     }
   }
 
+  /// Load the parent project's CHANGELOG.md from the website directory.
+  ///
+  /// Looks one directory up from [websiteDir] for the project root's
+  /// CHANGELOG.md. Returns null if the file doesn't exist.
+  static Future<String?> loadParentChangelog(String websiteDir) async {
+    final parentDir = p.dirname(websiteDir);
+    final changelogFile = File(p.join(parentDir, 'CHANGELOG.md'));
+
+    if (!changelogFile.existsSync()) {
+      return null;
+    }
+
+    try {
+      return await changelogFile.readAsString();
+    } catch (_) {
+      return null;
+    }
+  }
+
   static Future<Config> _loadFromYaml(String dir) async {
     // Try to load title/description from pubspec.yaml
     String? title;

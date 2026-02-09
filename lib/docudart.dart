@@ -40,6 +40,8 @@ export 'src/components/defaults/default_sidebar.dart';
 export 'src/components/defaults/theme_toggle.dart';
 export 'src/components/defaults/socials.dart';
 export 'src/components/defaults/topics.dart';
+export 'src/components/defaults/markdown.dart';
+export 'src/components/defaults/project_provider.dart';
 
 // Layout
 export 'src/components/layout/flex_enums.dart';

@@ -101,7 +101,9 @@ docudart/
 │       │   │   ├── default_sidebar.dart # DefaultSidebar component
 │       │   │   ├── theme_toggle.dart    # ThemeToggle (light/dark icon swap)
 │       │   │   ├── socials.dart         # Socials (social media icon links)
-│       │   │   └── topics.dart          # Topics (topic tag links with optional title)
+│       │   │   ├── topics.dart          # Topics (topic tag links with optional title)
+│       │   │   ├── markdown.dart        # Markdown (runtime markdown-to-HTML renderer)
+│       │   │   └── project_provider.dart # ProjectProvider (InheritedComponent + context.project)
 │       │   ├── layout/                # Flutter-like layout primitives
 │       │   │   ├── flex_enums.dart     # MainAxisAlignment, CrossAxisAlignment, MainAxisSize
 │       │   │   ├── row.dart            # Row + Column components
@@ -219,7 +221,7 @@ Config configure(Project project) => Config(
 ```
 - `.let()` extension (Kotlin-style) on `T?` — enables null-safe scoping: `value.let((it) => transform(it))` returns null if value is null
 - Generated layout/app code imports `config.dart` and calls `configure(project)` directly — no registration pattern
-- `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<CustomPage>)
+- `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<CustomPage>), `changelog` (String?)
 - `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository` (`Repository?`), `issueTracker`, `documentation`, `publishTo`, `funding`, `topics`, `environment`
 
 ### Link (lib/src/config/link.dart)
@@ -280,6 +282,25 @@ Composable footer content components.
   - Categories have `role="button"` + `tabindex="0"` for keyboard accessibility
   - Uses `_slugify()` helper to generate stable category IDs for localStorage persistence
 
+### ProjectProvider (lib/src/components/defaults/project_provider.dart)
+`InheritedComponent` that provides `Project` data to all descendant components via the component tree.
+- Generated `app.dart` wraps `Router` with `ProjectProvider(project: project, child: Router(...))`
+- Extension `ProjectContext` on `BuildContext` adds a `.project` getter
+- Usage: `context.project.pubspec.name`, `context.project.changelog`, `context.project.docs`
+- Eliminates the need for user pages to import `../project_data.dart` — just use `context.project`
+
+### Markdown (lib/src/components/defaults/markdown.dart)
+Reusable component that renders a raw markdown string as formatted HTML at runtime.
+```dart
+Markdown(content: '# Hello\n\nSome **bold** text.')
+Markdown(content: context.project.changelog ?? '', classes: 'changelog-content')
+```
+- Uses `MarkdownProcessor` at runtime (pure Dart, no dart:io — works in browser)
+- Supports embedded components (Callout, Tabs, CodeBlock, etc.) via `ComponentRegistry`
+- Default `classes: 'docs-content'` — reuses existing markdown CSS styles
+- `content` (`String`, required) — raw markdown string
+- `classes` (`String?`, optional) — CSS classes for the wrapper div
+
 ### ProjectGenerator (lib/src/core/project_generator.dart)
 Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart init`.
 - `InitTemplate.defaultTemplate` - Basic setup
@@ -295,7 +316,7 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - **Smart repository link**: Generated config.dart uses `?project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icons.openInNew))` for runtime provider detection with external link indicator; null-safe via `.let()` — if no repository, the entry is omitted
 - **Lint dependency propagation**: `_resolveLintDependency()` checks parent's `pubspec.yaml` for `lints` or `flutter_lints` (in `dev_dependencies` then `dependencies`), propagates as `dev_dependency` in generated `website/pubspec.yaml`
 - Runs `dart pub get` then `dart format .` in website/ after generation
-- **Conditional changelog**: Checks for `CHANGELOG.md` in parent project root; if present, generates `pages/changelog_page.dart` via `_generateChangelogPage()` and adds `.path('/changelog', label: Labels.changelog)` link to header in config.dart; if absent, neither page nor link is generated
+- **Conditional changelog**: Checks for `CHANGELOG.md` in parent project root; if present, generates `pages/changelog_page.dart` (uses `Markdown(content: context.project.changelog ?? '')`) via `_generateChangelogPage()` and adds `.path('/changelog', label: Labels.changelog)` link to header in config.dart; if absent, neither page nor link is generated
 - Looks for `README.md` in project root to auto-generate docs
 - `_generateFullTemplateSubfolders()` - creates example subfolders for full template (always runs, even when README.md exists): `01-guides_expanded/` (expanded sidebar) and `02-advanced/` with nested `deployment/` (collapsed)
 
@@ -303,13 +324,14 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - Accepts optional `websiteDir` parameter (defaults to cwd) and `serveMode` flag (default: false)
 - `serveMode: true` enables live-reload script injection (only during `docudart serve`)
-- `generate({bool fullClean = true, Pubspec? pubspec})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
+- `generate({bool fullClean = true, Pubspec? pubspec, String? changelog})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
 - Adds `docudart` as path dependency in managed project's pubspec
 - Copies `config.dart`, `components/`, `pages/`, root-level `.dart` files (e.g. `icons.dart`), and `assets/assets.dart` into managed project's `lib/`
 - Home route uses `configure(project).home?.call()` with pattern matching (`case final homeComponent?`): if non-null, renders the home component; otherwise redirects `/` to `/docs`
 - **Page auto-discovery**: `_discoverPages()` scans `pages/` for `.dart` files, extracts class names via regex (`class X extends Stateless/StatefulComponent`), derives route paths from filenames (`changelog_page.dart` → `/changelog`). `_generateApp()` imports each discovered page and generates a `Route` wrapping it in `Layout(showSidebar: false)`. No manual `customPages` registration needed — just add a file to `pages/` and link to it.
+- **ProjectProvider**: Generated `app.dart` wraps `Router` with `ProjectProvider(project: project, child: Router(...))` — makes `context.project` available to all descendant components (pages, layout, header, footer, sidebar)
 - Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml (repository field uses `Repository('...')` constructor)
-- Generates `project_data.dart` with Project containing pubspec + auto-generated sidebar items
+- Generates `project_data.dart` with Project containing pubspec + auto-generated sidebar items + changelog content
 - Generates `layout.dart` that calls `configure(project)` then `config.header?.call()` etc.
 - Injects `config.themeMode` into generated `theme.js` as `forcedMode` (overrides localStorage when set to light/dark)
 - If a layout function is null, that section is simply not rendered
@@ -365,8 +387,8 @@ Flutter docs style theme with:
 ### `docudart build`
 1. `WorkspaceResolver.resolve()` finds `website/` directory
 2. `ConfigLoader.load(websiteDir)` loads config with absolute paths
-3. `ConfigLoader.loadParentPubspec(websiteDir)` reads parent project's pubspec.yaml
-4. `SiteGenerator(config, websiteDir: websiteDir).generate(pubspec: pubspec)`:
+3. `ConfigLoader.loadParentPubspec(websiteDir)` reads parent project's pubspec.yaml; `ConfigLoader.loadParentChangelog(websiteDir)` reads CHANGELOG.md
+4. `SiteGenerator(config, websiteDir: websiteDir).generate(pubspec: pubspec, changelog: changelog)`:
    - Generates `assets/assets.dart` (type-safe asset paths) in website dir
    - Copies config.dart, root `.dart` files, components/, pages/, `assets/assets.dart` into managed project
    - Generates pubspec_data.dart + project_data.dart with Project/Pubspec data
@@ -376,7 +398,7 @@ Flutter docs style theme with:
 
 ### `docudart serve`
 1. Same as build steps 1-3 (uses `generate()` with `fullClean: true` for initial build)
-2. Starts `DocuDartFileWatcher` (watches docs, assets, all root `.dart` files, components/, pages/)
+2. Starts `DocuDartFileWatcher` (watches docs, assets, all root `.dart` files, components/, pages/, parent's CHANGELOG.md)
 3. Runs `dart run jaspr serve` in `website/.dart_tool/docudart/`
 4. On file change: regenerates with `fullClean: false` (in-place update, no pub get) → Jaspr rebuilds → browser auto-refreshes via live-reload polling
 5. Jaspr's internal proxy logs (SocketException, shelf_proxy errors) are filtered out by `_shouldShowLog()` in `ServeCommand`
@@ -405,10 +427,10 @@ The managed Jaspr site is generated in `SiteGenerator`:
 - `_generateAssetPaths()` - generates `website/assets/assets.dart` via `AssetPathGenerator` (type-safe asset constants)
 - `_copyUserFiles()` - copies config.dart, root `.dart` files, components/, pages/, and `assets/assets.dart` into lib/
 - `_generatePubspecData()` - lib/pubspec_data.dart (const Pubspec from parent pubspec.yaml)
-- `_generateProjectData()` - lib/project_data.dart (Project with pubspec + sidebar items)
+- `_generateProjectData()` - lib/project_data.dart (Project with pubspec + sidebar items + changelog)
 - `_generateLayout()` - lib/layout.dart (calls configure(project) then config.header/footer/sidebar)
 - `_discoverPages()` - scans pages/ directory, extracts class names and derives route paths from filenames
-- `_generateApp()` - lib/app.dart with Router (home + doc + auto-discovered custom page routes)
+- `_generateApp()` - lib/app.dart with ProjectProvider wrapping Router (home + doc + auto-discovered custom page routes)
 - `_generatePages()` - lib/pages/ directory (user pages copied by _copyUserFiles)
 - `_generateDocsPageContent()` - lib/docs_page_content.dart
 - `_generateStyles()` - web/styles.css (includes collapsible sidebar CSS with chevron + transitions)
@@ -550,7 +572,7 @@ None currently tracked.
 - Theme mode (system/light/dark) via `themeMode` field — injected into `theme.js` as `forcedMode`; when set to light/dark it overrides localStorage; toggle still works for user override
 - WorkspaceResolver supports backward compatibility with old flat structure
 - **Live reload**: `configure()` is a plain function — no lazy init, no stored callbacks. `_copyUserFiles()` uses `writeAsString` (not `File.copy()`) for reliable filesystem events. During serve, `live-reload.js` polls `live-reload-version.txt` every 1s; after regeneration, version is bumped and the browser auto-refreshes. The live-reload script is only injected during `docudart serve` (`serveMode: true`), not during `docudart build`.
-- `DocuDartFileWatcher` watches: docs/, assets/, all root `.dart` files (config.dart, icons.dart, etc.), components/, pages/, and parent project's `pubspec.yaml`; uses debounce + pending-regeneration queue to handle rapid edits
+- `DocuDartFileWatcher` watches: docs/, assets/, all root `.dart` files (config.dart, icons.dart, etc.), components/, pages/, parent project's `pubspec.yaml`, and parent project's `CHANGELOG.md`; uses debounce + pending-regeneration queue to handle rapid edits
 - `_handleEvent()` skips `assets.dart` inside the assets dir to prevent infinite rebuild loops (it's regenerated on each build and lives inside the watched assets/ dir)
 - **Sidebar interactivity** (all via vanilla JS in `theme.js`):
   - **Collapsible categories**: click/keyboard toggle, CSS chevron rotation + `max-height` transition, state persisted in `localStorage` (`docudart-sidebar-state` key)

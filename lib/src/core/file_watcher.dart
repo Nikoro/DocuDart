@@ -69,6 +69,12 @@ class DocuDartFileWatcher {
     if (File(parentPubspec).existsSync()) {
       await _watchFile(parentPubspec);
     }
+
+    // Watch parent project's CHANGELOG.md (for changelog content updates)
+    final parentChangelog = p.join(p.dirname(websiteDir), 'CHANGELOG.md');
+    if (File(parentChangelog).existsSync()) {
+      await _watchFile(parentChangelog);
+    }
   }
 
   /// Stop watching for file changes.

@@ -61,8 +61,9 @@ class ServeCommand extends Command<int> {
         return 1;
       }
 
-      // Load parent project pubspec
+      // Load parent project pubspec and changelog
       final pubspec = await ConfigLoader.loadParentPubspec(websiteDir);
+      final changelog = await ConfigLoader.loadParentChangelog(websiteDir);
 
       // Generate the managed Jaspr site
       CliPrinter.step('Generating site structure');
@@ -71,7 +72,7 @@ class ServeCommand extends Command<int> {
         websiteDir: websiteDir,
         serveMode: true,
       );
-      await generator.generate(pubspec: pubspec);
+      await generator.generate(pubspec: pubspec, changelog: changelog);
 
       // Start file watcher if enabled.
       // On change, regenerate files in-place and bump live-reload version.
@@ -83,12 +84,17 @@ class ServeCommand extends Command<int> {
           onRegenerate: () async {
             final newConfig = await ConfigLoader.load(websiteDir);
             final newPubspec = await ConfigLoader.loadParentPubspec(websiteDir);
+            final newChangelog = await ConfigLoader.loadParentChangelog(websiteDir);
             final newGenerator = SiteGenerator(
               newConfig,
               websiteDir: websiteDir,
               serveMode: true,
             );
-            await newGenerator.generate(fullClean: false, pubspec: newPubspec);
+            await newGenerator.generate(
+              fullClean: false,
+              pubspec: newPubspec,
+              changelog: newChangelog,
+            );
             await newGenerator.bumpLiveReloadVersion();
           },
         );

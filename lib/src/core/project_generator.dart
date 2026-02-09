@@ -647,7 +647,7 @@ class ChangelogPage extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return .text('CHANGELOG');
+    return Markdown(content: context.project.changelog ?? '');
   }
 }
 ''');

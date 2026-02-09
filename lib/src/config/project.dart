@@ -11,6 +11,7 @@ class Project {
     required this.pubspec,
     required this.docs,
     required this.pages,
+    this.changelog,
   });
 
   /// The user's project pubspec.yaml data.
@@ -21,4 +22,7 @@ class Project {
 
   /// Custom pages registered in the config.
   final List<CustomPage> pages;
+
+  /// Raw content of CHANGELOG.md from the parent project, if it exists.
+  final String? changelog;
 }

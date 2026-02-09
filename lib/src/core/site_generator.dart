@@ -30,7 +30,11 @@ class SiteGenerator {
   /// When [fullClean] is true (default), deletes and recreates the managed
   /// directory from scratch. Set to false during hot reload to update files
   /// in-place without disrupting the running Jaspr dev server.
-  Future<void> generate({bool fullClean = true, Pubspec? pubspec}) async {
+  Future<void> generate({
+    bool fullClean = true,
+    Pubspec? pubspec,
+    String? changelog,
+  }) async {
     print('Generating site structure...');
 
     // Ensure managed directory exists
@@ -78,7 +82,7 @@ class SiteGenerator {
     await _generateAssetPaths();
     await _copyUserFiles();
     await _generatePubspecData(resolvedPubspec);
-    await _generateProjectData(defaultSidebarItems);
+    await _generateProjectData(defaultSidebarItems, changelog);
     await _generateLayout();
     await _generateApp(allPages, versionManager);
     await _generateStyles(includeVersionSwitcher: versionManager.isEnabled);
@@ -274,6 +278,7 @@ jaspr:
   /// Generate project_data.dart with sidebar items and custom pages.
   Future<void> _generateProjectData(
     List<GeneratedSidebarItem> sidebarItems,
+    String? changelog,
   ) async {
     final buffer = StringBuffer();
     buffer.writeln("import 'package:docudart/docudart.dart';");
@@ -298,6 +303,11 @@ jaspr:
     }
 
     buffer.writeln('  ],');
+
+    if (changelog != null) {
+      buffer.writeln("  changelog: '${_escapeForDart(changelog)}',");
+    }
+
     buffer.writeln(');');
 
     await File(
@@ -578,10 +588,13 @@ class DocuDartApp extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return Router(
-      routes: [
+    return ProjectProvider(
+      project: project,
+      child: Router(
+        routes: [
 ${routesBuffer.toString()}
-      ],
+        ],
+      ),
     );
   }
 }
