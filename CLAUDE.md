@@ -267,7 +267,7 @@ Logo(image: img(src: Assets.logo.logo_svg, alt: 'Logo'), href: '/home')
 
 ### DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
 Library-provided default layout components.
-- `DefaultFooter(text:, leading:, trailing:)` - centered text footer with composable slots; uses `Row(mainAxisAlignment: MainAxisAlignment.spaceBetween)` internally for layout
+- `DefaultFooter(text:, leading:, trailing:)` - centered text footer with composable slots; uses semantic `<footer>` element directly (no wrapper class), `Row(mainAxisAlignment: .spaceBetween)` for layout, `Column(mainAxisSize: .min)` for center text stacking; leading/trailing spread directly into Row via `?leading`/`?trailing` (no wrapper divs)
 - `DefaultSidebar(items)` - collapsible navigation tree from docs structure
   - Renders `data-category`, `data-collapsed` attributes on categories for JS interactivity
   - Renders `data-path` attributes on links for active page highlighting

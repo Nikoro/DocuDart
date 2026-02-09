@@ -905,34 +905,19 @@ header a:not(.logo).active {
 }
 
 /* Footer */
-.site-footer {
+footer {
   background-color: var(--color-surface);
   border-top: 1px solid var(--color-border);
   padding: 2rem;
 }
 
-.site-footer > .row {
+footer > .row {
   max-width: 1400px;
   margin: 0 auto;
   color: var(--color-text-muted);
 }
 
-.footer-leading,
-.footer-trailing {
-  flex: 1;
-  display: flex;
-  align-items: center;
-}
-
-.footer-leading {
-  justify-content: flex-start;
-}
-
-.footer-trailing {
-  justify-content: flex-end;
-}
-
-.footer-center {
+footer .column {
   text-align: center;
 }
 
