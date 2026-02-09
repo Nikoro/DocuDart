@@ -92,6 +92,7 @@ docudart/
 │       │   ├── component_registry.dart  # Component registry
 │       │   ├── defaults/               # Default layout + composable components
 │       │   │   ├── default_header.dart  # DefaultHeader component
+│       │   │   ├── logo.dart            # Logo component (clickable image + title)
 │       │   │   ├── default_footer.dart  # DefaultFooter component
 │       │   │   ├── default_sidebar.dart # DefaultSidebar component
 │       │   │   ├── theme_toggle.dart    # ThemeToggle (light/dark icon swap)
@@ -235,9 +236,22 @@ repo.icon   // Component (SVG icon for GitHub)
 - Used in generated config.dart: `?project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icons.openInNew))`
 - `==` / `hashCode` based on `link` field
 
+### Logo (lib/src/components/defaults/logo.dart)
+Clickable logo component with optional image and/or title.
+```dart
+Logo(title: 'My Project')
+Logo(image: img(src: '/assets/logo.png', alt: 'Logo'), title: 'My Project')
+Logo(image: img(src: '/assets/logo.svg', alt: 'Logo'), href: '/home')
+```
+- `image` (`Component?`) — image component (e.g., `img(src: ...)`)
+- `title` (`String?`) — text title
+- `href` (`String`) — link target, defaults to `"/"`
+- At least one of `image` or `title` required (assert)
+- CSS: `.logo` (inline-flex, no link decoration via `:visited`), `.logo-image` (1.75rem height), `.logo-title` (1.25rem semibold)
+
 ### DefaultHeader / DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
 Library-provided default layout components.
-- `DefaultHeader(title:, navLinks:, leading:, trailing:)` - sticky header with nav, icon support, and composable slots
+- `DefaultHeader(navLinks:, leading:, trailing:)` - sticky header with nav and composable slots; `leading` is typically a `Logo`, all fields optional
 - `DefaultFooter(text:, leading:, trailing:)` - centered text footer with composable slots
 - `DefaultSidebar(items)` - collapsible navigation tree from docs structure
   - Renders `data-category`, `data-collapsed` attributes on categories for JS interactivity
@@ -250,7 +264,7 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - `InitTemplate.defaultTemplate` - Basic setup
 - `InitTemplate.full` - All features with examples, including sidebar subfolder showcase
 - Uses `PackageResolver` to compute path dependency to docudart
-- Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart)
+- Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart); Header takes optional `leading` (typically `Logo`) + `navLinks` + `trailing`
 - Generates `icons.dart` at website root with default SVG icons (github, pubDev, docs, discord, youtube, etc.)
 - Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, Labels.topics, etc.)
 - **Smart pub.dev URL**: `_resolvePubDevUrl()` makes a HEAD request to `https://pub.dev/packages/{name}` at init time; if 200, uses specific package URL, else falls back to generic `https://pub.dev` (5s timeout, graceful fallback on errors)

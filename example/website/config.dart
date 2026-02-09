@@ -19,7 +19,10 @@ Config configure(Project project) => Config(
   // Header, footer, and sidebar are components.
   // Set to null to hide any section.
   header: () => Header(
-    title: project.pubspec.name,
+    leading: Logo(
+      image: img(src: '/assets/logo/logo.png', alt: 'Logo'),
+      title: project.pubspec.name,
+    ),
     navLinks: [
       .path('/docs', label: Labels.docs, leading: Icons.docs),
       ?project.pubspec.repository.let(

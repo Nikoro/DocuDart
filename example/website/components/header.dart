@@ -3,17 +3,23 @@ import 'package:docudart/docudart.dart';
 /// Site header component.
 ///
 /// Customize this component to change the header layout.
-/// The [DefaultHeader] provides a standard header with title, nav links,
-/// and optional leading/trailing component slots.
+/// The [DefaultHeader] provides a standard header with nav links,
+/// and optional trailing component slot.
+///
+/// The [leading] slot is typically a [Logo].
 class Header extends StatelessComponent {
-  const Header({required this.title, this.navLinks, this.trailing, super.key});
+  const Header({this.leading, this.navLinks, this.trailing, super.key});
 
-  final String title;
+  final Component? leading;
   final List<NavLink>? navLinks;
   final Component? trailing;
 
   @override
   Component build(BuildContext context) {
-    return DefaultHeader(title: title, navLinks: navLinks, trailing: trailing);
+    return DefaultHeader(
+      leading: leading,
+      navLinks: navLinks,
+      trailing: trailing,
+    );
   }
 }

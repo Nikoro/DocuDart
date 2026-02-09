@@ -64,7 +64,7 @@ Set any layout section to `null` in `config.dart` to hide it:
 ```dart
 Config configure(Project project) => Config(
   title: project.pubspec.name,
-  header: () => Header(title: project.pubspec.name),
+  header: () => Header(leading: Logo(title: project.pubspec.name)),
   footer: null,    // No footer
   sidebar: null,   // No sidebar
 );
@@ -91,7 +91,7 @@ Config configure(Project project) => Config(
   ),
 
   // Layout components (set to null to hide)
-  header: () => Header(title: project.pubspec.name),
+  header: () => Header(leading: Logo(title: project.pubspec.name)),
   footer: () => Footer(text: project.pubspec.name),
   sidebar: () => Sidebar(items: project.docs),
 );

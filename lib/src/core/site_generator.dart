@@ -679,15 +679,38 @@ body {
   padding: 1rem 2rem;
 }
 
-.site-title {
-  font-size: 1.25rem;
-  font-weight: 600;
+.logo,
+.logo:visited {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
   color: var(--color-text);
+  line-height: 1;
+}
+
+.logo:hover,
+.logo:visited:hover {
+  color: var(--color-primary);
   text-decoration: none;
 }
 
-.site-title:hover {
-  color: var(--color-primary);
+.logo-image {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logo-image img {
+  height: 1.75rem;
+  width: auto;
+  display: block;
+}
+
+.logo-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .header-nav {

@@ -190,10 +190,6 @@ class ProjectGenerator {
       final path = p.join(websiteDir, dir);
       await Directory(path).create(recursive: true);
 
-      // Add .gitkeep to empty directories (not docs, pages, or components)
-      if (dir != 'docs' && dir != 'pages' && dir != 'components') {
-        await File(p.join(path, '.gitkeep')).writeAsString('');
-      }
     }
   }
 
@@ -264,19 +260,26 @@ import 'package:docudart/docudart.dart';
 /// Site header component.
 ///
 /// Customize this component to change the header layout.
-/// The [DefaultHeader] provides a standard header with title, nav links,
-/// and optional leading/trailing component slots.
+/// The [DefaultHeader] provides a standard header with nav links,
+/// and optional trailing component slot.
+///
+/// The [leading] slot is typically a [Logo].
 class Header extends StatelessComponent {
-  const Header({required this.title, this.navLinks, this.trailing, super.key});
+  const Header({
+    this.leading,
+    this.navLinks,
+    this.trailing,
+    super.key,
+  });
 
-  final String title;
+  final Component? leading;
   final List<NavLink>? navLinks;
   final Component? trailing;
 
   @override
   Component build(BuildContext context) {
     return DefaultHeader(
-      title: title,
+      leading: leading,
       navLinks: navLinks,
       trailing: trailing,
     );
@@ -358,7 +361,7 @@ class Sidebar extends StatelessComponent {
         '  // Header, footer, and sidebar are components.\n'
         '  // Set to null to hide any section.\n'
         '  header: () => Header(\n'
-        '    title: project.pubspec.name,\n'
+        '    leading: Logo(title: project.pubspec.name),\n'
         '    navLinks: [\n'
         "      .path('/docs', label: Labels.docs, leading: Icons.docs),\n"
         "      ?project.pubspec.repository.let(\n"
@@ -827,7 +830,7 @@ All site settings live in `config.dart`.
 ```dart
 Config configure(Project project) => Config(
   title: project.pubspec.name,
-  header: () => Header(title: project.pubspec.name),
+  header: () => Header(leading: Logo(title: project.pubspec.name)),
   footer: null,    // No footer
   sidebar: null,   // No sidebar
 );
@@ -934,7 +937,7 @@ Set any layout section to `null` in `config.dart` to hide it:
 ```dart
 Config configure(Project project) => Config(
   title: project.pubspec.name,
-  header: () => Header(title: project.pubspec.name),
+  header: () => Header(leading: Logo(title: project.pubspec.name)),
   footer: null,    // No footer
   sidebar: null,   // No sidebar
 );
@@ -961,7 +964,7 @@ Config configure(Project project) => Config(
   ),
 
   // Layout components (set to null to hide)
-  header: () => Header(title: project.pubspec.name),
+  header: () => Header(leading: Logo(title: project.pubspec.name)),
   footer: () => Footer(text: project.pubspec.name),
   sidebar: () => Sidebar(items: project.docs),
 );

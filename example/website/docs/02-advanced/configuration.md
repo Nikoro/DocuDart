@@ -19,7 +19,7 @@ All site settings live in `config.dart`.
 ```dart
 Config configure(Project project) => Config(
   title: project.pubspec.name,
-  header: () => Header(title: project.pubspec.name),
+  header: () => Header(leading: Logo(title: project.pubspec.name)),
   footer: null,    // No footer
   sidebar: null,   // No sidebar
 );
