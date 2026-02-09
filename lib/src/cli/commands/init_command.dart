@@ -8,12 +8,6 @@ import '../errors.dart';
 
 /// Command to initialize a new DocuDart project.
 class InitCommand extends Command<int> {
-  @override
-  String get name => 'init';
-
-  @override
-  String get description => 'Initialize a new DocuDart documentation project.';
-
   InitCommand() {
     argParser.addFlag(
       'full',
@@ -28,6 +22,11 @@ class InitCommand extends Command<int> {
       defaultsTo: '.',
     );
   }
+  @override
+  String get name => 'init';
+
+  @override
+  String get description => 'Initialize a new DocuDart documentation project.';
 
   @override
   Future<int> run() async {

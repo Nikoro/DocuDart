@@ -12,12 +12,6 @@ import '../errors.dart';
 
 /// Command to start development server with hot reload.
 class ServeCommand extends Command<int> {
-  @override
-  String get name => 'serve';
-
-  @override
-  String get description => 'Start development server with hot reload.';
-
   ServeCommand() {
     argParser.addOption(
       'port',
@@ -32,6 +26,11 @@ class ServeCommand extends Command<int> {
       defaultsTo: true,
     );
   }
+  @override
+  String get name => 'serve';
+
+  @override
+  String get description => 'Start development server with hot reload.';
 
   @override
   Future<int> run() async {
@@ -106,23 +105,31 @@ class ServeCommand extends Command<int> {
 
       // Run jaspr serve in the managed project directory.
       final managedDir = p.join(websiteDir, '.dart_tool', 'docudart');
-      final process = await Process.start(
-        'dart',
-        ['run', 'jaspr_cli:jaspr', 'serve', '--port', port],
-        workingDirectory: managedDir,
-      );
+      final process = await Process.start('dart', [
+        'run',
+        'jaspr_cli:jaspr',
+        'serve',
+        '--port',
+        port,
+      ], workingDirectory: managedDir);
 
       // Filter Jaspr output — suppress noisy internal logs.
-      process.stdout.transform(utf8.decoder).transform(const LineSplitter()).listen((line) {
-        if (_shouldShowLog(line)) {
-          stdout.writeln(line);
-        }
-      });
-      process.stderr.transform(utf8.decoder).transform(const LineSplitter()).listen((line) {
-        if (_shouldShowLog(line)) {
-          stderr.writeln(line);
-        }
-      });
+      process.stdout
+          .transform(utf8.decoder)
+          .transform(const LineSplitter())
+          .listen((line) {
+            if (_shouldShowLog(line)) {
+              stdout.writeln(line);
+            }
+          });
+      process.stderr
+          .transform(utf8.decoder)
+          .transform(const LineSplitter())
+          .listen((line) {
+            if (_shouldShowLog(line)) {
+              stderr.writeln(line);
+            }
+          });
 
       // Forward stdin to the process.
       stdin.listen(process.stdin.add);

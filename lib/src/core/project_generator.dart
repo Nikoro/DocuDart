@@ -44,15 +44,17 @@ class ProjectGenerator {
     await _createDirectories(websiteDir);
 
     // Generate website/pubspec.yaml with path dependency to docudart
-    await _generateWebsitePubspec(websiteDir, title, lintDependency: lintDependency);
+    await _generateWebsitePubspec(
+      websiteDir,
+      title,
+      lintDependency: lintDependency,
+    );
 
     // Generate wrapper components (header, footer, sidebar)
     await _generateComponents(websiteDir, title);
 
     // Generate config.dart
-    await _generateConfig(
-      websiteDir, title, description, template, pubDevUrl,
-    );
+    await _generateConfig(websiteDir, title, description, template, pubDevUrl);
 
     // Generate icons.dart
     await _generateIcons(websiteDir);
@@ -197,7 +199,6 @@ class ProjectGenerator {
     for (final dir in dirs) {
       final path = p.join(websiteDir, dir);
       await Directory(path).create(recursive: true);
-
     }
   }
 

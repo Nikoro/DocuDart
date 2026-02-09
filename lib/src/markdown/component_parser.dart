@@ -1,5 +1,13 @@
 /// Represents an embedded component found in markdown.
 class EmbeddedComponent {
+  const EmbeddedComponent({
+    required this.name,
+    required this.props,
+    this.children,
+    required this.placeholderId,
+    required this.position,
+  });
+
   /// Component name (e.g., 'Callout', 'Tabs').
   final String name;
 
@@ -14,25 +22,17 @@ class EmbeddedComponent {
 
   /// Original position in the content.
   final int position;
-
-  const EmbeddedComponent({
-    required this.name,
-    required this.props,
-    this.children,
-    required this.placeholderId,
-    required this.position,
-  });
 }
 
 /// Result of parsing components from markdown content.
 class ComponentParseResult {
+  const ComponentParseResult({required this.content, required this.components});
+
   /// Content with components replaced by placeholders.
   final String content;
 
   /// List of extracted components.
   final List<EmbeddedComponent> components;
-
-  const ComponentParseResult({required this.content, required this.components});
 }
 
 /// Parses MDX-like component syntax from markdown content.

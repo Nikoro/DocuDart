@@ -7,10 +7,10 @@ import 'theme_typography.dart';
 /// Default theme with Flutter docs style (blue accents, card-based layout).
 @immutable
 class DefaultTheme extends BaseTheme {
+  const DefaultTheme({this.primaryColor});
+
   /// Primary color override.
   final int? primaryColor;
-
-  const DefaultTheme({this.primaryColor});
 
   @override
   String get name => 'default';

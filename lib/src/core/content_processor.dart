@@ -8,6 +8,16 @@ import '../markdown/frontmatter_handler.dart';
 
 /// Represents a processed documentation page.
 class DocPage {
+  const DocPage({
+    required this.relativePath,
+    required this.urlPath,
+    required this.meta,
+    required this.html,
+    required this.toc,
+    this.parentPath,
+    required this.order,
+  });
+
   /// File path relative to docs directory.
   final String relativePath;
 
@@ -28,16 +38,6 @@ class DocPage {
 
   /// Order for sorting (from filename prefix or frontmatter).
   final int order;
-
-  const DocPage({
-    required this.relativePath,
-    required this.urlPath,
-    required this.meta,
-    required this.html,
-    required this.toc,
-    this.parentPath,
-    required this.order,
-  });
 
   /// Display title (from meta or generated from filename).
   String get title => meta.title ?? _titleFromPath(relativePath);
@@ -64,6 +64,15 @@ class DocPage {
 
 /// Represents a folder in the documentation structure.
 class DocFolder {
+  const DocFolder({
+    required this.relativePath,
+    required this.name,
+    required this.order,
+    this.expanded = false,
+    required this.pages,
+    required this.folders,
+  });
+
   /// Folder path relative to docs directory.
   final String relativePath;
 
@@ -82,23 +91,13 @@ class DocFolder {
 
   /// Child folders.
   final List<DocFolder> folders;
-
-  const DocFolder({
-    required this.relativePath,
-    required this.name,
-    required this.order,
-    this.expanded = false,
-    required this.pages,
-    required this.folders,
-  });
 }
 
 /// Processes all documentation files in the docs directory.
 class ContentProcessor {
+  ContentProcessor(this.config);
   final Config config;
   final MarkdownProcessor _markdownProcessor = MarkdownProcessor();
-
-  ContentProcessor(this.config);
 
   /// Process all markdown files in the docs directory.
   ///

@@ -2,11 +2,10 @@ import 'dart:io';
 
 /// Custom exception for DocuDart errors with helpful messages.
 class DocuDartException implements Exception {
+  const DocuDartException(this.message, {this.hint, this.command});
   final String message;
   final String? hint;
   final String? command;
-
-  const DocuDartException(this.message, {this.hint, this.command});
 
   @override
   String toString() {

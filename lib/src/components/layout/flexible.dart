@@ -17,6 +17,13 @@ enum FlexFit {
 /// When [fit] is [FlexFit.loose], the child can use up to the available
 /// space but is not forced to fill it.
 class Flexible extends StatelessComponent {
+  const Flexible({
+    this.flex = 1,
+    this.fit = FlexFit.loose,
+    required this.child,
+    super.key,
+  });
+
   /// The flex factor. Determines how much remaining space this child
   /// receives relative to other flex children.
   final int flex;
@@ -26,13 +33,6 @@ class Flexible extends StatelessComponent {
 
   /// The child component to wrap.
   final Component child;
-
-  const Flexible({
-    this.flex = 1,
-    this.fit = FlexFit.loose,
-    required this.child,
-    super.key,
-  });
 
   @override
   Component build(BuildContext context) {

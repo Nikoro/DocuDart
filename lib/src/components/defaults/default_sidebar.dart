@@ -2,9 +2,8 @@ import 'package:docudart/docudart.dart';
 
 /// Default sidebar component that renders doc navigation items.
 class DefaultSidebar extends StatelessComponent {
-  final List<GeneratedSidebarItem> items;
-
   const DefaultSidebar({required this.items, super.key});
+  final List<GeneratedSidebarItem> items;
 
   @override
   Component build(BuildContext context) {

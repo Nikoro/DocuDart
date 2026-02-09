@@ -11,22 +11,17 @@ import 'package:docudart/docudart.dart';
 /// Logo(image: img(src: '/assets/logo.svg', alt: 'Logo'), title: 'My Project')
 /// ```
 class Logo extends StatelessComponent {
+  const Logo({this.image, this.title, this.href = '/', super.key})
+    : assert(image != null || title != null);
   final Component? image;
   final String? title;
   final String href;
 
-  const Logo({this.image, this.title, this.href = '/', super.key})
-    : assert(image != null || title != null);
-
   @override
   Component build(BuildContext context) {
-    return a(
-      href: href,
-      classes: 'logo',
-      [
-        if (image != null) span(classes: 'logo-image', [image!]),
-        if (title != null) span(classes: 'logo-title', [.text(title!)]),
-      ],
-    );
+    return a(href: href, classes: 'logo', [
+      ?image.let((it) => span(classes: 'logo-image', [it])),
+      ?title.let((it) => span(classes: 'logo-title', [.text(it)])),
+    ]);
   }
 }

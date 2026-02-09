@@ -13,11 +13,6 @@ import '../routing/sidebar_generator.dart';
 
 /// Generates the managed Jaspr site in .dart_tool/docudart.
 class SiteGenerator {
-  final Config config;
-  final String websiteDir;
-  final String managedDir;
-  final bool serveMode;
-
   SiteGenerator(this.config, {String? websiteDir, this.serveMode = false})
     : websiteDir = websiteDir ?? Directory.current.path,
       managedDir = p.join(
@@ -25,6 +20,10 @@ class SiteGenerator {
         '.dart_tool',
         'docudart',
       );
+  final Config config;
+  final String websiteDir;
+  final String managedDir;
+  final bool serveMode;
 
   /// Generate the complete Jaspr site structure.
   ///
@@ -152,8 +151,9 @@ jaspr:
     // Copy config.dart (use writeAsString to trigger filesystem events for hot reload)
     final configSrc = File(p.join(websiteDir, 'config.dart'));
     if (configSrc.existsSync()) {
-      await File(p.join(libDir, 'config.dart'))
-          .writeAsString(await configSrc.readAsString());
+      await File(
+        p.join(libDir, 'config.dart'),
+      ).writeAsString(await configSrc.readAsString());
     }
 
     // Copy components/ directory
@@ -172,8 +172,9 @@ jaspr:
       if (entity is File &&
           entity.path.endsWith('.dart') &&
           p.basename(entity.path) != 'config.dart') {
-        await File(p.join(libDir, p.basename(entity.path)))
-            .writeAsString(await entity.readAsString());
+        await File(
+          p.join(libDir, p.basename(entity.path)),
+        ).writeAsString(await entity.readAsString());
       }
     }
 
@@ -182,8 +183,9 @@ jaspr:
     if (assetsDataSrc.existsSync()) {
       final assetsLibDir = p.join(libDir, 'assets');
       await Directory(assetsLibDir).create(recursive: true);
-      await File(p.join(assetsLibDir, 'assets.dart'))
-          .writeAsString(await assetsDataSrc.readAsString());
+      await File(
+        p.join(assetsLibDir, 'assets.dart'),
+      ).writeAsString(await assetsDataSrc.readAsString());
     }
   }
 
@@ -1769,8 +1771,9 @@ body {
   Future<void> bumpLiveReloadVersion() async {
     final webDir = p.join(managedDir, 'web');
     await Directory(webDir).create(recursive: true);
-    await File(p.join(webDir, 'live-reload-version.txt'))
-        .writeAsString(DateTime.now().millisecondsSinceEpoch.toString());
+    await File(
+      p.join(webDir, 'live-reload-version.txt'),
+    ).writeAsString(DateTime.now().millisecondsSinceEpoch.toString());
   }
 
   Future<void> _generateWebFiles() async {

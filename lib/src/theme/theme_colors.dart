@@ -3,6 +3,43 @@ import 'package:meta/meta.dart';
 /// Color configuration for a theme.
 @immutable
 class ThemeColors {
+  const ThemeColors({
+    required this.primary,
+    required this.secondary,
+    required this.background,
+    required this.surface,
+    required this.text,
+    required this.textMuted,
+    required this.border,
+    required this.codeBackground,
+    required this.darkPrimary,
+    required this.darkSecondary,
+    required this.darkBackground,
+    required this.darkSurface,
+    required this.darkText,
+    required this.darkTextMuted,
+    required this.darkBorder,
+    required this.darkCodeBackground,
+  });
+
+  factory ThemeColors.fromJson(Map<String, dynamic> json) => ThemeColors(
+    primary: json['primary'] as int,
+    secondary: json['secondary'] as int,
+    background: json['background'] as int,
+    surface: json['surface'] as int,
+    text: json['text'] as int,
+    textMuted: json['textMuted'] as int,
+    border: json['border'] as int,
+    codeBackground: json['codeBackground'] as int,
+    darkPrimary: json['darkPrimary'] as int,
+    darkSecondary: json['darkSecondary'] as int,
+    darkBackground: json['darkBackground'] as int,
+    darkSurface: json['darkSurface'] as int,
+    darkText: json['darkText'] as int,
+    darkTextMuted: json['darkTextMuted'] as int,
+    darkBorder: json['darkBorder'] as int,
+    darkCodeBackground: json['darkCodeBackground'] as int,
+  );
   // Light mode colors
   final int primary;
   final int secondary;
@@ -22,25 +59,6 @@ class ThemeColors {
   final int darkTextMuted;
   final int darkBorder;
   final int darkCodeBackground;
-
-  const ThemeColors({
-    required this.primary,
-    required this.secondary,
-    required this.background,
-    required this.surface,
-    required this.text,
-    required this.textMuted,
-    required this.border,
-    required this.codeBackground,
-    required this.darkPrimary,
-    required this.darkSecondary,
-    required this.darkBackground,
-    required this.darkSurface,
-    required this.darkText,
-    required this.darkTextMuted,
-    required this.darkBorder,
-    required this.darkCodeBackground,
-  });
 
   /// Convert color int to CSS hex string.
   static String toHex(int color) {
@@ -89,23 +107,4 @@ class ThemeColors {
     'darkBorder': darkBorder,
     'darkCodeBackground': darkCodeBackground,
   };
-
-  factory ThemeColors.fromJson(Map<String, dynamic> json) => ThemeColors(
-    primary: json['primary'] as int,
-    secondary: json['secondary'] as int,
-    background: json['background'] as int,
-    surface: json['surface'] as int,
-    text: json['text'] as int,
-    textMuted: json['textMuted'] as int,
-    border: json['border'] as int,
-    codeBackground: json['codeBackground'] as int,
-    darkPrimary: json['darkPrimary'] as int,
-    darkSecondary: json['darkSecondary'] as int,
-    darkBackground: json['darkBackground'] as int,
-    darkSurface: json['darkSurface'] as int,
-    darkText: json['darkText'] as int,
-    darkTextMuted: json['darkTextMuted'] as int,
-    darkBorder: json['darkBorder'] as int,
-    darkCodeBackground: json['darkCodeBackground'] as int,
-  );
 }

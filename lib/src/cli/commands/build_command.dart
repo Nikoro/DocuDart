@@ -10,12 +10,6 @@ import '../errors.dart';
 
 /// Command to build the documentation site for production.
 class BuildCommand extends Command<int> {
-  @override
-  String get name => 'build';
-
-  @override
-  String get description => 'Build the documentation site for production.';
-
   BuildCommand() {
     argParser.addOption(
       'output',
@@ -23,6 +17,11 @@ class BuildCommand extends Command<int> {
       help: 'Output directory (overrides config).',
     );
   }
+  @override
+  String get name => 'build';
+
+  @override
+  String get description => 'Build the documentation site for production.';
 
   @override
   Future<int> run() async {

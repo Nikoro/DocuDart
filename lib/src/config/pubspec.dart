@@ -8,6 +8,20 @@ import 'repository.dart';
 /// and URLs that can be used in the site configuration.
 @immutable
 class Pubspec {
+  const Pubspec({
+    required this.name,
+    this.version,
+    this.description,
+    this.homepage,
+    this.repository,
+    this.issueTracker,
+    this.documentation,
+    this.publishTo,
+    this.funding = const [],
+    this.topics = const [],
+    this.environment = const {},
+  });
+
   /// Package name (required in pubspec.yaml).
   final String name;
 
@@ -40,18 +54,4 @@ class Pubspec {
 
   /// SDK environment constraints (e.g. {'sdk': '^3.10.0'}).
   final Map<String, String> environment;
-
-  const Pubspec({
-    required this.name,
-    this.version,
-    this.description,
-    this.homepage,
-    this.repository,
-    this.issueTracker,
-    this.documentation,
-    this.publishTo,
-    this.funding = const [],
-    this.topics = const [],
-    this.environment = const {},
-  });
 }

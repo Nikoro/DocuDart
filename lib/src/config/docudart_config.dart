@@ -2,6 +2,46 @@ import 'package:docudart/docudart.dart';
 
 /// Main configuration class for DocuDart.
 class Config {
+  Config({
+    this.title,
+    this.description,
+    this.docsDir = 'docs',
+    this.assetsDir = 'assets',
+    this.outputDir = 'build/web',
+    BaseTheme? theme,
+    this.themeMode = ThemeMode.system,
+    this.versioning,
+    this.customPages = const [],
+    this.header,
+    this.footer,
+    this.sidebar,
+    this.home,
+  }) : theme = theme ?? const DefaultTheme();
+
+  factory Config.fromJson(Map<String, dynamic> json) {
+    return Config(
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      docsDir: json['docsDir'] as String? ?? 'docs',
+      assetsDir: json['assetsDir'] as String? ?? 'assets',
+      outputDir: json['outputDir'] as String? ?? 'build/web',
+      theme: _themeFromJson(json['theme'] as Map<String, dynamic>?),
+      themeMode: json['themeMode'] != null
+          ? ThemeMode.fromJson(json['themeMode'] as String)
+          : ThemeMode.system,
+      versioning: json['versioning'] != null
+          ? VersioningConfig.fromJson(
+              json['versioning'] as Map<String, dynamic>,
+            )
+          : null,
+      customPages:
+          (json['customPages'] as List<dynamic>?)
+              ?.map((e) => CustomPage.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+    );
+  }
+
   /// Site title. Defaults to name from pubspec.yaml.
   final String? title;
 
@@ -41,22 +81,6 @@ class Config {
   /// Home page builder function. If null, '/' redirects to '/docs'.
   final Component? Function()? home;
 
-  Config({
-    this.title,
-    this.description,
-    this.docsDir = 'docs',
-    this.assetsDir = 'assets',
-    this.outputDir = 'build/web',
-    BaseTheme? theme,
-    this.themeMode = ThemeMode.system,
-    this.versioning,
-    this.customPages = const [],
-    this.header,
-    this.footer,
-    this.sidebar,
-    this.home,
-  }) : theme = theme ?? const DefaultTheme();
-
   Map<String, dynamic> toJson() => {
     if (title != null) 'title': title,
     if (description != null) 'description': description,
@@ -68,30 +92,6 @@ class Config {
     if (versioning != null) 'versioning': versioning!.toJson(),
     'customPages': customPages.map((page) => page.toJson()).toList(),
   };
-
-  factory Config.fromJson(Map<String, dynamic> json) {
-    return Config(
-      title: json['title'] as String?,
-      description: json['description'] as String?,
-      docsDir: json['docsDir'] as String? ?? 'docs',
-      assetsDir: json['assetsDir'] as String? ?? 'assets',
-      outputDir: json['outputDir'] as String? ?? 'build/web',
-      theme: _themeFromJson(json['theme'] as Map<String, dynamic>?),
-      themeMode: json['themeMode'] != null
-          ? ThemeMode.fromJson(json['themeMode'] as String)
-          : ThemeMode.system,
-      versioning: json['versioning'] != null
-          ? VersioningConfig.fromJson(
-              json['versioning'] as Map<String, dynamic>,
-            )
-          : null,
-      customPages:
-          (json['customPages'] as List<dynamic>?)
-              ?.map((e) => CustomPage.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
-    );
-  }
 
   static BaseTheme _themeFromJson(Map<String, dynamic>? json) {
     if (json == null) return const DefaultTheme();

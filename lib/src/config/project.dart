@@ -7,6 +7,12 @@ import 'pubspec.dart';
 /// Contains the project's pubspec metadata and auto-generated site
 /// structure data that layout components may need.
 class Project {
+  const Project({
+    required this.pubspec,
+    required this.docs,
+    required this.pages,
+  });
+
   /// The user's project pubspec.yaml data.
   final Pubspec pubspec;
 
@@ -15,10 +21,4 @@ class Project {
 
   /// Custom pages registered in the config.
   final List<CustomPage> pages;
-
-  const Project({
-    required this.pubspec,
-    required this.docs,
-    required this.pages,
-  });
 }

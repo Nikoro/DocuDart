@@ -7,10 +7,10 @@ import 'package:jaspr/jaspr.dart';
 /// detect the hosting provider (GitHub, GitLab, Bitbucket) from the URL host.
 @immutable
 class Repository {
+  const Repository(this.link);
+
   /// The repository URL string.
   final String link;
-
-  const Repository(this.link);
 
   /// Auto-detected provider label based on URL host.
   String get label {
@@ -48,7 +48,10 @@ class Repository {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is Repository && runtimeType == other.runtimeType && link == other.link;
+      identical(this, other) ||
+      other is Repository &&
+          runtimeType == other.runtimeType &&
+          link == other.link;
 
   @override
   int get hashCode => link.hashCode;

@@ -2,38 +2,17 @@ import 'package:yaml/yaml.dart';
 
 /// Result of parsing frontmatter from markdown content.
 class FrontmatterResult {
+  const FrontmatterResult({required this.data, required this.content});
+
   /// Parsed frontmatter data as a map.
   final Map<String, dynamic> data;
 
   /// Markdown content without the frontmatter.
   final String content;
-
-  const FrontmatterResult({required this.data, required this.content});
 }
 
 /// Metadata extracted from frontmatter.
 class PageMeta {
-  /// Page title (used in sidebar and browser title).
-  final String? title;
-
-  /// Page description (used for SEO).
-  final String? description;
-
-  /// Position in sidebar (lower = higher).
-  final int? sidebarPosition;
-
-  /// Override title shown in sidebar.
-  final String? sidebarTitle;
-
-  /// Whether to show in sidebar.
-  final bool showInSidebar;
-
-  /// Tags for categorization.
-  final List<String> tags;
-
-  /// Custom slug override.
-  final String? slug;
-
   const PageMeta({
     this.title,
     this.description,
@@ -56,6 +35,27 @@ class PageMeta {
       slug: map['slug'] as String?,
     );
   }
+
+  /// Page title (used in sidebar and browser title).
+  final String? title;
+
+  /// Page description (used for SEO).
+  final String? description;
+
+  /// Position in sidebar (lower = higher).
+  final int? sidebarPosition;
+
+  /// Override title shown in sidebar.
+  final String? sidebarTitle;
+
+  /// Whether to show in sidebar.
+  final bool showInSidebar;
+
+  /// Tags for categorization.
+  final List<String> tags;
+
+  /// Custom slug override.
+  final String? slug;
 
   /// Convert to map for serialization.
   Map<String, dynamic> toMap() => {

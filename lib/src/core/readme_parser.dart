@@ -2,6 +2,14 @@ import 'dart:io';
 
 /// Represents a section parsed from a README file.
 class ReadmeSection {
+  const ReadmeSection({
+    required this.title,
+    required this.content,
+    required this.level,
+    required this.filename,
+    required this.position,
+  });
+
   /// Section title.
   final String title;
 
@@ -16,14 +24,6 @@ class ReadmeSection {
 
   /// Order/position in the document.
   final int position;
-
-  const ReadmeSection({
-    required this.title,
-    required this.content,
-    required this.level,
-    required this.filename,
-    required this.position,
-  });
 }
 
 /// Parses README.md files and extracts sections for documentation.

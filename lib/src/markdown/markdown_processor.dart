@@ -6,6 +6,13 @@ import '../components/component_registry.dart';
 
 /// Result of processing a markdown file.
 class ProcessedMarkdown {
+  const ProcessedMarkdown({
+    required this.meta,
+    required this.html,
+    required this.components,
+    required this.tableOfContents,
+  });
+
   /// Metadata from frontmatter.
   final PageMeta meta;
 
@@ -17,17 +24,12 @@ class ProcessedMarkdown {
 
   /// Table of contents extracted from headings.
   final List<TocEntry> tableOfContents;
-
-  const ProcessedMarkdown({
-    required this.meta,
-    required this.html,
-    required this.components,
-    required this.tableOfContents,
-  });
 }
 
 /// Entry in the table of contents.
 class TocEntry {
+  const TocEntry({required this.text, required this.level, required this.id});
+
   /// Heading text.
   final String text;
 
@@ -36,17 +38,15 @@ class TocEntry {
 
   /// Anchor ID for linking.
   final String id;
-
-  const TocEntry({required this.text, required this.level, required this.id});
 }
 
 /// Processes markdown content into HTML with component support.
 class MarkdownProcessor {
-  /// Component registry for rendering embedded components.
-  final ComponentRegistry _registry;
-
   MarkdownProcessor({ComponentRegistry? registry})
     : _registry = registry ?? ComponentRegistry.withBuiltIns();
+
+  /// Component registry for rendering embedded components.
+  final ComponentRegistry _registry;
 
   /// Process markdown content from a file.
   ///

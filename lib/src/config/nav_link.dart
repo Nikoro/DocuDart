@@ -14,30 +14,6 @@ import 'package:docudart/docudart.dart';
 /// NavLink.url('https://github.com', label: 'GitHub', trailing: Icons.openInNew)
 /// ```
 class NavLink extends StatelessComponent {
-  /// Display label text.
-  final String? label;
-
-  /// Component rendered before the label.
-  final Component? leading;
-
-  /// Component rendered after the label.
-  final Component? trailing;
-
-  /// CSS class(es) applied to the `<a>` element.
-  ///
-  /// Icon wrappers use `'{classes}-icon'` automatically.
-  /// Defaults to `'nav-link'`.
-  final String classes;
-
-  final String? _path;
-  final String? _url;
-
-  /// Whether this is an external link.
-  bool get isExternal => _url != null;
-
-  /// The href to use (path or url).
-  String get href => _url ?? _path ?? '/';
-
   NavLink._({
     this.label,
     this.leading,
@@ -83,6 +59,36 @@ class NavLink extends StatelessComponent {
          'Either label, leading, or trailing must be set',
        );
 
+  factory NavLink.fromJson(Map<String, dynamic> json) => NavLink._(
+    label: json['label'] as String? ?? json['title'] as String?,
+    path: json['path'] as String?,
+    url: json['url'] as String?,
+  );
+
+  /// Display label text.
+  final String? label;
+
+  /// Component rendered before the label.
+  final Component? leading;
+
+  /// Component rendered after the label.
+  final Component? trailing;
+
+  /// CSS class(es) applied to the `<a>` element.
+  ///
+  /// Icon wrappers use `'{classes}-icon'` automatically.
+  /// Defaults to `'nav-link'`.
+  final String classes;
+
+  final String? _path;
+  final String? _url;
+
+  /// Whether this is an external link.
+  bool get isExternal => _url != null;
+
+  /// The href to use (path or url).
+  String get href => _url ?? _path ?? '/';
+
   @override
   Component build(BuildContext context) {
     final iconClass = '$classes-icon';
@@ -112,10 +118,4 @@ class NavLink extends StatelessComponent {
     if (_path != null) 'path': _path,
     if (_url != null) 'url': _url,
   };
-
-  factory NavLink.fromJson(Map<String, dynamic> json) => NavLink._(
-    label: json['label'] as String? ?? json['title'] as String?,
-    path: json['path'] as String?,
-    url: json['url'] as String?,
-  );
 }

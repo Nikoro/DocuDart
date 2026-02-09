@@ -2,24 +2,6 @@ import '../core/content_processor.dart';
 
 /// Generated sidebar item for rendering.
 class GeneratedSidebarItem {
-  /// Display title.
-  final String title;
-
-  /// URL path (null for categories).
-  final String? path;
-
-  /// Whether this is a category (folder).
-  final bool isCategory;
-
-  /// Child items (for categories).
-  final List<GeneratedSidebarItem> children;
-
-  /// Whether the category is collapsed by default.
-  final bool collapsed;
-
-  /// Nesting depth (0 for root items).
-  final int depth;
-
   const GeneratedSidebarItem({
     required this.title,
     this.path,
@@ -59,6 +41,24 @@ class GeneratedSidebarItem {
       depth: depth,
     );
   }
+
+  /// Display title.
+  final String title;
+
+  /// URL path (null for categories).
+  final String? path;
+
+  /// Whether this is a category (folder).
+  final bool isCategory;
+
+  /// Child items (for categories).
+  final List<GeneratedSidebarItem> children;
+
+  /// Whether the category is collapsed by default.
+  final bool collapsed;
+
+  /// Nesting depth (0 for root items).
+  final int depth;
 }
 
 /// Generates sidebar structure from documentation pages.

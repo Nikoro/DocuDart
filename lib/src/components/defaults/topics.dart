@@ -16,10 +16,9 @@ import 'package:docudart/docudart.dart';
 /// )
 /// ```
 class Topics extends StatelessComponent {
+  const Topics({this.title, required this.links, super.key});
   final String? title;
   final List<NavLink> links;
-
-  const Topics({this.title, required this.links, super.key});
 
   @override
   Component build(BuildContext context) {

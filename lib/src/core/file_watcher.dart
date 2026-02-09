@@ -9,6 +9,11 @@ import '../cli/errors.dart';
 
 /// Watches documentation files for changes and triggers regeneration.
 class DocuDartFileWatcher {
+  DocuDartFileWatcher({
+    required this.config,
+    required this.websiteDir,
+    required this.onRegenerate,
+  });
   final Config config;
   final String websiteDir;
   final Future<void> Function() onRegenerate;
@@ -17,12 +22,6 @@ class DocuDartFileWatcher {
   Timer? _debounceTimer;
   bool _isRegenerating = false;
   bool _pendingRegeneration = false;
-
-  DocuDartFileWatcher({
-    required this.config,
-    required this.websiteDir,
-    required this.onRegenerate,
-  });
 
   /// Start watching for file changes.
   Future<void> start() async {

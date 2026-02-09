@@ -6,6 +6,8 @@ import 'theme_typography.dart';
 /// Base class for DocuDart themes.
 @immutable
 abstract class BaseTheme {
+  const BaseTheme();
+
   /// Theme identifier.
   String get name;
 
@@ -14,8 +16,6 @@ abstract class BaseTheme {
 
   /// Typography configuration.
   ThemeTypography get typography;
-
-  const BaseTheme();
 
   Map<String, dynamic> toJson() => {
     'name': name,

@@ -12,9 +12,8 @@ import 'package:docudart/docudart.dart';
 /// ])
 /// ```
 class Socials extends StatelessComponent {
-  final List<NavLink> links;
-
   const Socials({required this.links, super.key});
+  final List<NavLink> links;
 
   @override
   Component build(BuildContext context) {

@@ -5,10 +5,10 @@ import 'package:jaspr/dom.dart';
 ///
 /// Takes up available space proportional to its [flex] factor.
 class Spacer extends StatelessComponent {
+  const Spacer({this.flex = 1, super.key});
+
   /// The flex factor. Higher values take proportionally more space.
   final int flex;
-
-  const Spacer({this.flex = 1, super.key});
 
   @override
   Component build(BuildContext context) {

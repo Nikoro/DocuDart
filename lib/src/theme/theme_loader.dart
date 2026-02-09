@@ -9,6 +9,11 @@ import 'theme_typography.dart';
 
 /// A theme loaded from a YAML configuration file.
 class CustomTheme extends BaseTheme {
+  const CustomTheme({
+    required this.name,
+    required this.colors,
+    required this.typography,
+  });
   @override
   final String name;
 
@@ -17,12 +22,6 @@ class CustomTheme extends BaseTheme {
 
   @override
   final ThemeTypography typography;
-
-  const CustomTheme({
-    required this.name,
-    required this.colors,
-    required this.typography,
-  });
 
   @override
   Map<String, dynamic> toJson() => {...super.toJson(), 'type': 'custom'};

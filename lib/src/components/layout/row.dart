@@ -19,6 +19,15 @@ import 'flex_enums.dart';
 /// )
 /// ```
 class Row extends StatelessComponent {
+  const Row({
+    required this.children,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.mainAxisSize = MainAxisSize.max,
+    this.spacing,
+    super.key,
+  });
+
   /// The children to lay out horizontally.
   final List<Component> children;
 
@@ -36,15 +45,6 @@ class Row extends StatelessComponent {
 
   /// The gap between children. Maps to CSS `gap`.
   final Unit? spacing;
-
-  const Row({
-    required this.children,
-    this.mainAxisAlignment = MainAxisAlignment.start,
-    this.crossAxisAlignment = CrossAxisAlignment.center,
-    this.mainAxisSize = MainAxisSize.max,
-    this.spacing,
-    super.key,
-  });
 
   @override
   Component build(BuildContext context) {
@@ -78,6 +78,15 @@ class Row extends StatelessComponent {
 /// )
 /// ```
 class Column extends StatelessComponent {
+  const Column({
+    required this.children,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.mainAxisSize = MainAxisSize.max,
+    this.spacing,
+    super.key,
+  });
+
   /// The children to lay out vertically.
   final List<Component> children;
 
@@ -95,15 +104,6 @@ class Column extends StatelessComponent {
 
   /// The gap between children. Maps to CSS `gap`.
   final Unit? spacing;
-
-  const Column({
-    required this.children,
-    this.mainAxisAlignment = MainAxisAlignment.start,
-    this.crossAxisAlignment = CrossAxisAlignment.center,
-    this.mainAxisSize = MainAxisSize.max,
-    this.spacing,
-    super.key,
-  });
 
   @override
   Component build(BuildContext context) {

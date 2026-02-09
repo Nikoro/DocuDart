@@ -8,6 +8,14 @@ import 'content_processor.dart';
 
 /// Represents a versioned documentation set.
 class VersionedDocs {
+  const VersionedDocs({
+    required this.version,
+    required this.isDefault,
+    required this.isLatest,
+    required this.pages,
+    required this.rootFolder,
+  });
+
   /// Version identifier (e.g., 'v1', 'v2', '1.0.0').
   final String version;
 
@@ -23,14 +31,6 @@ class VersionedDocs {
   /// Folder structure for this version.
   final DocFolder rootFolder;
 
-  const VersionedDocs({
-    required this.version,
-    required this.isDefault,
-    required this.isLatest,
-    required this.pages,
-    required this.rootFolder,
-  });
-
   /// URL prefix for this version's docs.
   String get urlPrefix => '/$version/docs';
 }
@@ -45,11 +45,10 @@ class VersionedDocs {
 ///   v2/           # Another version
 /// ```
 class VersionManager {
-  final Config config;
-  final VersioningConfig _versionConfig;
-
   VersionManager(this.config)
     : _versionConfig = config.versioning ?? const VersioningConfig();
+  final Config config;
+  final VersioningConfig _versionConfig;
 
   /// Whether versioning is enabled.
   bool get isEnabled =>
@@ -237,12 +236,6 @@ class VersionManager {
 
 /// Item for the version switcher dropdown.
 class VersionSwitcherItem {
-  final String version;
-  final String label;
-  final bool isCurrent;
-  final bool isLatest;
-  final bool isDefault;
-
   const VersionSwitcherItem({
     required this.version,
     required this.label,
@@ -250,4 +243,9 @@ class VersionSwitcherItem {
     required this.isLatest,
     required this.isDefault,
   });
+  final String version;
+  final String label;
+  final bool isCurrent;
+  final bool isLatest;
+  final bool isDefault;
 }

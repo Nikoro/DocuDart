@@ -7,13 +7,13 @@ import 'package:docudart/docudart.dart';
 /// appropriate icon. Clicking toggles the theme via the existing
 /// `theme.js` click handler on `.theme-toggle`.
 class ThemeToggle extends StatelessComponent {
+  const ThemeToggle({required this.light, required this.dark, super.key});
+
   /// Icon shown when the current theme is light (to indicate "switch to dark").
   final Component light;
 
   /// Icon shown when the current theme is dark (to indicate "switch to light").
   final Component dark;
-
-  const ThemeToggle({required this.light, required this.dark, super.key});
 
   @override
   Component build(BuildContext context) {
