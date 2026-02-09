@@ -22,8 +22,8 @@ enum MainAxisAlignment {
   /// Evenly space children with equal space everywhere.
   spaceEvenly(JustifyContent.spaceEvenly);
 
-  final JustifyContent justifyContent;
   const MainAxisAlignment(this.justifyContent);
+  final JustifyContent justifyContent;
 }
 
 /// How children are placed along the cross axis of a [Row] or [Column].
@@ -45,8 +45,8 @@ enum CrossAxisAlignment {
   /// Align children along their text baseline.
   baseline(AlignItems.baseline);
 
-  final AlignItems alignItems;
   const CrossAxisAlignment(this.alignItems);
+  final AlignItems alignItems;
 }
 
 /// How much space the flex container should occupy along the main axis.

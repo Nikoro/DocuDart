@@ -11,7 +11,7 @@ class Header extends StatelessComponent {
   const Header({this.leading, this.navLinks, this.trailing, super.key});
 
   final Component? leading;
-  final List<NavLink>? navLinks;
+  final List<Link>? navLinks;
   final Component? trailing;
 
   @override

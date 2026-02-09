@@ -3,7 +3,7 @@ library;
 
 // Configuration
 export 'src/config/docudart_config.dart';
-export 'src/config/nav_link.dart';
+export 'src/config/link.dart';
 export 'src/config/setup.dart';
 export 'src/config/project.dart';
 export 'src/config/pubspec.dart';

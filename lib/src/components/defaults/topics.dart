@@ -2,7 +2,7 @@ import 'package:docudart/docudart.dart';
 
 /// A compact grid of topic tag links with an optional title.
 ///
-/// Renders each [NavLink] as a clickable tag link (e.g. `#flutter`).
+/// Renders each [Link] as a clickable tag link (e.g. `#flutter`).
 /// Displays at most 2 items per row. Typically used in the footer's
 /// `leading` slot.
 ///
@@ -10,20 +10,20 @@ import 'package:docudart/docudart.dart';
 /// Topics(
 ///   title: Labels.topics,
 ///   links: [
-///     NavLink.url('https://pub.dev/packages?q=topic%3Aflutter', label: '#flutter'),
-///     NavLink.url('https://pub.dev/packages?q=topic%3Adart', label: '#dart'),
+///     Link.url('https://pub.dev/packages?q=topic%3Aflutter', label: '#flutter'),
+///     Link.url('https://pub.dev/packages?q=topic%3Adart', label: '#dart'),
 ///   ],
 /// )
 /// ```
 class Topics extends StatelessComponent {
   const Topics({this.title, required this.links, super.key});
   final String? title;
-  final List<NavLink> links;
+  final List<Link> links;
 
   @override
   Component build(BuildContext context) {
     return div(classes: 'topics', [
-      if (title != null) span(classes: 'topics-title', [.text(title!)]),
+      ?title.let((it) => span(classes: 'topics-title', [.text(it)])),
       div(classes: 'topics-grid', [...links]),
     ]);
   }

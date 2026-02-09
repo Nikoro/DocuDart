@@ -5,23 +5,15 @@ import 'package:docudart/docudart.dart';
 ///
 /// The [leading] slot is rendered before the nav links — typically a [Logo].
 class DefaultHeader extends StatelessComponent {
-  const DefaultHeader({
-    this.leading,
-    this.trailing,
-    List<NavLink>? navLinks,
-    super.key,
-  }) : _navLinks = navLinks ?? const [];
-  final List<NavLink> _navLinks;
+  const DefaultHeader({this.leading, this.trailing, this.navLinks, super.key});
+  final List<Link>? navLinks;
   final Component? leading;
   final Component? trailing;
 
   @override
   Component build(BuildContext context) {
     return header(classes: 'site-header', [
-      div(classes: 'header-content', [
-        ?leading,
-        nav(classes: 'header-nav', [..._navLinks, ?trailing]),
-      ]),
+      Row(crossAxisAlignment: .center, spacing: 1.5.rem, children: [?leading, Spacer(), ...?navLinks, ?trailing]),
     ]);
   }
 }

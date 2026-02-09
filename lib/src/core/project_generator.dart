@@ -308,7 +308,7 @@ class Header extends StatelessComponent {
   });
 
   final Component? leading;
-  final List<NavLink>? navLinks;
+  final List<Link>? navLinks;
   final Component? trailing;
 
   @override

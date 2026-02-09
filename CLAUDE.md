@@ -64,7 +64,7 @@ docudart/
 │       │   ├── docudart_config.dart     # Config class (has toJson/fromJson)
 │       │   ├── config_loader.dart       # Load config (evaluates config.dart, falls back to YAML)
 │       │   ├── config_evaluator.dart    # Text-based parsing of config.dart
-│       │   ├── nav_link.dart            # NavLink (path/url navigation with leading/trailing support)
+│       │   ├── link.dart                # Link (path/url navigation with leading/trailing support)
 │       │   ├── repository.dart         # Repository (URL with auto-detected provider label/icon)
 │       │   ├── setup.dart              # ConfigureFunction typedef
 │       │   ├── project.dart            # Project (pubspec + docs + pages context object)
@@ -220,23 +220,23 @@ Config configure(Project project) => Config(
 - `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<CustomPage>)
 - `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository` (`Repository?`), `issueTracker`, `documentation`, `publishTo`, `funding`, `topics`, `environment`
 
-### NavLink (lib/src/config/nav_link.dart)
+### Link (lib/src/config/link.dart)
 Self-rendering navigation link (`StatelessComponent`) with optional leading/trailing icon components and label. Uses `Row` internally for horizontal layout.
 ```dart
-NavLink.path('/docs', label: 'Docs', leading: Icons.docs)                              // internal path
-NavLink.url('https://github.com', label: 'GitHub', leading: Icons.github, trailing: Icons.openInNew)  // external URL with trailing icon
-NavLink.url('https://pub.dev', leading: someIconComponent)                              // leading-only
-NavLink.path('/about', label: 'About')                                                  // label-only
+Link.path('/docs', label: 'Docs', leading: Icons.docs)                              // internal path
+Link.url('https://github.com', label: 'GitHub', leading: Icons.github, trailing: Icons.openInNew)  // external URL with trailing icon
+Link.url('https://pub.dev', leading: someIconComponent)                              // leading-only
+Link.path('/about', label: 'About')                                                  // label-only
 ```
 - Extends `StatelessComponent` — renders itself as `<a class="{classes}">` wrapping a `Row(mainAxisSize: .min, spacing: 0.375.em)`
 - `label` (`String?`), `leading` (`Component?`), `trailing` (`Component?`) — at least one required
 - `classes` (`String`, defaults to `'nav-link'`): CSS class on the `<a>` element; icon wrappers use `'{classes}-icon'`
 - Handles `target="_blank" rel="noopener noreferrer"` for external links, `data-path` for internal links (used by active-link JS)
-- Consumers (DefaultHeader, Socials, Topics) simply spread NavLinks: `..._navLinks` / `[...links]`
+- Consumers (DefaultHeader, Socials, Topics) simply spread Links: `...?navLinks` / `[...links]`
 - `leading`/`trailing` accept any Jaspr `Component` (typically `RawText('<svg>...</svg>')`)
 - Fields `_path`/`_url` are private; public API: `.href`, `.isExternal`
 - `toJson()` uses `'label'` key, skips `leading`/`trailing`; `fromJson()` accepts legacy `'title'` key
-- Default constructor is private (`NavLink._`); only `.path()` and `.url()` are public
+- Default constructor is private (`Link._`); only `.path()` and `.url()` are public
 - **Dart keyword gotcha**: `external`/`internal` are reserved — that's why constructors are `.url()`/`.path()` (fields renamed to `_url`/`_path` to avoid clash)
 
 ### Repository (lib/src/config/repository.dart)
@@ -268,7 +268,7 @@ Logo(image: img(src: Assets.logo.logo_svg, alt: 'Logo'), href: '/home')
 
 ### DefaultHeader / DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
 Library-provided default layout components.
-- `DefaultHeader(navLinks:, leading:, trailing:)` - sticky header with nav and composable slots; `leading` is typically a `Logo`, all fields optional; NavLinks spread directly (`..._navLinks`)
+- `DefaultHeader(navLinks:, leading:, trailing:)` - uses `Row` + `Spacer` layout: `Row([?leading, Spacer(), ...?navLinks, ?trailing])`; CSS: `.site-header` (sticky, full-width), `.site-header > div` (max-width, margin, padding), `.site-header a:not(.logo)` for nav link styles
 - `DefaultFooter(text:, leading:, trailing:)` - centered text footer with composable slots; uses `Row(mainAxisAlignment: MainAxisAlignment.spaceBetween)` internally for layout
 - `DefaultSidebar(items)` - collapsible navigation tree from docs structure
   - Renders `data-category`, `data-collapsed` attributes on categories for JS interactivity

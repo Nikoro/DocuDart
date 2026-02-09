@@ -691,10 +691,7 @@ body {
   border-bottom: 1px solid var(--color-border);
 }
 
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.site-header > div {
   max-width: 1400px;
   margin: 0 auto;
   padding: 1rem 2rem;
@@ -734,21 +731,15 @@ body {
   white-space: nowrap;
 }
 
-.header-nav {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.header-nav a {
+.site-header a:not(.logo) {
   color: var(--color-text-muted);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
 }
 
-.header-nav a:hover,
-.header-nav a.active {
+.site-header a:not(.logo):hover,
+.site-header a:not(.logo).active {
   color: var(--color-primary);
 }
 
@@ -1191,7 +1182,7 @@ body {
 }
 
 @media (max-width: 768px) {
-  .header-content {
+  .site-header > div {
     padding: 1rem;
   }
 
@@ -1670,7 +1661,7 @@ body {
     });
 
     // Header nav links: prefix matching (e.g. /docs matches /docs/getting-started)
-    var navLinks = document.querySelectorAll('.header-nav .nav-link[data-path]');
+    var navLinks = document.querySelectorAll('.site-header .nav-link[data-path]');
     navLinks.forEach(function(link) {
       var linkPath = link.getAttribute('data-path');
       if (linkPath && linkPath.length > 1 && linkPath.endsWith('/')) {

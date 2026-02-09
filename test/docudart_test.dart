@@ -117,10 +117,10 @@ void main() {
     });
   });
 
-  group('NavLink', () {
+  group('Link', () {
     test('creates path and url nav links', () {
-      final pathLink = NavLink.path('/docs', label: 'Docs');
-      final urlLink = NavLink.url(
+      final pathLink = Link.path('/docs', label: 'Docs');
+      final urlLink = Link.url(
         'https://github.com/example',
         label: 'GitHub',
       );
@@ -134,7 +134,7 @@ void main() {
     });
 
     test('serializes to json with label key', () {
-      final link = NavLink.path('/docs', label: 'Docs');
+      final link = Link.path('/docs', label: 'Docs');
       final json = link.toJson();
 
       expect(json['label'], equals('Docs'));
@@ -142,13 +142,13 @@ void main() {
     });
 
     test('deserializes from json with legacy title key', () {
-      final link = NavLink.fromJson({'title': 'Docs', 'path': '/docs'});
+      final link = Link.fromJson({'title': 'Docs', 'path': '/docs'});
       expect(link.label, equals('Docs'));
       expect(link.href, equals('/docs'));
     });
 
     test('supports leading-only link', () {
-      final link = NavLink.url(
+      final link = Link.url(
         'https://github.com',
         leading: span([.text('*')]),
       );
@@ -158,7 +158,7 @@ void main() {
     });
 
     test('supports leading and label together', () {
-      final link = NavLink.url(
+      final link = Link.url(
         'https://github.com',
         label: 'GitHub',
         leading: span([.text('*')]),
@@ -168,7 +168,7 @@ void main() {
     });
 
     test('toJson skips leading and trailing fields', () {
-      final link = NavLink.url(
+      final link = Link.url(
         'https://example.com',
         label: 'Test',
         leading: span([.text('*')]),

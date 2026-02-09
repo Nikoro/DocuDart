@@ -10,11 +10,11 @@ import 'package:docudart/docudart.dart';
 /// use `'{classes}-icon'` for consistent styling.
 ///
 /// ```dart
-/// NavLink.path('/docs', label: 'Docs', leading: Icons.docs)
-/// NavLink.url('https://github.com', label: 'GitHub', trailing: Icons.openInNew)
+/// Link.path('/docs', label: 'Docs', leading: Icons.docs)
+/// Link.url('https://github.com', label: 'GitHub', trailing: Icons.openInNew)
 /// ```
-class NavLink extends StatelessComponent {
-  NavLink._({
+class Link extends StatelessComponent {
+  Link._({
     this.label,
     this.leading,
     this.trailing,
@@ -30,7 +30,7 @@ class NavLink extends StatelessComponent {
        assert(path != null || url != null, 'Either path or url must be set');
 
   /// Creates a nav link to an internal path.
-  NavLink.path(
+  Link.path(
     String path, {
     this.label,
     this.leading,
@@ -45,7 +45,7 @@ class NavLink extends StatelessComponent {
        );
 
   /// Creates a nav link to an external URL.
-  NavLink.url(
+  Link.url(
     String url, {
     this.label,
     this.leading,
@@ -59,7 +59,7 @@ class NavLink extends StatelessComponent {
          'Either label, leading, or trailing must be set',
        );
 
-  factory NavLink.fromJson(Map<String, dynamic> json) => NavLink._(
+  factory Link.fromJson(Map<String, dynamic> json) => Link._(
     label: json['label'] as String? ?? json['title'] as String?,
     path: json['path'] as String?,
     url: json['url'] as String?,
