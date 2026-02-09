@@ -20,7 +20,7 @@ Config configure(Project project) => Config(
   // Set to null to hide any section.
   header: () => Header(
     leading: Logo(
-      image: img(src: '/assets/logo/logo.png', alt: 'Logo'),
+      image: img(src: '/assets/logo/logo.webp', alt: 'Logo'),
       title: project.pubspec.name,
     ),
     navLinks: [
