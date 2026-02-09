@@ -386,7 +386,7 @@ class Sidebar extends StatelessComponent {
         'Config configure(Project project) => Config(\n'
         '  title: project.pubspec.name,\n'
         '  description: project.pubspec.description,\n'
-        '  themeMode: ThemeMode.system,\n'
+        '  themeMode: .system,\n'
         '  theme: DefaultTheme(),\n'
         "  // Home page component. Set to null to redirect '/' to '/docs'.\n"
         '  home: () => project.pubspec.let(\n'

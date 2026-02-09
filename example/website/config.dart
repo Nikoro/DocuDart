@@ -10,7 +10,7 @@ import 'pages/landing_page.dart';
 Config configure(Project project) => Config(
   title: project.pubspec.name,
   description: project.pubspec.description,
-  themeMode: ThemeMode.system,
+  themeMode: .system,
   theme: DefaultTheme(),
   // Home page component. Set to null to redirect '/' to '/docs'.
   home: () => project.pubspec.let(
