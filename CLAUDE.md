@@ -102,6 +102,12 @@ docudart/
 │       │   │   ├── theme_toggle.dart    # ThemeToggle (light/dark icon swap)
 │       │   │   ├── socials.dart         # Socials (social media icon links)
 │       │   │   └── topics.dart          # Topics (topic tag links with optional title)
+│       │   ├── layout/                # Flutter-like layout primitives
+│       │   │   ├── flex_enums.dart     # MainAxisAlignment, CrossAxisAlignment, MainAxisSize
+│       │   │   ├── row.dart            # Row + Column components
+│       │   │   ├── flexible.dart       # Flexible component + FlexFit enum
+│       │   │   ├── expanded.dart       # Expanded component
+│       │   │   └── spacer.dart         # Spacer component
 │       │   └── built_in/               # Built-in markdown component styles/scripts
 │       │       ├── callout.dart
 │       │       ├── tabs.dart
@@ -259,7 +265,7 @@ Logo(image: img(src: Assets.logo.logo_svg, alt: 'Logo'), href: '/home')
 ### DefaultHeader / DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
 Library-provided default layout components.
 - `DefaultHeader(navLinks:, leading:, trailing:)` - sticky header with nav and composable slots; `leading` is typically a `Logo`, all fields optional
-- `DefaultFooter(text:, leading:, trailing:)` - centered text footer with composable slots
+- `DefaultFooter(text:, leading:, trailing:)` - centered text footer with composable slots; uses `Row(mainAxisAlignment: MainAxisAlignment.spaceBetween)` internally for layout
 - `DefaultSidebar(items)` - collapsible navigation tree from docs structure
   - Renders `data-category`, `data-collapsed` attributes on categories for JS interactivity
   - Renders `data-path` attributes on links for active page highlighting

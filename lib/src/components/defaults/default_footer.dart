@@ -18,17 +18,23 @@ class DefaultFooter extends StatelessComponent {
   Component build(BuildContext context) {
     return footer(classes: 'site-footer', [
       div(classes: 'footer-content', [
-        div(classes: 'footer-leading', [?leading]),
-        div(classes: 'footer-center', [
-          p([.text(text)]),
-          p(classes: 'built-with', [
-            .text('Built with '),
-            a(href: 'https://pub.dev/packages/docudart', target: Target.blank, [
-              .text('DocuDart'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            div(classes: 'footer-leading', [?leading]),
+            div(classes: 'footer-center', [
+              p([.text(text)]),
+              p(classes: 'built-with', [
+                .text('Built with '),
+                a(href: 'https://pub.dev/packages/docudart', target: Target.blank, [
+                  .text('DocuDart'),
+                ]),
+              ]),
             ]),
-          ]),
-        ]),
-        div(classes: 'footer-trailing', [?trailing]),
+            div(classes: 'footer-trailing', [?trailing]),
+          ],
+        ),
       ]),
     ]);
   }

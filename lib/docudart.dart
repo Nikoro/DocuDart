@@ -41,6 +41,13 @@ export 'src/components/defaults/theme_toggle.dart';
 export 'src/components/defaults/socials.dart';
 export 'src/components/defaults/topics.dart';
 
+// Layout
+export 'src/components/layout/flex_enums.dart';
+export 'src/components/layout/row.dart';
+export 'src/components/layout/flexible.dart';
+export 'src/components/layout/expanded.dart';
+export 'src/components/layout/spacer.dart';
+
 // Extensions
 export 'src/extensions/extensions.dart';
 

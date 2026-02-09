@@ -906,9 +906,6 @@ body {
 .footer-content {
   max-width: 1400px;
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   color: var(--color-text-muted);
 }
 
