@@ -7,29 +7,22 @@ class DefaultFooter extends StatelessComponent {
   final Component? leading;
   final Component? trailing;
 
-  const DefaultFooter({
-    required this.text,
-    this.leading,
-    this.trailing,
-    super.key,
-  });
+  const DefaultFooter({required this.text, this.leading, this.trailing, super.key});
 
   @override
   Component build(BuildContext context) {
     return footer(classes: 'site-footer', [
       div(classes: 'footer-content', [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: .spaceBetween,
+          crossAxisAlignment: .center,
           children: [
             div(classes: 'footer-leading', [?leading]),
             div(classes: 'footer-center', [
               p([.text(text)]),
               p(classes: 'built-with', [
                 .text('Built with '),
-                a(href: 'https://pub.dev/packages/docudart', target: Target.blank, [
-                  .text('DocuDart'),
-                ]),
+                a(href: 'https://pub.dev/packages/docudart', target: .blank, [.text('DocuDart')]),
               ]),
             ]),
             div(classes: 'footer-trailing', [?trailing]),

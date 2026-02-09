@@ -1,8 +1,19 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:docudart/docudart.dart';
 
-/// A navigation link in the header.
-@immutable
-class NavLink {
+/// A navigation link that renders itself as an `<a>` tag.
+///
+/// Supports optional [leading] and [trailing] icon components
+/// and a text [label], laid out horizontally with [Row].
+///
+/// Use [classes] to apply context-specific CSS (e.g. `'nav-link'`,
+/// `'social-link'`, `'topic-link'`). Icon wrappers automatically
+/// use `'{classes}-icon'` for consistent styling.
+///
+/// ```dart
+/// NavLink.path('/docs', label: 'Docs', leading: Icons.docs)
+/// NavLink.url('https://github.com', label: 'GitHub', trailing: Icons.openInNew)
+/// ```
+class NavLink extends StatelessComponent {
   /// Display label text.
   final String? label;
 
@@ -11,6 +22,12 @@ class NavLink {
 
   /// Component rendered after the label.
   final Component? trailing;
+
+  /// CSS class(es) applied to the `<a>` element.
+  ///
+  /// Icon wrappers use `'{classes}-icon'` automatically.
+  /// Defaults to `'nav-link'`.
+  final String classes;
 
   final String? _path;
   final String? _url;
@@ -21,32 +38,74 @@ class NavLink {
   /// The href to use (path or url).
   String get href => _url ?? _path ?? '/';
 
-  NavLink._({this.label, this.leading, this.trailing, String? path, String? url})
-    : _path = path,
-      _url = url,
-      assert(
-        label != null || leading != null || trailing != null,
-        'Either label, leading, or trailing must be set',
-      ),
-      assert(path != null || url != null, 'Either path or url must be set');
+  NavLink._({
+    this.label,
+    this.leading,
+    this.trailing,
+    String? path,
+    String? url,
+  }) : classes = 'nav-link',
+       _path = path,
+       _url = url,
+       assert(
+         label != null || leading != null || trailing != null,
+         'Either label, leading, or trailing must be set',
+       ),
+       assert(path != null || url != null, 'Either path or url must be set');
 
   /// Creates a nav link to an internal path.
-  NavLink.path(String path, {this.label, this.leading, this.trailing})
-    : _path = path,
-      _url = null,
-      assert(
-        label != null || leading != null || trailing != null,
-        'Either label, leading, or trailing must be set',
-      );
+  NavLink.path(
+    String path, {
+    this.label,
+    this.leading,
+    this.trailing,
+    this.classes = 'nav-link',
+    super.key,
+  }) : _path = path,
+       _url = null,
+       assert(
+         label != null || leading != null || trailing != null,
+         'Either label, leading, or trailing must be set',
+       );
 
   /// Creates a nav link to an external URL.
-  NavLink.url(String url, {this.label, this.leading, this.trailing})
-    : _path = null,
-      _url = url,
-      assert(
-        label != null || leading != null || trailing != null,
-        'Either label, leading, or trailing must be set',
-      );
+  NavLink.url(
+    String url, {
+    this.label,
+    this.leading,
+    this.trailing,
+    this.classes = 'nav-link',
+    super.key,
+  }) : _path = null,
+       _url = url,
+       assert(
+         label != null || leading != null || trailing != null,
+         'Either label, leading, or trailing must be set',
+       );
+
+  @override
+  Component build(BuildContext context) {
+    final iconClass = '$classes-icon';
+    return a(
+      href: href,
+      classes: classes,
+      attributes: {
+        if (isExternal) ...{'target': '_blank', 'rel': 'noopener noreferrer'},
+        if (!isExternal) 'data-path': href,
+      },
+      [
+        Row(
+          mainAxisSize: .min,
+          spacing: 0.375.em,
+          children: [
+            if (leading != null) span(classes: iconClass, [leading!]),
+            if (label != null) .text(label!),
+            if (trailing != null) span(classes: iconClass, [trailing!]),
+          ],
+        ),
+      ],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     if (label != null) 'label': label,

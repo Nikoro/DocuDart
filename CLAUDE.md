@@ -221,14 +221,18 @@ Config configure(Project project) => Config(
 - `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository` (`Repository?`), `issueTracker`, `documentation`, `publishTo`, `funding`, `topics`, `environment`
 
 ### NavLink (lib/src/config/nav_link.dart)
-Navigation link with optional leading/trailing components and label. Uses dot shorthand-friendly constructors.
+Self-rendering navigation link (`StatelessComponent`) with optional leading/trailing icon components and label. Uses `Row` internally for horizontal layout.
 ```dart
 NavLink.path('/docs', label: 'Docs', leading: Icons.docs)                              // internal path
 NavLink.url('https://github.com', label: 'GitHub', leading: Icons.github, trailing: Icons.openInNew)  // external URL with trailing icon
 NavLink.url('https://pub.dev', leading: someIconComponent)                              // leading-only
 NavLink.path('/about', label: 'About')                                                  // label-only
 ```
+- Extends `StatelessComponent` — renders itself as `<a class="{classes}">` wrapping a `Row(mainAxisSize: .min, spacing: 0.375.em)`
 - `label` (`String?`), `leading` (`Component?`), `trailing` (`Component?`) — at least one required
+- `classes` (`String`, defaults to `'nav-link'`): CSS class on the `<a>` element; icon wrappers use `'{classes}-icon'`
+- Handles `target="_blank" rel="noopener noreferrer"` for external links, `data-path` for internal links (used by active-link JS)
+- Consumers (DefaultHeader, Socials, Topics) simply spread NavLinks: `..._navLinks` / `[...links]`
 - `leading`/`trailing` accept any Jaspr `Component` (typically `RawText('<svg>...</svg>')`)
 - Fields `_path`/`_url` are private; public API: `.href`, `.isExternal`
 - `toJson()` uses `'label'` key, skips `leading`/`trailing`; `fromJson()` accepts legacy `'title'` key
@@ -264,7 +268,7 @@ Logo(image: img(src: Assets.logo.logo_svg, alt: 'Logo'), href: '/home')
 
 ### DefaultHeader / DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
 Library-provided default layout components.
-- `DefaultHeader(navLinks:, leading:, trailing:)` - sticky header with nav and composable slots; `leading` is typically a `Logo`, all fields optional
+- `DefaultHeader(navLinks:, leading:, trailing:)` - sticky header with nav and composable slots; `leading` is typically a `Logo`, all fields optional; NavLinks spread directly (`..._navLinks`)
 - `DefaultFooter(text:, leading:, trailing:)` - centered text footer with composable slots; uses `Row(mainAxisAlignment: MainAxisAlignment.spaceBetween)` internally for layout
 - `DefaultSidebar(items)` - collapsible navigation tree from docs structure
   - Renders `data-category`, `data-collapsed` attributes on categories for JS interactivity

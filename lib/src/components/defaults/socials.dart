@@ -18,22 +18,6 @@ class Socials extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(classes: 'socials', [
-      for (final link in links)
-        a(
-          href: link.href,
-          classes: 'social-link',
-          attributes: link.isExternal
-              ? {'target': '_blank', 'rel': 'noopener noreferrer'}
-              : {},
-          [
-            if (link.leading != null)
-              span(classes: 'social-link-icon', [link.leading!]),
-            if (link.label != null) .text(link.label!),
-            if (link.trailing != null)
-              span(classes: 'social-link-icon', [link.trailing!]),
-          ],
-        ),
-    ]);
+    return div(classes: 'socials', [...links]);
   }
 }

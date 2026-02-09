@@ -25,17 +25,7 @@ class Topics extends StatelessComponent {
   Component build(BuildContext context) {
     return div(classes: 'topics', [
       if (title != null) span(classes: 'topics-title', [.text(title!)]),
-      div(classes: 'topics-grid', [
-        for (final link in links)
-          a(
-            href: link.href,
-            classes: 'topic-link',
-            attributes: link.isExternal
-                ? {'target': '_blank', 'rel': 'noopener noreferrer'}
-                : {},
-            [if (link.label != null) .text(link.label!)],
-          ),
-      ]),
+      div(classes: 'topics-grid', [...links]),
     ]);
   }
 }

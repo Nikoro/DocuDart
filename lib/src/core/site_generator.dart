@@ -950,28 +950,18 @@ body {
   gap: 0.75rem;
 }
 
-.social-link {
-  display: inline-flex;
-  align-items: center;
+.socials .nav-link {
   color: var(--color-text-muted);
   transition: color 0.2s;
 }
 
-.social-link:hover {
+.socials .nav-link:hover {
   color: var(--color-primary);
 }
 
-.social-link-icon {
-  display: inline-flex;
-  align-items: center;
+.socials .nav-link-icon {
   width: 1.5em;
   height: 1.5em;
-}
-
-.social-link-icon svg {
-  width: 100%;
-  height: 100%;
-  fill: currentColor;
 }
 
 /* Topics */
@@ -996,9 +986,7 @@ body {
   gap: 0.3rem;
 }
 
-.topic-link {
-  display: inline-flex;
-  align-items: center;
+.topics-grid .nav-link {
   padding: 0.2rem 0.55rem;
   border-radius: 1rem;
   font-size: 0.72rem;
@@ -1009,7 +997,7 @@ body {
   white-space: nowrap;
 }
 
-.topic-link:hover {
+.topics-grid .nav-link:hover {
   color: var(--color-primary);
   border-color: var(--color-primary);
 }

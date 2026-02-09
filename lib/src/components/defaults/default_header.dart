@@ -18,20 +18,7 @@ class DefaultHeader extends StatelessComponent {
       div(classes: 'header-content', [
         ?leading,
         nav(classes: 'header-nav', [
-          for (final link in _navLinks)
-            a(
-              href: link.href,
-              classes: 'nav-link',
-              attributes: {
-                if (link.isExternal) ...{'target': '_blank', 'rel': 'noopener noreferrer'},
-                if (!link.isExternal) 'data-path': link.href,
-              },
-              [
-                if (link.leading != null) span(classes: 'nav-link-icon', [link.leading!]),
-                if (link.label != null) .text(link.label!),
-                if (link.trailing != null) span(classes: 'nav-link-icon', [link.trailing!]),
-              ],
-            ),
+          ..._navLinks,
           ?trailing,
         ]),
       ]),
