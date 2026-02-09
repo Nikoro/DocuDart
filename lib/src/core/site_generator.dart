@@ -745,7 +745,8 @@ body {
   transition: color 0.2s;
 }
 
-.header-nav a:hover {
+.header-nav a:hover,
+.header-nav a.active {
   color: var(--color-primary);
 }
 
@@ -1676,6 +1677,21 @@ body {
         link.classList.add('active');
         expandParents(link);
         found = true;
+      } else {
+        link.classList.remove('active');
+      }
+    });
+
+    // Header nav links: prefix matching (e.g. /docs matches /docs/getting-started)
+    var navLinks = document.querySelectorAll('.header-nav .nav-link[data-path]');
+    navLinks.forEach(function(link) {
+      var linkPath = link.getAttribute('data-path');
+      if (linkPath && linkPath.length > 1 && linkPath.endsWith('/')) {
+        linkPath = linkPath.slice(0, -1);
+      }
+
+      if (path === linkPath || path.startsWith(linkPath + '/')) {
+        link.classList.add('active');
       } else {
         link.classList.remove('active');
       }

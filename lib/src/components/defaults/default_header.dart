@@ -22,7 +22,10 @@ class DefaultHeader extends StatelessComponent {
             a(
               href: link.href,
               classes: 'nav-link',
-              attributes: link.isExternal ? {'target': '_blank', 'rel': 'noopener noreferrer'} : {},
+              attributes: {
+                if (link.isExternal) ...{'target': '_blank', 'rel': 'noopener noreferrer'},
+                if (!link.isExternal) 'data-path': link.href,
+              },
               [
                 if (link.leading != null) span(classes: 'nav-link-icon', [link.leading!]),
                 if (link.label != null) .text(link.label!),
