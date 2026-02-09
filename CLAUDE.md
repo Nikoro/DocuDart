@@ -96,7 +96,8 @@ docudart/
 │       │   ├── component_registry.dart  # Component registry
 │       │   ├── defaults/               # Default layout + composable components
 │       │   │   ├── logo.dart            # Logo component (clickable image + title)
-│       │   │   ├── default_footer.dart  # DefaultFooter component
+│       │   │   ├── copyright.dart        # Copyright component (© year text)
+│       │   │   ├── built_with_docudart.dart # BuiltWithDocuDart branding link
 │       │   │   ├── default_sidebar.dart # DefaultSidebar component
 │       │   │   ├── theme_toggle.dart    # ThemeToggle (light/dark icon swap)
 │       │   │   ├── socials.dart         # Socials (social media icon links)
@@ -130,7 +131,7 @@ docudart/
 │       ├── pages/landing_page.dart
 │       ├── components/
 │       │   ├── header.dart              # Header component (renders header > Row directly)
-│       │   ├── footer.dart              # Footer wrapping DefaultFooter
+│       │   ├── footer.dart              # Footer component (leading/center/trailing slots)
 │       │   └── sidebar.dart             # Sidebar wrapping DefaultSidebar
 │       ├── assets/
 │       │   └── assets.dart              # AUTO-GENERATED type-safe asset paths
@@ -165,7 +166,7 @@ user-project/
       landing_page.dart  # Landing page (imports package:docudart/docudart.dart)
     components/          # Layout wrapper components
       header.dart        # Header component (renders header > Row directly)
-      footer.dart        # Footer component wrapping DefaultFooter
+      footer.dart        # Footer component (leading/center/trailing slots)
       sidebar.dart       # Sidebar component wrapping DefaultSidebar
     assets/              # Static assets
       assets.dart        # AUTO-GENERATED type-safe asset paths (do not edit)
@@ -265,9 +266,12 @@ Logo(image: img(src: Assets.logo.logo_svg, alt: 'Logo'), href: '/home')
 - At least one of `image` or `title` required (assert)
 - CSS: `.logo` (inline-flex, no link decoration via `:visited`), `.logo-image` (1.75rem height), `.logo-title` (1.25rem semibold)
 
-### DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
-Library-provided default layout components.
-- `DefaultFooter(text:, leading:, trailing:)` - centered text footer with composable slots; uses semantic `<footer>` element directly (no wrapper class), `Row(mainAxisAlignment: .spaceBetween)` for layout, `Column(mainAxisSize: .min)` for center text stacking; leading/trailing spread directly into Row via `?leading`/`?trailing` (no wrapper divs)
+### Copyright / BuiltWithDocuDart (lib/src/components/defaults/)
+Composable footer content components.
+- `Copyright(text:)` - renders `<p>` with `© {year} {text}` (year from `DateTime.now().year`)
+- `BuiltWithDocuDart()` - renders `<p class="built-with">` with "Built with DocuDart" link
+
+### DefaultSidebar (lib/src/components/defaults/)
 - `DefaultSidebar(items)` - collapsible navigation tree from docs structure
   - Renders `data-category`, `data-collapsed` attributes on categories for JS interactivity
   - Renders `data-path` attributes on links for active page highlighting
@@ -279,7 +283,7 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - `InitTemplate.defaultTemplate` - Basic setup
 - `InitTemplate.full` - All features with examples, including sidebar subfolder showcase
 - Uses `PackageResolver` to compute path dependency to docudart
-- Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart); Header takes optional `leading` (typically `Logo`) + `links` + `trailing`; renders `header > Row` directly (no DefaultHeader wrapper)
+- Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart); Header takes optional `leading` (typically `Logo`) + `links` + `trailing`; renders `header > Row` directly; Footer takes optional `leading`/`center`/`trailing` → `footer > Row` directly
 - Generates default logo asset (`logo.webp`) in `assets/logo/` via `_generateLogo()` — same copy pattern as favicons
 - `_generateAssetPaths()`: generates `assets/assets.dart` with typed asset path constants via `AssetPathGenerator`
 - Generated config.dart `Logo(...)` uses `image: img(src: Assets.logo.logo_webp, alt: '...')` — type-safe asset reference

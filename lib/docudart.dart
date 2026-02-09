@@ -34,7 +34,8 @@ export 'src/markdown/component_parser.dart';
 // Components
 export 'src/components/component_registry.dart';
 export 'src/components/defaults/logo.dart';
-export 'src/components/defaults/default_footer.dart';
+export 'src/components/defaults/built_with_docudart.dart';
+export 'src/components/defaults/copyright.dart';
 export 'src/components/defaults/default_sidebar.dart';
 export 'src/components/defaults/theme_toggle.dart';
 export 'src/components/defaults/socials.dart';

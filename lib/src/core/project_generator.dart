@@ -323,18 +323,22 @@ import 'package:docudart/docudart.dart';
 /// Site footer component.
 ///
 /// Customize this component to change the footer layout.
-/// The [DefaultFooter] provides a simple centered text footer
-/// with optional leading/trailing slots.
 class Footer extends StatelessComponent {
-  const Footer({required this.text, this.leading, this.trailing, super.key});
+  const Footer({this.leading, this.center, this.trailing, super.key});
 
-  final String text;
   final Component? leading;
+  final Component? center;
   final Component? trailing;
 
   @override
   Component build(BuildContext context) {
-    return DefaultFooter(text: text, leading: leading, trailing: trailing);
+    return footer([
+      Row(
+        mainAxisAlignment: .spaceBetween,
+        crossAxisAlignment: .center,
+        children: [?leading, ?center, ?trailing],
+      ),
+    ]);
   }
 }
 ''');
@@ -414,10 +418,7 @@ class Sidebar extends StatelessComponent {
         '    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),\n'
         '  ),\n'
         '  footer: () => project.pubspec.let((pubspec) {\n'
-        '    final year = DateTime.now().year;\n'
         '    return Footer(\n'
-        r"      text: '© $year ${pubspec.name}',"
-        '\n'
         '      leading: pubspec.topics.let(\n'
         '        (topics) => Topics(\n'
         '          title: Labels.topics,\n'
@@ -427,6 +428,12 @@ class Sidebar extends StatelessComponent {
         '\n'
         '          ],\n'
         '        ),\n'
+        '      ),\n'
+        '      center: Column(\n'
+        '        children: [\n'
+        '          Copyright(text: pubspec.name),\n'
+        '          BuiltWithDocuDart(),\n'
+        '        ],\n'
         '      ),\n'
         '      trailing: Socials(\n'
         '        links: [\n'
@@ -930,8 +937,8 @@ website/
   docs/              # Markdown documentation files
   pages/             # Custom page components (Dart/Jaspr)
   components/        # Layout components (header, footer, sidebar)
-    header.dart      # Header component wrapping DefaultHeader
-    footer.dart      # Footer component wrapping DefaultFooter
+    header.dart      # Header component
+    footer.dart      # Footer component
     sidebar.dart     # Sidebar component wrapping DefaultSidebar
   assets/            # Static files (images, fonts, etc.)
   themes/            # Custom theme implementations
@@ -1002,7 +1009,7 @@ Config configure(Project project) => Config(
 
   // Layout components (set to null to hide)
   header: () => Header(leading: Logo(title: project.pubspec.name)),
-  footer: () => Footer(text: project.pubspec.name),
+  footer: () => Footer(center: Copyright(text: project.pubspec.name)),
   sidebar: () => Sidebar(items: project.docs),
 );
 ```
