@@ -1,4 +1,5 @@
 import 'package:docudart/docudart.dart';
+import 'assets/assets.dart';
 import 'components/header.dart';
 import 'components/footer.dart';
 import 'components/sidebar.dart';
@@ -20,7 +21,10 @@ Config configure(Project project) => Config(
   // Set to null to hide any section.
   header: () => Header(
     leading: Logo(
-      image: img(src: '/assets/logo/logo.webp', alt: 'Logo'),
+      image: img(
+        src: Assets.logo.logo_webp,
+        alt: '${project.pubspec.name} logo',
+      ),
       title: project.pubspec.name,
     ),
     navLinks: [

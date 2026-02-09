@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
+import 'asset_path_generator.dart';
 import 'package_resolver.dart';
 import 'readme_parser.dart';
 
@@ -70,6 +71,9 @@ class ProjectGenerator {
 
     // Generate default logo
     await _generateLogo(websiteDir);
+
+    // Generate type-safe asset paths (assets/assets.dart)
+    await _generateAssetPaths(websiteDir);
 
     // Generate README.md
     await _generateReadme(websiteDir, title);
@@ -233,6 +237,14 @@ class ProjectGenerator {
     }
   }
 
+  Future<void> _generateAssetPaths(String websiteDir) async {
+    final assetsDir = p.join(websiteDir, 'assets');
+    final content = AssetPathGenerator.generate(assetsDir);
+    final targetFile = File(p.join(assetsDir, 'assets.dart'));
+    await targetFile.parent.create(recursive: true);
+    await targetFile.writeAsString(content);
+  }
+
   Future<void> _generateWebsitePubspec(
     String websiteDir,
     String title, {
@@ -363,6 +375,7 @@ class Sidebar extends StatelessComponent {
   ) async {
     final configContent =
         "import 'package:docudart/docudart.dart';\n"
+        "import 'assets/assets.dart';\n"
         "import 'components/header.dart';\n"
         "import 'components/footer.dart';\n"
         "import 'components/sidebar.dart';\n"
@@ -384,7 +397,11 @@ class Sidebar extends StatelessComponent {
         '  // Set to null to hide any section.\n'
         '  header: () => Header(\n'
         "    leading: Logo(\n"
-        "      image: img(src: '/assets/logo/logo.webp', alt: 'Logo'),\n"
+        "      image: img(\n"
+        "        src: Assets.logo.logo_webp,\n"
+        r"        alt: '${project.pubspec.name} logo',"
+        "\n"
+        "      ),\n"
         '      title: project.pubspec.name,\n'
         '    ),\n'
         '    navLinks: [\n'

@@ -73,6 +73,7 @@ docudart/
 │       │   ├── theme_config.dart        # ThemeMode enum (system, light, dark)
 │       │   └── custom_page.dart         # CustomPage
 │       ├── core/                        # Core functionality
+│       │   ├── asset_path_generator.dart # Generate type-safe asset paths
 │       │   ├── project_generator.dart   # Generate website/ project (init)
 │       │   ├── site_generator.dart      # Generate .dart_tool/docudart
 │       │   ├── content_processor.dart   # Process markdown files
@@ -127,6 +128,7 @@ docudart/
 │       │   ├── footer.dart              # Footer wrapping DefaultFooter
 │       │   └── sidebar.dart             # Sidebar wrapping DefaultSidebar
 │       ├── assets/
+│       │   └── assets.dart              # AUTO-GENERATED type-safe asset paths
 │       └── themes/
 ├── CLAUDE.md                            # This file
 └── pubspec.yaml
@@ -161,6 +163,7 @@ user-project/
       footer.dart        # Footer component wrapping DefaultFooter
       sidebar.dart       # Sidebar component wrapping DefaultSidebar
     assets/              # Static assets
+      assets.dart        # AUTO-GENERATED type-safe asset paths (do not edit)
       logo/              # Default logo (WebP)
     themes/              # Custom theme implementations
 ```
@@ -244,8 +247,8 @@ repo.icon   // Component (SVG icon for GitHub)
 Clickable logo component with optional image and/or title.
 ```dart
 Logo(title: 'My Project')
-Logo(image: img(src: '/assets/logo/logo.webp', alt: 'Logo'), title: 'My Project')
-Logo(image: img(src: '/assets/logo/logo.svg', alt: 'Logo'), href: '/home')
+Logo(image: img(src: Assets.logo.logo_webp, alt: 'Logo'), title: 'My Project')
+Logo(image: img(src: Assets.logo.logo_svg, alt: 'Logo'), href: '/home')
 ```
 - `image` (`Component?`) — image component (e.g., `img(src: ...)`)
 - `title` (`String?`) — text title
@@ -270,7 +273,8 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - Uses `PackageResolver` to compute path dependency to docudart
 - Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart); Header takes optional `leading` (typically `Logo`) + `navLinks` + `trailing`
 - Generates default logo asset (`logo.webp`) in `assets/logo/` via `_generateLogo()` — same copy pattern as favicons
-- Generated config.dart `Logo(...)` includes `image: img(src: '/assets/logo/logo.webp', alt: 'Logo')` alongside the title
+- `_generateAssetPaths()`: generates `assets/assets.dart` with typed asset path constants via `AssetPathGenerator`
+- Generated config.dart `Logo(...)` uses `image: img(src: Assets.logo.logo_webp, alt: '...')` — type-safe asset reference
 - Generates `icons.dart` at website root with default SVG icons (github, pubDev, docs, discord, youtube, etc.)
 - Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, Labels.topics, etc.)
 - **Smart pub.dev URL**: `_resolvePubDevUrl()` makes a HEAD request to `https://pub.dev/packages/{name}` at init time; if 200, uses specific package URL, else falls back to generic `https://pub.dev` (5s timeout, graceful fallback on errors)
@@ -286,7 +290,7 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - `serveMode: true` enables live-reload script injection (only during `docudart serve`)
 - `generate({bool fullClean = true, Pubspec? pubspec})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
 - Adds `docudart` as path dependency in managed project's pubspec
-- Copies `config.dart`, `components/`, `pages/`, and root-level `.dart` files (e.g. `icons.dart`) into managed project's `lib/`
+- Copies `config.dart`, `components/`, `pages/`, root-level `.dart` files (e.g. `icons.dart`), and `assets/assets.dart` into managed project's `lib/`
 - Home route uses `configure(project).home?.call()` with pattern matching (`case final homeComponent?`): if non-null, renders the home component; otherwise redirects `/` to `/docs`
 - Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml (repository field uses `Repository('...')` constructor)
 - Generates `project_data.dart` with Project containing pubspec + auto-generated sidebar items
@@ -337,6 +341,7 @@ Flutter docs style theme with:
    - Resolves lint dependency (`lints`/`flutter_lints`) from parent's pubspec.yaml
    - Generates config.dart with smart pub.dev URL and runtime repository detection
    - Copies default logo (`logo.webp`) and favicon assets into `website/assets/`
+   - Generates `assets/assets.dart` with type-safe asset path constants
 4. Runs `dart pub get` in `website/`
 5. Runs `dart format .` in `website/`
 
@@ -345,7 +350,8 @@ Flutter docs style theme with:
 2. `ConfigLoader.load(websiteDir)` loads config with absolute paths
 3. `ConfigLoader.loadParentPubspec(websiteDir)` reads parent project's pubspec.yaml
 4. `SiteGenerator(config, websiteDir: websiteDir).generate(pubspec: pubspec)`:
-   - Copies config.dart, root `.dart` files, components/, pages/ into managed project
+   - Generates `assets/assets.dart` (type-safe asset paths) in website dir
+   - Copies config.dart, root `.dart` files, components/, pages/, `assets/assets.dart` into managed project
    - Generates pubspec_data.dart + project_data.dart with Project/Pubspec data
    - Generates layout.dart that calls `configure(project)` then delegates to config functions
 5. Runs `dart run jaspr build` in `website/.dart_tool/docudart/`
@@ -379,7 +385,8 @@ Flutter docs style theme with:
 The managed Jaspr site is generated in `SiteGenerator`:
 - `_generatePubspec()` - pubspec.yaml (includes docudart path dep)
 - `_generateMain()` - lib/main.server.dart, lib/main.client.dart
-- `_copyUserFiles()` - copies config.dart, root `.dart` files, components/, pages/ into lib/
+- `_generateAssetPaths()` - generates `website/assets/assets.dart` via `AssetPathGenerator` (type-safe asset constants)
+- `_copyUserFiles()` - copies config.dart, root `.dart` files, components/, pages/, and `assets/assets.dart` into lib/
 - `_generatePubspecData()` - lib/pubspec_data.dart (const Pubspec from parent pubspec.yaml)
 - `_generateProjectData()` - lib/project_data.dart (Project with pubspec + sidebar items)
 - `_generateLayout()` - lib/layout.dart (calls configure(project) then config.header/footer/sidebar)
@@ -533,6 +540,8 @@ None currently tracked.
   - **Auto-expand**: parent categories of active link automatically expand on navigation
 - **Sidebar collapse default**: ALL categories start collapsed by default. Add `_expanded` suffix to folder name (e.g., `01-guides_expanded/`) to make it start expanded. The suffix is stripped from display names, URLs, and sort order. `DocFolder.expanded` field carries this flag; `SidebarGenerator` sets `collapsed: !subfolder.expanded`.
 - **Docs ordering**: numeric filename prefix (`01-guides/`) or `sidebar_position` frontmatter field; `index.md`/`intro.md` default to position 0; no prefix defaults to 999. The `_expanded` suffix is stripped before extracting numeric prefix.
+
+- **Type-safe asset paths**: `AssetPathGenerator` scans `assets/` directory and generates `assets/assets.dart` with typed constants. Generated during both `init` (ProjectGenerator) and `build`/`serve` (SiteGenerator). File lives inside `assets/` dir to signal auto-generated nature (user should not edit). `_copyUserFiles()` copies it to managed project's `lib/assets/`. `_copyAssets()` skips `.dart` files to avoid copying it into `web/assets/`. Hot reload: `DocuDartFileWatcher` already watches assets/ — asset changes trigger regeneration of `assets.dart`. API: `Assets.logo.logo_webp` → `'/assets/logo/logo.webp'`. Subdirs become nested objects with `_Assets*` private classes. Identifiers use snake_case. Config.dart uses `import 'assets/assets.dart';`.
 
 ## References
 

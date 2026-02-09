@@ -5,6 +5,7 @@ import 'package:path/path.dart' as p;
 import '../config/config_loader.dart';
 import '../config/docudart_config.dart';
 import '../config/pubspec.dart';
+import 'asset_path_generator.dart';
 import 'content_processor.dart';
 import 'package_resolver.dart';
 import 'version_manager.dart';
@@ -75,6 +76,7 @@ class SiteGenerator {
     // Generate all required files
     await _generatePubspec();
     await _generateMain();
+    await _generateAssetPaths();
     await _copyUserFiles();
     await _generatePubspecData(resolvedPubspec);
     await _generateProjectData(defaultSidebarItems);
@@ -135,6 +137,14 @@ jaspr:
   }
 
   /// Copy user's config.dart and components/ into managed project's lib/.
+  /// Generate `assets/assets.dart` with type-safe asset path constants.
+  Future<void> _generateAssetPaths() async {
+    final content = AssetPathGenerator.generate(config.assetsDir);
+    final targetFile = File(p.join(config.assetsDir, 'assets.dart'));
+    await targetFile.parent.create(recursive: true);
+    await targetFile.writeAsString(content);
+  }
+
   Future<void> _copyUserFiles() async {
     final libDir = p.join(managedDir, 'lib');
     await Directory(libDir).create(recursive: true);
@@ -165,6 +175,15 @@ jaspr:
         await File(p.join(libDir, p.basename(entity.path)))
             .writeAsString(await entity.readAsString());
       }
+    }
+
+    // Copy assets/assets.dart (auto-generated type-safe asset paths)
+    final assetsDataSrc = File(p.join(config.assetsDir, 'assets.dart'));
+    if (assetsDataSrc.existsSync()) {
+      final assetsLibDir = p.join(libDir, 'assets');
+      await Directory(assetsLibDir).create(recursive: true);
+      await File(p.join(assetsLibDir, 'assets.dart'))
+          .writeAsString(await assetsDataSrc.readAsString());
     }
   }
 
@@ -1806,6 +1825,9 @@ body {
 
     await for (final entity in sourceDir.list(recursive: true)) {
       if (entity is File) {
+        // Skip generated .dart files (e.g. assets.dart) — they are not web assets.
+        if (entity.path.endsWith('.dart')) continue;
+
         final relativePath = p.relative(entity.path, from: sourceDir.path);
 
         // Copy favicon files to web root for browser discovery
