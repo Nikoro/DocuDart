@@ -95,7 +95,6 @@ docudart/
 │       ├── components/                  # Component system
 │       │   ├── component_registry.dart  # Component registry
 │       │   ├── defaults/               # Default layout + composable components
-│       │   │   ├── default_header.dart  # DefaultHeader component
 │       │   │   ├── logo.dart            # Logo component (clickable image + title)
 │       │   │   ├── default_footer.dart  # DefaultFooter component
 │       │   │   ├── default_sidebar.dart # DefaultSidebar component
@@ -130,7 +129,7 @@ docudart/
 │       ├── docs/
 │       ├── pages/landing_page.dart
 │       ├── components/
-│       │   ├── header.dart              # Header wrapping DefaultHeader
+│       │   ├── header.dart              # Header component (renders header > Row directly)
 │       │   ├── footer.dart              # Footer wrapping DefaultFooter
 │       │   └── sidebar.dart             # Sidebar wrapping DefaultSidebar
 │       ├── assets/
@@ -165,7 +164,7 @@ user-project/
     pages/               # Custom Jaspr page components
       landing_page.dart  # Landing page (imports package:docudart/docudart.dart)
     components/          # Layout wrapper components
-      header.dart        # Header component wrapping DefaultHeader
+      header.dart        # Header component (renders header > Row directly)
       footer.dart        # Footer component wrapping DefaultFooter
       sidebar.dart       # Sidebar component wrapping DefaultSidebar
     assets/              # Static assets
@@ -232,7 +231,7 @@ Link.path('/about', label: 'About')                                             
 - `label` (`String?`), `leading` (`Component?`), `trailing` (`Component?`) — at least one required
 - `classes` (`String`, defaults to `'nav-link'`): CSS class on the `<a>` element; icon wrappers use `'{classes}-icon'`
 - Handles `target="_blank" rel="noopener noreferrer"` for external links, `data-path` for internal links (used by active-link JS)
-- Consumers (DefaultHeader, Socials, Topics) simply spread Links: `...?navLinks` / `[...links]`
+- Consumers (Header, Socials, Topics) simply spread Links: `...?links` / `[...links]`
 - `leading`/`trailing` accept any Jaspr `Component` (typically `RawText('<svg>...</svg>')`)
 - Fields `_path`/`_url` are private; public API: `.href`, `.isExternal`
 - `toJson()` uses `'label'` key, skips `leading`/`trailing`; `fromJson()` accepts legacy `'title'` key
@@ -266,9 +265,8 @@ Logo(image: img(src: Assets.logo.logo_svg, alt: 'Logo'), href: '/home')
 - At least one of `image` or `title` required (assert)
 - CSS: `.logo` (inline-flex, no link decoration via `:visited`), `.logo-image` (1.75rem height), `.logo-title` (1.25rem semibold)
 
-### DefaultHeader / DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
+### DefaultFooter / DefaultSidebar (lib/src/components/defaults/)
 Library-provided default layout components.
-- `DefaultHeader(navLinks:, leading:, trailing:)` - uses `Row` + `Spacer` layout: `Row([?leading, Spacer(), ...?navLinks, ?trailing])`; CSS: `.site-header` (sticky, full-width), `.site-header > div` (max-width, margin, padding), `.site-header a:not(.logo)` for nav link styles
 - `DefaultFooter(text:, leading:, trailing:)` - centered text footer with composable slots; uses `Row(mainAxisAlignment: MainAxisAlignment.spaceBetween)` internally for layout
 - `DefaultSidebar(items)` - collapsible navigation tree from docs structure
   - Renders `data-category`, `data-collapsed` attributes on categories for JS interactivity
@@ -281,7 +279,7 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - `InitTemplate.defaultTemplate` - Basic setup
 - `InitTemplate.full` - All features with examples, including sidebar subfolder showcase
 - Uses `PackageResolver` to compute path dependency to docudart
-- Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart); Header takes optional `leading` (typically `Logo`) + `navLinks` + `trailing`
+- Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart); Header takes optional `leading` (typically `Logo`) + `links` + `trailing`; renders `header > Row` directly (no DefaultHeader wrapper)
 - Generates default logo asset (`logo.webp`) in `assets/logo/` via `_generateLogo()` — same copy pattern as favicons
 - `_generateAssetPaths()`: generates `assets/assets.dart` with typed asset path constants via `AssetPathGenerator`
 - Generated config.dart `Logo(...)` uses `image: img(src: Assets.logo.logo_webp, alt: '...')` — type-safe asset reference

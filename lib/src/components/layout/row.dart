@@ -49,9 +49,8 @@ class Row extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return div(
+      classes: 'row',
       styles: Styles(
-        display: Display.flex,
-        flexDirection: FlexDirection.row,
         justifyContent: mainAxisAlignment.justifyContent,
         alignItems: crossAxisAlignment.alignItems,
         width: mainAxisSize == MainAxisSize.max ? 100.percent : null,
@@ -108,9 +107,8 @@ class Column extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return div(
+      classes: 'column',
       styles: Styles(
-        display: Display.flex,
-        flexDirection: FlexDirection.column,
         justifyContent: mainAxisAlignment.justifyContent,
         alignItems: crossAxisAlignment.alignItems,
         height: mainAxisSize == MainAxisSize.max ? 100.percent : null,

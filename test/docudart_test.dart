@@ -120,10 +120,7 @@ void main() {
   group('Link', () {
     test('creates path and url nav links', () {
       final pathLink = Link.path('/docs', label: 'Docs');
-      final urlLink = Link.url(
-        'https://github.com/example',
-        label: 'GitHub',
-      );
+      final urlLink = Link.url('https://github.com/example', label: 'GitHub');
 
       expect(pathLink.isExternal, isFalse);
       expect(pathLink.href, equals('/docs'));
@@ -148,10 +145,7 @@ void main() {
     });
 
     test('supports leading-only link', () {
-      final link = Link.url(
-        'https://github.com',
-        leading: span([.text('*')]),
-      );
+      final link = Link.url('https://github.com', leading: span([.text('*')]));
       expect(link.label, isNull);
       expect(link.leading, isNotNull);
       expect(link.href, equals('https://github.com'));

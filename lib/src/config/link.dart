@@ -3,7 +3,7 @@ import 'package:docudart/docudart.dart';
 /// A navigation link that renders itself as an `<a>` tag.
 ///
 /// Supports optional [leading] and [trailing] icon components
-/// and a text [label], laid out horizontally with [Row].
+/// and a text [label], laid out horizontally via CSS inline-flex.
 ///
 /// Use [classes] to apply context-specific CSS (e.g. `'nav-link'`,
 /// `'social-link'`, `'topic-link'`). Icon wrappers automatically
@@ -14,20 +14,15 @@ import 'package:docudart/docudart.dart';
 /// Link.url('https://github.com', label: 'GitHub', trailing: Icons.openInNew)
 /// ```
 class Link extends StatelessComponent {
-  Link._({
-    this.label,
-    this.leading,
-    this.trailing,
-    String? path,
-    String? url,
-  }) : classes = 'nav-link',
-       _path = path,
-       _url = url,
-       assert(
-         label != null || leading != null || trailing != null,
-         'Either label, leading, or trailing must be set',
-       ),
-       assert(path != null || url != null, 'Either path or url must be set');
+  Link._({this.label, this.leading, this.trailing, String? path, String? url})
+    : classes = 'nav-link',
+      _path = path,
+      _url = url,
+      assert(
+        label != null || leading != null || trailing != null,
+        'Either label, leading, or trailing must be set',
+      ),
+      assert(path != null || url != null, 'Either path or url must be set');
 
   /// Creates a nav link to an internal path.
   Link.path(
@@ -100,15 +95,9 @@ class Link extends StatelessComponent {
         if (!isExternal) 'data-path': href,
       },
       [
-        Row(
-          mainAxisSize: .min,
-          spacing: 0.375.em,
-          children: [
-            if (leading != null) span(classes: iconClass, [leading!]),
-            if (label != null) .text(label!),
-            if (trailing != null) span(classes: iconClass, [trailing!]),
-          ],
-        ),
+        if (leading != null) span(classes: iconClass, [leading!]),
+        if (label != null) .text(label!),
+        if (trailing != null) span(classes: iconClass, [trailing!]),
       ],
     );
   }

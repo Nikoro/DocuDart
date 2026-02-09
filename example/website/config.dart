@@ -27,7 +27,7 @@ Config configure(Project project) => Config(
       ),
       title: project.pubspec.name,
     ),
-    navLinks: [
+    links: [
       .path('/docs', label: Labels.docs, leading: Icons.docs),
       ?project.pubspec.repository.let(
         (repository) => .url(

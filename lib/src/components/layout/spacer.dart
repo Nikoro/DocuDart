@@ -13,9 +13,12 @@ class Spacer extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return div(
-      styles: Styles(
-        flex: Flex(grow: flex.toDouble(), shrink: 0, basis: Unit.zero),
-      ),
+      classes: 'spacer',
+      styles: flex != 1
+          ? Styles(
+              flex: Flex(grow: flex.toDouble(), shrink: 0, basis: Unit.zero),
+            )
+          : null,
       [],
     );
   }

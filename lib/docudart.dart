@@ -33,7 +33,6 @@ export 'src/markdown/component_parser.dart';
 
 // Components
 export 'src/components/component_registry.dart';
-export 'src/components/defaults/default_header.dart';
 export 'src/components/defaults/logo.dart';
 export 'src/components/defaults/default_footer.dart';
 export 'src/components/defaults/default_sidebar.dart';

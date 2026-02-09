@@ -295,29 +295,23 @@ import 'package:docudart/docudart.dart';
 /// Site header component.
 ///
 /// Customize this component to change the header layout.
-/// The [DefaultHeader] provides a standard header with nav links,
-/// and optional trailing component slot.
-///
 /// The [leading] slot is typically a [Logo].
 class Header extends StatelessComponent {
-  const Header({
-    this.leading,
-    this.navLinks,
-    this.trailing,
-    super.key,
-  });
+  const Header({this.leading, this.links, this.trailing, super.key});
 
   final Component? leading;
-  final List<Link>? navLinks;
+  final List<Link>? links;
   final Component? trailing;
 
   @override
   Component build(BuildContext context) {
-    return DefaultHeader(
-      leading: leading,
-      navLinks: navLinks,
-      trailing: trailing,
-    );
+    return header([
+      Row(
+        crossAxisAlignment: .center,
+        spacing: 1.5.rem,
+        children: [?leading, Spacer(), ...?links, ?trailing],
+      ),
+    ]);
   }
 }
 ''');
@@ -405,7 +399,7 @@ class Sidebar extends StatelessComponent {
         "      ),\n"
         '      title: project.pubspec.name,\n'
         '    ),\n'
-        '    navLinks: [\n'
+        '    links: [\n'
         "      .path('/docs', label: Labels.docs, leading: Icons.docs),\n"
         "      ?project.pubspec.repository.let(\n"
         "        (repository) => .url(\n"
