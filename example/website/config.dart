@@ -29,7 +29,7 @@ Config configure(Project project) => Config(
     ),
     links: [
       .path('/docs', label: Labels.docs, leading: Icons.docs),
-      .path('/changelog', label: 'Changelog'),
+      .path('/changelog', label: Labels.changelog),
       ?project.pubspec.repository.let(
         (repository) => .url(
           repository.link,

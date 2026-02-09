@@ -129,6 +129,7 @@ docudart/
 │       ├── labels.dart                      # Label string constants (Labels.github, Labels.docs, etc.)
 │       ├── docs/
 │       ├── pages/landing_page.dart
+│       ├── pages/changelog_page.dart  # Conditionally generated (when CHANGELOG.md exists)
 │       ├── components/
 │       │   ├── header.dart              # Header component (renders header > Row directly)
 │       │   ├── footer.dart              # Footer component (leading/center/trailing slots)
@@ -164,6 +165,7 @@ user-project/
           netlify.md
     pages/               # Custom Jaspr page components
       landing_page.dart  # Landing page (imports package:docudart/docudart.dart)
+      changelog_page.dart # Changelog page (only if CHANGELOG.md exists in parent project)
     components/          # Layout wrapper components
       header.dart        # Header component (renders header > Row directly)
       footer.dart        # Footer component (leading/center/trailing slots)
@@ -288,11 +290,12 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - `_generateAssetPaths()`: generates `assets/assets.dart` with typed asset path constants via `AssetPathGenerator`
 - Generated config.dart `Logo(...)` uses `image: img(src: Assets.logo.logo_webp, alt: '...')` — type-safe asset reference
 - Generates `icons.dart` at website root with default SVG icons (github, pubDev, docs, discord, youtube, etc.)
-- Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, Labels.topics, etc.)
+- Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, Labels.changelog, Labels.topics, etc.)
 - **Smart pub.dev URL**: `_resolvePubDevUrl()` makes a HEAD request to `https://pub.dev/packages/{name}` at init time; if 200, uses specific package URL, else falls back to generic `https://pub.dev` (5s timeout, graceful fallback on errors)
 - **Smart repository link**: Generated config.dart uses `?project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icons.openInNew))` for runtime provider detection with external link indicator; null-safe via `.let()` — if no repository, the entry is omitted
 - **Lint dependency propagation**: `_resolveLintDependency()` checks parent's `pubspec.yaml` for `lints` or `flutter_lints` (in `dev_dependencies` then `dependencies`), propagates as `dev_dependency` in generated `website/pubspec.yaml`
 - Runs `dart pub get` then `dart format .` in website/ after generation
+- **Conditional changelog**: Checks for `CHANGELOG.md` in parent project root; if present, generates `pages/changelog_page.dart` via `_generateChangelogPage()` and adds `.path('/changelog', label: Labels.changelog)` link to header in config.dart; if absent, neither page nor link is generated
 - Looks for `README.md` in project root to auto-generate docs
 - `_generateFullTemplateSubfolders()` - creates example subfolders for full template (always runs, even when README.md exists): `01-guides_expanded/` (expanded sidebar) and `02-advanced/` with nested `deployment/` (collapsed)
 
@@ -353,6 +356,7 @@ Flutter docs style theme with:
    - Checks pub.dev for package existence (HEAD request with 5s timeout)
    - Resolves lint dependency (`lints`/`flutter_lints`) from parent's pubspec.yaml
    - Generates config.dart with smart pub.dev URL and runtime repository detection
+   - If `CHANGELOG.md` exists in project root: generates `pages/changelog_page.dart` and adds changelog header link
    - Copies default logo (`logo.webp`) and favicon assets into `website/assets/`
    - Generates `assets/assets.dart` with type-safe asset path constants
 4. Runs `dart pub get` in `website/`

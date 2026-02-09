@@ -33,6 +33,8 @@ class ProjectGenerator {
     final pubspecInfo = await _loadPubspecInfo(directory);
     final title = pubspecInfo['name'] ?? 'My Documentation';
     final description = pubspecInfo['description'] ?? 'Documentation site';
+    // Check if CHANGELOG.md exists in the project root
+    final hasChangelog = File(p.join(directory, 'CHANGELOG.md')).existsSync();
     // Check if the package exists on pub.dev
     print('Checking pub.dev for package...');
     final pubDevUrl = await _resolvePubDevUrl(pubspecInfo['name']);
@@ -53,8 +55,16 @@ class ProjectGenerator {
     // Generate wrapper components (header, footer, sidebar)
     await _generateComponents(websiteDir, title);
 
+    // Generate changelog page if CHANGELOG.md exists in the parent project
+    if (hasChangelog) {
+      await _generateChangelogPage(websiteDir);
+    }
+
     // Generate config.dart
-    await _generateConfig(websiteDir, title, description, template, pubDevUrl);
+    await _generateConfig(
+      websiteDir, title, description, template, pubDevUrl,
+      hasChangelog: hasChangelog,
+    );
 
     // Generate icons.dart
     await _generateIcons(websiteDir);
@@ -370,8 +380,13 @@ class Sidebar extends StatelessComponent {
     String title,
     String description,
     InitTemplate template,
-    String pubDevUrl,
-  ) async {
+    String pubDevUrl, {
+    bool hasChangelog = false,
+  }) async {
+    final changelogLink = hasChangelog
+        ? "      .path('/changelog', label: Labels.changelog),\n"
+        : '';
+
     final configContent =
         "import 'package:docudart/docudart.dart';\n"
         "import 'assets/assets.dart';\n"
@@ -405,6 +420,7 @@ class Sidebar extends StatelessComponent {
         '    ),\n'
         '    links: [\n'
         "      .path('/docs', label: Labels.docs, leading: Icons.docs),\n"
+        '$changelogLink'
         "      ?project.pubspec.repository.let(\n"
         "        (repository) => .url(\n"
         "          repository.link,\n"
@@ -578,6 +594,7 @@ abstract class Labels {
   // --- Developer / Ecosystem ---
 
   static const pubDev = 'pub.dev';
+  static const changelog = 'Changelog';
   static const docs = 'Docs';
   static const topics = 'Topics';
 }
@@ -617,6 +634,23 @@ class LandingPage extends StatelessComponent {
     await File(
       p.join(websiteDir, 'pages', 'landing_page.dart'),
     ).writeAsString(landingContent);
+  }
+
+  Future<void> _generateChangelogPage(String websiteDir) async {
+    await File(
+      p.join(websiteDir, 'pages', 'changelog_page.dart'),
+    ).writeAsString('''
+import 'package:docudart/docudart.dart';
+
+class ChangelogPage extends StatelessComponent {
+  const ChangelogPage({super.key});
+
+  @override
+  Component build(BuildContext context) {
+    return .text('CHANGELOG');
+  }
+}
+''');
   }
 
   Future<void> _generateDocs(

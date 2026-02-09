@@ -26,6 +26,7 @@ abstract class Labels {
   // --- Developer / Ecosystem ---
 
   static const pubDev = 'pub.dev';
+  static const changelog = 'Changelog';
   static const docs = 'Docs';
   static const topics = 'Topics';
 }
