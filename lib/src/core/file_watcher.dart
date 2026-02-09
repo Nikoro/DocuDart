@@ -104,6 +104,13 @@ class DocuDartFileWatcher {
       return;
     }
 
+    // Skip auto-generated assets.dart to avoid infinite rebuild loops
+    // (it lives inside the watched assets/ dir and is regenerated on each build)
+    if (p.basename(event.path) == 'assets.dart' &&
+        p.isWithin(config.assetsDir, event.path)) {
+      return;
+    }
+
     // Debounce rapid changes
     _debounceTimer?.cancel();
     _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
