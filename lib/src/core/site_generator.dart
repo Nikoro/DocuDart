@@ -461,10 +461,53 @@ ClientOptions get defaultClientOptions => ClientOptions();
     ).writeAsString(clientOptions);
   }
 
+  /// Discover page components from the pages/ directory.
+  ///
+  /// Scans each .dart file for a class extending StatelessComponent or
+  /// StatefulComponent, extracts the class name, and derives a URL path
+  /// from the filename (e.g., `changelog_page.dart` → `/changelog`).
+  Future<List<_DiscoveredPage>> _discoverPages() async {
+    final pagesDir = Directory(p.join(websiteDir, 'pages'));
+    if (!pagesDir.existsSync()) return [];
+
+    final discovered = <_DiscoveredPage>[];
+    final classPattern = RegExp(
+      r'class\s+(\w+)\s+extends\s+(?:Stateless|Stateful)Component',
+    );
+
+    await for (final entity in pagesDir.list()) {
+      if (entity is! File || !entity.path.endsWith('.dart')) continue;
+
+      final filename = p.basenameWithoutExtension(entity.path);
+      final content = await entity.readAsString();
+      final match = classPattern.firstMatch(content);
+      if (match == null) continue;
+
+      final className = match.group(1)!;
+      // Derive route path: strip _page suffix, replace underscores with hyphens
+      var routePath = filename;
+      if (routePath.endsWith('_page')) {
+        routePath = routePath.substring(0, routePath.length - '_page'.length);
+      }
+      routePath = routePath.replaceAll('_', '-');
+
+      discovered.add(_DiscoveredPage(
+        className: className,
+        filePath: 'pages/$filename.dart',
+        routePath: '/$routePath',
+      ));
+    }
+
+    return discovered;
+  }
+
   Future<void> _generateApp(
     List<DocPage> pages,
     VersionManager versionManager,
   ) async {
+    // Discover custom pages from pages/ directory
+    final discoveredPages = await _discoverPages();
+
     // Generate routes for all pages
     final routesBuffer = StringBuffer();
 
@@ -501,6 +544,24 @@ ClientOptions get defaultClientOptions => ClientOptions();
         ),''');
     }
 
+    // Generate routes for discovered custom pages
+    for (final page in discoveredPages) {
+      routesBuffer.writeln('''
+        Route(
+          path: '${page.routePath}',
+          builder: (context, state) => Layout(
+            showSidebar: false,
+            child: const ${page.className}(),
+          ),
+        ),''');
+    }
+
+    // Generate imports for discovered pages
+    final pageImports = StringBuffer();
+    for (final page in discoveredPages) {
+      pageImports.writeln("import '${page.filePath}';");
+    }
+
     final app =
         '''
 import 'package:jaspr/jaspr.dart';
@@ -511,7 +572,7 @@ import 'config.dart';
 import 'project_data.dart';
 import 'layout.dart';
 import 'docs_page_content.dart';
-
+${pageImports.toString()}
 class DocuDartApp extends StatelessComponent {
   const DocuDartApp({super.key});
 
@@ -1931,4 +1992,22 @@ class VersionSwitcher extends StatelessComponent {
       p.join(componentsDir, 'version_switcher.dart'),
     ).writeAsString(versionSwitcher);
   }
+}
+
+/// A page component discovered from the pages/ directory.
+class _DiscoveredPage {
+  const _DiscoveredPage({
+    required this.className,
+    required this.filePath,
+    required this.routePath,
+  });
+
+  /// The Dart class name (e.g., `ChangelogPage`).
+  final String className;
+
+  /// Relative file path from website root (e.g., `pages/changelog_page.dart`).
+  final String filePath;
+
+  /// URL route path (e.g., `/changelog`).
+  final String routePath;
 }

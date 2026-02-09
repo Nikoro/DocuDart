@@ -304,6 +304,7 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - Adds `docudart` as path dependency in managed project's pubspec
 - Copies `config.dart`, `components/`, `pages/`, root-level `.dart` files (e.g. `icons.dart`), and `assets/assets.dart` into managed project's `lib/`
 - Home route uses `configure(project).home?.call()` with pattern matching (`case final homeComponent?`): if non-null, renders the home component; otherwise redirects `/` to `/docs`
+- **Page auto-discovery**: `_discoverPages()` scans `pages/` for `.dart` files, extracts class names via regex (`class X extends Stateless/StatefulComponent`), derives route paths from filenames (`changelog_page.dart` → `/changelog`). `_generateApp()` imports each discovered page and generates a `Route` wrapping it in `Layout(showSidebar: false)`. No manual `customPages` registration needed — just add a file to `pages/` and link to it.
 - Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml (repository field uses `Repository('...')` constructor)
 - Generates `project_data.dart` with Project containing pubspec + auto-generated sidebar items
 - Generates `layout.dart` that calls `configure(project)` then `config.header?.call()` etc.
@@ -402,7 +403,8 @@ The managed Jaspr site is generated in `SiteGenerator`:
 - `_generatePubspecData()` - lib/pubspec_data.dart (const Pubspec from parent pubspec.yaml)
 - `_generateProjectData()` - lib/project_data.dart (Project with pubspec + sidebar items)
 - `_generateLayout()` - lib/layout.dart (calls configure(project) then config.header/footer/sidebar)
-- `_generateApp()` - lib/app.dart with Router (home route uses configure(project).home at runtime)
+- `_discoverPages()` - scans pages/ directory, extracts class names and derives route paths from filenames
+- `_generateApp()` - lib/app.dart with Router (home + doc + auto-discovered custom page routes)
 - `_generatePages()` - lib/pages/ directory (user pages copied by _copyUserFiles)
 - `_generateDocsPageContent()` - lib/docs_page_content.dart
 - `_generateStyles()` - web/styles.css (includes collapsible sidebar CSS with chevron + transitions)

@@ -20,8 +20,8 @@ website/
   docs/              # Markdown documentation files
   pages/             # Custom page components (Dart/Jaspr)
   components/        # Layout components (header, footer, sidebar)
-    header.dart      # Header component wrapping DefaultHeader
-    footer.dart      # Footer component wrapping DefaultFooter
+    header.dart      # Header component
+    footer.dart      # Footer component
     sidebar.dart     # Sidebar component wrapping DefaultSidebar
   assets/            # Static files (images, fonts, etc.)
   themes/            # Custom theme implementations
@@ -92,7 +92,7 @@ Config configure(Project project) => Config(
 
   // Layout components (set to null to hide)
   header: () => Header(leading: Logo(title: project.pubspec.name)),
-  footer: () => Footer(text: project.pubspec.name),
+  footer: () => Footer(center: Copyright(text: project.pubspec.name)),
   sidebar: () => Sidebar(items: project.docs),
 );
 ```

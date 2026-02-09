@@ -3,8 +3,6 @@ import 'package:docudart/docudart.dart';
 /// Site footer component.
 ///
 /// Customize this component to change the footer layout.
-/// The [DefaultFooter] provides a simple centered text footer
-/// with optional leading/trailing slots.
 class Footer extends StatelessComponent {
   const Footer({this.leading, this.center, this.trailing, super.key});
 

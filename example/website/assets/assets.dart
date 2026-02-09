@@ -6,12 +6,10 @@ class _AssetsFavicon {
   const _AssetsFavicon();
 
   /// `/assets/favicon/android-chrome-192x192.png`
-  final String android_chrome_192x192_png =
-      '/assets/favicon/android-chrome-192x192.png';
+  final String android_chrome_192x192_png = '/assets/favicon/android-chrome-192x192.png';
 
   /// `/assets/favicon/android-chrome-512x512.png`
-  final String android_chrome_512x512_png =
-      '/assets/favicon/android-chrome-512x512.png';
+  final String android_chrome_512x512_png = '/assets/favicon/android-chrome-512x512.png';
 
   /// `/assets/favicon/apple-touch-icon.png`
   final String apple_touch_icon_png = '/assets/favicon/apple-touch-icon.png';
@@ -47,3 +45,4 @@ abstract class Assets {
 
   static const logo = _AssetsLogo();
 }
+
