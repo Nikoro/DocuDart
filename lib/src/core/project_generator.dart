@@ -68,6 +68,9 @@ class ProjectGenerator {
     // Generate default favicon files
     await _generateFavicons(websiteDir);
 
+    // Generate default logo
+    await _generateLogo(websiteDir);
+
     // Generate README.md
     await _generateReadme(websiteDir, title);
 
@@ -101,6 +104,7 @@ class ProjectGenerator {
     print('      footer.dart');
     print('      sidebar.dart');
     print('    assets/');
+    print('      logo/');
     print('      favicon/');
     print('    themes/');
   }
@@ -201,6 +205,24 @@ class ProjectGenerator {
     if (!sourceDir.existsSync()) return;
 
     final targetDir = Directory(p.join(websiteDir, 'assets', 'favicon'));
+    await targetDir.create(recursive: true);
+
+    await for (final entity in sourceDir.list()) {
+      if (entity is File) {
+        final targetPath = p.join(targetDir.path, p.basename(entity.path));
+        await entity.copy(targetPath);
+      }
+    }
+  }
+
+  Future<void> _generateLogo(String websiteDir) async {
+    final docudartRoot = await PackageResolver.resolveDocudartPath();
+    final sourceDir = Directory(
+      p.join(docudartRoot, 'lib', 'src', 'assets', 'logo'),
+    );
+    if (!sourceDir.existsSync()) return;
+
+    final targetDir = Directory(p.join(websiteDir, 'assets', 'logo'));
     await targetDir.create(recursive: true);
 
     await for (final entity in sourceDir.list()) {
@@ -361,7 +383,10 @@ class Sidebar extends StatelessComponent {
         '  // Header, footer, and sidebar are components.\n'
         '  // Set to null to hide any section.\n'
         '  header: () => Header(\n'
-        '    leading: Logo(title: project.pubspec.name),\n'
+        "    leading: Logo(\n"
+        "      image: img(src: '/assets/logo/logo.webp', alt: 'Logo'),\n"
+        '      title: project.pubspec.name,\n'
+        '    ),\n'
         '    navLinks: [\n'
         "      .path('/docs', label: Labels.docs, leading: Icons.docs),\n"
         "      ?project.pubspec.repository.let(\n"

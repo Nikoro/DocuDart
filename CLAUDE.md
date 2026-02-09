@@ -50,6 +50,9 @@ docudart/
 ├── lib/
 │   ├── docudart.dart                    # Library exports (re-exports jaspr)
 │   └── src/
+│       ├── assets/                      # Bundled assets copied during init
+│       │   ├── favicon/                 # Default favicon files
+│       │   └── logo/logo.webp           # Default logo (128x128 WebP)
 │       ├── cli/                         # CLI commands
 │       │   ├── cli_runner.dart          # CommandRunner
 │       │   ├── errors.dart              # DocuDartException, CliPrinter
@@ -158,6 +161,7 @@ user-project/
       footer.dart        # Footer component wrapping DefaultFooter
       sidebar.dart       # Sidebar component wrapping DefaultSidebar
     assets/              # Static assets
+      logo/              # Default logo (WebP)
     themes/              # Custom theme implementations
 ```
 
@@ -240,8 +244,8 @@ repo.icon   // Component (SVG icon for GitHub)
 Clickable logo component with optional image and/or title.
 ```dart
 Logo(title: 'My Project')
-Logo(image: img(src: '/assets/logo.png', alt: 'Logo'), title: 'My Project')
-Logo(image: img(src: '/assets/logo.svg', alt: 'Logo'), href: '/home')
+Logo(image: img(src: '/assets/logo/logo.webp', alt: 'Logo'), title: 'My Project')
+Logo(image: img(src: '/assets/logo/logo.svg', alt: 'Logo'), href: '/home')
 ```
 - `image` (`Component?`) — image component (e.g., `img(src: ...)`)
 - `title` (`String?`) — text title
@@ -265,6 +269,8 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - `InitTemplate.full` - All features with examples, including sidebar subfolder showcase
 - Uses `PackageResolver` to compute path dependency to docudart
 - Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart); Header takes optional `leading` (typically `Logo`) + `navLinks` + `trailing`
+- Generates default logo asset (`logo.webp`) in `assets/logo/` via `_generateLogo()` — same copy pattern as favicons
+- Generated config.dart `Logo(...)` includes `image: img(src: '/assets/logo/logo.webp', alt: 'Logo')` alongside the title
 - Generates `icons.dart` at website root with default SVG icons (github, pubDev, docs, discord, youtube, etc.)
 - Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, Labels.topics, etc.)
 - **Smart pub.dev URL**: `_resolvePubDevUrl()` makes a HEAD request to `https://pub.dev/packages/{name}` at init time; if 200, uses specific package URL, else falls back to generic `https://pub.dev` (5s timeout, graceful fallback on errors)
@@ -330,6 +336,7 @@ Flutter docs style theme with:
    - Checks pub.dev for package existence (HEAD request with 5s timeout)
    - Resolves lint dependency (`lints`/`flutter_lints`) from parent's pubspec.yaml
    - Generates config.dart with smart pub.dev URL and runtime repository detection
+   - Copies default logo (`logo.webp`) and favicon assets into `website/assets/`
 4. Runs `dart pub get` in `website/`
 5. Runs `dart format .` in `website/`
 
