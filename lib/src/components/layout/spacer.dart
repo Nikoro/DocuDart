@@ -1,5 +1,4 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart';
+import 'package:docudart/docudart.dart';
 
 /// A component that occupies flexible empty space in a [Row] or [Column].
 ///

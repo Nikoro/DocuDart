@@ -1,6 +1,4 @@
-import 'package:jaspr/jaspr.dart';
-
-import 'flexible.dart';
+import 'package:docudart/docudart.dart';
 
 /// A component that forces its child to fill the available space
 /// along the main axis of a [Row] or [Column].

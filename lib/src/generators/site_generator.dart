@@ -353,33 +353,24 @@ import 'package:jaspr/jaspr.dart';
 import 'package:docudart/docudart.dart';
 import 'config.dart';
 
-class SiteLayout extends StatelessComponent {
-  final Component child;
-  final bool showSidebar;
+class LayoutDelegate extends StatelessComponent {
+  const LayoutDelegate({required this.child, super.key});
 
-  const SiteLayout({
-    required this.child,
-    this.showSidebar = true,
-    super.key,
-  });
+  final Component child;
 
   @override
   Component build(BuildContext context) {
     final config = configure(context);
     final headerComponent = config.header?.call();
-    final sidebarComponent = showSidebar ? config.sidebar?.call() : null;
+    final sidebarComponent = config.sidebar?.call();
     final footerComponent = config.footer?.call();
 
-    if (config.layoutBuilder case final layoutBuilder?) {
-      return layoutBuilder(
-        header: headerComponent,
-        footer: footerComponent,
-        sidebar: sidebarComponent,
-        body: child,
-      );
-    }
-
-    return Layout(
+    return config.layoutBuilder.let((builder) => builder(
+      header: headerComponent,
+      sidebar: sidebarComponent,
+      body: child,
+      footer: footerComponent,
+    )) ?? Layout(
       header: headerComponent,
       sidebar: sidebarComponent,
       body: child,
@@ -521,8 +512,7 @@ ClientOptions get defaultClientOptions => ClientOptions();
         if (configure(context).home?.call() case final homeComponent?)
           Route(
             path: '/',
-            builder: (context, state) => SiteLayout(
-              showSidebar: false,
+            builder: (context, state) => LayoutDelegate(
               child: homeComponent,
             ),
           )
@@ -540,7 +530,7 @@ ClientOptions get defaultClientOptions => ClientOptions();
       routesBuffer.writeln('''
         Route(
           path: '${page.urlPath}',
-          builder: (context, state) => const SiteLayout(
+          builder: (context, state) => const LayoutDelegate(
             child: DocsPageContent(
               title: '$escapedTitle',
               htmlContent: \'\'\'$escapedHtml\'\'\',
@@ -554,8 +544,7 @@ ClientOptions get defaultClientOptions => ClientOptions();
       routesBuffer.writeln('''
         Route(
           path: '${page.routePath}',
-          builder: (context, state) => SiteLayout(
-            showSidebar: false,
+          builder: (context, state) => LayoutDelegate(
             child: const ${page.className}(),
           ),
         ),''');
@@ -751,21 +740,6 @@ body {
   flex: 1 0 0px;
 }
 
-/* Layout */
-.layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.site-body {
-  display: flex;
-  flex: 1;
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
-}
-
 /* Header */
 header {
   position: sticky;
@@ -952,18 +926,6 @@ header a:not(.logo).active {
 .sidebar-link.active {
   background-color: var(--color-primary);
   color: white;
-}
-
-/* No sidebar layout (landing page) */
-.site-body.no-sidebar {
-  max-width: 100%;
-  justify-content: center;
-  align-items: center;
-}
-
-.site-body.no-sidebar .site-main {
-  max-width: 100%;
-  padding: 0;
 }
 
 /* Main */

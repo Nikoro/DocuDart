@@ -121,7 +121,8 @@ docudart/
 │       │       └── project_provider.dart # ProjectProvider (InheritedComponent + context.project)
 │       └── extensions/                  # Dart extensions (re-exported to users)
 │           ├── extensions.dart          # Barrel file
-│           └── object_extensions.dart   # .let() extension on T?
+│           ├── object_extensions.dart   # .let() extension on T?
+│           └── component_extensions.dart # .apply() extension on Component
 ├── example/                             # Example DocuDart project
 │   ├── pubspec.yaml                     # Example Dart project
 │   ├── lib/                             # Example project code
@@ -207,7 +208,7 @@ Config(
 - Home, header, footer, sidebar are nullable zero-arg function fields returning `Component?`
 - `layoutBuilder` (`LayoutBuilder?`): optional function receiving 4 named `Component?` params (header, footer, sidebar, body) and returning a `Component`; when null, the library `Layout` component is used
 - **Double nullability**: both the function itself and its return value can be null — if the function is null or returns null, the section is not rendered
-- When `home` is set, `/` renders the home component (no sidebar); when null, `/` redirects to `/docs`
+- When `home` is set, `/` renders the home component; when null, `/` redirects to `/docs`
 - Context (pubspec, docs, pages) is available via `context.project` in `configure()` — accessed through closures in function fields
 - `toJson()` skips function fields; `fromJson()` sets them to null
 - Not `const` (functions prevent const constructors)
@@ -222,7 +223,9 @@ Config configure(BuildContext context) => Config(
   home: () => context.project.pubspec.let(
     (pubspec) => LandingPage(title: pubspec.name, description: pubspec.description),
   ),
-  sidebar: () => Sidebar(items: context.project.docs),
+  sidebar: () => context.url.contains('/docs')
+      ? Sidebar(items: context.project.docs)
+      : null,
 );
 ```
 - `.let()` extension (Kotlin-style) on `T?` — enables null-safe scoping: `value.let((it) => transform(it))` returns null if value is null
@@ -314,10 +317,12 @@ Layout(header: myHeader, sidebar: mySidebar, body: content, footer: myFooter)
 ```
 - All 4 params are optional `Component?` — omitted sections are not rendered
 - `const`-constructible
-- Renders: `.layout > [header?, .site-body(.no-sidebar?) > [sidebar?, .site-main[role=main] > [body?]], footer?]`
-- Sidebar presence controls `.no-sidebar` CSS class on `.site-body`
-- Generated `SiteLayout` in `layout.dart` delegates to this component (or to `config.layoutBuilder` if set)
-- **Naming**: Generated class is `SiteLayout` (not `Layout`) to avoid collision with this library export
+- Uses `Column > [header?, Expanded(Row > [sidebar?, body?.apply(classes: 'site-main', ...)]), footer?]` with inline styles
+- No `.layout`/`.site-body`/`.no-sidebar` CSS classes — layout handled via inline `Styles` (`minHeight: 100.vh`, `maxWidth`, `margin`)
+- Sidebar presence controls inline styles: with sidebar → `maxWidth: 1400.px`, alignment `.start`; without → `maxWidth: 100.percent`, alignment `.center`, body padding zeroed
+- `.site-main` CSS class kept on body for responsive media query override (`padding: 1.5rem` at `max-width: 1024px`)
+- Generated `LayoutDelegate` in `layout.dart` delegates to this component (or to `config.layoutBuilder` if set)
+- **Naming**: Generated class is `LayoutDelegate` (not `Layout`) to avoid collision with this library export
 
 ### LayoutBuilder (lib/src/config/setup.dart)
 ```dart
@@ -358,11 +363,11 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - Adds `docudart` as path dependency in managed project's pubspec
 - Copies `config.dart`, `components/`, `pages/`, root-level `.dart` files (e.g. `icons.dart`), and `assets/assets.dart` into managed project's `lib/`
 - Home route uses `configure(context).home?.call()` with pattern matching (`case final homeComponent?`): if non-null, renders the home component; otherwise redirects `/` to `/docs`
-- **Page auto-discovery**: `_discoverPages()` scans `pages/` for `.dart` files, extracts class names via regex (`class X extends Stateless/StatefulComponent`), derives route paths from filenames (`changelog_page.dart` → `/changelog`). `_generateApp()` imports each discovered page and generates a `Route` wrapping it in `SiteLayout(showSidebar: false)`. No manual `customPages` registration needed — just add a file to `pages/` and link to it.
+- **Page auto-discovery**: `_discoverPages()` scans `pages/` for `.dart` files, extracts class names via regex (`class X extends Stateless/StatefulComponent`), derives route paths from filenames (`changelog_page.dart` → `/changelog`). `_generateApp()` imports each discovered page and generates a `Route` wrapping it in `LayoutDelegate`. No manual `customPages` registration needed — just add a file to `pages/` and link to it.
 - **ProjectProvider**: Generated `app.dart` wraps `Router` with `ProjectProvider(project: project, child: Builder(builder: (context) => Router(...)))` — `Builder` provides a `BuildContext` with `ProjectProvider` as ancestor, making `context.project` available to `configure(context)` and all descendant components
 - Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml (repository field uses `Repository('...')` constructor, environment uses `Environment(sdk:, flutter:)` constructor)
 - Generates `project_data.dart` with Project containing pubspec + auto-generated sidebar items + changelog content
-- Generates `layout.dart` with `SiteLayout` class that calls `configure(context)`, resolves header/footer/sidebar from config functions, then delegates to `config.layoutBuilder` (if set) or the library `Layout` component
+- Generates `layout.dart` with `LayoutDelegate` class that calls `configure(context)`, resolves header/footer/sidebar from config functions, then delegates to `config.layoutBuilder` (if set) or the library `Layout` component
 - Injects `config.themeMode` into generated `theme.js` as `forcedMode` (overrides localStorage when set to light/dark)
 - If a layout function is null, that section is simply not rendered
 
@@ -422,7 +427,7 @@ Flutter docs style theme with:
    - Generates `assets/assets.dart` (type-safe asset paths) in website dir
    - Copies config.dart, root `.dart` files, components/, pages/, `assets/assets.dart` into managed project
    - Generates pubspec_data.dart + project_data.dart with Project/Pubspec data
-   - Generates layout.dart with SiteLayout that calls `configure(context)`, resolves sections, delegates to `config.layoutBuilder` or library `Layout`
+   - Generates layout.dart with LayoutDelegate that calls `configure(context)`, resolves sections, delegates to `config.layoutBuilder` or library `Layout`
 5. Runs `dart run jaspr build` in `website/.dart_tool/docudart/`
 6. Copies output to `website/build/web/` (or `--output` flag)
 
@@ -458,7 +463,7 @@ The managed Jaspr site is generated in `SiteGenerator`:
 - `_copyUserFiles()` - copies config.dart, root `.dart` files, components/, pages/, and `assets/assets.dart` into lib/
 - `_generatePubspecData()` - lib/pubspec_data.dart (const Pubspec from parent pubspec.yaml)
 - `_generateProjectData()` - lib/project_data.dart (Project with pubspec + sidebar items + changelog)
-- `_generateLayout()` - lib/layout.dart (SiteLayout: calls configure(context), resolves sections, delegates to config.layoutBuilder or library Layout)
+- `_generateLayout()` - lib/layout.dart (LayoutDelegate: calls configure(context), resolves sections, delegates to config.layoutBuilder or library Layout)
 - `_discoverPages()` - scans pages/ directory, extracts class names and derives route paths from filenames
 - `_generateApp()` - lib/app.dart with ProjectProvider wrapping Builder wrapping Router (home + doc + auto-discovered custom page routes)
 - `_generatePages()` - lib/pages/ directory (user pages copied by _copyUserFiles)

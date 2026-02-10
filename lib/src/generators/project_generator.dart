@@ -489,7 +489,9 @@ class Sidebar extends StatelessComponent {
         '      ),\n'
         '    );\n'
         '  }),\n'
-        '  sidebar: () => Sidebar(items: context.project.docs),\n'
+        "  sidebar: () => context.url.contains('/docs')\n"
+        '      ? Sidebar(items: context.project.docs)\n'
+        '      : null,\n'
         ');\n';
 
     await File(p.join(websiteDir, 'config.dart')).writeAsString(configContent);

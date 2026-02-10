@@ -1,7 +1,4 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart';
-
-import 'flex_enums.dart';
+import 'package:docudart/docudart.dart';
 
 /// A component that displays its children in a horizontal array.
 ///

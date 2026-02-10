@@ -1,5 +1,4 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart';
+import 'package:docudart/docudart.dart';
 
 /// The default page layout component for DocuDart.
 ///
@@ -7,8 +6,8 @@ import 'package:jaspr/dom.dart';
 /// DocuDart page structure. All parameters are optional — omitted sections
 /// are simply not rendered.
 ///
-/// When no [sidebar] is provided, the `.no-sidebar` class is added to
-/// `.site-body` so CSS can adjust the main content area.
+/// When no [sidebar] is provided, the body content expands to full width
+/// and is centered.
 class Layout extends StatelessComponent {
   const Layout({this.header, this.sidebar, this.body, this.footer, super.key});
 
@@ -26,13 +25,35 @@ class Layout extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(classes: 'layout', [
-      ?header,
-      div(classes: sidebar != null ? 'site-body' : 'site-body no-sidebar', [
-        ?sidebar,
-        div(classes: 'site-main', attributes: {'role': 'main'}, [?body]),
-      ]),
-      ?footer,
-    ]);
+    final hasSidebar = sidebar != null;
+
+    return Column(
+      children: [
+        ?header,
+        Expanded(
+          child:
+              Row(
+                mainAxisAlignment: hasSidebar ? .start : .center,
+                crossAxisAlignment: hasSidebar ? .start : .center,
+                children: [
+                  ?sidebar,
+                  ?body?.apply(
+                    classes: 'site-main',
+                    styles: hasSidebar
+                        ? null
+                        : Styles(maxWidth: 100.percent, padding: .zero),
+                    attributes: {'role': 'main'},
+                  ),
+                ],
+              ).apply(
+                styles: Styles(
+                  maxWidth: hasSidebar ? 1400.px : 100.percent,
+                  margin: .symmetric(horizontal: .auto),
+                ),
+              ),
+        ),
+        ?footer,
+      ],
+    ).apply(styles: Styles(minHeight: 100.vh));
   }
 }

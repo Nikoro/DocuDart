@@ -1,4 +1,4 @@
-import 'package:jaspr/dom.dart';
+import 'package:docudart/docudart.dart';
 
 /// How children are placed along the main axis of a [Row] or [Column].
 ///

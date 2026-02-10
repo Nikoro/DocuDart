@@ -76,5 +76,7 @@ Config configure(BuildContext context) => Config(
       ),
     );
   }),
-  sidebar: () => Sidebar(items: context.project.docs),
+  sidebar: () => context.url.contains('/docs')
+      ? Sidebar(items: context.project.docs)
+      : null,
 );
