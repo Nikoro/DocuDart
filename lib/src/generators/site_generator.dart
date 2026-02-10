@@ -350,15 +350,14 @@ jaspr:
   Future<void> _generateLayout() async {
     final layout = '''
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart';
 import 'package:docudart/docudart.dart';
 import 'config.dart';
 
-class Layout extends StatelessComponent {
+class SiteLayout extends StatelessComponent {
   final Component child;
   final bool showSidebar;
 
-  const Layout({
+  const SiteLayout({
     required this.child,
     this.showSidebar = true,
     super.key,
@@ -371,23 +370,20 @@ class Layout extends StatelessComponent {
     final sidebarComponent = showSidebar ? config.sidebar?.call() : null;
     final footerComponent = config.footer?.call();
 
-    return div(
-      classes: 'layout',
-      [
-        if (headerComponent != null) headerComponent,
-        div(
-          classes: sidebarComponent != null ? 'site-body' : 'site-body no-sidebar',
-          [
-            if (sidebarComponent != null) sidebarComponent,
-            div(
-              classes: 'site-main',
-              attributes: {'role': 'main'},
-              [child],
-            ),
-          ],
-        ),
-        if (footerComponent != null) footerComponent,
-      ],
+    if (config.layoutBuilder case final layoutBuilder?) {
+      return layoutBuilder(
+        header: headerComponent,
+        footer: footerComponent,
+        sidebar: sidebarComponent,
+        body: child,
+      );
+    }
+
+    return Layout(
+      header: headerComponent,
+      sidebar: sidebarComponent,
+      body: child,
+      footer: footerComponent,
     );
   }
 }
@@ -525,7 +521,7 @@ ClientOptions get defaultClientOptions => ClientOptions();
         if (configure(context).home?.call() case final homeComponent?)
           Route(
             path: '/',
-            builder: (context, state) => Layout(
+            builder: (context, state) => SiteLayout(
               showSidebar: false,
               child: homeComponent,
             ),
@@ -544,7 +540,7 @@ ClientOptions get defaultClientOptions => ClientOptions();
       routesBuffer.writeln('''
         Route(
           path: '${page.urlPath}',
-          builder: (context, state) => const Layout(
+          builder: (context, state) => const SiteLayout(
             child: DocsPageContent(
               title: '$escapedTitle',
               htmlContent: \'\'\'$escapedHtml\'\'\',
@@ -558,7 +554,7 @@ ClientOptions get defaultClientOptions => ClientOptions();
       routesBuffer.writeln('''
         Route(
           path: '${page.routePath}',
-          builder: (context, state) => Layout(
+          builder: (context, state) => SiteLayout(
             showSidebar: false,
             child: const ${page.className}(),
           ),

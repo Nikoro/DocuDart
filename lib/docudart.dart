@@ -51,6 +51,7 @@ export 'src/components/branding/socials.dart';
 export 'src/components/branding/topics.dart';
 
 // Components — Layout
+export 'src/components/layout/layout.dart';
 export 'src/components/layout/flex_enums.dart';
 export 'src/components/layout/row.dart';
 export 'src/components/layout/flexible.dart';

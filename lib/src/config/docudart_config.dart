@@ -16,6 +16,7 @@ class Config {
     this.footer,
     this.sidebar,
     this.home,
+    this.layoutBuilder,
   }) : theme = theme ?? const DefaultTheme();
 
   factory Config.fromJson(Map<String, dynamic> json) {
@@ -81,6 +82,12 @@ class Config {
   /// Home page builder function. If null, '/' redirects to '/docs'.
   final Component? Function()? home;
 
+  /// Custom layout builder function. If null, the default [Layout] is used.
+  ///
+  /// Receives the resolved header, footer, sidebar, and body components,
+  /// and returns a [Component] that arranges them.
+  final LayoutBuilder? layoutBuilder;
+
   Map<String, dynamic> toJson() => {
     if (title != null) 'title': title,
     if (description != null) 'description': description,
@@ -128,6 +135,7 @@ class Config {
     Component? Function()? footer,
     Component? Function()? sidebar,
     Component? Function()? home,
+    LayoutBuilder? layoutBuilder,
   }) {
     return Config(
       title: title ?? this.title,
@@ -143,6 +151,7 @@ class Config {
       footer: footer ?? this.footer,
       sidebar: sidebar ?? this.sidebar,
       home: home ?? this.home,
+      layoutBuilder: layoutBuilder ?? this.layoutBuilder,
     );
   }
 }
