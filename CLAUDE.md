@@ -114,7 +114,8 @@ docudart/
 │       │   │   ├── row.dart            # Row + Column components
 │       │   │   ├── flexible.dart       # Flexible component + FlexFit enum
 │       │   │   ├── expanded.dart       # Expanded component
-│       │   │   └── spacer.dart         # Spacer component
+│       │   │   ├── spacer.dart         # Spacer component
+│       │   │   └── sized_box.dart     # SizedBox component (fixed-size box / spacer)
 │       │   └── providers/              # Context/state providers
 │       │       └── project_provider.dart # ProjectProvider (InheritedComponent + context.project)
 │       └── extensions/                  # Dart extensions (re-exported to users)

@@ -3,3 +3,4 @@ include: package:lints/recommended.yaml
 linter:
   rules:
     - sort_constructors_first
+    - use_null_aware_elements

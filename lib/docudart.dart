@@ -56,6 +56,7 @@ export 'src/components/layout/row.dart';
 export 'src/components/layout/flexible.dart';
 export 'src/components/layout/expanded.dart';
 export 'src/components/layout/spacer.dart';
+export 'src/components/layout/sized_box.dart';
 
 // Components — Providers
 export 'src/components/providers/project_provider.dart';

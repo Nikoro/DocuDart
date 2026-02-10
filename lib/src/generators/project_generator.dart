@@ -119,11 +119,14 @@ class ProjectGenerator {
     print('    README.md');
     print('    docs/');
     print('    pages/');
+    print('      landing_page.dart');
     print('    components/');
     print('      header.dart');
     print('      footer.dart');
+    print('      button.dart');
     print('      sidebar.dart');
     print('    assets/');
+    print('      assets.dart');
     print('      logo/');
     print('      favicon/');
     print('    themes/');
