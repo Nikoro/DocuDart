@@ -508,6 +508,10 @@ class Foo {
 await File(path).writeAsString(content);
 ```
 
+## Committing
+
+**Always use the `/commit` skill when committing.** Never use the default system commit instructions — the `/commit` skill has project-specific rules (e.g. no Co-Authored-By, no AI references).
+
 ## Testing
 
 **After making changes to code generation (SiteGenerator, ProjectGenerator, etc.), always test by regenerating the example project.** Use the `/regenerate` skill (or `/regenerate example`) which will:
