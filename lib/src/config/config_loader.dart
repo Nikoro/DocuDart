@@ -5,8 +5,8 @@ import 'package:yaml/yaml.dart';
 
 import 'config_evaluator.dart';
 import 'docudart_config.dart';
-import 'pubspec.dart';
-import 'repository.dart';
+import '../models/pubspec.dart';
+import '../models/repository.dart';
 import '../theme/base_theme.dart';
 import '../theme/default_theme.dart';
 import '../theme/theme_loader.dart';
@@ -60,7 +60,10 @@ class ConfigLoader {
       return _parsePubspecFile(websitePubspec.path);
     }
 
-    return const Pubspec(name: 'unknown', environment: Environment(sdk: 'any'));
+    return const Pubspec(
+      name: 'unknown',
+      environment: Environment(sdk: 'any'),
+    );
   }
 
   static Future<Pubspec> _parsePubspecFile(String path) async {
@@ -80,17 +83,22 @@ class ConfigLoader {
         issueTracker: yaml['issue_tracker'] as String?,
         documentation: yaml['documentation'] as String?,
         publishTo: yaml['publish_to'] as String?,
-        funding:
-            (yaml['funding'] as YamlList?)?.map((e) => e.toString()).toList(),
-        topics:
-            (yaml['topics'] as YamlList?)?.map((e) => e.toString()).toList(),
+        funding: (yaml['funding'] as YamlList?)
+            ?.map((e) => e.toString())
+            .toList(),
+        topics: (yaml['topics'] as YamlList?)
+            ?.map((e) => e.toString())
+            .toList(),
         environment: Environment(
           sdk: env?['sdk']?.toString() ?? 'any',
           flutter: env?['flutter']?.toString(),
         ),
       );
     } catch (_) {
-      return const Pubspec(name: 'unknown', environment: Environment(sdk: 'any'));
+      return const Pubspec(
+        name: 'unknown',
+        environment: Environment(sdk: 'any'),
+      );
     }
   }
 

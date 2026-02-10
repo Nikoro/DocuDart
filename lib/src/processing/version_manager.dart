@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
-import '../config/versioning_config.dart';
+import '../models/versioning_config.dart';
 import '../config/docudart_config.dart';
 import 'content_processor.dart';
 

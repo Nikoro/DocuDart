@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:path/path.dart' as p;
 
-import '../../core/project_generator.dart';
+import '../../generators/project_generator.dart';
 import '../errors.dart';
 
 /// Command to initialize a new DocuDart project.

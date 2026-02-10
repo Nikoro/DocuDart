@@ -1,4 +1,4 @@
-import '../core/content_processor.dart';
+import '../processing/content_processor.dart';
 
 /// Generated sidebar item for rendering.
 class GeneratedSidebarItem {

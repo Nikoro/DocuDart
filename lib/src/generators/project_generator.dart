@@ -4,8 +4,8 @@ import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
 import 'asset_path_generator.dart';
-import 'package_resolver.dart';
-import 'readme_parser.dart';
+import '../services/package_resolver.dart';
+import '../processing/readme_parser.dart';
 
 /// Template options for project initialization.
 enum InitTemplate {
@@ -62,7 +62,11 @@ class ProjectGenerator {
 
     // Generate config.dart
     await _generateConfig(
-      websiteDir, title, description, template, pubDevUrl,
+      websiteDir,
+      title,
+      description,
+      template,
+      pubDevUrl,
       hasChangelog: hasChangelog,
     );
 

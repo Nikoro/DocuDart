@@ -4,7 +4,7 @@ import 'package:path/path.dart' as p;
 
 import 'docudart_config.dart';
 import '../theme/default_theme.dart';
-import 'theme_config.dart';
+import '../models/theme_mode.dart';
 
 /// Parses serializable fields from config.dart by reading it as text.
 ///

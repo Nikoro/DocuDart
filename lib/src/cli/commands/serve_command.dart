@@ -4,9 +4,9 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:path/path.dart' as p;
 
-import '../../core/site_generator.dart';
-import '../../core/file_watcher.dart';
-import '../../core/workspace_resolver.dart';
+import '../../generators/site_generator.dart';
+import '../../services/file_watcher.dart';
+import '../../services/workspace_resolver.dart';
 import '../../config/config_loader.dart';
 import '../errors.dart';
 
@@ -84,7 +84,9 @@ class ServeCommand extends Command<int> {
           onRegenerate: () async {
             final newConfig = await ConfigLoader.load(websiteDir);
             final newPubspec = await ConfigLoader.loadParentPubspec(websiteDir);
-            final newChangelog = await ConfigLoader.loadParentChangelog(websiteDir);
+            final newChangelog = await ConfigLoader.loadParentChangelog(
+              websiteDir,
+            );
             final newGenerator = SiteGenerator(
               newConfig,
               websiteDir: websiteDir,

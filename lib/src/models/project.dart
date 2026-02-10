@@ -1,4 +1,4 @@
-import '../routing/sidebar_generator.dart';
+import '../generators/sidebar_generator.dart';
 import 'custom_page.dart';
 import 'pubspec.dart';
 

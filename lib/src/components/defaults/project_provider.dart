@@ -1,6 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../config/project.dart';
+import '../../models/project.dart';
 
 /// Provides [Project] data to descendant components via the component tree.
 ///
@@ -46,8 +46,7 @@ extension ProjectContext on BuildContext {
   /// Throws an assertion error in debug mode if no [ProjectProvider]
   /// is found in the ancestor tree.
   Project get project {
-    final provider =
-        dependOnInheritedComponentOfExactType<ProjectProvider>();
+    final provider = dependOnInheritedComponentOfExactType<ProjectProvider>();
     assert(provider != null, 'No ProjectProvider found in ancestor tree');
     return provider!.project;
   }

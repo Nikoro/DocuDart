@@ -3,15 +3,16 @@ library;
 
 // Configuration
 export 'src/config/docudart_config.dart';
-export 'src/config/link.dart';
 export 'src/config/setup.dart';
-export 'src/config/project.dart';
-export 'src/config/pubspec.dart';
-export 'src/config/repository.dart';
-export 'src/config/theme_config.dart';
-export 'src/config/versioning_config.dart';
-export 'src/config/custom_page.dart';
 export 'src/config/config_loader.dart';
+
+// Models
+export 'src/models/project.dart';
+export 'src/models/pubspec.dart';
+export 'src/models/repository.dart';
+export 'src/models/custom_page.dart';
+export 'src/models/theme_mode.dart';
+export 'src/models/versioning_config.dart';
 
 // Theme
 export 'src/theme/base_theme.dart';
@@ -20,11 +21,13 @@ export 'src/theme/theme_colors.dart';
 export 'src/theme/theme_typography.dart';
 export 'src/theme/theme_loader.dart';
 
-// Core
-export 'src/core/content_processor.dart';
-export 'src/core/site_generator.dart';
-export 'src/core/version_manager.dart';
-export 'src/core/readme_parser.dart';
+// Processing
+export 'src/processing/content_processor.dart';
+export 'src/processing/version_manager.dart';
+export 'src/processing/readme_parser.dart';
+
+// Generators
+export 'src/generators/site_generator.dart';
 
 // Markdown
 export 'src/markdown/markdown_processor.dart';
@@ -32,6 +35,7 @@ export 'src/markdown/frontmatter_handler.dart';
 export 'src/markdown/component_parser.dart';
 
 // Components
+export 'src/components/link.dart';
 export 'src/components/component_registry.dart';
 export 'src/components/defaults/logo.dart';
 export 'src/components/defaults/built_with_docudart.dart';
@@ -54,7 +58,7 @@ export 'src/components/layout/spacer.dart';
 export 'src/extensions/extensions.dart';
 
 // Routing
-export 'src/routing/sidebar_generator.dart';
+export 'src/generators/sidebar_generator.dart';
 
 // Re-export Jaspr so user pages can use Jaspr APIs via docudart
 export 'package:jaspr/jaspr.dart';

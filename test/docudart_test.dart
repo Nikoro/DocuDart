@@ -230,7 +230,10 @@ void main() {
   group('Project', () {
     test('creates with required fields', () {
       const project = Project(
-        pubspec: Pubspec(name: 'test', environment: Environment(sdk: 'any')),
+        pubspec: Pubspec(
+          name: 'test',
+          environment: Environment(sdk: 'any'),
+        ),
         docs: [],
         pages: [],
       );
@@ -246,7 +249,10 @@ void main() {
       Config configure(Project project) => Config(title: project.pubspec.name);
 
       const project = Project(
-        pubspec: Pubspec(name: 'test_project', environment: Environment(sdk: 'any')),
+        pubspec: Pubspec(
+          name: 'test_project',
+          environment: Environment(sdk: 'any'),
+        ),
         docs: [],
         pages: [],
       );

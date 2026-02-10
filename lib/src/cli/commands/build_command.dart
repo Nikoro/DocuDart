@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:path/path.dart' as p;
 
-import '../../core/site_generator.dart';
-import '../../core/workspace_resolver.dart';
+import '../../generators/site_generator.dart';
+import '../../services/workspace_resolver.dart';
 import '../../config/config_loader.dart';
 import '../errors.dart';
 

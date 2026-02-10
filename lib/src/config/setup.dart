@@ -1,5 +1,5 @@
 import 'docudart_config.dart';
-import 'project.dart';
+import '../models/project.dart';
 
 /// Type alias for the configuration function that users define in config.dart.
 ///

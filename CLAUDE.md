@@ -60,26 +60,29 @@ docudart/
 │       │       ├── init_command.dart    # docudart init
 │       │       ├── build_command.dart   # docudart build
 │       │       └── serve_command.dart   # docudart serve
-│       ├── config/                      # Configuration classes
+│       ├── config/                      # Configuration (Config class + loading)
 │       │   ├── docudart_config.dart     # Config class (has toJson/fromJson)
 │       │   ├── config_loader.dart       # Load config (evaluates config.dart, falls back to YAML)
 │       │   ├── config_evaluator.dart    # Text-based parsing of config.dart
-│       │   ├── link.dart                # Link (path/url navigation with leading/trailing support)
-│       │   ├── repository.dart         # Repository (URL with auto-detected provider label/icon)
-│       │   ├── setup.dart              # ConfigureFunction typedef
+│       │   └── setup.dart              # ConfigureFunction typedef
+│       ├── models/                      # Data models + enums
+│       │   ├── pubspec.dart            # Pubspec + Environment models
 │       │   ├── project.dart            # Project (pubspec + docs + pages context object)
-│       │   ├── pubspec.dart            # Pubspec model (parsed from pubspec.yaml)
-│       │   ├── versioning_config.dart   # VersioningConfig
-│       │   ├── theme_config.dart        # ThemeMode enum (system, light, dark)
-│       │   └── custom_page.dart         # CustomPage
-│       ├── core/                        # Core functionality
-│       │   ├── asset_path_generator.dart # Generate type-safe asset paths
-│       │   ├── project_generator.dart   # Generate website/ project (init)
+│       │   ├── repository.dart         # Repository (URL with auto-detected provider label/icon)
+│       │   ├── custom_page.dart        # CustomPage DTO
+│       │   ├── theme_mode.dart         # ThemeMode enum (system, light, dark)
+│       │   └── versioning_config.dart  # VersioningConfig
+│       ├── generators/                  # Code generation
 │       │   ├── site_generator.dart      # Generate .dart_tool/docudart
+│       │   ├── project_generator.dart   # Generate website/ project (init)
+│       │   ├── asset_path_generator.dart # Generate type-safe asset paths
+│       │   └── sidebar_generator.dart   # Generate sidebar from folder structure
+│       ├── processing/                  # Content processing pipeline
 │       │   ├── content_processor.dart   # Process markdown files
-│       │   ├── version_manager.dart     # Handle versioned docs
-│       │   ├── file_watcher.dart        # Watch files for hot reload
 │       │   ├── readme_parser.dart       # Parse README.md into doc sections
+│       │   └── version_manager.dart     # Handle versioned docs
+│       ├── services/                    # Runtime services + resolvers
+│       │   ├── file_watcher.dart        # Watch files for hot reload
 │       │   ├── package_resolver.dart    # Resolve docudart package path
 │       │   └── workspace_resolver.dart  # Auto-detect website/ directory
 │       ├── markdown/                    # Markdown processing
@@ -93,6 +96,7 @@ docudart/
 │       │   ├── theme_typography.dart    # ThemeTypography
 │       │   └── theme_loader.dart        # Load custom themes
 │       ├── components/                  # Component system
+│       │   ├── link.dart               # Link (path/url navigation with leading/trailing support)
 │       │   ├── component_registry.dart  # Component registry
 │       │   ├── defaults/               # Default layout + composable components
 │       │   │   ├── logo.dart            # Logo component (clickable image + title)
@@ -115,11 +119,9 @@ docudart/
 │       │       ├── tabs.dart
 │       │       ├── code_block.dart
 │       │       └── version_switcher.dart
-│       ├── extensions/                  # Dart extensions (re-exported to users)
-│       │   ├── extensions.dart          # Barrel file
-│       │   └── object_extensions.dart   # .let() extension on T?
-│       └── routing/
-│           └── sidebar_generator.dart   # Generate sidebar from folder structure
+│       └── extensions/                  # Dart extensions (re-exported to users)
+│           ├── extensions.dart          # Barrel file
+│           └── object_extensions.dart   # .let() extension on T?
 ├── example/                             # Example DocuDart project
 │   ├── pubspec.yaml                     # Example Dart project
 │   ├── lib/                             # Example project code
@@ -206,7 +208,7 @@ Config(
 - `toJson()` skips function fields; `fromJson()` sets them to null
 - Not `const` (functions prevent const constructors)
 
-### configure() + Project + Pubspec (config.dart, lib/src/config/project.dart, pubspec.dart)
+### configure() + Project + Pubspec (config.dart, lib/src/models/project.dart, pubspec.dart)
 The user exports a `configure()` function from `config.dart` that receives a `Project` and returns a `Config`.
 ```dart
 // config.dart — user writes this:
@@ -224,7 +226,7 @@ Config configure(Project project) => Config(
 - `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<CustomPage>), `changelog` (String?)
 - `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository` (`Repository?`), `issueTracker`, `documentation`, `publishTo`, `funding` (`List<String>?`), `topics` (`List<String>?`), `environment` (`Environment`, required)
 
-### Link (lib/src/config/link.dart)
+### Link (lib/src/components/link.dart)
 Self-rendering navigation link (`StatelessComponent`) with optional leading/trailing icon components and label. Uses `Row` internally for horizontal layout.
 ```dart
 Link.path('/docs', label: 'Docs', leading: Icons.docs)                              // internal path
@@ -243,7 +245,7 @@ Link.path('/about', label: 'About')                                             
 - Default constructor is private (`Link._`); only `.path()` and `.url()` are public
 - **Dart keyword gotcha**: `external`/`internal` are reserved — that's why constructors are `.url()`/`.path()` (fields renamed to `_url`/`_path` to avoid clash)
 
-### Repository (lib/src/config/repository.dart)
+### Repository (lib/src/models/repository.dart)
 Wraps a repository URL string with auto-detected provider label and icon.
 ```dart
 const repo = Repository('https://github.com/user/repo');
@@ -301,7 +303,7 @@ Markdown(content: context.project.changelog ?? '', classes: 'changelog-content')
 - `content` (`String`, required) — raw markdown string
 - `classes` (`String?`, optional) — CSS classes for the wrapper div
 
-### ProjectGenerator (lib/src/core/project_generator.dart)
+### ProjectGenerator (lib/src/generators/project_generator.dart)
 Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart init`.
 - `InitTemplate.defaultTemplate` - Basic setup
 - `InitTemplate.full` - All features with examples, including sidebar subfolder showcase
@@ -320,7 +322,7 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - Looks for `README.md` in project root to auto-generate docs
 - `_generateFullTemplateSubfolders()` - creates example subfolders for full template (always runs, even when README.md exists): `01-guides_expanded/` (expanded sidebar) and `02-advanced/` with nested `deployment/` (collapsed)
 
-### SiteGenerator (lib/src/core/site_generator.dart)
+### SiteGenerator (lib/src/generators/site_generator.dart)
 Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - Accepts optional `websiteDir` parameter (defaults to cwd) and `serveMode` flag (default: false)
 - `serveMode: true` enables live-reload script injection (only during `docudart serve`)
@@ -336,11 +338,11 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - Injects `config.themeMode` into generated `theme.js` as `forcedMode` (overrides localStorage when set to light/dark)
 - If a layout function is null, that section is simply not rendered
 
-### PackageResolver (lib/src/core/package_resolver.dart)
+### PackageResolver (lib/src/services/package_resolver.dart)
 Resolves the docudart package installation path using `Isolate.resolvePackageUri`.
 Used to generate the path dependency in `website/pubspec.yaml` and managed project pubspec.
 
-### WorkspaceResolver (lib/src/core/workspace_resolver.dart)
+### WorkspaceResolver (lib/src/services/workspace_resolver.dart)
 Auto-detects the website directory for build/serve commands.
 - Checks if cwd IS the website dir (has config.dart + pubspec.yaml)
 - Checks for `website/` subdirectory

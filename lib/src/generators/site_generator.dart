@@ -4,12 +4,12 @@ import 'package:path/path.dart' as p;
 
 import '../config/config_loader.dart';
 import '../config/docudart_config.dart';
-import '../config/pubspec.dart';
+import '../models/pubspec.dart';
 import 'asset_path_generator.dart';
-import 'content_processor.dart';
-import 'package_resolver.dart';
-import 'version_manager.dart';
-import '../routing/sidebar_generator.dart';
+import '../processing/content_processor.dart';
+import '../services/package_resolver.dart';
+import '../processing/version_manager.dart';
+import 'sidebar_generator.dart';
 
 /// Generates the managed Jaspr site in .dart_tool/docudart.
 class SiteGenerator {
@@ -499,11 +499,13 @@ ClientOptions get defaultClientOptions => ClientOptions();
       }
       routePath = routePath.replaceAll('_', '-');
 
-      discovered.add(_DiscoveredPage(
-        className: className,
-        filePath: 'pages/$filename.dart',
-        routePath: '/$routePath',
-      ));
+      discovered.add(
+        _DiscoveredPage(
+          className: className,
+          filePath: 'pages/$filename.dart',
+          routePath: '/$routePath',
+        ),
+      );
     }
 
     return discovered;

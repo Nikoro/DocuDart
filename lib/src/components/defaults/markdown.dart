@@ -27,9 +27,6 @@ class Markdown extends StatelessComponent {
 
     final result = MarkdownProcessor().process(content);
 
-    return div(
-      classes: classes ?? 'docs-content',
-      [RawText(result.html)],
-    );
+    return div(classes: classes ?? 'docs-content', [RawText(result.html)]);
   }
 }
