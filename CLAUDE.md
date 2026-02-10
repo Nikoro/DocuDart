@@ -205,25 +205,25 @@ Config(
 - Home, header, footer, sidebar are nullable zero-arg function fields returning `Component?`
 - **Double nullability**: both the function itself and its return value can be null — if the function is null or returns null, the section is not rendered
 - When `home` is set, `/` renders the home component (no sidebar); when null, `/` redirects to `/docs`
-- Context (pubspec, docs, pages) is available via the `project` parameter of `configure()` — accessed through closures in function fields
+- Context (pubspec, docs, pages) is available via `context.project` in `configure()` — accessed through closures in function fields
 - `toJson()` skips function fields; `fromJson()` sets them to null
 - Not `const` (functions prevent const constructors)
 
 ### configure() + Project + Pubspec (config.dart, lib/src/models/project.dart, pubspec.dart)
-The user exports a `configure()` function from `config.dart` that receives a `Project` and returns a `Config`.
+The user exports a `configure()` function from `config.dart` that receives a `BuildContext` and returns a `Config`.
 ```dart
 // config.dart — user writes this:
-Config configure(Project project) => Config(
-  title: project.pubspec.name,
-  description: project.pubspec.description,
-  home: () => project.pubspec.let(
+Config configure(BuildContext context) => Config(
+  title: context.project.pubspec.name,
+  description: context.project.pubspec.description,
+  home: () => context.project.pubspec.let(
     (pubspec) => LandingPage(title: pubspec.name, description: pubspec.description),
   ),
-  sidebar: () => Sidebar(items: project.docs),
+  sidebar: () => Sidebar(items: context.project.docs),
 );
 ```
 - `.let()` extension (Kotlin-style) on `T?` — enables null-safe scoping: `value.let((it) => transform(it))` returns null if value is null
-- Generated layout/app code imports `config.dart` and calls `configure(project)` directly — no registration pattern
+- Generated layout/app code imports `config.dart` and calls `configure(context)` directly — no registration pattern
 - `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<CustomPage>), `changelog` (String?)
 - `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository` (`Repository?`), `issueTracker`, `documentation`, `publishTo`, `funding` (`List<String>?`), `topics` (`List<String>?`), `environment` (`Environment`, required)
 
@@ -257,7 +257,7 @@ repo.icon   // Component (SVG icon for GitHub)
 - `const` constructible — works in `const Pubspec(repository: Repository('...'))`
 - Provider detection uses `host.contains()`: `github` → GitHub, `gitlab` → GitLab, `bitbucket` → Bitbucket, else generic link icon
 - SVG icons embedded as static constants (same SVGs as generated `icons.dart`)
-- Used in generated config.dart: `?project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icons.openInNew))`
+- Used in generated config.dart: `?context.project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icons.openInNew))`
 - `==` / `hashCode` based on `link` field
 
 ### Logo (lib/src/components/branding/logo.dart)
@@ -287,7 +287,7 @@ Composable footer content components.
 
 ### ProjectProvider (lib/src/components/providers/project_provider.dart)
 `InheritedComponent` that provides `Project` data to all descendant components via the component tree.
-- Generated `app.dart` wraps `Router` with `ProjectProvider(project: project, child: Router(...))`
+- Generated `app.dart` wraps `Router` with `ProjectProvider(project: project, child: Builder(builder: (context) => Router(...)))`
 - Extension `ProjectContext` on `BuildContext` adds a `.project` getter
 - Usage: `context.project.pubspec.name`, `context.project.changelog`, `context.project.docs`
 - Eliminates the need for user pages to import `../project_data.dart` — just use `context.project`
@@ -316,7 +316,7 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - Generates `icons.dart` at website root with default SVG icons (github, pubDev, docs, discord, youtube, etc.)
 - Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, Labels.changelog, Labels.topics, etc.)
 - **Smart pub.dev URL**: `_resolvePubDevUrl()` makes a HEAD request to `https://pub.dev/packages/{name}` at init time; if 200, uses specific package URL, else falls back to generic `https://pub.dev` (5s timeout, graceful fallback on errors)
-- **Smart repository link**: Generated config.dart uses `?project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icons.openInNew))` for runtime provider detection with external link indicator; null-safe via `.let()` — if no repository, the entry is omitted
+- **Smart repository link**: Generated config.dart uses `?context.project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icons.openInNew))` for runtime provider detection with external link indicator; null-safe via `.let()` — if no repository, the entry is omitted
 - **Lint dependency propagation**: `_resolveLintDependency()` checks parent's `pubspec.yaml` for `lints` or `flutter_lints` (in `dev_dependencies` then `dependencies`), propagates as `dev_dependency` in generated `website/pubspec.yaml`
 - Runs `dart pub get` then `dart format .` in website/ after generation
 - **Conditional changelog**: Checks for `CHANGELOG.md` in parent project root; if present, generates `pages/changelog_page.dart` (uses `Markdown(content: context.project.changelog ?? '')`) via `_generateChangelogPage()` and adds `.path('/changelog', label: Labels.changelog)` link to header in config.dart; if absent, neither page nor link is generated
@@ -330,12 +330,12 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - `generate({bool fullClean = true, Pubspec? pubspec, String? changelog})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
 - Adds `docudart` as path dependency in managed project's pubspec
 - Copies `config.dart`, `components/`, `pages/`, root-level `.dart` files (e.g. `icons.dart`), and `assets/assets.dart` into managed project's `lib/`
-- Home route uses `configure(project).home?.call()` with pattern matching (`case final homeComponent?`): if non-null, renders the home component; otherwise redirects `/` to `/docs`
+- Home route uses `configure(context).home?.call()` with pattern matching (`case final homeComponent?`): if non-null, renders the home component; otherwise redirects `/` to `/docs`
 - **Page auto-discovery**: `_discoverPages()` scans `pages/` for `.dart` files, extracts class names via regex (`class X extends Stateless/StatefulComponent`), derives route paths from filenames (`changelog_page.dart` → `/changelog`). `_generateApp()` imports each discovered page and generates a `Route` wrapping it in `Layout(showSidebar: false)`. No manual `customPages` registration needed — just add a file to `pages/` and link to it.
-- **ProjectProvider**: Generated `app.dart` wraps `Router` with `ProjectProvider(project: project, child: Router(...))` — makes `context.project` available to all descendant components (pages, layout, header, footer, sidebar)
+- **ProjectProvider**: Generated `app.dart` wraps `Router` with `ProjectProvider(project: project, child: Builder(builder: (context) => Router(...)))` — `Builder` provides a `BuildContext` with `ProjectProvider` as ancestor, making `context.project` available to `configure(context)` and all descendant components
 - Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml (repository field uses `Repository('...')` constructor, environment uses `Environment(sdk:, flutter:)` constructor)
 - Generates `project_data.dart` with Project containing pubspec + auto-generated sidebar items + changelog content
-- Generates `layout.dart` that calls `configure(project)` then `config.header?.call()` etc.
+- Generates `layout.dart` that calls `configure(context)` then `config.header?.call()` etc.
 - Injects `config.themeMode` into generated `theme.js` as `forcedMode` (overrides localStorage when set to light/dark)
 - If a layout function is null, that section is simply not rendered
 
@@ -395,7 +395,7 @@ Flutter docs style theme with:
    - Generates `assets/assets.dart` (type-safe asset paths) in website dir
    - Copies config.dart, root `.dart` files, components/, pages/, `assets/assets.dart` into managed project
    - Generates pubspec_data.dart + project_data.dart with Project/Pubspec data
-   - Generates layout.dart that calls `configure(project)` then delegates to config functions
+   - Generates layout.dart that calls `configure(context)` then delegates to config functions
 5. Runs `dart run jaspr build` in `website/.dart_tool/docudart/`
 6. Copies output to `website/build/web/` (or `--output` flag)
 
@@ -431,9 +431,9 @@ The managed Jaspr site is generated in `SiteGenerator`:
 - `_copyUserFiles()` - copies config.dart, root `.dart` files, components/, pages/, and `assets/assets.dart` into lib/
 - `_generatePubspecData()` - lib/pubspec_data.dart (const Pubspec from parent pubspec.yaml)
 - `_generateProjectData()` - lib/project_data.dart (Project with pubspec + sidebar items + changelog)
-- `_generateLayout()` - lib/layout.dart (calls configure(project) then config.header/footer/sidebar)
+- `_generateLayout()` - lib/layout.dart (calls configure(context) then config.header/footer/sidebar)
 - `_discoverPages()` - scans pages/ directory, extracts class names and derives route paths from filenames
-- `_generateApp()` - lib/app.dart with ProjectProvider wrapping Router (home + doc + auto-discovered custom page routes)
+- `_generateApp()` - lib/app.dart with ProjectProvider wrapping Builder wrapping Router (home + doc + auto-discovered custom page routes)
 - `_generatePages()` - lib/pages/ directory (user pages copied by _copyUserFiles)
 - `_generateDocsPageContent()` - lib/docs_page_content.dart
 - `_generateStyles()` - web/styles.css (includes collapsible sidebar CSS with chevron + transitions)
@@ -559,7 +559,7 @@ None currently tracked.
 
 - `docudart` re-exports `package:jaspr/jaspr.dart` and Dart extensions (`.let()`) — users never import jaspr directly
 - User's config is `config.dart` (Dart, not YAML) for IntelliSense and type safety
-- `config.dart` must export a `Config configure(Project project)` function (convention enforced by ProjectGenerator — generated code imports config.dart and calls `configure(project)` directly)
+- `config.dart` must export a `Config configure(BuildContext context)` function (convention enforced by ProjectGenerator — generated code imports config.dart and calls `configure(context)` directly)
 - `ConfigLoader` parses `config.dart` via text-based regex (`ConfigEvaluator`), falling back to YAML if it fails
 - Function fields (home/header/footer/sidebar) cannot be extracted from text parsing — managed project imports config.dart directly
 - All generated user files import `package:docudart/docudart.dart`

@@ -426,13 +426,13 @@ class Sidebar extends StatelessComponent {
         "import 'labels.dart';\n"
         "import 'pages/landing_page.dart';\n"
         '\n'
-        'Config configure(Project project) => Config(\n'
-        '  title: project.pubspec.name,\n'
-        '  description: project.pubspec.description,\n'
+        'Config configure(BuildContext context) => Config(\n'
+        '  title: context.project.pubspec.name,\n'
+        '  description: context.project.pubspec.description,\n'
         '  themeMode: .system,\n'
         '  theme: DefaultTheme(),\n'
         "  // Home page component. Set to null to redirect '/' to '/docs'.\n"
-        '  home: () => project.pubspec.let(\n'
+        '  home: () => context.project.pubspec.let(\n'
         '    (pubspec) =>\n'
         '        LandingPage(title: pubspec.name, description: pubspec.description),\n'
         '  ),\n'
@@ -442,15 +442,15 @@ class Sidebar extends StatelessComponent {
         "    leading: Logo(\n"
         "      image: img(\n"
         "        src: Assets.logo.logo_webp,\n"
-        r"        alt: '${project.pubspec.name} logo',"
+        r"        alt: '${context.project.pubspec.name} logo',"
         "\n"
         "      ),\n"
-        '      title: project.pubspec.name,\n'
+        '      title: context.project.pubspec.name,\n'
         '    ),\n'
         '    links: [\n'
         "      .path('/docs', label: Labels.docs, leading: Icons.docs),\n"
         '$changelogLink'
-        "      ?project.pubspec.repository.let(\n"
+        "      ?context.project.pubspec.repository.let(\n"
         "        (repository) => .url(\n"
         "          repository.link,\n"
         "          label: repository.label,\n"
@@ -462,7 +462,7 @@ class Sidebar extends StatelessComponent {
         '    ],\n'
         '    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),\n'
         '  ),\n'
-        '  footer: () => project.pubspec.let((pubspec) {\n'
+        '  footer: () => context.project.pubspec.let((pubspec) {\n'
         '    return Footer(\n'
         '      leading: pubspec.topics.let(\n'
         '        (topics) => Topics(\n'
@@ -489,7 +489,7 @@ class Sidebar extends StatelessComponent {
         '      ),\n'
         '    );\n'
         '  }),\n'
-        '  sidebar: () => Sidebar(items: project.docs),\n'
+        '  sidebar: () => Sidebar(items: context.project.docs),\n'
         ');\n';
 
     await File(p.join(websiteDir, 'config.dart')).writeAsString(configContent);
@@ -937,9 +937,9 @@ All site settings live in `config.dart`.
 ## Disabling a Section
 
 ```dart
-Config configure(Project project) => Config(
-  title: project.pubspec.name,
-  header: () => Header(leading: Logo(title: project.pubspec.name)),
+Config configure(BuildContext context) => Config(
+  title: context.project.pubspec.name,
+  header: () => Header(leading: Logo(title: context.project.pubspec.name)),
   footer: null,    // No footer
   sidebar: null,   // No sidebar
 );
@@ -1044,9 +1044,9 @@ The header, footer, and sidebar are components defined in `components/`. Edit th
 Set any layout section to `null` in `config.dart` to hide it:
 
 ```dart
-Config configure(Project project) => Config(
-  title: project.pubspec.name,
-  header: () => Header(leading: Logo(title: project.pubspec.name)),
+Config configure(BuildContext context) => Config(
+  title: context.project.pubspec.name,
+  header: () => Header(leading: Logo(title: context.project.pubspec.name)),
   footer: null,    // No footer
   sidebar: null,   // No sidebar
 );
@@ -1062,9 +1062,9 @@ import 'components/header.dart';
 import 'components/footer.dart';
 import 'components/sidebar.dart';
 
-Config configure(Project project) => Config(
-  title: project.pubspec.name,
-  description: project.pubspec.description,
+Config configure(BuildContext context) => Config(
+  title: context.project.pubspec.name,
+  description: context.project.pubspec.description,
 
   // Theme
   themeMode: ThemeMode.system,  // system | light | dark
@@ -1073,9 +1073,9 @@ Config configure(Project project) => Config(
   ),
 
   // Layout components (set to null to hide)
-  header: () => Header(leading: Logo(title: project.pubspec.name)),
-  footer: () => Footer(center: Copyright(text: project.pubspec.name)),
-  sidebar: () => Sidebar(items: project.docs),
+  header: () => Header(leading: Logo(title: context.project.pubspec.name)),
+  footer: () => Footer(center: Copyright(text: context.project.pubspec.name)),
+  sidebar: () => Sidebar(items: context.project.docs),
 );
 ```
 

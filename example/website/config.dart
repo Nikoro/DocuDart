@@ -7,13 +7,13 @@ import 'icons.dart';
 import 'labels.dart';
 import 'pages/landing_page.dart';
 
-Config configure(Project project) => Config(
-  title: project.pubspec.name,
-  description: project.pubspec.description,
+Config configure(BuildContext context) => Config(
+  title: context.project.pubspec.name,
+  description: context.project.pubspec.description,
   themeMode: .system,
   theme: DefaultTheme(),
   // Home page component. Set to null to redirect '/' to '/docs'.
-  home: () => project.pubspec.let(
+  home: () => context.project.pubspec.let(
     (pubspec) =>
         LandingPage(title: pubspec.name, description: pubspec.description),
   ),
@@ -23,14 +23,14 @@ Config configure(Project project) => Config(
     leading: Logo(
       image: img(
         src: Assets.logo.logo_webp,
-        alt: '${project.pubspec.name} logo',
+        alt: '${context.project.pubspec.name} logo',
       ),
-      title: project.pubspec.name,
+      title: context.project.pubspec.name,
     ),
     links: [
       .path('/docs', label: Labels.docs, leading: Icons.docs),
       .path('/changelog', label: Labels.changelog),
-      ?project.pubspec.repository.let(
+      ?context.project.pubspec.repository.let(
         (repository) => .url(
           repository.link,
           label: repository.label,
@@ -47,7 +47,7 @@ Config configure(Project project) => Config(
     ],
     trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
   ),
-  footer: () => project.pubspec.let((pubspec) {
+  footer: () => context.project.pubspec.let((pubspec) {
     return Footer(
       leading: pubspec.topics.let(
         (topics) => Topics(
@@ -76,5 +76,5 @@ Config configure(Project project) => Config(
       ),
     );
   }),
-  sidebar: () => Sidebar(items: project.docs),
+  sidebar: () => Sidebar(items: context.project.docs),
 );

@@ -62,9 +62,9 @@ The header, footer, and sidebar are components defined in `components/`. Edit th
 Set any layout section to `null` in `config.dart` to hide it:
 
 ```dart
-Config configure(Project project) => Config(
-  title: project.pubspec.name,
-  header: () => Header(leading: Logo(title: project.pubspec.name)),
+Config configure(BuildContext context) => Config(
+  title: context.project.pubspec.name,
+  header: () => Header(leading: Logo(title: context.project.pubspec.name)),
   footer: null,    // No footer
   sidebar: null,   // No sidebar
 );
@@ -80,9 +80,9 @@ import 'components/header.dart';
 import 'components/footer.dart';
 import 'components/sidebar.dart';
 
-Config configure(Project project) => Config(
-  title: project.pubspec.name,
-  description: project.pubspec.description,
+Config configure(BuildContext context) => Config(
+  title: context.project.pubspec.name,
+  description: context.project.pubspec.description,
 
   // Theme
   themeMode: ThemeMode.system,  // system | light | dark
@@ -91,9 +91,9 @@ Config configure(Project project) => Config(
   ),
 
   // Layout components (set to null to hide)
-  header: () => Header(leading: Logo(title: project.pubspec.name)),
-  footer: () => Footer(center: Copyright(text: project.pubspec.name)),
-  sidebar: () => Sidebar(items: project.docs),
+  header: () => Header(leading: Logo(title: context.project.pubspec.name)),
+  footer: () => Footer(center: Copyright(text: context.project.pubspec.name)),
+  sidebar: () => Sidebar(items: context.project.docs),
 );
 ```
 

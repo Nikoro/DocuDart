@@ -244,46 +244,6 @@ void main() {
     });
   });
 
-  group('configure pattern', () {
-    test('configure function returns config from project', () {
-      Config configure(Project project) => Config(title: project.pubspec.name);
-
-      const project = Project(
-        pubspec: Pubspec(
-          name: 'test_project',
-          environment: Environment(sdk: 'any'),
-        ),
-        docs: [],
-        pages: [],
-      );
-
-      final config = configure(project);
-      expect(config.title, equals('test_project'));
-    });
-
-    test('configure function receives pubspec data', () {
-      Config configure(Project project) => Config(
-        title: '${project.pubspec.name} v${project.pubspec.version}',
-        description: project.pubspec.description,
-      );
-
-      const project = Project(
-        pubspec: Pubspec(
-          name: 'my_app',
-          version: '2.0.0',
-          description: 'My app description',
-          environment: Environment(sdk: 'any'),
-        ),
-        docs: [],
-        pages: [],
-      );
-
-      final config = configure(project);
-      expect(config.title, equals('my_app v2.0.0'));
-      expect(config.description, equals('My app description'));
-    });
-  });
-
   group('Repository', () {
     test('detects GitHub from URL', () {
       const repo = Repository('https://github.com/user/repo');

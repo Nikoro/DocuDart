@@ -353,7 +353,6 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 import 'package:docudart/docudart.dart';
 import 'config.dart';
-import 'project_data.dart';
 
 class Layout extends StatelessComponent {
   final Component child;
@@ -367,7 +366,7 @@ class Layout extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final config = configure(project);
+    final config = configure(context);
     final headerComponent = config.header?.call();
     final sidebarComponent = showSidebar ? config.sidebar?.call() : null;
     final footerComponent = config.footer?.call();
@@ -523,7 +522,7 @@ ClientOptions get defaultClientOptions => ClientOptions();
 
     // Home route: if config.home is set and returns non-null, render it; otherwise redirect to /docs
     routesBuffer.writeln('''
-        if (configure(project).home?.call() case final homeComponent?)
+        if (configure(context).home?.call() case final homeComponent?)
           Route(
             path: '/',
             builder: (context, state) => Layout(
@@ -590,11 +589,11 @@ class DocuDartApp extends StatelessComponent {
   Component build(BuildContext context) {
     return ProjectProvider(
       project: project,
-      child: Router(
+      child: Builder(builder: (context) => Router(
         routes: [
 ${routesBuffer.toString()}
         ],
-      ),
+      )),
     );
   }
 }
