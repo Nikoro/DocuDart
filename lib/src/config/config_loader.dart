@@ -60,13 +60,14 @@ class ConfigLoader {
       return _parsePubspecFile(websitePubspec.path);
     }
 
-    return const Pubspec(name: 'unknown');
+    return const Pubspec(name: 'unknown', environment: Environment(sdk: 'any'));
   }
 
   static Future<Pubspec> _parsePubspecFile(String path) async {
     try {
       final content = await File(path).readAsString();
       final yaml = loadYaml(content) as YamlMap;
+      final env = yaml['environment'] as YamlMap?;
 
       return Pubspec(
         name: yaml['name'] as String? ?? 'unknown',
@@ -80,19 +81,16 @@ class ConfigLoader {
         documentation: yaml['documentation'] as String?,
         publishTo: yaml['publish_to'] as String?,
         funding:
-            (yaml['funding'] as YamlList?)?.map((e) => e.toString()).toList() ??
-            const [],
+            (yaml['funding'] as YamlList?)?.map((e) => e.toString()).toList(),
         topics:
-            (yaml['topics'] as YamlList?)?.map((e) => e.toString()).toList() ??
-            const [],
-        environment:
-            (yaml['environment'] as YamlMap?)?.map(
-              (k, v) => MapEntry(k.toString(), v.toString()),
-            ) ??
-            const {},
+            (yaml['topics'] as YamlList?)?.map((e) => e.toString()).toList(),
+        environment: Environment(
+          sdk: env?['sdk']?.toString() ?? 'any',
+          flutter: env?['flutter']?.toString(),
+        ),
       );
     } catch (_) {
-      return const Pubspec(name: 'unknown');
+      return const Pubspec(name: 'unknown', environment: Environment(sdk: 'any'));
     }
   }
 

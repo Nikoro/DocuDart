@@ -249,25 +249,23 @@ jaspr:
     if (pubspec.publishTo != null) {
       buffer.writeln("  publishTo: '${_escapeForDart(pubspec.publishTo!)}',");
     }
-    if (pubspec.funding.isNotEmpty) {
+    if (pubspec.funding?.isNotEmpty == true) {
       buffer.writeln(
-        "  funding: [${pubspec.funding.map((f) => "'${_escapeForDart(f)}'").join(', ')}],",
+        "  funding: [${pubspec.funding!.map((f) => "'${_escapeForDart(f)}'").join(', ')}],",
       );
     }
-    if (pubspec.topics.isNotEmpty) {
+    if (pubspec.topics?.isNotEmpty == true) {
       buffer.writeln(
-        "  topics: [${pubspec.topics.map((t) => "'${_escapeForDart(t)}'").join(', ')}],",
+        "  topics: [${pubspec.topics!.map((t) => "'${_escapeForDart(t)}'").join(', ')}],",
       );
     }
-    if (pubspec.environment.isNotEmpty) {
-      buffer.writeln('  environment: {');
-      for (final entry in pubspec.environment.entries) {
-        buffer.writeln(
-          "    '${_escapeForDart(entry.key)}': '${_escapeForDart(entry.value)}',",
-        );
-      }
-      buffer.writeln('  },');
+    final env = pubspec.environment;
+    buffer.writeln('  environment: Environment(');
+    buffer.writeln("    sdk: '${_escapeForDart(env.sdk)}',");
+    if (env.flutter != null) {
+      buffer.writeln("    flutter: '${_escapeForDart(env.flutter!)}',");
     }
+    buffer.writeln('  ),');
     buffer.writeln(');');
 
     await File(

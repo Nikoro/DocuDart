@@ -222,7 +222,7 @@ Config configure(Project project) => Config(
 - `.let()` extension (Kotlin-style) on `T?` — enables null-safe scoping: `value.let((it) => transform(it))` returns null if value is null
 - Generated layout/app code imports `config.dart` and calls `configure(project)` directly — no registration pattern
 - `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<CustomPage>), `changelog` (String?)
-- `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository` (`Repository?`), `issueTracker`, `documentation`, `publishTo`, `funding`, `topics`, `environment`
+- `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository` (`Repository?`), `issueTracker`, `documentation`, `publishTo`, `funding` (`List<String>?`), `topics` (`List<String>?`), `environment` (`Environment`, required)
 
 ### Link (lib/src/config/link.dart)
 Self-rendering navigation link (`StatelessComponent`) with optional leading/trailing icon components and label. Uses `Row` internally for horizontal layout.
@@ -330,7 +330,7 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - Home route uses `configure(project).home?.call()` with pattern matching (`case final homeComponent?`): if non-null, renders the home component; otherwise redirects `/` to `/docs`
 - **Page auto-discovery**: `_discoverPages()` scans `pages/` for `.dart` files, extracts class names via regex (`class X extends Stateless/StatefulComponent`), derives route paths from filenames (`changelog_page.dart` → `/changelog`). `_generateApp()` imports each discovered page and generates a `Route` wrapping it in `Layout(showSidebar: false)`. No manual `customPages` registration needed — just add a file to `pages/` and link to it.
 - **ProjectProvider**: Generated `app.dart` wraps `Router` with `ProjectProvider(project: project, child: Router(...))` — makes `context.project` available to all descendant components (pages, layout, header, footer, sidebar)
-- Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml (repository field uses `Repository('...')` constructor)
+- Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml (repository field uses `Repository('...')` constructor, environment uses `Environment(sdk:, flutter:)` constructor)
 - Generates `project_data.dart` with Project containing pubspec + auto-generated sidebar items + changelog content
 - Generates `layout.dart` that calls `configure(project)` then `config.header?.call()` etc.
 - Injects `config.themeMode` into generated `theme.js` as `forcedMode` (overrides localStorage when set to light/dark)

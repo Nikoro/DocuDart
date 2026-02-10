@@ -177,15 +177,19 @@ void main() {
 
   group('Pubspec', () {
     test('creates with required name', () {
-      const pubspec = Pubspec(name: 'my_package');
+      const pubspec = Pubspec(
+        name: 'my_package',
+        environment: Environment(sdk: '^3.10.0'),
+      );
       expect(pubspec.name, equals('my_package'));
       expect(pubspec.version, isNull);
       expect(pubspec.description, isNull);
       expect(pubspec.homepage, isNull);
       expect(pubspec.repository, isNull);
-      expect(pubspec.funding, isEmpty);
-      expect(pubspec.topics, isEmpty);
-      expect(pubspec.environment, isEmpty);
+      expect(pubspec.funding, isNull);
+      expect(pubspec.topics, isNull);
+      expect(pubspec.environment.sdk, equals('^3.10.0'));
+      expect(pubspec.environment.flutter, isNull);
     });
 
     test('creates with all fields', () {
@@ -200,7 +204,7 @@ void main() {
         publishTo: 'none',
         funding: ['https://github.com/sponsors/example'],
         topics: ['dart', 'test'],
-        environment: {'sdk': '^3.10.0'},
+        environment: Environment(sdk: '^3.10.0'),
       );
       expect(pubspec.name, equals('my_package'));
       expect(pubspec.version, equals('1.0.0'));
@@ -218,14 +222,15 @@ void main() {
       expect(pubspec.publishTo, equals('none'));
       expect(pubspec.funding, equals(['https://github.com/sponsors/example']));
       expect(pubspec.topics, equals(['dart', 'test']));
-      expect(pubspec.environment, equals({'sdk': '^3.10.0'}));
+      expect(pubspec.environment.sdk, equals('^3.10.0'));
+      expect(pubspec.environment.flutter, isNull);
     });
   });
 
   group('Project', () {
     test('creates with required fields', () {
       const project = Project(
-        pubspec: Pubspec(name: 'test'),
+        pubspec: Pubspec(name: 'test', environment: Environment(sdk: 'any')),
         docs: [],
         pages: [],
       );
@@ -241,7 +246,7 @@ void main() {
       Config configure(Project project) => Config(title: project.pubspec.name);
 
       const project = Project(
-        pubspec: Pubspec(name: 'test_project'),
+        pubspec: Pubspec(name: 'test_project', environment: Environment(sdk: 'any')),
         docs: [],
         pages: [],
       );
@@ -261,6 +266,7 @@ void main() {
           name: 'my_app',
           version: '2.0.0',
           description: 'My app description',
+          environment: Environment(sdk: 'any'),
         ),
         docs: [],
         pages: [],

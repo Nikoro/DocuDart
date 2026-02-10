@@ -2,6 +2,20 @@ import 'package:meta/meta.dart';
 
 import 'repository.dart';
 
+/// SDK environment constraints from pubspec.yaml.
+///
+/// Provides typed access to Dart SDK and Flutter SDK version constraints.
+@immutable
+class Environment {
+  const Environment({required this.sdk, this.flutter});
+
+  /// Dart SDK version constraint (e.g. '^3.10.0').
+  final String sdk;
+
+  /// Flutter SDK version constraint (e.g. '>=3.22.0').
+  final String? flutter;
+}
+
 /// Represents the user's project pubspec.yaml fields.
 ///
 /// Provides access to metadata like package name, version, description,
@@ -17,9 +31,9 @@ class Pubspec {
     this.issueTracker,
     this.documentation,
     this.publishTo,
-    this.funding = const [],
-    this.topics = const [],
-    this.environment = const {},
+    this.funding,
+    this.topics,
+    required this.environment,
   });
 
   /// Package name (required in pubspec.yaml).
@@ -47,11 +61,11 @@ class Pubspec {
   final String? publishTo;
 
   /// Funding URLs where users can sponsor development.
-  final List<String> funding;
+  final List<String>? funding;
 
   /// Topic tags for package categorization.
-  final List<String> topics;
+  final List<String>? topics;
 
-  /// SDK environment constraints (e.g. {'sdk': '^3.10.0'}).
-  final Map<String, String> environment;
+  /// SDK environment constraints.
+  final Environment environment;
 }
