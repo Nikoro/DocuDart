@@ -1598,11 +1598,24 @@ footer .column {
     var state = loadState();
     var categories = document.querySelectorAll('.expansion-tile[data-category]');
 
+    // Suppress transitions during state restoration to prevent visual flash
+    categories.forEach(function(cat) {
+      var content = cat.querySelector('.expansion-tile-content');
+      if (content) content.style.transition = 'none';
+    });
+
     categories.forEach(function(cat) {
       var id = cat.getAttribute('data-category');
       if (state.hasOwnProperty(id)) {
         cat.setAttribute('data-collapsed', state[id] ? 'true' : 'false');
       }
+    });
+
+    // Force reflow then re-enable transitions
+    void document.body.offsetHeight;
+    categories.forEach(function(cat) {
+      var content = cat.querySelector('.expansion-tile-content');
+      if (content) content.style.transition = '';
     });
   }
 
@@ -1715,6 +1728,7 @@ footer .column {
     var sidebar = document.querySelector('.sidebar');
     if (!sidebar) return;
     var observer = new MutationObserver(function() {
+      initCollapse();
       updateActiveLink();
     });
     observer.observe(sidebar, { childList: true, subtree: true });
