@@ -646,17 +646,15 @@ class LandingPage extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(classes: 'landing-page', [
-      Column(
-        mainAxisAlignment: .center,
-        spacing: 1.5.rem,
-        children: [
-          ?title.let((t) => h1([.text(t)])),
-          ?description.let((d) => p(classes: 'description', [.text(d)])),
-          Button.primary(text: 'Get Started', href: '/docs'),
-        ],
-      ),
-    ]);
+    return Column(
+      mainAxisAlignment: .center,
+      spacing: 1.5.rem,
+      children: [
+        ?title.let((t) => h1([.text(t)])),
+        ?description.let((d) => p(classes: 'description', [.text(d)])),
+        Button.primary(text: 'Get Started', href: '/docs'),
+      ],
+    ).apply(classes: 'landing-page');
   }
 }
 ''';

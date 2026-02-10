@@ -1075,12 +1075,12 @@ footer .column {
   margin: 0 auto;
 }
 
-.landing-page > .column {
+.landing-page.column {
   text-align: center;
   padding: 4rem 2rem;
 }
 
-.landing-page > .column h1 {
+.landing-page.column h1 {
   font-size: 3rem;
   font-weight: 700;
   color: var(--color-text);
@@ -1250,7 +1250,7 @@ footer .column {
     padding: 1rem;
   }
 
-  .landing-page > .column h1 {
+  .landing-page.column h1 {
     font-size: 2rem;
   }
 
