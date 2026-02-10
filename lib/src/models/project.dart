@@ -1,4 +1,4 @@
-import '../generators/sidebar_generator.dart';
+import 'doc.dart';
 import 'page.dart';
 import 'pubspec.dart';
 
@@ -17,8 +17,8 @@ class Project {
   /// The user's project pubspec.yaml data.
   final Pubspec pubspec;
 
-  /// Auto-generated sidebar items from the docs folder structure.
-  final List<GeneratedSidebarItem> docs;
+  /// Auto-generated documentation items from the docs folder structure.
+  final List<Doc> docs;
 
   /// Auto-discovered pages from the pages/ directory.
   final List<Page> pages;

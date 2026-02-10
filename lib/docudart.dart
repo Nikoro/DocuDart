@@ -7,6 +7,7 @@ export 'src/config/setup.dart';
 export 'src/config/config_loader.dart';
 
 // Models
+export 'src/models/doc.dart';
 export 'src/models/project.dart';
 export 'src/models/pubspec.dart';
 export 'src/models/repository.dart';
@@ -35,6 +36,7 @@ export 'src/markdown/frontmatter_handler.dart';
 export 'src/markdown/component_parser.dart';
 
 // Components — Navigation
+export 'src/components/navigation/expansion_tile.dart';
 export 'src/components/navigation/link.dart';
 export 'src/components/navigation/sidebar.dart';
 export 'src/components/navigation/theme_toggle.dart';
@@ -65,7 +67,7 @@ export 'src/components/providers/project_provider.dart';
 // Extensions
 export 'src/extensions/extensions.dart';
 
-// Routing
+// Generators — Sidebar
 export 'src/generators/sidebar_generator.dart';
 
 // Re-export Jaspr so user pages can use Jaspr APIs via docudart

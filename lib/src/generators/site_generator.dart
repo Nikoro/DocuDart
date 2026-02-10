@@ -4,6 +4,7 @@ import 'package:path/path.dart' as p;
 
 import '../config/config_loader.dart';
 import '../config/docudart_config.dart';
+import '../models/doc.dart';
 import '../models/pubspec.dart';
 import 'asset_path_generator.dart';
 import '../processing/content_processor.dart';
@@ -51,7 +52,7 @@ class SiteGenerator {
 
     // Collect all pages from all versions
     final allPages = <DocPage>[];
-    final sidebarItemsByVersion = <String, List<GeneratedSidebarItem>>{};
+    final sidebarItemsByVersion = <String, List<Doc>>{};
 
     for (final entry in versionedDocsMap.entries) {
       final version = entry.key;
@@ -70,7 +71,7 @@ class SiteGenerator {
     final defaultSidebarItems =
         sidebarItemsByVersion[defaultVersion] ??
         sidebarItemsByVersion.values.firstOrNull ??
-        <GeneratedSidebarItem>[];
+        <Doc>[];
 
     // Load parent pubspec if not provided
     final resolvedPubspec =
@@ -278,7 +279,7 @@ jaspr:
 
   /// Generate project_data.dart with sidebar items and discovered pages.
   Future<void> _generateProjectData(
-    List<GeneratedSidebarItem> sidebarItems,
+    List<Doc> sidebarItems,
     String? changelog,
     List<_DiscoveredPage> discoveredPages,
   ) async {
@@ -292,7 +293,7 @@ jaspr:
     buffer.writeln('  docs: [');
 
     for (final item in sidebarItems) {
-      _writeSidebarItemCode(buffer, item, '    ');
+      _writeDocCode(buffer, item, '    ');
     }
 
     buffer.writeln('  ],');
@@ -317,37 +318,29 @@ jaspr:
     ).writeAsString(buffer.toString());
   }
 
-  void _writeSidebarItemCode(
-    StringBuffer buffer,
-    GeneratedSidebarItem item,
-    String indent,
-  ) {
-    buffer.writeln('${indent}GeneratedSidebarItem(');
-    buffer.writeln("$indent  title: '${_escapeForDart(item.title)}',");
-
-    if (item.path != null) {
-      buffer.writeln("$indent  path: '${item.path}',");
+  void _writeDocCode(StringBuffer buffer, Doc item, String indent) {
+    switch (item) {
+      case DocLink(:final name, :final path, :final order):
+        buffer.writeln(
+          "${indent}DocLink(name: '${_escapeForDart(name)}', path: '$path', order: $order),",
+        );
+      case DocCategory(
+        :final name,
+        :final children,
+        :final expanded,
+        :final order,
+      ):
+        buffer.writeln('${indent}DocCategory(');
+        buffer.writeln("$indent  name: '${_escapeForDart(name)}',");
+        if (expanded) buffer.writeln('$indent  expanded: true,');
+        buffer.writeln('$indent  order: $order,');
+        buffer.writeln('$indent  children: [');
+        for (final child in children) {
+          _writeDocCode(buffer, child, '$indent    ');
+        }
+        buffer.writeln('$indent  ],');
+        buffer.writeln('$indent),');
     }
-
-    buffer.writeln('$indent  isCategory: ${item.isCategory},');
-
-    if (item.collapsed) {
-      buffer.writeln('$indent  collapsed: ${item.collapsed},');
-    }
-
-    if (item.depth != 0) {
-      buffer.writeln('$indent  depth: ${item.depth},');
-    }
-
-    if (item.children.isNotEmpty) {
-      buffer.writeln('$indent  children: [');
-      for (final child in item.children) {
-        _writeSidebarItemCode(buffer, child, '$indent    ');
-      }
-      buffer.writeln('$indent  ],');
-    }
-
-    buffer.writeln('$indent),');
   }
 
   /// Generate layout.dart that delegates to config functions.
@@ -853,43 +846,29 @@ header a:not(.logo).active {
   overflow-y: auto;
 }
 
-.sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+/* ExpansionTile */
+.expansion-tile {
+  margin-bottom: 0.25rem;
 }
 
-.sidebar-items {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar-category {
-  margin-bottom: 0.5rem;
-}
-
-.sidebar-category-title {
+.expansion-tile-header {
   display: flex;
   align-items: center;
   cursor: pointer;
   user-select: none;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-muted);
-  margin-bottom: 0.25rem;
+  color: var(--color-text);
   padding: 0.375rem 0.75rem;
   border-radius: 0.375rem;
   transition: color 0.15s;
 }
 
-.sidebar-category-title:hover {
-  color: var(--color-text);
+.expansion-tile-header:hover {
+  color: var(--color-primary);
 }
 
-.sidebar-category-title::before {
+.expansion-tile-header::before {
   content: '';
   display: inline-block;
   width: 0;
@@ -902,27 +881,21 @@ header a:not(.logo).active {
   transition: transform 0.2s ease;
 }
 
-.sidebar-category[data-collapsed="false"] > .sidebar-category-title::before {
+.expansion-tile[data-collapsed="false"] > .expansion-tile-header::before {
   transform: rotate(90deg);
 }
 
-.sidebar-category-items {
-  list-style: none;
-  padding: 0 0 0 0.75rem;
-  margin: 0;
+.expansion-tile-content {
+  padding-left: 0.75rem;
   overflow: hidden;
   max-height: 2000px;
   opacity: 1;
   transition: max-height 0.3s ease, opacity 0.2s ease;
 }
 
-.sidebar-category[data-collapsed="true"] > .sidebar-category-items {
+.expansion-tile[data-collapsed="true"] > .expansion-tile-content {
   max-height: 0;
   opacity: 0;
-}
-
-.sidebar-category-items li {
-  margin: 0;
 }
 
 .sidebar-link {
@@ -932,6 +905,7 @@ header a:not(.logo).active {
   text-decoration: none;
   border-radius: 0.375rem;
   font-size: 0.875rem;
+  border-left: 3px solid transparent;
   transition: all 0.15s;
 }
 
@@ -941,8 +915,10 @@ header a:not(.logo).active {
 }
 
 .sidebar-link.active {
-  background-color: var(--color-primary);
-  color: white;
+  border-left-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: rgba(1, 117, 194, 0.08);
+  font-weight: 500;
 }
 
 /* Main */
@@ -1620,7 +1596,7 @@ footer .column {
 
   function initCollapse() {
     var state = loadState();
-    var categories = document.querySelectorAll('.sidebar-category[data-category]');
+    var categories = document.querySelectorAll('.expansion-tile[data-category]');
 
     categories.forEach(function(cat) {
       var id = cat.getAttribute('data-category');
@@ -1630,12 +1606,12 @@ footer .column {
     });
   }
 
-  // Click handler for category titles
+  // Click handler for expansion tile headers
   document.addEventListener('click', function(e) {
-    var title = e.target.closest('.sidebar-category-title');
+    var title = e.target.closest('.expansion-tile-header');
     if (!title) return;
 
-    var cat = title.closest('.sidebar-category');
+    var cat = title.closest('.expansion-tile');
     if (!cat) return;
 
     var id = cat.getAttribute('data-category');
@@ -1648,10 +1624,10 @@ footer .column {
     saveState(currentState);
   });
 
-  // Keyboard accessibility for category titles
+  // Keyboard accessibility for expansion tile headers
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' || e.key === ' ') {
-      var title = e.target.closest('.sidebar-category-title');
+      var title = e.target.closest('.expansion-tile-header');
       if (title) {
         e.preventDefault();
         title.click();
@@ -1662,13 +1638,13 @@ footer .column {
   // Active link highlighting
   function expandParents(element) {
     var state = loadState();
-    var parent = element.closest('.sidebar-category');
+    var parent = element.closest('.expansion-tile');
     while (parent) {
       parent.setAttribute('data-collapsed', 'false');
       var id = parent.getAttribute('data-category');
       if (id) state[id] = false;
       var grandparent = parent.parentElement;
-      parent = grandparent ? grandparent.closest('.sidebar-category') : null;
+      parent = grandparent ? grandparent.closest('.expansion-tile') : null;
     }
     saveState(state);
   }

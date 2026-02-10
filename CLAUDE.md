@@ -66,6 +66,7 @@ docudart/
 │       │   ├── config_evaluator.dart    # Text-based parsing of config.dart
 │       │   └── setup.dart              # ConfigureFunction + LayoutBuilder typedefs
 │       ├── models/                      # Data models + enums
+│       │   ├── doc.dart               # Doc sealed hierarchy (DocLink + DocCategory)
 │       │   ├── pubspec.dart            # Pubspec + Environment models
 │       │   ├── project.dart            # Project (pubspec + docs + pages context object)
 │       │   ├── repository.dart         # Repository (URL with auto-detected provider label/icon)
@@ -97,8 +98,9 @@ docudart/
 │       │   └── theme_loader.dart        # Load custom themes
 │       ├── components/                  # Component system
 │       │   ├── navigation/             # Navigation-related components
+│       │   │   ├── expansion_tile.dart  # ExpansionTile (general-purpose collapsible tile)
 │       │   │   ├── link.dart            # Link (path/url navigation with leading/trailing support)
-│       │   │   ├── sidebar.dart         # DefaultSidebar component (collapsible doc nav)
+│       │   │   ├── sidebar.dart         # DefaultSidebar component (Column + ExpansionTile nav tree)
 │       │   │   └── theme_toggle.dart    # ThemeToggle (light/dark icon swap)
 │       │   ├── content/                # Content rendering components
 │       │   │   ├── markdown.dart        # Markdown (runtime markdown-to-HTML renderer)
@@ -229,7 +231,7 @@ Config configure(BuildContext context) => Config(
 ```
 - `.let()` extension (Kotlin-style) on `T?` — enables null-safe scoping: `value.let((it) => transform(it))` returns null if value is null
 - Generated layout/app code imports `config.dart` and calls `configure(context)` directly — no registration pattern
-- `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<Page>), `changelog` (String?)
+- `Project` holds: `pubspec` (Pubspec), `docs` (List<Doc>), `pages` (List<Page>), `changelog` (String?)
 - `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository` (`Repository?`), `issueTracker`, `documentation`, `publishTo`, `funding` (`List<String>?`), `topics` (`List<String>?`), `environment` (`Environment`, required)
 
 ### Link (lib/src/components/navigation/link.dart)
@@ -283,11 +285,38 @@ Composable footer content components.
 - `Copyright(text:)` - renders `<p>` with `© {year} {text}` (year from `DateTime.now().year`)
 - `BuiltWithDocuDart()` - renders `<p class="built-with">` with "Built with DocuDart" link
 
+### Doc (lib/src/models/doc.dart)
+Sealed class hierarchy for documentation structure — enables exhaustive pattern matching.
+```dart
+sealed class Doc { name, order }
+  ├── DocLink(name, path, order)        // leaf doc page
+  └── DocCategory(name, children, expanded, order)  // folder/section
+```
+- `expanded` (not `collapsed`) — aligns with `_expanded` folder suffix convention
+- No `depth` field — computed implicitly during rendering via nesting
+- Pattern matching: `case DocLink(:final name, :final path):` / `case DocCategory(:final children):`
+- `context.project.docs` is `List<Doc>`; generated `project_data.dart` uses `DocLink(...)` / `DocCategory(...)`
+
+### ExpansionTile (lib/src/components/navigation/expansion_tile.dart)
+General-purpose collapsible tile with animated chevron header and expandable content.
+```dart
+ExpansionTile(id: 'guides', title: 'Guides', expanded: true, children: [...])
+```
+- `id` — unique identifier for collapse state persistence (maps to localStorage)
+- `title` — display text for the header
+- `children` — child components shown when expanded
+- `expanded` — whether this tile starts expanded (default: false)
+- Renders: `div.expansion-tile[data-category][data-collapsed]` > `div.expansion-tile-header[role=button][tabindex=0]` + `div.expansion-tile-content`
+- Chevron via CSS `::before` pseudo-element with rotation transition
+- Content collapse via `max-height`/`opacity` CSS transition
+- Interactivity via vanilla JS targeting `data-collapsed` and `data-category` attributes
+
 ### DefaultSidebar (lib/src/components/navigation/sidebar.dart)
-- `DefaultSidebar(items)` - collapsible navigation tree from docs structure
-  - Renders `data-category`, `data-collapsed` attributes on categories for JS interactivity
-  - Renders `data-path` attributes on links for active page highlighting
-  - Categories have `role="button"` + `tabindex="0"` for keyboard accessibility
+- `DefaultSidebar(items: List<Doc>)` — collapsible navigation tree from docs structure using `Column` + `ExpansionTile`
+  - Pattern matches on sealed `Doc` hierarchy: `DocLink` → `<a>` link, `DocCategory` → `ExpansionTile`
+  - Uses `Column(crossAxisAlignment: .stretch, mainAxisSize: .min)` instead of raw `<ul>/<li>`
+  - Keeps `aside.sidebar > nav.sidebar-nav` wrapper
+  - Renders `data-path` attributes on links for active page highlighting (Dart.dev-style left blue border accent)
   - Uses `_slugify()` helper to generate stable category IDs for localStorage persistence
 
 ### ProjectProvider (lib/src/components/providers/project_provider.dart)
@@ -367,7 +396,7 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - **Page auto-discovery**: `_discoverPages()` recursively scans `pages/` (including subdirectories) for `.dart` files, extracts class names via regex (`class X extends Stateless/StatefulComponent`), derives route paths from filenames (`changelog_page.dart` → `/changelog`, `pages/foo/bar_page.dart` → `/foo/bar`). Discovered pages are passed to both `_generateApp()` (for route generation) and `_generateProjectData()` (populating `context.project.pages` with `Page` objects containing `path` and `name` fields). Just add a file to `pages/` and link to it.
 - **ProjectProvider**: Generated `app.dart` wraps `Router` with `ProjectProvider(project: project, child: Builder(builder: (context) => Router(...)))` — `Builder` provides a `BuildContext` with `ProjectProvider` as ancestor, making `context.project` available to `configure(context)` and all descendant components
 - Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml (repository field uses `Repository('...')` constructor, environment uses `Environment(sdk:, flutter:)` constructor)
-- Generates `project_data.dart` with Project containing pubspec + auto-generated sidebar items + changelog content
+- Generates `project_data.dart` with Project containing pubspec + docs (`List<Doc>` using `DocLink`/`DocCategory`) + changelog content
 - Generates `layout.dart` with `LayoutDelegate` class that calls `configure(context)`, resolves header/footer/sidebar from config functions, then delegates to `config.layoutBuilder` (if set) or the library `Layout` component
 - Injects `config.themeMode` into generated `theme.js` as `forcedMode` (overrides localStorage when set to light/dark)
 - If a layout function is null, that section is simply not rendered
@@ -463,14 +492,14 @@ The managed Jaspr site is generated in `SiteGenerator`:
 - `_generateAssetPaths()` - generates `website/assets/assets.dart` via `AssetPathGenerator` (type-safe asset constants)
 - `_copyUserFiles()` - copies config.dart, root `.dart` files, components/, pages/, and `assets/assets.dart` into lib/
 - `_generatePubspecData()` - lib/pubspec_data.dart (const Pubspec from parent pubspec.yaml)
-- `_generateProjectData()` - lib/project_data.dart (Project with pubspec + sidebar items + changelog)
+- `_generateProjectData()` - lib/project_data.dart (Project with pubspec + docs as `List<Doc>` + changelog)
 - `_generateLayout()` - lib/layout.dart (LayoutDelegate: calls configure(context), resolves sections, delegates to config.layoutBuilder or library Layout)
 - `_discoverPages()` - scans pages/ directory, extracts class names and derives route paths from filenames
 - `_generateApp()` - lib/app.dart with ProjectProvider wrapping Builder wrapping Router (home + doc + auto-discovered custom page routes)
 - `_generatePages()` - lib/pages/ directory (user pages copied by _copyUserFiles)
 - `_generateDocsPageContent()` - lib/docs_page_content.dart
-- `_generateStyles()` - web/styles.css (includes collapsible sidebar CSS with chevron + transitions)
-- `_generateThemeScript()` - web/theme.js (theme toggle + sidebar collapse/expand + active link highlighting)
+- `_generateStyles()` - web/styles.css (includes `.expansion-tile` CSS with chevron rotation + max-height transitions, Dart.dev-style active link with left border accent)
+- `_generateThemeScript()` - web/theme.js (theme toggle + `.expansion-tile` collapse/expand + active link highlighting)
 - `_generateLiveReload()` - web/live-reload.js + web/live-reload-version.txt (only when `serveMode: true`)
 - `bumpLiveReloadVersion()` - public method; writes new timestamp to version file after each regeneration during serve
 
@@ -556,7 +585,7 @@ Workflow:
 
 Use `headless: true` for automated checks. Key things to verify:
 - Header renders correctly (title, nav links, theme toggle)
-- Sidebar links are present with active item highlighted (blue bg)
+- Sidebar links are present with active item highlighted (left blue border accent)
 - Sidebar categories have collapsible chevron, click to toggle
 - Nested doc pages auto-expand parent categories
 - Landing page section (title, description, Button.primary CTA)
@@ -610,11 +639,11 @@ None currently tracked.
 - `DocuDartFileWatcher` watches: docs/, assets/, all root `.dart` files (config.dart, icons.dart, etc.), components/, pages/, parent project's `pubspec.yaml`, and parent project's `CHANGELOG.md`; uses debounce + pending-regeneration queue to handle rapid edits
 - `_handleEvent()` skips `assets.dart` inside the assets dir to prevent infinite rebuild loops (it's regenerated on each build and lives inside the watched assets/ dir)
 - **Sidebar interactivity** (all via vanilla JS in `theme.js`):
-  - **Collapsible categories**: click/keyboard toggle, CSS chevron rotation + `max-height` transition, state persisted in `localStorage` (`docudart-sidebar-state` key)
-  - **Active link highlighting**: `.sidebar-link.active` class applied via JS matching `window.location.pathname` against `data-path` attributes
+  - **Collapsible categories**: `.expansion-tile[data-category]` click/keyboard toggle, CSS chevron rotation (`::before` pseudo-element) + `max-height` transition, state persisted in `localStorage` (`docudart-sidebar-state` key)
+  - **Active link highlighting**: `.sidebar-link.active` class applied via JS matching `window.location.pathname` against `data-path` attributes; Dart.dev-style left blue border accent (`border-left: 3px solid var(--color-primary)`) + subtle background tint
   - **SPA navigation detection**: monkey-patches `history.pushState`/`replaceState` to dispatch `docudart-navigate` event; also listens for `popstate`; MutationObserver fallback if Jaspr re-renders sidebar
-  - **Auto-expand**: parent categories of active link automatically expand on navigation
-- **Sidebar collapse default**: ALL categories start collapsed by default. Add `_expanded` suffix to folder name (e.g., `01-guides_expanded/`) to make it start expanded. The suffix is stripped from display names, URLs, and sort order. `DocFolder.expanded` field carries this flag; `SidebarGenerator` sets `collapsed: !subfolder.expanded`.
+  - **Auto-expand**: parent `.expansion-tile` categories of active link automatically expand on navigation
+- **Sidebar collapse default**: ALL categories start collapsed by default. Add `_expanded` suffix to folder name (e.g., `01-guides_expanded/`) to make it start expanded. The suffix is stripped from display names, URLs, and sort order. `DocFolder.expanded` field carries this flag; `SidebarGenerator` sets `expanded: subfolder.expanded` on `DocCategory`.
 - **Docs ordering**: numeric filename prefix (`01-guides/`) or `sidebar_position` frontmatter field; `index.md`/`intro.md` default to position 0; no prefix defaults to 999. The `_expanded` suffix is stripped before extracting numeric prefix.
 
 - **Type-safe asset paths**: `AssetPathGenerator` scans `assets/` directory and generates `assets/assets.dart` with typed constants. Generated during both `init` (ProjectGenerator) and `build`/`serve` (SiteGenerator). File lives inside `assets/` dir to signal auto-generated nature (user should not edit). `_copyUserFiles()` copies it to managed project's `lib/assets/`. `_copyAssets()` skips `.dart` files to avoid copying it into `web/assets/`. Hot reload: `DocuDartFileWatcher` already watches assets/ — asset changes trigger regeneration of `assets.dart`. API: `Assets.logo.logo_webp` → `'/assets/logo/logo.webp'`. Subdirs become nested objects with `_Assets*` private classes. Identifiers use snake_case. Config.dart uses `import 'assets/assets.dart';`.

@@ -392,7 +392,7 @@ import 'package:docudart/docudart.dart';
 /// The [DefaultSidebar] renders a navigation tree from the docs structure.
 /// The [items] are auto-generated from your docs/ folder.
 class Sidebar extends StatelessComponent {
-  final List<GeneratedSidebarItem> items;
+  final List<Doc> items;
 
   const Sidebar({required this.items, super.key});
 
