@@ -11,7 +11,6 @@ class Config {
     BaseTheme? theme,
     this.themeMode = ThemeMode.system,
     this.versioning,
-    this.customPages = const [],
     this.header,
     this.footer,
     this.sidebar,
@@ -35,11 +34,6 @@ class Config {
               json['versioning'] as Map<String, dynamic>,
             )
           : null,
-      customPages:
-          (json['customPages'] as List<dynamic>?)
-              ?.map((e) => CustomPage.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
     );
   }
 
@@ -66,9 +60,6 @@ class Config {
 
   /// Documentation versioning configuration.
   final VersioningConfig? versioning;
-
-  /// Custom Dart/Jaspr pages.
-  final List<CustomPage> customPages;
 
   /// Header builder function. If null, no header is rendered.
   final Component? Function()? header;
@@ -97,7 +88,6 @@ class Config {
     'theme': theme.toJson(),
     'themeMode': themeMode.toJson(),
     if (versioning != null) 'versioning': versioning!.toJson(),
-    'customPages': customPages.map((page) => page.toJson()).toList(),
   };
 
   static BaseTheme _themeFromJson(Map<String, dynamic>? json) {
@@ -130,7 +120,6 @@ class Config {
     BaseTheme? theme,
     ThemeMode? themeMode,
     VersioningConfig? versioning,
-    List<CustomPage>? customPages,
     Component? Function()? header,
     Component? Function()? footer,
     Component? Function()? sidebar,
@@ -146,7 +135,6 @@ class Config {
       theme: theme ?? this.theme,
       themeMode: themeMode ?? this.themeMode,
       versioning: versioning ?? this.versioning,
-      customPages: customPages ?? this.customPages,
       header: header ?? this.header,
       footer: footer ?? this.footer,
       sidebar: sidebar ?? this.sidebar,

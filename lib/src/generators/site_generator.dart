@@ -76,15 +76,18 @@ class SiteGenerator {
     final resolvedPubspec =
         pubspec ?? await ConfigLoader.loadParentPubspec(websiteDir);
 
+    // Discover custom pages from pages/ directory
+    final discoveredPages = await _discoverPages();
+
     // Generate all required files
     await _generatePubspec();
     await _generateMain();
     await _generateAssetPaths();
     await _copyUserFiles();
     await _generatePubspecData(resolvedPubspec);
-    await _generateProjectData(defaultSidebarItems, changelog);
+    await _generateProjectData(defaultSidebarItems, changelog, discoveredPages);
     await _generateLayout();
-    await _generateApp(allPages, versionManager);
+    await _generateApp(allPages, versionManager, discoveredPages);
     await _generateStyles(includeVersionSwitcher: versionManager.isEnabled);
     await _generateWebFiles();
     await _copyAssets();
@@ -273,10 +276,11 @@ jaspr:
     ).writeAsString(buffer.toString());
   }
 
-  /// Generate project_data.dart with sidebar items and custom pages.
+  /// Generate project_data.dart with sidebar items and discovered pages.
   Future<void> _generateProjectData(
     List<GeneratedSidebarItem> sidebarItems,
     String? changelog,
+    List<_DiscoveredPage> discoveredPages,
   ) async {
     final buffer = StringBuffer();
     buffer.writeln("import 'package:docudart/docudart.dart';");
@@ -294,9 +298,9 @@ jaspr:
     buffer.writeln('  ],');
     buffer.writeln('  pages: [');
 
-    for (final page in config.customPages) {
+    for (final page in discoveredPages) {
       buffer.writeln(
-        "    CustomPage(path: '${_escapeForDart(page.path)}', filePath: '${_escapeForDart(page.filePath)}'),",
+        "    Page(path: '${_escapeForDart(page.routePath)}', name: '${_escapeForDart(page.name)}'),",
       );
     }
 
@@ -457,9 +461,10 @@ ClientOptions get defaultClientOptions => ClientOptions();
 
   /// Discover page components from the pages/ directory.
   ///
-  /// Scans each .dart file for a class extending StatelessComponent or
+  /// Recursively scans .dart files for a class extending StatelessComponent or
   /// StatefulComponent, extracts the class name, and derives a URL path
   /// from the filename (e.g., `changelog_page.dart` → `/changelog`).
+  /// Supports subdirectories (e.g., `pages/foo/bar_page.dart` → `/foo/bar`).
   Future<List<_DiscoveredPage>> _discoverPages() async {
     final pagesDir = Directory(p.join(websiteDir, 'pages'));
     if (!pagesDir.existsSync()) return [];
@@ -469,41 +474,68 @@ ClientOptions get defaultClientOptions => ClientOptions();
       r'class\s+(\w+)\s+extends\s+(?:Stateless|Stateful)Component',
     );
 
-    await for (final entity in pagesDir.list()) {
+    await for (final entity in pagesDir.list(recursive: true)) {
       if (entity is! File || !entity.path.endsWith('.dart')) continue;
 
-      final filename = p.basenameWithoutExtension(entity.path);
       final content = await entity.readAsString();
       final match = classPattern.firstMatch(content);
       if (match == null) continue;
 
       final className = match.group(1)!;
-      // Derive route path: strip _page suffix, replace underscores with hyphens
-      var routePath = filename;
-      if (routePath.endsWith('_page')) {
-        routePath = routePath.substring(0, routePath.length - '_page'.length);
+
+      // Compute relative path from pages/ directory
+      final relativePath = p.relative(entity.path, from: pagesDir.path);
+      final relativeWithoutExt = p.withoutExtension(relativePath);
+
+      // Split into path segments and normalize
+      final parts = p.split(relativeWithoutExt);
+
+      // Strip _page suffix from the filename (last segment)
+      var filename = parts.last;
+      if (filename.endsWith('_page')) {
+        filename = filename.substring(0, filename.length - '_page'.length);
       }
-      routePath = routePath.replaceAll('_', '-');
+      parts[parts.length - 1] = filename;
+
+      // Replace underscores with hyphens in all segments
+      final normalizedParts = parts
+          .map((part) => part.replaceAll('_', '-'))
+          .toList();
+      final routePath = '/${normalizedParts.join('/')}';
+
+      // Derive display name from the leaf segment
+      final name = _titleCase(normalizedParts.last.replaceAll('-', ' '));
 
       discovered.add(
         _DiscoveredPage(
           className: className,
-          filePath: 'pages/$filename.dart',
-          routePath: '/$routePath',
+          filePath: 'pages/$relativePath',
+          routePath: routePath,
+          name: name,
         ),
       );
     }
 
+    // Sort for deterministic output
+    discovered.sort((a, b) => a.routePath.compareTo(b.routePath));
+
     return discovered;
   }
+
+  static String _titleCase(String input) => input
+      .split(' ')
+      .map(
+        (word) => word.isEmpty
+            ? word
+            : word[0].toUpperCase() + word.substring(1).toLowerCase(),
+      )
+      .join(' ');
 
   Future<void> _generateApp(
     List<DocPage> pages,
     VersionManager versionManager,
+    List<_DiscoveredPage> discoveredPages,
   ) async {
-    // Discover custom pages from pages/ directory
-    final discoveredPages = await _discoverPages();
-
     // Generate routes for all pages
     final routesBuffer = StringBuffer();
 
@@ -1943,6 +1975,7 @@ class _DiscoveredPage {
     required this.className,
     required this.filePath,
     required this.routePath,
+    required this.name,
   });
 
   /// The Dart class name (e.g., `ChangelogPage`).
@@ -1953,4 +1986,7 @@ class _DiscoveredPage {
 
   /// URL route path (e.g., `/changelog`).
   final String routePath;
+
+  /// Human-readable display name (e.g., `Changelog`).
+  final String name;
 }

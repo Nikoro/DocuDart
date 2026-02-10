@@ -1,5 +1,5 @@
 import '../generators/sidebar_generator.dart';
-import 'custom_page.dart';
+import 'page.dart';
 import 'pubspec.dart';
 
 /// Project data passed to the [setup] callback.
@@ -20,8 +20,8 @@ class Project {
   /// Auto-generated sidebar items from the docs folder structure.
   final List<GeneratedSidebarItem> docs;
 
-  /// Custom pages registered in the config.
-  final List<CustomPage> pages;
+  /// Auto-discovered pages from the pages/ directory.
+  final List<Page> pages;
 
   /// Raw content of CHANGELOG.md from the parent project, if it exists.
   final String? changelog;

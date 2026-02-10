@@ -10,7 +10,7 @@ export 'src/config/config_loader.dart';
 export 'src/models/project.dart';
 export 'src/models/pubspec.dart';
 export 'src/models/repository.dart';
-export 'src/models/custom_page.dart';
+export 'src/models/page.dart';
 export 'src/models/theme_mode.dart';
 export 'src/models/versioning_config.dart';
 

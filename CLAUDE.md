@@ -69,7 +69,7 @@ docudart/
 │       │   ├── pubspec.dart            # Pubspec + Environment models
 │       │   ├── project.dart            # Project (pubspec + docs + pages context object)
 │       │   ├── repository.dart         # Repository (URL with auto-detected provider label/icon)
-│       │   ├── custom_page.dart        # CustomPage DTO
+│       │   ├── page.dart               # Page model (auto-discovered page metadata)
 │       │   ├── theme_mode.dart         # ThemeMode enum (system, light, dark)
 │       │   └── versioning_config.dart  # VersioningConfig
 │       ├── generators/                  # Code generation
@@ -197,7 +197,6 @@ Config(
   theme: BaseTheme,         // default: DefaultTheme()
   themeMode: ThemeMode,     // default: ThemeMode.system (system | light | dark)
   versioning: VersioningConfig?, // optional versioning support
-  customPages: List<CustomPage>, // custom Dart/Jaspr pages
   home: Component? Function()?,      // null function = redirect '/' to '/docs'; null return = same
   header: Component? Function()?,   // null = no header
   footer: Component? Function()?,   // null = no footer
@@ -230,7 +229,7 @@ Config configure(BuildContext context) => Config(
 ```
 - `.let()` extension (Kotlin-style) on `T?` — enables null-safe scoping: `value.let((it) => transform(it))` returns null if value is null
 - Generated layout/app code imports `config.dart` and calls `configure(context)` directly — no registration pattern
-- `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<CustomPage>), `changelog` (String?)
+- `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<Page>), `changelog` (String?)
 - `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository` (`Repository?`), `issueTracker`, `documentation`, `publishTo`, `funding` (`List<String>?`), `topics` (`List<String>?`), `environment` (`Environment`, required)
 
 ### Link (lib/src/components/navigation/link.dart)
@@ -365,7 +364,7 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - Adds `docudart` as path dependency in managed project's pubspec
 - Copies `config.dart`, `components/`, `pages/`, root-level `.dart` files (e.g. `icons.dart`), and `assets/assets.dart` into managed project's `lib/`
 - Home route uses `configure(context).home?.call()` with pattern matching (`case final homeComponent?`): if non-null, renders the home component; otherwise redirects `/` to `/docs`
-- **Page auto-discovery**: `_discoverPages()` scans `pages/` for `.dart` files, extracts class names via regex (`class X extends Stateless/StatefulComponent`), derives route paths from filenames (`changelog_page.dart` → `/changelog`). `_generateApp()` imports each discovered page and generates a `Route` wrapping it in `LayoutDelegate`. No manual `customPages` registration needed — just add a file to `pages/` and link to it.
+- **Page auto-discovery**: `_discoverPages()` recursively scans `pages/` (including subdirectories) for `.dart` files, extracts class names via regex (`class X extends Stateless/StatefulComponent`), derives route paths from filenames (`changelog_page.dart` → `/changelog`, `pages/foo/bar_page.dart` → `/foo/bar`). Discovered pages are passed to both `_generateApp()` (for route generation) and `_generateProjectData()` (populating `context.project.pages` with `Page` objects containing `path` and `name` fields). Just add a file to `pages/` and link to it.
 - **ProjectProvider**: Generated `app.dart` wraps `Router` with `ProjectProvider(project: project, child: Builder(builder: (context) => Router(...)))` — `Builder` provides a `BuildContext` with `ProjectProvider` as ancestor, making `context.project` available to `configure(context)` and all descendant components
 - Generates `pubspec_data.dart` with const Pubspec from parent project's pubspec.yaml (repository field uses `Repository('...')` constructor, environment uses `Environment(sdk:, flutter:)` constructor)
 - Generates `project_data.dart` with Project containing pubspec + auto-generated sidebar items + changelog content
