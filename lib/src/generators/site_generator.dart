@@ -1075,31 +1075,21 @@ footer .column {
   margin: 0 auto;
 }
 
-.hero {
+.landing-page > .column {
   text-align: center;
   padding: 4rem 2rem;
 }
 
-.hero h1 {
+.landing-page > .column h1 {
   font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 1rem;
   color: var(--color-text);
 }
 
-.hero-description {
+.landing-page .description {
   font-size: 1.25rem;
   color: var(--color-text-muted);
-  margin-bottom: 2rem;
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
 }
 
 /* Buttons */
@@ -1260,11 +1250,11 @@ footer .column {
     padding: 1rem;
   }
 
-  .hero h1 {
+  .landing-page > .column h1 {
     font-size: 2rem;
   }
 
-  .hero-description {
+  .landing-page .description {
     font-size: 1rem;
   }
 

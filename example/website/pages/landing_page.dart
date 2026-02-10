@@ -1,5 +1,7 @@
 import 'package:docudart/docudart.dart';
 
+import '../components/button.dart';
+
 /// Landing page component.
 class LandingPage extends StatelessComponent {
   final String? title;
@@ -10,16 +12,15 @@ class LandingPage extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return div(classes: 'landing-page', [
-      div(classes: 'hero', [
-        if (title != null) h1([.text(title!)]),
-        if (description != null)
-          p(classes: 'hero-description', [.text(description!)]),
-        div(classes: 'hero-actions', [
-          a(href: '/docs', classes: 'button button-primary', [
-            .text('Get Started'),
-          ]),
-        ]),
-      ]),
+      Column(
+        mainAxisAlignment: .center,
+        spacing: 1.5.rem,
+        children: [
+          ?title.let((t) => h1([.text(t)])),
+          ?description.let((d) => p(classes: 'description', [.text(d)])),
+          Button.primary(text: 'Get Started', href: '/docs'),
+        ],
+      ),
     ]);
   }
 }

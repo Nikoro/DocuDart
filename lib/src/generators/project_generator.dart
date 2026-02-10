@@ -357,6 +357,28 @@ class Footer extends StatelessComponent {
 }
 ''');
 
+    // Button component
+    await File(p.join(componentsDir, 'button.dart')).writeAsString('''
+import 'package:docudart/docudart.dart';
+
+/// A clickable button component.
+class Button extends StatelessComponent {
+  final String text;
+  final String href;
+  final String classes;
+
+  const Button({required this.text, required this.href, this.classes = 'button', super.key});
+
+  const Button.primary({required this.text, required this.href, super.key})
+      : classes = 'button button-primary';
+
+  @override
+  Component build(BuildContext context) {
+    return a(href: href, classes: classes, [.text(text)]);
+  }
+}
+''');
+
     // Sidebar component
     await File(p.join(componentsDir, 'sidebar.dart')).writeAsString('''
 import 'package:docudart/docudart.dart';
@@ -613,6 +635,8 @@ abstract class Labels {
     final landingContent = '''
 import 'package:docudart/docudart.dart';
 
+import '../components/button.dart';
+
 /// Landing page component.
 class LandingPage extends StatelessComponent {
   final String? title;
@@ -623,13 +647,15 @@ class LandingPage extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return div(classes: 'landing-page', [
-      div(classes: 'hero', [
-        if (title != null) h1([.text(title!)]),
-        if (description != null) p(classes: 'hero-description', [.text(description!)]),
-        div(classes: 'hero-actions', [
-          a(href: '/docs', classes: 'button button-primary', [.text('Get Started')]),
-        ]),
-      ]),
+      Column(
+        mainAxisAlignment: .center,
+        spacing: 1.5.rem,
+        children: [
+          ?title.let((t) => h1([.text(t)])),
+          ?description.let((d) => p(classes: 'description', [.text(d)])),
+          Button.primary(text: 'Get Started', href: '/docs'),
+        ],
+      ),
     ]);
   }
 }

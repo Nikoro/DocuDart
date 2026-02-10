@@ -135,6 +135,7 @@ docudart/
 │       ├── components/
 │       │   ├── header.dart              # Header component (renders header > Row directly)
 │       │   ├── footer.dart              # Footer component (leading/center/trailing slots)
+│       │   ├── button.dart              # Button component (with .primary() factory)
 │       │   └── sidebar.dart             # Sidebar wrapping DefaultSidebar
 │       ├── assets/
 │       │   └── assets.dart              # AUTO-GENERATED type-safe asset paths
@@ -171,6 +172,7 @@ user-project/
     components/          # Layout wrapper components
       header.dart        # Header component (renders header > Row directly)
       footer.dart        # Footer component (leading/center/trailing slots)
+      button.dart        # Button component (with .primary() factory)
       sidebar.dart       # Sidebar component wrapping DefaultSidebar
     assets/              # Static assets
       assets.dart        # AUTO-GENERATED type-safe asset paths (do not edit)
@@ -306,7 +308,7 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart ini
 - `InitTemplate.defaultTemplate` - Basic setup
 - `InitTemplate.full` - All features with examples, including sidebar subfolder showcase
 - Uses `PackageResolver` to compute path dependency to docudart
-- Generates wrapper components in `components/` (header.dart, footer.dart, sidebar.dart); Header takes optional `leading` (typically `Logo`) + `links` + `trailing`; renders `header > Row` directly; Footer takes optional `leading`/`center`/`trailing` → `footer > Row` directly
+- Generates wrapper components in `components/` (header.dart, footer.dart, button.dart, sidebar.dart); Header takes optional `leading` (typically `Logo`) + `links` + `trailing`; renders `header > Row` directly; Footer takes optional `leading`/`center`/`trailing` → `footer > Row` directly; Button has `text` + `href` fields with `.primary()` factory
 - Generates default logo asset (`logo.webp`) in `assets/logo/` via `_generateLogo()` — same copy pattern as favicons
 - `_generateAssetPaths()`: generates `assets/assets.dart` with typed asset path constants via `AssetPathGenerator`
 - Generated config.dart `Logo(...)` uses `image: img(src: Assets.logo.logo_webp, alt: '...')` — type-safe asset reference
@@ -519,7 +521,7 @@ Use `headless: true` for automated checks. Key things to verify:
 - Sidebar links are present with active item highlighted (blue bg)
 - Sidebar categories have collapsible chevron, click to toggle
 - Nested doc pages auto-expand parent categories
-- Landing page hero section (title, description, CTA button)
+- Landing page section (title, description, Button.primary CTA)
 - Footer with copyright text
 - Dark mode colors apply correctly
 - Doc pages render markdown content properly
