@@ -1,4 +1,4 @@
-import '../markdown/component_parser.dart';
+import '../../markdown/component_parser.dart';
 
 /// Factory function for creating component HTML from props and children.
 typedef ComponentFactory =

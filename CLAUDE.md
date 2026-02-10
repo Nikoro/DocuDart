@@ -96,29 +96,27 @@ docudart/
 │       │   ├── theme_typography.dart    # ThemeTypography
 │       │   └── theme_loader.dart        # Load custom themes
 │       ├── components/                  # Component system
-│       │   ├── link.dart               # Link (path/url navigation with leading/trailing support)
-│       │   ├── component_registry.dart  # Component registry
-│       │   ├── defaults/               # Default layout + composable components
-│       │   │   ├── logo.dart            # Logo component (clickable image + title)
-│       │   │   ├── copyright.dart        # Copyright component (© year text)
-│       │   │   ├── built_with_docudart.dart # BuiltWithDocuDart branding link
-│       │   │   ├── default_sidebar.dart # DefaultSidebar component
-│       │   │   ├── theme_toggle.dart    # ThemeToggle (light/dark icon swap)
-│       │   │   ├── socials.dart         # Socials (social media icon links)
-│       │   │   ├── topics.dart          # Topics (topic tag links with optional title)
+│       │   ├── navigation/             # Navigation-related components
+│       │   │   ├── link.dart            # Link (path/url navigation with leading/trailing support)
+│       │   │   ├── sidebar.dart         # DefaultSidebar component (collapsible doc nav)
+│       │   │   └── theme_toggle.dart    # ThemeToggle (light/dark icon swap)
+│       │   ├── content/                # Content rendering components
 │       │   │   ├── markdown.dart        # Markdown (runtime markdown-to-HTML renderer)
-│       │   │   └── project_provider.dart # ProjectProvider (InheritedComponent + context.project)
+│       │   │   └── component_registry.dart # Component registry for markdown embedding
+│       │   ├── branding/               # Brand/identity components
+│       │   │   ├── logo.dart            # Logo component (clickable image + title)
+│       │   │   ├── copyright.dart       # Copyright component (© year text)
+│       │   │   ├── built_with_docudart.dart # BuiltWithDocuDart branding link
+│       │   │   ├── socials.dart         # Socials (social media icon links)
+│       │   │   └── topics.dart          # Topics (topic tag links with optional title)
 │       │   ├── layout/                # Flutter-like layout primitives
 │       │   │   ├── flex_enums.dart     # MainAxisAlignment, CrossAxisAlignment, MainAxisSize
 │       │   │   ├── row.dart            # Row + Column components
 │       │   │   ├── flexible.dart       # Flexible component + FlexFit enum
 │       │   │   ├── expanded.dart       # Expanded component
 │       │   │   └── spacer.dart         # Spacer component
-│       │   └── built_in/               # Built-in markdown component styles/scripts
-│       │       ├── callout.dart
-│       │       ├── tabs.dart
-│       │       ├── code_block.dart
-│       │       └── version_switcher.dart
+│       │   └── providers/              # Context/state providers
+│       │       └── project_provider.dart # ProjectProvider (InheritedComponent + context.project)
 │       └── extensions/                  # Dart extensions (re-exported to users)
 │           ├── extensions.dart          # Barrel file
 │           └── object_extensions.dart   # .let() extension on T?
@@ -226,7 +224,7 @@ Config configure(Project project) => Config(
 - `Project` holds: `pubspec` (Pubspec), `docs` (List<GeneratedSidebarItem>), `pages` (List<CustomPage>), `changelog` (String?)
 - `Pubspec` is an immutable model with: `name` (required), `version`, `description`, `homepage`, `repository` (`Repository?`), `issueTracker`, `documentation`, `publishTo`, `funding` (`List<String>?`), `topics` (`List<String>?`), `environment` (`Environment`, required)
 
-### Link (lib/src/components/link.dart)
+### Link (lib/src/components/navigation/link.dart)
 Self-rendering navigation link (`StatelessComponent`) with optional leading/trailing icon components and label. Uses `Row` internally for horizontal layout.
 ```dart
 Link.path('/docs', label: 'Docs', leading: Icons.docs)                              // internal path
@@ -259,7 +257,7 @@ repo.icon   // Component (SVG icon for GitHub)
 - Used in generated config.dart: `?project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icons.openInNew))`
 - `==` / `hashCode` based on `link` field
 
-### Logo (lib/src/components/defaults/logo.dart)
+### Logo (lib/src/components/branding/logo.dart)
 Clickable logo component with optional image and/or title.
 ```dart
 Logo(title: 'My Project')
@@ -272,26 +270,26 @@ Logo(image: img(src: Assets.logo.logo_svg, alt: 'Logo'), href: '/home')
 - At least one of `image` or `title` required (assert)
 - CSS: `.logo` (inline-flex, no link decoration via `:visited`), `.logo-image` (1.75rem height), `.logo-title` (1.25rem semibold)
 
-### Copyright / BuiltWithDocuDart (lib/src/components/defaults/)
+### Copyright / BuiltWithDocuDart (lib/src/components/branding/)
 Composable footer content components.
 - `Copyright(text:)` - renders `<p>` with `© {year} {text}` (year from `DateTime.now().year`)
 - `BuiltWithDocuDart()` - renders `<p class="built-with">` with "Built with DocuDart" link
 
-### DefaultSidebar (lib/src/components/defaults/)
+### DefaultSidebar (lib/src/components/navigation/sidebar.dart)
 - `DefaultSidebar(items)` - collapsible navigation tree from docs structure
   - Renders `data-category`, `data-collapsed` attributes on categories for JS interactivity
   - Renders `data-path` attributes on links for active page highlighting
   - Categories have `role="button"` + `tabindex="0"` for keyboard accessibility
   - Uses `_slugify()` helper to generate stable category IDs for localStorage persistence
 
-### ProjectProvider (lib/src/components/defaults/project_provider.dart)
+### ProjectProvider (lib/src/components/providers/project_provider.dart)
 `InheritedComponent` that provides `Project` data to all descendant components via the component tree.
 - Generated `app.dart` wraps `Router` with `ProjectProvider(project: project, child: Router(...))`
 - Extension `ProjectContext` on `BuildContext` adds a `.project` getter
 - Usage: `context.project.pubspec.name`, `context.project.changelog`, `context.project.docs`
 - Eliminates the need for user pages to import `../project_data.dart` — just use `context.project`
 
-### Markdown (lib/src/components/defaults/markdown.dart)
+### Markdown (lib/src/components/content/markdown.dart)
 Reusable component that renders a raw markdown string as formatted HTML at runtime.
 ```dart
 Markdown(content: '# Hello\n\nSome **bold** text.')
@@ -439,11 +437,6 @@ The managed Jaspr site is generated in `SiteGenerator`:
 - `_generateThemeScript()` - web/theme.js (theme toggle + sidebar collapse/expand + active link highlighting)
 - `_generateLiveReload()` - web/live-reload.js + web/live-reload-version.txt (only when `serveMode: true`)
 - `bumpLiveReloadVersion()` - public method; writes new timestamp to version file after each regeneration during serve
-
-### Adding a Built-in Component
-1. Create `lib/src/components/built_in/my_component.dart`
-2. Register in ComponentRegistry (when implemented)
-3. Add to component parser to recognize `<MyComponent>` in MD
 
 ## Code Patterns
 

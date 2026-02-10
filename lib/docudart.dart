@@ -34,25 +34,31 @@ export 'src/markdown/markdown_processor.dart';
 export 'src/markdown/frontmatter_handler.dart';
 export 'src/markdown/component_parser.dart';
 
-// Components
-export 'src/components/link.dart';
-export 'src/components/component_registry.dart';
-export 'src/components/defaults/logo.dart';
-export 'src/components/defaults/built_with_docudart.dart';
-export 'src/components/defaults/copyright.dart';
-export 'src/components/defaults/default_sidebar.dart';
-export 'src/components/defaults/theme_toggle.dart';
-export 'src/components/defaults/socials.dart';
-export 'src/components/defaults/topics.dart';
-export 'src/components/defaults/markdown.dart';
-export 'src/components/defaults/project_provider.dart';
+// Components — Navigation
+export 'src/components/navigation/link.dart';
+export 'src/components/navigation/sidebar.dart';
+export 'src/components/navigation/theme_toggle.dart';
 
-// Layout
+// Components — Content
+export 'src/components/content/markdown.dart';
+export 'src/components/content/component_registry.dart';
+
+// Components — Branding
+export 'src/components/branding/logo.dart';
+export 'src/components/branding/copyright.dart';
+export 'src/components/branding/built_with_docudart.dart';
+export 'src/components/branding/socials.dart';
+export 'src/components/branding/topics.dart';
+
+// Components — Layout
 export 'src/components/layout/flex_enums.dart';
 export 'src/components/layout/row.dart';
 export 'src/components/layout/flexible.dart';
 export 'src/components/layout/expanded.dart';
 export 'src/components/layout/spacer.dart';
+
+// Components — Providers
+export 'src/components/providers/project_provider.dart';
 
 // Extensions
 export 'src/extensions/extensions.dart';

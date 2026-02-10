@@ -2,7 +2,7 @@ import 'package:markdown/markdown.dart' as md;
 
 import 'frontmatter_handler.dart';
 import 'component_parser.dart';
-import '../components/component_registry.dart';
+import '../components/content/component_registry.dart';
 
 /// Result of processing a markdown file.
 class ProcessedMarkdown {
