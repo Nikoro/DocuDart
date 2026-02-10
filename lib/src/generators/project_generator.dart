@@ -458,12 +458,17 @@ class Sidebar extends StatelessComponent {
         "          trailing: Icons.openInNew,\n"
         "        ),\n"
         "      ),\n"
-        "      .url('$pubDevUrl', label: Labels.pubDev, leading: Icons.pubDev, trailing: Icons.openInNew),\n"
+        "      .url(\n"
+        "        '$pubDevUrl',\n"
+        "        label: Labels.pubDev,\n"
+        "        leading: Icons.pubDev,\n"
+        "        trailing: Icons.openInNew,\n"
+        "      ),\n"
         '    ],\n'
         '    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),\n'
         '  ),\n'
-        '  footer: () => context.project.pubspec.let((pubspec) {\n'
-        '    return Footer(\n'
+        '  footer: () => context.project.pubspec.let(\n'
+        '    (pubspec) => Footer(\n'
         '      leading: pubspec.topics.let(\n'
         '        (topics) => Topics(\n'
         '          title: Labels.topics,\n'
@@ -487,8 +492,8 @@ class Sidebar extends StatelessComponent {
         "          .url('https://x.com', leading: Icons.xTwitter),\n"
         '        ],\n'
         '      ),\n'
-        '    );\n'
-        '  }),\n'
+        '    ),\n'
+        '  ),\n'
         "  sidebar: () => context.url.contains('/docs')\n"
         '      ? Sidebar(items: context.project.docs)\n'
         '      : null,\n'

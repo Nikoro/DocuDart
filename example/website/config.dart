@@ -47,8 +47,8 @@ Config configure(BuildContext context) => Config(
     ],
     trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
   ),
-  footer: () => context.project.pubspec.let((pubspec) {
-    return Footer(
+  footer: () => context.project.pubspec.let(
+    (pubspec) => Footer(
       leading: pubspec.topics.let(
         (topics) => Topics(
           title: Labels.topics,
@@ -74,8 +74,8 @@ Config configure(BuildContext context) => Config(
           .url('https://x.com', leading: Icons.xTwitter),
         ],
       ),
-    );
-  }),
+    ),
+  ),
   sidebar: () => context.url.contains('/docs')
       ? Sidebar(items: context.project.docs)
       : null,
