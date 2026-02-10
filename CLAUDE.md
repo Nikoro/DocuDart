@@ -317,10 +317,12 @@ Layout(header: myHeader, sidebar: mySidebar, body: content, footer: myFooter)
 ```
 - All 4 params are optional `Component?` — omitted sections are not rendered
 - `const`-constructible
-- Uses `Column > [header?, Expanded(Row > [sidebar?, body?.apply(classes: 'site-main', ...)]), footer?]` with inline styles
-- No `.layout`/`.site-body`/`.no-sidebar` CSS classes — layout handled via inline `Styles` (`minHeight: 100.vh`, `maxWidth`, `margin`)
-- Sidebar presence controls inline styles: with sidebar → `maxWidth: 1400.px`, alignment `.start`; without → `maxWidth: 100.percent`, alignment `.center`, body padding zeroed
-- `.site-main` CSS class kept on body for responsive media query override (`padding: 1.5rem` at `max-width: 1024px`)
+- Uses `Column(crossAxisAlignment: .stretch) > [header?, Expanded(Row.apply(height: 100%) > [sidebar?, body?.apply(...)]), footer?]` with inline styles
+- Outer Column: `crossAxisAlignment: .stretch` for full-width children; `.apply(styles: Styles(minHeight: 100.vh))`
+- Inner Row: `.apply(styles: Styles(height: 100.percent, maxWidth:, margin:))` — `height: 100%` fills Expanded for vertical centering (e.g. landing page hero)
+- Body: inline `flex: Flex(grow: 1, ...)`, `maxWidth: hasSidebar ? 900.px : 100.percent`, `padding: hasSidebar ? null : .zero`
+- `.site-main` CSS class on body — CSS only has `padding: 2rem 3rem` + responsive override; flex/maxWidth are inline
+- Sidebar presence controls: with sidebar → Row `maxWidth: 1400.px`, alignment `.start`; without → `maxWidth: 100.percent`, alignment `.center`
 - Generated `LayoutDelegate` in `layout.dart` delegates to this component (or to `config.layoutBuilder` if set)
 - **Naming**: Generated class is `LayoutDelegate` (not `Layout`) to avoid collision with this library export
 

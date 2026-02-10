@@ -28,6 +28,7 @@ class Layout extends StatelessComponent {
     final hasSidebar = sidebar != null;
 
     return Column(
+      crossAxisAlignment: .stretch,
       children: [
         ?header,
         Expanded(
@@ -39,14 +40,17 @@ class Layout extends StatelessComponent {
                   ?sidebar,
                   ?body?.apply(
                     classes: 'site-main',
-                    styles: hasSidebar
-                        ? null
-                        : Styles(maxWidth: 100.percent, padding: .zero),
+                    styles: Styles(
+                      flex: Flex(grow: 1, shrink: 1, basis: Unit.zero),
+                      maxWidth: hasSidebar ? 900.px : 100.percent,
+                      padding: hasSidebar ? null : .zero,
+                    ),
                     attributes: {'role': 'main'},
                   ),
                 ],
               ).apply(
                 styles: Styles(
+                  height: 100.percent,
                   maxWidth: hasSidebar ? 1400.px : 100.percent,
                   margin: .symmetric(horizontal: .auto),
                 ),

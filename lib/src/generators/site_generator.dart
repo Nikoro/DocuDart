@@ -725,21 +725,6 @@ body {
   min-height: 100vh;
 }
 
-/* Layout Primitives */
-.row {
-  display: flex;
-  flex-direction: row;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-}
-
-.spacer {
-  flex: 1 0 0px;
-}
-
 /* Header */
 header {
   position: sticky;
@@ -930,9 +915,7 @@ header a:not(.logo).active {
 
 /* Main */
 .site-main {
-  flex: 1;
   padding: 2rem 3rem;
-  max-width: 900px;
 }
 
 /* Footer */

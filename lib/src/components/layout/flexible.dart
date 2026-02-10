@@ -36,7 +36,6 @@ class Flexible extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return div(
-      classes: 'flexible',
       styles: Styles(
         flex: fit == FlexFit.tight
             ? Flex(grow: flex.toDouble(), shrink: 0, basis: Unit.zero)
