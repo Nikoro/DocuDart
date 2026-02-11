@@ -173,7 +173,7 @@ jaspr:
     // Copy pages/ directory
     await _copyDirectory(p.join(websiteDir, 'pages'), p.join(libDir, 'pages'));
 
-    // Copy other root-level .dart files (e.g. icons.dart)
+    // Copy other root-level .dart files (e.g. labels.dart)
     // Use writeAsString instead of copy to trigger filesystem events for hot reload.
     final websiteDirEntity = Directory(websiteDir);
     await for (final entity in websiteDirEntity.list()) {

@@ -64,6 +64,9 @@ export 'src/components/layout/sized_box.dart';
 // Components — Providers
 export 'src/components/providers/project_provider.dart';
 
+// Icons
+export 'src/icons/icons.dart';
+
 // Extensions
 export 'src/extensions/extensions.dart';
 

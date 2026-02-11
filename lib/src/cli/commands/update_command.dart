@@ -15,13 +15,12 @@ class UpdateCommand extends Command<int> {
 
   @override
   Future<int> run() async {
-    final isGlobalExecution =
-        Platform.script.toFilePath().contains('.pub-cache/global_packages');
+    final isGlobalExecution = Platform.script.toFilePath().contains(
+      '.pub-cache/global_packages',
+    );
 
     if (!isGlobalExecution) {
-      CliPrinter.info(
-        'You are using a local path installation.',
-      );
+      CliPrinter.info('You are using a local path installation.');
       CliPrinter.info('To update, pull the latest changes manually.');
       return 0;
     }
@@ -32,25 +31,22 @@ class UpdateCommand extends Command<int> {
 
     if (installationInfo.source == InstallationSource.git) {
       CliPrinter.step('Updating from git...');
-      result = await Process.run(
-        'dart',
-        [
-          'pub',
-          'global',
-          'activate',
-          '--source',
-          'git',
-          'https://github.com/Nikoro/docudart',
-        ],
-        runInShell: true,
-      );
+      result = await Process.run('dart', [
+        'pub',
+        'global',
+        'activate',
+        '--source',
+        'git',
+        'https://github.com/Nikoro/docudart',
+      ], runInShell: true);
     } else {
       CliPrinter.step('Updating from pub.dev...');
-      result = await Process.run(
-        'dart',
-        ['pub', 'global', 'activate', 'docudart'],
-        runInShell: true,
-      );
+      result = await Process.run('dart', [
+        'pub',
+        'global',
+        'activate',
+        'docudart',
+      ], runInShell: true);
     }
 
     if (result.exitCode == 0) {

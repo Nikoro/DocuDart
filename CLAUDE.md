@@ -127,10 +127,22 @@ docudart/
 │       │   │   └── sized_box.dart     # SizedBox component (fixed-size box / spacer)
 │       │   └── providers/              # Context/state providers
 │       │       └── project_provider.dart # ProjectProvider (InheritedComponent + context.project)
+│       ├── icons/                       # Icon system (6 families, ~49k icons)
+│       │   ├── icons.dart               # Barrel file exporting all icon modules
+│       │   ├── icon.dart                # Icon component (renders SVG from IconData)
+│       │   ├── helpers.dart             # IconData class, StrokeLineJoin/Cap enums
+│       │   ├── lucide_icons.dart        # GENERATED - Lucide icons (~1,669)
+│       │   ├── material_icons.dart      # GENERATED - Material Icons (~10,953)
+│       │   ├── material_symbols.dart    # GENERATED - Material Symbols (~22,884)
+│       │   ├── tabler_icons.dart        # GENERATED - Tabler Icons (~5,986)
+│       │   ├── fluent_icons.dart        # GENERATED - Fluent UI Icons (~5,074)
+│       │   └── font_awesome_icons.dart  # GENERATED - Font Awesome Icons (~2,860)
 │       └── extensions/                  # Dart extensions (re-exported to users)
 │           ├── extensions.dart          # Barrel file
 │           ├── object_extensions.dart   # .let() extension on T?
 │           └── component_extensions.dart # .apply() extension on Component
+├── tool/
+│   └── generate_icons.dart              # Icon generator (clones repos, parses SVGs, generates Dart)
 ├── example/                             # Example DocuDart project
 │   ├── pubspec.yaml                     # Example Dart project
 │   ├── lib/                             # Example project code
@@ -138,7 +150,6 @@ docudart/
 │   └── website/                         # DocuDart documentation site
 │       ├── pubspec.yaml                 # Depends on docudart via path: ../../
 │       ├── config.dart
-│       ├── icons.dart                       # SVG icon constants (Icons.github, Icons.pubDev, etc.)
 │       ├── labels.dart                      # Label string constants (Labels.github, Labels.docs, etc.)
 │       ├── docs/
 │       ├── pages/landing_page.dart
@@ -164,7 +175,6 @@ user-project/
   website/               # Created by docudart create
     pubspec.yaml         # Depends on docudart (path dependency)
     config.dart          # configure() function returning Config + header/footer/sidebar
-    icons.dart           # SVG icon constants (Icons.github, Icons.pubDev, Icons.docs, etc.)
     labels.dart          # Label string constants (Labels.github, Labels.docs, etc.)
     docs/                # Markdown documentation files
       index.md
@@ -243,8 +253,8 @@ Config configure(BuildContext context) => Config(
 ### Link (lib/src/components/navigation/link.dart)
 Self-rendering navigation link (`StatelessComponent`) with optional leading/trailing icon components and label. Uses `Row` internally for horizontal layout.
 ```dart
-Link.path('/docs', label: 'Docs', leading: Icons.docs)                              // internal path
-Link.url('https://github.com', label: 'GitHub', leading: Icons.github, trailing: Icons.openInNew)  // external URL with trailing icon
+Link.path('/docs', label: 'Docs', leading: Icon(MaterialSymbols.docs))                              // internal path
+Link.url('https://github.com', label: 'GitHub', leading: Icon(FontAwesomeIcons.github_brand), trailing: Icon(MaterialIcons.open_in_new))  // external URL with trailing icon
 Link.url('https://pub.dev', leading: someIconComponent)                              // leading-only
 Link.path('/about', label: 'About')                                                  // label-only
 ```
@@ -269,8 +279,8 @@ repo.icon   // Component (SVG icon for GitHub)
 ```
 - `const` constructible — works in `const Pubspec(repository: Repository('...'))`
 - Provider detection uses `host.contains()`: `github` → GitHub, `gitlab` → GitLab, `bitbucket` → Bitbucket, else generic link icon
-- SVG icons embedded as static constants (same SVGs as generated `icons.dart`)
-- Used in generated config.dart: `?context.project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icons.openInNew))`
+- SVG icons embedded as static constants for provider detection
+- Used in generated config.dart: `?context.project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icon(MaterialIcons.open_in_new)))`
 - `==` / `hashCode` based on `link` field
 
 ### Logo (lib/src/components/branding/logo.dart)
@@ -381,10 +391,9 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart cre
 - Generates default logo asset (`logo.webp`) in `assets/logo/` via `_generateLogo()` — same copy pattern as favicons
 - `_generateAssetPaths()`: generates `assets/assets.dart` with typed asset path constants via `AssetPathGenerator`
 - Generated config.dart `Logo(...)` uses `image: img(src: Assets.logo.logo_webp, alt: '...')` — type-safe asset reference
-- Generates `icons.dart` at website root with default SVG icons (github, pubDev, docs, discord, youtube, etc.)
 - Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, Labels.changelog, Labels.topics, etc.)
 - **Smart pub.dev URL**: `_resolvePubDevUrl()` makes a HEAD request to `https://pub.dev/packages/{name}` at init time; if 200, uses specific package URL, else falls back to generic `https://pub.dev` (5s timeout, graceful fallback on errors)
-- **Smart repository link**: Generated config.dart uses `?context.project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icons.openInNew))` for runtime provider detection with external link indicator; null-safe via `.let()` — if no repository, the entry is omitted
+- **Smart repository link**: Generated config.dart uses `?context.project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icon(MaterialIcons.open_in_new)))` for runtime provider detection with external link indicator; null-safe via `.let()` — if no repository, the entry is omitted
 - **Lint dependency propagation**: `_resolveLintDependency()` checks parent's `pubspec.yaml` for `lints` or `flutter_lints` (in `dev_dependencies` then `dependencies`), propagates as `dev_dependency` in generated `website/pubspec.yaml`
 - Runs `dart pub get` then `dart format .` in website/ after generation
 - **Conditional changelog**: Checks for `CHANGELOG.md` in parent project root; if present, generates `pages/changelog_page.dart` (uses `Markdown(content: context.project.changelog ?? '')`) via `_generateChangelogPage()` and adds `.path('/changelog', label: Labels.changelog)` link to header in config.dart; if absent, neither page nor link is generated
@@ -397,7 +406,7 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 - `serveMode: true` enables live-reload script injection (only during `docudart serve`)
 - `generate({bool fullClean = true, Pubspec? pubspec, String? changelog})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
 - Adds `docudart` as path dependency in managed project's pubspec
-- Copies `config.dart`, `components/`, `pages/`, root-level `.dart` files (e.g. `icons.dart`), and `assets/assets.dart` into managed project's `lib/`
+- Copies `config.dart`, `components/`, `pages/`, root-level `.dart` files (e.g. `labels.dart`), and `assets/assets.dart` into managed project's `lib/`
 - Home route uses `configure(context).home?.call()` with pattern matching (`case final homeComponent?`): if non-null, renders the home component; otherwise redirects `/` to `/docs`
 - **Page auto-discovery**: `_discoverPages()` recursively scans `pages/` (including subdirectories) for `.dart` files, extracts class names via regex (`class X extends Stateless/StatefulComponent`), derives route paths from filenames (`changelog_page.dart` → `/changelog`, `pages/foo/bar_page.dart` → `/foo/bar`). Discovered pages are passed to both `_generateApp()` (for route generation) and `_generateProjectData()` (populating `context.project.pages` with `Page` objects containing `path` and `name` fields). Just add a file to `pages/` and link to it.
 - **ProjectProvider**: Generated `app.dart` wraps `Router` with `ProjectProvider(project: project, child: Builder(builder: (context) => Router(...)))` — `Builder` provides a `BuildContext` with `ProjectProvider` as ancestor, making `context.project` available to `configure(context)` and all descendant components
@@ -616,10 +625,50 @@ Use `headless: true` for automated checks. Key things to verify:
 Live reload works automatically during `docudart serve`. To verify with Playwright:
 
 1. Start the server and open a page in Playwright (keep the same browser tab open)
-2. Make a change to a watched file (e.g., change `Icons.docs` to `Icons.flutter` in `config.dart`)
+2. Make a change to a watched file (e.g., change `MaterialSymbols.docs` to `LucideIcons.book_open` in `config.dart`)
 3. Wait for `page.waitForEvent('framenavigated')` — the browser reloads itself via `live-reload.js`
 4. Extract DOM values and compare — they should reflect the change
 5. Stop the server: `pkill -f "docudart.dart serve"; pkill -f "jaspr"`
+
+## Icon System
+
+DocuDart ships a library-level icon system with ~49,000 icons across 6 families, all exported via `lib/src/icons/icons.dart` (re-exported through `docudart.dart`).
+
+### Icon Component & IconData (lib/src/icons/)
+- `IconData(List<Map<String, dynamic>> content)` — stores SVG element data; defined in `helpers.dart`
+- `Icon(IconData icon, {height, width, viewBox, fill, stroke, ...})` — `StatelessComponent` rendering an SVG; defined in `icon.dart`
+- Root element convention: first entry in `content` may have `'tag': 'root'` with `'family'` tag and `'attrs'` for SVG-level attributes (fill, stroke, etc.)
+- Material Icons is the exception — no root element, child paths go directly into `content`
+- `helpers.dart` also defines `StrokeLineJoin` and `StrokeLineCap` enums
+
+### Icon Families
+| Class | Family | Icons | Styles |
+|-------|--------|-------|--------|
+| `LucideIcons` | Lucide | ~1,669 | single (stroke-based) |
+| `MaterialIcons` | Material Icons | ~10,953 | baseline, `_outlined`, `_rounded`, `_sharp`, `_twotone` |
+| `MaterialSymbols` | Material Symbols | ~22,884 | outlined, `_outlined_filled`, `_rounded`, `_rounded_filled`, `_sharp`, `_sharp_filled` |
+| `TablerIcons` | Tabler | ~5,986 | outline (no suffix), `_filled` |
+| `FluentIcons` | Fluent UI | ~5,074 | regular (no suffix), `_filled` |
+| `FontAwesomeIcons` | Font Awesome | ~2,860 | solid (no suffix), `_regular`, `_brand` |
+
+- All classes are `abstract class` with private `const ClassName._()` constructor
+- Naming: snake_case identifiers, base style has no suffix, variants get suffixes
+- Names starting with digits or Dart reserved words get `icon_` prefix
+- Each icon has a base64-encoded SVG preview in its doc comment for IDE tooltips
+
+### Icon Generator Tool (tool/generate_icons.dart)
+```bash
+# Generate all families
+dart run tool/generate_icons.dart
+
+# Generate specific families
+dart run tool/generate_icons.dart lucide tabler font-awesome
+```
+- Clones upstream repos to `/tmp/docudart-icons/<family>/` (shallow clone, reuses on subsequent runs)
+- Parses SVGs with `package:xml` — extracts root attributes and child elements
+- Deduplicates icon names (keeps first occurrence alphabetically)
+- Generated files have `// GENERATED CODE - DO NOT MODIFY BY HAND` header
+- Hand-written files (`icon.dart`, `helpers.dart`) are NOT touched by the generator
 
 ## Known Bugs
 
@@ -638,6 +687,7 @@ None currently tracked.
 | `jaspr` | Web framework for SSG (re-exported to users) |
 | `collection` | Collection utilities |
 | `meta` | @immutable annotation |
+| `xml` (dev) | SVG parsing for icon generator tool |
 
 ## Important Notes
 
@@ -654,7 +704,7 @@ None currently tracked.
 - Theme mode (system/light/dark) via `themeMode` field — injected into `theme.js` as `forcedMode`; when set to light/dark it overrides localStorage; toggle still works for user override
 - WorkspaceResolver supports backward compatibility with old flat structure
 - **Live reload**: `configure()` is a plain function — no lazy init, no stored callbacks. `_copyUserFiles()` uses `writeAsString` (not `File.copy()`) for reliable filesystem events. During serve, `live-reload.js` polls `live-reload-version.txt` every 1s; after regeneration, version is bumped and the browser auto-refreshes. The live-reload script is only injected during `docudart serve` (`serveMode: true`), not during `docudart build`.
-- `DocuDartFileWatcher` watches: docs/, assets/, all root `.dart` files (config.dart, icons.dart, etc.), components/, pages/, parent project's `pubspec.yaml`, and parent project's `CHANGELOG.md`; uses debounce + pending-regeneration queue to handle rapid edits
+- `DocuDartFileWatcher` watches: docs/, assets/, all root `.dart` files (config.dart, labels.dart, etc.), components/, pages/, parent project's `pubspec.yaml`, and parent project's `CHANGELOG.md`; uses debounce + pending-regeneration queue to handle rapid edits
 - `_handleEvent()` skips `assets.dart` inside the assets dir to prevent infinite rebuild loops (it's regenerated on each build and lives inside the watched assets/ dir)
 - **Sidebar interactivity** (all via vanilla JS in `theme.js`):
   - **Collapsible categories**: `.expansion-tile[data-category]` click/keyboard toggle, CSS chevron rotation (`::before` pseudo-element) + `max-height` transition, state persisted in `localStorage` (`docudart-sidebar-state` key). `initCollapse()` suppresses CSS transitions (sets `transition: none`, forces reflow, then restores) to prevent visual flash when restoring saved state on page load.

@@ -1,9 +1,6 @@
 import 'dart:io';
 
-enum InstallationSource {
-  git,
-  hosted,
-}
+enum InstallationSource { git, hosted }
 
 class InstallationInfo {
   InstallationInfo({
@@ -51,9 +48,7 @@ Future<InstallationInfo> detectInstallationSource() async {
 
       if (source == 'git') {
         // Extract git URL and ref
-        final gitUrlMatch = RegExp(
-          r'url:\s*"([^"]+)"',
-        ).firstMatch(content);
+        final gitUrlMatch = RegExp(r'url:\s*"([^"]+)"').firstMatch(content);
 
         final gitRefMatch = RegExp(
           r'resolved-ref:\s*"?([a-f0-9]+)"?',

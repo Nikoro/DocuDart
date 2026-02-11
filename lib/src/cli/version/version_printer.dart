@@ -38,20 +38,23 @@ Future<void> showVersion() async {
 }
 
 Future<String?> _getVersion() async {
-  final isGlobalExecution =
-      Platform.script.toFilePath().contains('.pub-cache/global_packages');
+  final isGlobalExecution = Platform.script.toFilePath().contains(
+    '.pub-cache/global_packages',
+  );
 
   if (isGlobalExecution) {
-    final globalResult = await Process.run(
-      'dart',
-      ['pub', 'global', 'list'],
-      runInShell: true,
-    );
+    final globalResult = await Process.run('dart', [
+      'pub',
+      'global',
+      'list',
+    ], runInShell: true);
 
     if (globalResult.exitCode == 0) {
       final output = globalResult.stdout.toString();
-      final match =
-          RegExp(r'^docudart\s+([\d\.]+)', multiLine: true).firstMatch(output);
+      final match = RegExp(
+        r'^docudart\s+([\d\.]+)',
+        multiLine: true,
+      ).firstMatch(output);
       if (match != null) return match.group(1);
     }
   }

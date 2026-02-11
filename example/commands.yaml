@@ -1,5 +1,5 @@
-init:
-  script: dart ../bin/docudart.dart init
+create:
+  script: dart ../bin/docudart.dart create
 
 serve:
   script: dart ../bin/docudart.dart serve
@@ -7,5 +7,5 @@ serve:
 regenerate:
   script: |
     rm -rf website
-    init
+    create
     serve

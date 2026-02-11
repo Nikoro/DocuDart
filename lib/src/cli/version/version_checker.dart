@@ -84,8 +84,9 @@ Future<VersionCheckResult?> _checkGitHubRelease(
 ) async {
   try {
     // Extract owner/repo from git URL
-    final match =
-        RegExp(r'github\.com[:/]([^/]+)/([^/.]+)').firstMatch(gitUrl ?? '');
+    final match = RegExp(
+      r'github\.com[:/]([^/]+)/([^/.]+)',
+    ).firstMatch(gitUrl ?? '');
     if (match == null) return null;
 
     final owner = match.group(1);
@@ -112,8 +113,9 @@ Future<VersionCheckResult?> _checkGitHubRelease(
     if (tagName == null) return null;
 
     // Remove 'v' prefix if present
-    final latestVersion =
-        tagName.startsWith('v') ? tagName.substring(1) : tagName;
+    final latestVersion = tagName.startsWith('v')
+        ? tagName.substring(1)
+        : tagName;
 
     return VersionCheckResult(
       currentVersion: currentVersion,

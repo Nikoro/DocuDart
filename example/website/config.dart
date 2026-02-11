@@ -3,7 +3,6 @@ import 'assets/assets.dart';
 import 'components/header.dart';
 import 'components/footer.dart';
 import 'components/sidebar.dart';
-import 'icons.dart';
 import 'labels.dart';
 import 'pages/landing_page.dart';
 
@@ -28,24 +27,27 @@ Config configure(BuildContext context) => Config(
       title: context.project.pubspec.name,
     ),
     links: [
-      .path('/docs', label: Labels.docs, leading: Icons.docs),
+      .path('/docs', label: Labels.docs, leading: Icon(MaterialSymbols.docs)),
       .path('/changelog', label: Labels.changelog),
       ?context.project.pubspec.repository.let(
         (repository) => .url(
           repository.link,
           label: repository.label,
           leading: repository.icon,
-          trailing: Icons.openInNew,
+          trailing: Icon(MaterialIcons.open_in_new),
         ),
       ),
       .url(
         'https://pub.dev',
         label: Labels.pubDev,
-        leading: Icons.pubDev,
-        trailing: Icons.openInNew,
+        leading: Icon(FontAwesomeIcons.dart_lang_brand),
+        trailing: Icon(MaterialIcons.open_in_new),
       ),
     ],
-    trailing: ThemeToggle(light: Icons.lightMode, dark: Icons.darkMode),
+    trailing: ThemeToggle(
+      light: Icon(MaterialIcons.light_mode),
+      dark: Icon(MaterialIcons.dark_mode),
+    ),
   ),
   footer: () => context.project.pubspec.let(
     (pubspec) => Footer(
@@ -69,9 +71,18 @@ Config configure(BuildContext context) => Config(
       ),
       trailing: Socials(
         links: [
-          .url('https://youtube.com', leading: Icons.youtube),
-          .url('https://discord.com', leading: Icons.discord),
-          .url('https://x.com', leading: Icons.xTwitter),
+          .url(
+            'https://youtube.com',
+            leading: Icon(FontAwesomeIcons.youtube_brand),
+          ),
+          .url(
+            'https://discord.com',
+            leading: Icon(FontAwesomeIcons.discord_brand),
+          ),
+          .url(
+            'https://x.com',
+            leading: Icon(FontAwesomeIcons.x_twitter_brand),
+          ),
         ],
       ),
     ),
