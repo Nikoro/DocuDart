@@ -275,11 +275,11 @@ Wraps a repository URL string with auto-detected provider label and icon.
 const repo = Repository('https://github.com/user/repo');
 repo.link   // 'https://github.com/user/repo'
 repo.label  // 'GitHub' (auto-detected from host)
-repo.icon   // Component (SVG icon for GitHub)
+repo.icon   // Component (Icon using FontAwesomeIcons)
 ```
 - `const` constructible — works in `const Pubspec(repository: Repository('...'))`
-- Provider detection uses `host.contains()`: `github` → GitHub, `gitlab` → GitLab, `bitbucket` → Bitbucket, else generic link icon
-- SVG icons embedded as static constants for provider detection
+- Provider detection via `_matchHost<T>()` generic helper using `host.contains()`: `github` → GitHub, `gitlab` → GitLab, `bitbucket` → Bitbucket, else generic fallback
+- Icons use built-in icon dataset (`FontAwesomeIcons` for brands, `FontAwesomeIcons.link` for generic fallback)
 - Used in generated config.dart: `?context.project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icon(MaterialIcons.open_in_new)))`
 - `==` / `hashCode` based on `link` field
 
