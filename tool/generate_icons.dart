@@ -76,6 +76,7 @@ const _dartKeywords = <String>{
 
 // Attributes on the root <svg> that we propagate into the root element map.
 const _keepRootAttrs = <String>{
+  'viewBox',
   'fill',
   'stroke',
   'stroke-width',
@@ -570,6 +571,10 @@ List<IconEntry> _parseFluent(IconFamily family) {
       final rootAttrs = _extractRootAttrs(svgElement);
       final children = _extractChildren(svgElement);
 
+      // Fluent icons use hardcoded fill colors on path elements (e.g. #212121)
+      // instead of currentColor. Replace with currentColor for theming support.
+      _replaceHardcodedFills(children);
+
       final content = <Map<String, dynamic>>[
         {'tag': 'root', 'family': family.familyTag, 'attrs': rootAttrs},
         ...children,
@@ -644,6 +649,25 @@ List<IconEntry> _parseFontAwesome(IconFamily family) {
 // ---------------------------------------------------------------------------
 // SVG parsing helpers
 // ---------------------------------------------------------------------------
+
+/// Replace hardcoded fill colors (e.g. #212121) on child elements with
+/// currentColor so icons respond to CSS color inheritance and theming.
+void _replaceHardcodedFills(List<Map<String, dynamic>> children) {
+  for (final child in children) {
+    final attrs = child['attrs'] as Map<String, String>?;
+    if (attrs != null && attrs.containsKey('fill')) {
+      final fill = attrs['fill']!;
+      // Replace any hardcoded hex color with currentColor
+      if (fill.startsWith('#') || fill.startsWith('rgb')) {
+        attrs['fill'] = 'currentColor';
+      }
+    }
+    // Recurse into nested children (g, defs, etc.)
+    if (child.containsKey('children')) {
+      _replaceHardcodedFills(child['children'] as List<Map<String, dynamic>>);
+    }
+  }
+}
 
 /// Extract attributes from root `<svg>` that we care about.
 Map<String, String> _extractRootAttrs(XmlElement svgElement) {

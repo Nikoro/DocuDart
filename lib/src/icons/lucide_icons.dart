@@ -13,6 +13,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44,6 +45,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -75,6 +77,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -106,6 +109,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -141,6 +145,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -163,6 +168,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -197,6 +203,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -223,6 +230,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -262,6 +270,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -301,6 +310,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -340,6 +350,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -379,6 +390,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -422,6 +434,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -463,6 +476,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -493,6 +507,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -528,6 +543,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -563,6 +579,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -602,6 +619,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -641,6 +659,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -692,6 +711,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -735,6 +755,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -778,6 +799,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -817,6 +839,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -856,6 +879,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -895,6 +919,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -928,6 +953,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -971,6 +997,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1010,6 +1037,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1049,6 +1077,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1100,6 +1129,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1143,6 +1173,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1186,6 +1217,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1225,6 +1257,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1264,6 +1297,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1303,6 +1337,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1336,6 +1371,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1379,6 +1415,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1427,6 +1464,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1453,6 +1491,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1482,6 +1521,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1527,6 +1567,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1558,6 +1599,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1597,6 +1639,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1628,6 +1671,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1667,6 +1711,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1708,6 +1753,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1751,6 +1797,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1788,6 +1835,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1825,6 +1873,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1851,6 +1900,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1884,6 +1934,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1925,6 +1976,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1962,6 +2014,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -1996,6 +2049,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2018,6 +2072,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2044,6 +2099,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2066,6 +2122,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2092,6 +2149,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2114,6 +2172,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2140,6 +2199,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2162,6 +2222,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2188,6 +2249,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2211,6 +2273,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2252,6 +2315,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2293,6 +2357,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2328,6 +2393,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2355,6 +2421,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2378,6 +2445,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2413,6 +2481,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2436,6 +2505,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2463,6 +2533,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2490,6 +2561,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2521,6 +2593,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2556,6 +2629,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2591,6 +2665,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2614,6 +2689,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2641,6 +2717,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2672,6 +2749,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2699,6 +2777,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2722,6 +2801,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2749,6 +2829,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2780,6 +2861,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2807,6 +2889,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2830,6 +2913,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2871,6 +2955,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2912,6 +2997,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2947,6 +3033,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -2978,6 +3065,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3005,6 +3093,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3032,6 +3121,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3055,6 +3145,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3090,6 +3181,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3113,6 +3205,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3140,6 +3233,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3175,6 +3269,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3210,6 +3305,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3245,6 +3341,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3272,6 +3369,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3295,6 +3393,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3328,6 +3427,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3367,6 +3467,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3389,6 +3490,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3415,6 +3517,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3441,6 +3544,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3472,6 +3576,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3506,6 +3611,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3544,6 +3650,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3566,6 +3673,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3606,6 +3714,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3636,6 +3745,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3662,6 +3772,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3692,6 +3803,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3722,6 +3834,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3756,6 +3869,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3796,6 +3910,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3834,6 +3949,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3865,6 +3981,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3899,6 +4016,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3939,6 +4057,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -3973,6 +4092,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4008,6 +4128,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4038,6 +4159,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4072,6 +4194,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4102,6 +4225,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4142,6 +4266,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4183,6 +4308,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4210,6 +4336,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4233,6 +4360,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4259,6 +4387,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4308,6 +4437,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4341,6 +4471,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4382,6 +4513,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4423,6 +4555,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4464,6 +4597,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4499,6 +4633,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4537,6 +4672,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4564,6 +4700,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4602,6 +4739,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4631,6 +4769,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4662,6 +4801,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4703,6 +4843,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4736,6 +4877,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4773,6 +4915,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4808,6 +4951,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4843,6 +4987,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4870,6 +5015,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4896,6 +5042,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4940,6 +5087,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -4971,6 +5119,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5002,6 +5151,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5029,6 +5179,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5062,6 +5213,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5100,6 +5252,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5153,6 +5306,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5179,6 +5333,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5209,6 +5364,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5254,6 +5410,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5284,6 +5441,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5320,6 +5478,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5354,6 +5513,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5388,6 +5548,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5427,6 +5588,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5466,6 +5628,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5505,6 +5668,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5544,6 +5708,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5574,6 +5739,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5605,6 +5771,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5656,6 +5823,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5701,6 +5869,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5762,6 +5931,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5801,6 +5971,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5840,6 +6011,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5862,6 +6034,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5885,6 +6058,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5928,6 +6102,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5960,6 +6135,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -5979,6 +6155,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6016,6 +6193,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6043,6 +6221,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6070,6 +6249,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6092,6 +6272,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6118,6 +6299,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6148,6 +6330,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6170,6 +6353,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6192,6 +6376,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6222,6 +6407,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6252,6 +6438,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6286,6 +6473,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6312,6 +6500,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6342,6 +6531,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6401,6 +6591,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6431,6 +6622,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6465,6 +6657,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6494,6 +6687,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6524,6 +6718,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6559,6 +6754,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6596,6 +6792,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6622,6 +6819,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6648,6 +6846,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6674,6 +6873,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6704,6 +6904,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6746,6 +6947,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6776,6 +6978,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6807,6 +7010,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6837,6 +7041,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6871,6 +7076,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6901,6 +7107,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6938,6 +7145,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6968,6 +7176,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -6998,6 +7207,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7020,6 +7230,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7046,6 +7257,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7072,6 +7284,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7102,6 +7315,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7132,6 +7346,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7181,6 +7396,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7226,6 +7442,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7268,6 +7485,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7314,6 +7532,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7340,6 +7559,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7384,6 +7604,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7414,6 +7635,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7486,6 +7708,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7515,6 +7738,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7538,6 +7762,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7587,6 +7812,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7657,6 +7883,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7738,6 +7965,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7791,6 +8019,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7840,6 +8069,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7893,6 +8123,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7922,6 +8153,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -7959,6 +8191,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8008,6 +8241,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8053,6 +8287,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8090,6 +8325,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8123,6 +8359,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8160,6 +8397,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8191,6 +8429,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8252,6 +8491,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8317,6 +8557,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8374,6 +8615,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8439,6 +8681,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8477,6 +8720,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8523,6 +8767,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8580,6 +8825,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8629,6 +8875,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8682,6 +8929,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8735,6 +8983,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8769,6 +9018,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8840,6 +9090,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8877,6 +9128,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8918,6 +9170,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -8960,6 +9213,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9002,6 +9256,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9043,6 +9298,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9080,6 +9336,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9122,6 +9379,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9192,6 +9450,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9253,6 +9512,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9291,6 +9551,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9332,6 +9593,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9369,6 +9631,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9410,6 +9673,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9452,6 +9716,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9494,6 +9759,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9539,6 +9805,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9592,6 +9859,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9634,6 +9902,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9684,6 +9953,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9729,6 +9999,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9770,6 +10041,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9818,6 +10090,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9844,6 +10117,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9881,6 +10155,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9925,6 +10200,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -9963,6 +10239,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10015,6 +10292,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10041,6 +10319,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10092,6 +10371,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10122,6 +10402,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10161,6 +10442,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10195,6 +10477,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10243,6 +10526,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10295,6 +10579,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10331,6 +10616,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10371,6 +10657,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10407,6 +10694,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10438,6 +10726,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10469,6 +10758,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10499,6 +10789,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10543,6 +10834,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10581,6 +10873,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10628,6 +10921,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10662,6 +10956,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10703,6 +10998,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10729,6 +11025,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10760,6 +11057,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10799,6 +11097,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10830,6 +11129,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10861,6 +11161,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10908,6 +11209,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10963,6 +11265,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -10994,6 +11297,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11033,6 +11337,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11064,6 +11369,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11095,6 +11401,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11142,6 +11449,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11173,6 +11481,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11196,6 +11505,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11239,6 +11549,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11266,6 +11577,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11293,6 +11605,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11320,6 +11633,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11362,6 +11676,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11389,6 +11704,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11415,6 +11731,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11479,6 +11796,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11502,6 +11820,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11521,6 +11840,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11544,6 +11864,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11571,6 +11892,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11597,6 +11919,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11634,6 +11957,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11671,6 +11995,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11708,6 +12033,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11749,6 +12075,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11787,6 +12114,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11841,6 +12169,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11887,6 +12216,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11906,6 +12236,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11929,6 +12260,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11952,6 +12284,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11971,6 +12304,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -11990,6 +12324,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12009,6 +12344,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12032,6 +12368,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12055,6 +12392,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12078,6 +12416,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12101,6 +12440,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12136,6 +12476,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12159,6 +12500,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12182,6 +12524,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12205,6 +12548,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12228,6 +12572,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12263,6 +12608,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12304,6 +12650,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12339,6 +12686,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12378,6 +12726,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12397,6 +12746,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12434,6 +12784,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12461,6 +12812,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12488,6 +12840,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12515,6 +12868,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12542,6 +12896,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12569,6 +12924,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12596,6 +12952,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12623,6 +12980,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12650,6 +13008,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12673,6 +13032,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12696,6 +13056,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12719,6 +13080,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12742,6 +13104,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12765,6 +13128,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12788,6 +13152,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12835,6 +13200,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12881,6 +13247,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12908,6 +13275,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12931,6 +13299,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -12982,6 +13351,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13013,6 +13383,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13040,6 +13411,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13083,6 +13455,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13126,6 +13499,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13153,6 +13527,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13176,6 +13551,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13203,6 +13579,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13226,6 +13603,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13265,6 +13643,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13302,6 +13681,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13333,6 +13713,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13372,6 +13753,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13398,6 +13780,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13425,6 +13808,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13456,6 +13840,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13483,6 +13868,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13510,6 +13896,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13538,6 +13925,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13561,6 +13949,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13580,6 +13969,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13606,6 +13996,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13635,6 +14026,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13662,6 +14054,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13689,6 +14082,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13716,6 +14110,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13757,6 +14152,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13791,6 +14187,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13825,6 +14222,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13858,6 +14256,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13895,6 +14294,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13936,6 +14336,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -13980,6 +14381,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14029,6 +14431,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14066,6 +14469,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14110,6 +14514,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14150,6 +14555,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14196,6 +14602,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14237,6 +14644,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14282,6 +14690,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14323,6 +14732,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14346,6 +14756,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14369,6 +14780,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14392,6 +14804,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14415,6 +14828,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14438,6 +14852,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14461,6 +14876,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14484,6 +14900,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14507,6 +14924,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14530,6 +14948,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14553,6 +14972,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14576,6 +14996,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14599,6 +15020,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14622,6 +15044,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14653,6 +15076,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14684,6 +15108,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14715,6 +15140,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14742,6 +15168,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14781,6 +15208,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14812,6 +15240,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14845,6 +15274,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14866,6 +15296,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14893,6 +15324,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14925,6 +15357,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -14950,6 +15383,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15004,6 +15438,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15034,6 +15469,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15079,6 +15515,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15108,6 +15545,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15153,6 +15591,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15178,6 +15617,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15204,6 +15644,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15238,6 +15679,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15270,6 +15712,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15303,6 +15746,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15336,6 +15780,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15381,6 +15826,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15420,6 +15866,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15467,6 +15914,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15505,6 +15953,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15534,6 +15983,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15559,6 +16009,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15589,6 +16040,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15615,6 +16067,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15638,6 +16091,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15665,6 +16119,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15710,6 +16165,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15757,6 +16213,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15791,6 +16248,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15862,6 +16320,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15893,6 +16352,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15922,6 +16382,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -15955,6 +16416,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16021,6 +16483,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16058,6 +16521,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16109,6 +16573,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16131,6 +16596,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16157,6 +16623,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16200,6 +16667,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16243,6 +16711,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16277,6 +16746,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16305,6 +16775,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16358,6 +16829,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16399,6 +16871,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16440,6 +16913,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16478,6 +16952,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16501,6 +16976,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16542,6 +17018,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16576,6 +17053,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16608,6 +17086,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16644,6 +17123,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16685,6 +17165,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16735,6 +17216,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16776,6 +17258,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16826,6 +17309,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16849,6 +17333,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16872,6 +17357,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16895,6 +17381,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16918,6 +17405,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16941,6 +17429,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16964,6 +17453,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -16987,6 +17477,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17010,6 +17501,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17033,6 +17525,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17056,6 +17549,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17139,6 +17633,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17172,6 +17667,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17206,6 +17702,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17254,6 +17751,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17277,6 +17775,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17299,6 +17798,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17354,6 +17854,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17380,6 +17881,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17410,6 +17912,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17443,6 +17946,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17493,6 +17997,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17521,6 +18026,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17573,6 +18079,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17605,6 +18112,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17652,6 +18160,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17696,6 +18205,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17736,6 +18246,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17773,6 +18284,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17820,6 +18332,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17850,6 +18363,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17880,6 +18394,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17915,6 +18430,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17937,6 +18453,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17963,6 +18480,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -17997,6 +18515,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18027,6 +18546,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18057,6 +18577,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18091,6 +18612,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18129,6 +18651,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18171,6 +18694,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18217,6 +18741,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18267,6 +18792,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18316,6 +18842,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18343,6 +18870,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18366,6 +18894,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18393,6 +18922,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18424,6 +18954,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18457,6 +18988,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18489,6 +19021,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18548,6 +19081,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18603,6 +19137,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18636,6 +19171,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18677,6 +19213,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18705,6 +19242,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18731,6 +19269,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18758,6 +19297,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18799,6 +19339,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18837,6 +19378,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18856,6 +19398,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18883,6 +19426,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18918,6 +19462,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18968,6 +19513,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -18999,6 +19545,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19044,6 +19591,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19101,6 +19649,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19123,6 +19672,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19156,6 +19706,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19185,6 +19736,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19233,6 +19785,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19262,6 +19815,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19303,6 +19857,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19328,6 +19883,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19372,6 +19928,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19409,6 +19966,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19457,6 +20015,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19480,6 +20039,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19499,6 +20059,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19525,6 +20086,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19556,6 +20118,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19583,6 +20146,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19610,6 +20174,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19643,6 +20208,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19666,6 +20232,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19708,6 +20275,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19734,6 +20302,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19772,6 +20341,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19802,6 +20372,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19840,6 +20411,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19887,6 +20459,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19916,6 +20489,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19942,6 +20516,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -19977,6 +20552,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20014,6 +20590,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20036,6 +20613,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20062,6 +20640,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20091,6 +20670,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20121,6 +20701,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20164,6 +20745,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20215,6 +20797,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20256,6 +20839,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20282,6 +20866,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20324,6 +20909,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20358,6 +20944,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20395,6 +20982,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20436,6 +21024,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20476,6 +21065,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20516,6 +21106,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20554,6 +21145,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20592,6 +21184,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20622,6 +21215,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20659,6 +21253,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20689,6 +21284,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20719,6 +21315,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20753,6 +21350,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20787,6 +21385,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20821,6 +21420,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20883,6 +21483,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20917,6 +21518,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20961,6 +21563,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -20995,6 +21598,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21025,6 +21629,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21058,6 +21663,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21091,6 +21697,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21125,6 +21732,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21159,6 +21767,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21197,6 +21806,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21237,6 +21847,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21267,6 +21878,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21297,6 +21909,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21331,6 +21944,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21365,6 +21979,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21398,6 +22013,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21431,6 +22047,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21464,6 +22081,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21498,6 +22116,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21532,6 +22151,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21562,6 +22182,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21604,6 +22225,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21638,6 +22260,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21672,6 +22295,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21710,6 +22334,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21752,6 +22377,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21794,6 +22420,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21828,6 +22455,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21858,6 +22486,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21892,6 +22521,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21930,6 +22560,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -21968,6 +22599,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22006,6 +22638,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22040,6 +22673,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22074,6 +22708,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22117,6 +22752,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22154,6 +22790,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22188,6 +22825,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22222,6 +22860,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22256,6 +22895,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22309,6 +22949,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22360,6 +23001,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22401,6 +23043,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22452,6 +23095,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22488,6 +23132,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22507,6 +23152,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22537,6 +23183,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22559,6 +23206,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22593,6 +23241,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22615,6 +23264,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22637,6 +23287,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22659,6 +23310,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22689,6 +23341,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22719,6 +23372,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22760,6 +23414,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22790,6 +23445,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22831,6 +23487,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22858,6 +23515,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22897,6 +23555,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22936,6 +23595,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -22975,6 +23635,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23014,6 +23675,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23072,6 +23734,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23110,6 +23773,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23145,6 +23809,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23192,6 +23857,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23239,6 +23905,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23261,6 +23928,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23295,6 +23963,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23321,6 +23990,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23351,6 +24021,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23377,6 +24048,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23407,6 +24079,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23465,6 +24138,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23491,6 +24165,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23521,6 +24196,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23555,6 +24231,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23589,6 +24266,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23618,6 +24296,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23648,6 +24327,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23682,6 +24362,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23716,6 +24397,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23752,6 +24434,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23778,6 +24461,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23800,6 +24484,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23826,6 +24511,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23856,6 +24542,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23885,6 +24572,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23915,6 +24603,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23945,6 +24634,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -23975,6 +24665,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24005,6 +24696,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24031,6 +24723,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24069,6 +24762,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24106,6 +24800,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24136,6 +24831,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24166,6 +24862,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24195,6 +24892,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24232,6 +24930,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24263,6 +24962,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24306,6 +25006,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24329,6 +25030,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24380,6 +25082,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24399,6 +25102,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24440,6 +25144,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24474,6 +25179,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24515,6 +25221,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24537,6 +25244,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24567,6 +25275,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24597,6 +25306,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24630,6 +25340,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24663,6 +25374,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24704,6 +25416,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24737,6 +25450,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24770,6 +25484,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24831,6 +25546,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24889,6 +25605,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24932,6 +25649,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24955,6 +25673,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -24990,6 +25709,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25020,6 +25740,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25051,6 +25772,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25081,6 +25803,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25121,6 +25844,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25148,6 +25872,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25179,6 +25904,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25218,6 +25944,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25255,6 +25982,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25282,6 +26010,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25313,6 +26042,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25352,6 +26082,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25387,6 +26118,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25426,6 +26158,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25453,6 +26186,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25489,6 +26223,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25524,6 +26259,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25563,6 +26299,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25598,6 +26335,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25637,6 +26375,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25677,6 +26416,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25703,6 +26443,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25725,6 +26466,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25751,6 +26493,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25786,6 +26529,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25813,6 +26557,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25853,6 +26598,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25883,6 +26629,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25910,6 +26657,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25945,6 +26693,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -25975,6 +26724,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26026,6 +26776,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26059,6 +26810,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26085,6 +26837,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26115,6 +26868,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26145,6 +26899,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26182,6 +26937,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26223,6 +26979,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26274,6 +27031,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26313,6 +27071,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26352,6 +27111,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26403,6 +27163,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26440,6 +27201,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26477,6 +27239,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26511,6 +27274,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26541,6 +27305,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26575,6 +27340,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26613,6 +27379,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26647,6 +27414,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26685,6 +27453,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26722,6 +27491,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26752,6 +27522,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26786,6 +27557,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26828,6 +27600,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26854,6 +27627,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26892,6 +27666,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26926,6 +27701,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -26967,6 +27743,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27008,6 +27785,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27045,6 +27823,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27096,6 +27875,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27134,6 +27914,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27181,6 +27962,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27225,6 +28007,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27251,6 +28034,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27278,6 +28062,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27309,6 +28094,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27340,6 +28126,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27375,6 +28162,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27410,6 +28198,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27448,6 +28237,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27483,6 +28273,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27521,6 +28312,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27543,6 +28335,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27569,6 +28362,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27591,6 +28385,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27620,6 +28415,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27642,6 +28438,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27668,6 +28465,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27701,6 +28499,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27731,6 +28530,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27757,6 +28557,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27815,6 +28616,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27865,6 +28667,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27887,6 +28690,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27913,6 +28717,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -27940,6 +28745,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28008,6 +28814,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28080,6 +28887,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28118,6 +28926,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28179,6 +28988,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28216,6 +29026,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28242,6 +29053,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28271,6 +29083,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28308,6 +29121,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28342,6 +29156,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28376,6 +29191,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28406,6 +29222,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28433,6 +29250,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28467,6 +29285,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28497,6 +29316,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28528,6 +29348,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28569,6 +29390,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28607,6 +29429,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28641,6 +29464,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28675,6 +29499,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28713,6 +29538,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28770,6 +29596,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28807,6 +29634,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28845,6 +29673,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28879,6 +29708,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28932,6 +29762,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -28976,6 +29807,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29002,6 +29834,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29037,6 +29870,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29059,6 +29893,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29086,6 +29921,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29127,6 +29963,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29166,6 +30003,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29208,6 +30046,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29231,6 +30070,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29254,6 +30094,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29281,6 +30122,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29315,6 +30157,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29342,6 +30185,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29376,6 +30220,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29406,6 +30251,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29437,6 +30283,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29470,6 +30317,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29527,6 +30375,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29584,6 +30433,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29639,6 +30489,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29672,6 +30523,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29702,6 +30554,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29739,6 +30592,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29769,6 +30623,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29802,6 +30657,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29835,6 +30691,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29869,6 +30726,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29911,6 +30769,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29950,6 +30809,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -29976,6 +30836,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30011,6 +30872,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30044,6 +30906,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30071,6 +30934,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30112,6 +30976,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30153,6 +31018,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30189,6 +31055,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30218,6 +31085,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30258,6 +31126,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30313,6 +31182,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30368,6 +31238,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30419,6 +31290,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30464,6 +31336,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30509,6 +31382,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30554,6 +31428,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30580,6 +31455,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30606,6 +31482,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30642,6 +31519,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30678,6 +31556,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30717,6 +31596,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30752,6 +31632,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30782,6 +31663,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30819,6 +31701,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30841,6 +31724,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30869,6 +31753,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30901,6 +31786,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30942,6 +31828,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -30977,6 +31864,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31016,6 +31904,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31047,6 +31936,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31082,6 +31972,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31117,6 +32008,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31152,6 +32044,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31187,6 +32080,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31222,6 +32116,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31249,6 +32144,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31284,6 +32180,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31315,6 +32212,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31346,6 +32244,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31377,6 +32276,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31412,6 +32312,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31453,6 +32354,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31488,6 +32390,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31526,6 +32429,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31561,6 +32465,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31602,6 +32507,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31637,6 +32543,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31671,6 +32578,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31706,6 +32614,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31753,6 +32662,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31772,6 +32682,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31803,6 +32714,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31858,6 +32770,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31917,6 +32830,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31960,6 +32874,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -31990,6 +32905,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32023,6 +32939,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32056,6 +32973,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32086,6 +33004,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32113,6 +33032,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32140,6 +33060,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32191,6 +33112,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32218,6 +33140,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32256,6 +33179,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32286,6 +33210,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32315,6 +33240,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32344,6 +33270,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32373,6 +33300,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32399,6 +33327,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32432,6 +33361,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32469,6 +33399,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32507,6 +33438,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32541,6 +33473,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32574,6 +33507,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32613,6 +33547,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32648,6 +33583,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32678,6 +33614,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32712,6 +33649,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32738,6 +33676,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32768,6 +33707,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32794,6 +33734,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32831,6 +33772,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32861,6 +33803,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32887,6 +33830,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32927,6 +33871,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32959,6 +33904,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -32993,6 +33939,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33023,6 +33970,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33057,6 +34005,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33087,6 +34036,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33120,6 +34070,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33158,6 +34109,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33185,6 +34137,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33216,6 +34169,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33243,6 +34197,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33274,6 +34229,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33305,6 +34261,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33347,6 +34304,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33379,6 +34337,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33421,6 +34380,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33467,6 +34427,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33532,6 +34493,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33559,6 +34521,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33586,6 +34549,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33608,6 +34572,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33638,6 +34603,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33687,6 +34653,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33716,6 +34683,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33750,6 +34718,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33780,6 +34749,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33810,6 +34780,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33840,6 +34811,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33870,6 +34842,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33900,6 +34873,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33930,6 +34904,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33952,6 +34927,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -33982,6 +34958,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34037,6 +35014,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34071,6 +35049,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34097,6 +35076,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34126,6 +35106,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34162,6 +35143,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34196,6 +35178,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34226,6 +35209,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34256,6 +35240,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34286,6 +35271,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34316,6 +35302,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34346,6 +35333,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34380,6 +35368,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34410,6 +35399,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34440,6 +35430,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34469,6 +35460,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34502,6 +35494,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34541,6 +35534,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34574,6 +35568,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34635,6 +35630,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34674,6 +35670,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34721,6 +35718,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34751,6 +35749,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34781,6 +35780,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34822,6 +35822,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34853,6 +35854,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34884,6 +35886,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34903,6 +35906,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34946,6 +35950,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -34983,6 +35988,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35020,6 +36026,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35085,6 +36092,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35119,6 +36127,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35160,6 +36169,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35195,6 +36205,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35236,6 +36247,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35276,6 +36288,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35315,6 +36328,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35356,6 +36370,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35399,6 +36414,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35440,6 +36456,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35481,6 +36498,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35503,6 +36521,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35533,6 +36552,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35571,6 +36591,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35590,6 +36611,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35616,6 +36638,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35645,6 +36668,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35678,6 +36702,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35704,6 +36729,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35726,6 +36752,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35759,6 +36786,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35789,6 +36817,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35827,6 +36856,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35866,6 +36896,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35897,6 +36928,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35924,6 +36956,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35951,6 +36984,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35974,6 +37008,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -35997,6 +37032,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36020,6 +37056,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36047,6 +37084,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36070,6 +37108,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36093,6 +37132,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36116,6 +37156,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36139,6 +37180,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36162,6 +37204,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36189,6 +37232,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36216,6 +37260,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36239,6 +37284,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36262,6 +37308,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36293,6 +37340,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36312,6 +37360,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36331,6 +37380,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36363,6 +37413,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36395,6 +37446,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36448,6 +37500,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36488,6 +37541,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36519,6 +37573,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36550,6 +37605,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36595,6 +37651,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36640,6 +37697,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36697,6 +37755,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36750,6 +37809,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36799,6 +37859,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36866,6 +37927,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36899,6 +37961,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36945,6 +38008,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36967,6 +38031,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -36997,6 +38062,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37023,6 +38089,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37053,6 +38120,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37083,6 +38151,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37105,6 +38174,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37128,6 +38198,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37163,6 +38234,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37199,6 +38271,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37233,6 +38306,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37263,6 +38337,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37306,6 +38381,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37349,6 +38425,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37389,6 +38466,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37436,6 +38514,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37483,6 +38562,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37526,6 +38606,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37563,6 +38644,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37604,6 +38686,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37637,6 +38720,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37671,6 +38755,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37729,6 +38814,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37771,6 +38857,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37800,6 +38887,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37833,6 +38921,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37874,6 +38963,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37907,6 +38997,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37936,6 +39027,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -37969,6 +39061,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38010,6 +39103,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38043,6 +39137,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38100,6 +39195,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38129,6 +39225,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38162,6 +39259,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38203,6 +39301,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38236,6 +39335,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38265,6 +39365,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38322,6 +39423,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38355,6 +39457,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38396,6 +39499,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38429,6 +39533,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38462,6 +39567,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38495,6 +39601,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38528,6 +39635,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38550,6 +39658,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38573,6 +39682,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38611,6 +39721,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38674,6 +39785,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38709,6 +39821,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38743,6 +39856,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38780,6 +39894,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38802,6 +39917,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38828,6 +39944,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38861,6 +39978,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38898,6 +40016,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38924,6 +40043,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38954,6 +40074,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -38991,6 +40112,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39039,6 +40161,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39061,6 +40184,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39093,6 +40217,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39124,6 +40249,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39151,6 +40277,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39173,6 +40300,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39203,6 +40331,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39233,6 +40362,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39263,6 +40393,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39293,6 +40424,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39326,6 +40458,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39356,6 +40489,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39388,6 +40522,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39430,6 +40565,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39470,6 +40606,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39511,6 +40648,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39542,6 +40680,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39572,6 +40711,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39599,6 +40739,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39634,6 +40775,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39669,6 +40811,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39695,6 +40838,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39728,6 +40872,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39754,6 +40899,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39788,6 +40934,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39821,6 +40968,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39859,6 +41007,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39881,6 +41030,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39907,6 +41057,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39933,6 +41084,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39955,6 +41107,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -39989,6 +41142,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40024,6 +41178,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40062,6 +41217,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40085,6 +41241,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40110,6 +41267,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40147,6 +41305,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40186,6 +41345,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40224,6 +41384,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40269,6 +41430,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40306,6 +41468,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40332,6 +41495,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40363,6 +41527,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40386,6 +41551,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40417,6 +41583,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40444,6 +41611,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40480,6 +41648,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40516,6 +41685,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40553,6 +41723,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40595,6 +41766,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40628,6 +41800,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40650,6 +41823,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40676,6 +41850,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40757,6 +41932,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40786,6 +41962,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40824,6 +42001,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40871,6 +42049,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40911,6 +42090,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40933,6 +42113,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -40968,6 +42149,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41005,6 +42187,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41048,6 +42231,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41079,6 +42263,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41106,6 +42291,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41133,6 +42319,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41174,6 +42361,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41209,6 +42397,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41239,6 +42428,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41269,6 +42459,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41299,6 +42490,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41333,6 +42525,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41371,6 +42564,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41405,6 +42599,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41435,6 +42630,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41469,6 +42665,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41503,6 +42700,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41533,6 +42731,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41556,6 +42755,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41593,6 +42793,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41615,6 +42816,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41640,6 +42842,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41665,6 +42868,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41713,6 +42917,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41736,6 +42941,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41761,6 +42967,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41788,6 +42995,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41821,6 +43029,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41858,6 +43067,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41891,6 +43101,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41940,6 +43151,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -41970,6 +43182,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42004,6 +43217,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42039,6 +43253,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42070,6 +43285,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42105,6 +43321,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42136,6 +43353,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42185,6 +43403,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42242,6 +43461,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42265,6 +43485,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42292,6 +43513,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42321,6 +43543,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42362,6 +43585,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42399,6 +43623,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42440,6 +43665,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42486,6 +43712,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42527,6 +43754,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42560,6 +43788,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42583,6 +43812,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42618,6 +43848,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42647,6 +43878,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42670,6 +43902,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42699,6 +43932,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42728,6 +43962,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42771,6 +44006,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42816,6 +44052,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42845,6 +44082,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42878,6 +44116,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42915,6 +44154,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42942,6 +44182,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -42980,6 +44221,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43033,6 +44275,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43056,6 +44299,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43089,6 +44333,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43127,6 +44372,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43170,6 +44416,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43214,6 +44461,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43245,6 +44493,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43276,6 +44525,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43306,6 +44556,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43340,6 +44591,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43388,6 +44640,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43423,6 +44676,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43454,6 +44708,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43487,6 +44742,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43518,6 +44774,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43561,6 +44818,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43603,6 +44861,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43646,6 +44905,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43684,6 +44944,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43719,6 +44980,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43772,6 +45034,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43811,6 +45074,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43854,6 +45118,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43896,6 +45161,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43931,6 +45197,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -43974,6 +45241,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44008,6 +45276,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44045,6 +45314,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44082,6 +45352,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44108,6 +45379,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44142,6 +45414,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44165,6 +45438,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44196,6 +45470,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44223,6 +45498,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44254,6 +45530,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44281,6 +45558,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44312,6 +45590,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44335,6 +45614,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44361,6 +45641,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44387,6 +45668,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44430,6 +45712,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44457,6 +45740,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44484,6 +45768,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44539,6 +45824,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44608,6 +45894,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44649,6 +45936,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44690,6 +45978,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44716,6 +46005,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44747,6 +46037,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44783,6 +46074,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44810,6 +46102,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44855,6 +46148,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44917,6 +46211,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44939,6 +46234,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44961,6 +46257,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -44991,6 +46288,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45017,6 +46315,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45043,6 +46342,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45077,6 +46377,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45103,6 +46404,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45129,6 +46431,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45162,6 +46465,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45192,6 +46496,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45222,6 +46527,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45252,6 +46558,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45282,6 +46589,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45323,6 +46631,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45378,6 +46687,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45400,6 +46710,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45430,6 +46741,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45475,6 +46787,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45505,6 +46818,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45538,6 +46852,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45593,6 +46908,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45639,6 +46955,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45677,6 +46994,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45708,6 +47026,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45738,6 +47057,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45776,6 +47096,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45798,6 +47119,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45833,6 +47155,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45864,6 +47187,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45887,6 +47211,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45914,6 +47239,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45933,6 +47259,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45959,6 +47286,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -45989,6 +47317,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46020,6 +47349,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46070,6 +47400,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46096,6 +47427,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46122,6 +47454,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46156,6 +47489,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46227,6 +47561,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46246,6 +47581,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46268,6 +47604,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46319,6 +47656,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46370,6 +47708,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46400,6 +47739,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46430,6 +47770,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46467,6 +47808,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46508,6 +47850,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46557,6 +47900,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46592,6 +47936,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46655,6 +48000,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46692,6 +48038,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46730,6 +48077,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46776,6 +48124,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46824,6 +48173,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46843,6 +48193,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46869,6 +48220,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46891,6 +48243,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46925,6 +48278,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46962,6 +48316,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -46992,6 +48347,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47019,6 +48375,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47049,6 +48406,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47076,6 +48434,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47110,6 +48469,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47141,6 +48501,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47170,6 +48531,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47208,6 +48570,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47270,6 +48633,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47300,6 +48664,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47325,6 +48690,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47354,6 +48720,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47387,6 +48754,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47420,6 +48788,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47453,6 +48822,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47486,6 +48856,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47515,6 +48886,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47544,6 +48916,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47573,6 +48946,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47602,6 +48976,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47635,6 +49010,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47668,6 +49044,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47701,6 +49078,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47734,6 +49112,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47771,6 +49150,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47882,6 +49262,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47919,6 +49300,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47948,6 +49330,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -47974,6 +49357,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48003,6 +49387,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48032,6 +49417,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48061,6 +49447,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48090,6 +49477,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48123,6 +49511,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48186,6 +49575,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48216,6 +49606,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48254,6 +49645,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48329,6 +49721,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48387,6 +49780,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48438,6 +49832,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48491,6 +49886,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48520,6 +49916,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48553,6 +49950,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48587,6 +49985,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48624,6 +50023,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48661,6 +50061,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48693,6 +50094,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48730,6 +50132,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48759,6 +50162,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48787,6 +50191,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48816,6 +50221,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48854,6 +50260,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48897,6 +50304,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48925,6 +50333,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48962,6 +50371,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -48999,6 +50409,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49036,6 +50447,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49068,6 +50480,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49101,6 +50514,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49134,6 +50548,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49163,6 +50578,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49188,6 +50604,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49248,6 +50665,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49277,6 +50695,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49311,6 +50730,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49343,6 +50763,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49375,6 +50796,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49410,6 +50832,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49447,6 +50870,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49479,6 +50903,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49514,6 +50939,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49548,6 +50974,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49581,6 +51008,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49614,6 +51042,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49648,6 +51077,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49677,6 +51107,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49739,6 +51170,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49781,6 +51213,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49803,6 +51236,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49824,6 +51258,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49871,6 +51306,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49907,6 +51343,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49939,6 +51376,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49961,6 +51399,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -49983,6 +51422,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50016,6 +51456,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50042,6 +51483,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50068,6 +51510,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50105,6 +51548,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50143,6 +51587,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50169,6 +51614,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50199,6 +51645,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50229,6 +51676,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50264,6 +51712,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50299,6 +51748,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50331,6 +51781,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50361,6 +51812,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50412,6 +51864,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50463,6 +51916,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50514,6 +51968,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50552,6 +52007,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50611,6 +52067,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50658,6 +52115,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50705,6 +52163,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50735,6 +52194,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50771,6 +52231,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50798,6 +52259,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50833,6 +52295,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50864,6 +52327,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50941,6 +52405,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -50983,6 +52448,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51020,6 +52486,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51042,6 +52509,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51083,6 +52551,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51120,6 +52589,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51179,6 +52649,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51218,6 +52689,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51255,6 +52727,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51314,6 +52787,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51349,6 +52823,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51384,6 +52859,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51415,6 +52891,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51446,6 +52923,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51484,6 +52962,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51503,6 +52982,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51526,6 +53006,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51553,6 +53034,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51584,6 +53066,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51619,6 +53102,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51650,6 +53134,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51677,6 +53162,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51726,6 +53212,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51757,6 +53244,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51800,6 +53288,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51823,6 +53312,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51852,6 +53342,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51882,6 +53373,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51925,6 +53417,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51952,6 +53445,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -51979,6 +53473,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52006,6 +53501,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52033,6 +53529,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52060,6 +53557,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52095,6 +53593,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52130,6 +53629,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52161,6 +53661,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52196,6 +53697,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52271,6 +53773,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52302,6 +53805,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52353,6 +53857,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52372,6 +53877,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52419,6 +53925,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52458,6 +53965,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52484,6 +53992,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52510,6 +54019,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52544,6 +54054,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52570,6 +54081,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52596,6 +54108,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52630,6 +54143,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52660,6 +54174,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52686,6 +54201,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52716,6 +54232,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52757,6 +54274,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52806,6 +54324,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52843,6 +54362,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52878,6 +54398,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52909,6 +54430,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52938,6 +54460,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52967,6 +54490,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -52995,6 +54519,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53035,6 +54560,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53073,6 +54599,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53108,6 +54635,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53141,6 +54669,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53174,6 +54703,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53213,6 +54743,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53259,6 +54790,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53292,6 +54824,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53346,6 +54879,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53383,6 +54917,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53424,6 +54959,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53469,6 +55005,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53512,6 +55049,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53561,6 +55099,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53608,6 +55147,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53635,6 +55175,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53670,6 +55211,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53696,6 +55238,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53733,6 +55276,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53759,6 +55303,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53796,6 +55341,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53840,6 +55386,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53863,6 +55410,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53886,6 +55434,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53917,6 +55466,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53939,6 +55489,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -53969,6 +55520,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54020,6 +55572,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54042,6 +55595,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54087,6 +55641,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54127,6 +55682,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54176,6 +55732,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54203,6 +55760,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54240,6 +55798,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54274,6 +55833,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54303,6 +55863,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54332,6 +55893,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54368,6 +55930,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54387,6 +55950,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54409,6 +55973,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54436,6 +56001,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54458,6 +56024,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54488,6 +56055,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54529,6 +56097,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54557,6 +56126,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54580,6 +56150,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54605,6 +56176,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54632,6 +56204,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54679,6 +56252,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54726,6 +56300,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54761,6 +56336,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54807,6 +56383,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54862,6 +56439,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54881,6 +56459,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54926,6 +56505,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54953,6 +56533,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -54996,6 +56577,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55019,6 +56601,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55046,6 +56629,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55105,6 +56689,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55142,6 +56727,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55174,6 +56760,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55204,6 +56791,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55245,6 +56833,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55268,6 +56857,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55295,6 +56885,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55354,6 +56945,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55381,6 +56973,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55411,6 +57004,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55442,6 +57036,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55473,6 +57068,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55504,6 +57100,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55535,6 +57132,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55565,6 +57163,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55606,6 +57205,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55637,6 +57237,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55664,6 +57265,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55691,6 +57293,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55727,6 +57330,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55770,6 +57374,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55811,6 +57416,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55852,6 +57458,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -55933,6 +57540,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56004,6 +57612,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56031,6 +57640,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56061,6 +57671,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56088,6 +57699,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56123,6 +57735,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56156,6 +57769,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56196,6 +57810,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56228,6 +57843,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56260,6 +57876,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56301,6 +57918,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56335,6 +57953,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56367,6 +57986,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56408,6 +58028,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56430,6 +58051,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56456,6 +58078,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56486,6 +58109,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56524,6 +58148,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56564,6 +58189,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56591,6 +58217,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56617,6 +58244,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56653,6 +58281,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56679,6 +58308,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56720,6 +58350,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56771,6 +58402,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56821,6 +58453,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56855,6 +58488,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56896,6 +58530,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56933,6 +58568,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -56969,6 +58605,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57006,6 +58643,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57043,6 +58681,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57081,6 +58720,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57124,6 +58764,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57155,6 +58796,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57189,6 +58831,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57234,6 +58877,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57260,6 +58904,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57290,6 +58935,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57355,6 +59001,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57433,6 +59080,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57468,6 +59116,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57499,6 +59148,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57562,6 +59212,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57589,6 +59240,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57612,6 +59264,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57655,6 +59308,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57689,6 +59343,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57732,6 +59387,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57751,6 +59407,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57778,6 +59435,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57809,6 +59467,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57843,6 +59502,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57886,6 +59546,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57925,6 +59586,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57955,6 +59617,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -57977,6 +59640,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -58000,6 +59664,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -58026,6 +59691,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -58048,6 +59714,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -58084,6 +59751,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',
@@ -58130,6 +59798,7 @@ abstract class LucideIcons {
       'tag': 'root',
       'family': 'lucide',
       'attrs': {
+        'viewBox': r'''0 0 24 24''',
         'fill': r'''none''',
         'stroke': r'''currentColor''',
         'stroke-width': r'''2''',

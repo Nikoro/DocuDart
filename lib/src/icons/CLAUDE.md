@@ -9,7 +9,7 @@ This directory contains a local fork of the `jaspr_icons` package, maintained in
 | `helpers.dart` | Hand-written | `IconData` class + `StrokeLineJoin` / `StrokeLineCap` enums |
 | `icon.dart` | Hand-written | `Icon` component (`StatelessComponent` → renders SVG) |
 | `icons.dart` | Hand-written | Barrel file re-exporting everything |
-| `lucid_icons.dart` | Generated | Lucide icons (stroke-based) |
+| `lucide_icons.dart` | Generated | Lucide icons (stroke-based) |
 | `material_icons.dart` | Generated | Google Material Design Icons (classic, frozen) |
 | `material_symbols.dart` | Generated | **NEW** — Google Material Symbols (active successor to Material Icons) |
 | `tabler_icons.dart` | Generated | Tabler icons (outline + filled) |
@@ -45,40 +45,39 @@ Exported via `lib/docudart.dart` → `export 'src/icons/icons.dart'`.
 | **Fluent** | regular | `_filled`, `_color` | `access_time`, `access_time_filled`, `add_circle_color` |
 | **Font Awesome** | solid (default) | `_regular`, `_brand` | `house`, `house_regular`, `github_brand`, `apple_brand` |
 
-### Migration from Current Names
+### Examples
 
-The current files use inconsistent naming that must be unified:
-
-| Current | New (unified) | Change |
-|---------|--------------|--------|
-| `LucidIcons.icon_home` | `LucidIcons.home` | Drop `icon_` prefix |
-| `MaterialIcons.icon_home` | `MaterialIcons.home` | Drop `icon_` prefix (baseline) |
-| `MaterialIcons.outline_home` | `MaterialIcons.home_outlined` | Prefix → suffix, `outline` → `outlined` |
-| `MaterialIcons.round_home` | `MaterialIcons.home_rounded` | Prefix → suffix |
-| `MaterialIcons.sharp_home` | `MaterialIcons.home_sharp` | Prefix → suffix |
-| `MaterialIcons.twotone_home` | `MaterialIcons.home_twotone` | Prefix → suffix |
-| `TablerIcons.home_outline` | `TablerIcons.home` | Drop `_outline` (it's the base) |
-| `TablerIcons.home_filled` | `TablerIcons.home_filled` | No change |
-| `FluentIcons.home_regular` | `FluentIcons.home` | Drop `_regular` (it's the base) |
-| `FluentIcons.home_filled` | `FluentIcons.home_filled` | No change |
+| Family | Usage |
+|--------|-------|
+| `LucideIcons.home` | Lucide stroke icon |
+| `MaterialIcons.home` | Material baseline |
+| `MaterialIcons.home_outlined` | Material outlined variant |
+| `MaterialSymbols.home` | Material Symbols outlined (default) |
+| `MaterialSymbols.home_filled` | Material Symbols filled |
+| `TablerIcons.home` | Tabler outline (default) |
+| `TablerIcons.home_filled` | Tabler filled variant |
+| `FluentIcons.home` | Fluent regular (default) |
+| `FluentIcons.home_filled` | Fluent filled variant |
+| `FontAwesomeIcons.house` | Font Awesome solid (default) |
+| `FontAwesomeIcons.github_brand` | Font Awesome brand |
 
 ---
 
 ## Icon Datasets — Current Status & Upstream Info
 
-### 1. Lucide Icons (`lucid_icons.dart`)
+### 1. Lucide Icons (`lucide_icons.dart`)
 
-- **Current count**: 1,636
-- **Upstream count**: ~1,660+
-- **Gap**: ~20-30 missing recent additions
+- **Current count**: 1,669
+- **Upstream count**: ~1,669
+- **Gap**: None (up to date)
 - **Repo**: https://github.com/lucide-icons/lucide
 - **SVG path**: `icons/*.svg`
 - **SVG naming**: kebab-case (`a-arrow-down.svg`, `home.svg`)
 - **License**: ISC
 - **Styles**: Single (stroke-based) — no variants
-- **Class**: `LucidIcons`
-- **Root attrs**: `fill: 'none'`, `stroke: 'currentColor'`, `stroke-width: '2'`, `stroke-linecap: 'round'`, `stroke-linejoin: 'round'`
-- **Family tag**: `'lucid'` (NOTE: not `'lucide'` — keep this convention)
+- **Class**: `LucideIcons`
+- **Root attrs**: `viewBox: '0 0 24 24'`, `fill: 'none'`, `stroke: 'currentColor'`, `stroke-width: '2'`, `stroke-linecap: 'round'`, `stroke-linejoin: 'round'`
+- **Family tag**: `'lucide'`
 
 ### 2. Material Design Icons (`material_icons.dart`) — FROZEN
 
@@ -92,9 +91,9 @@ The current files use inconsistent naming that must be unified:
 - **Root element**: NONE — no `'tag': 'root'`; paths go directly
 - **Status**: Classic set is **frozen**. Succeeded by Material Symbols. Still update naming to unified convention.
 
-### 3. Material Symbols (`material_symbols.dart`) — NEW
+### 3. Material Symbols (`material_symbols.dart`)
 
-- **Target count**: ~2,500+ unique icons × up to 6 variants
+- **Current count**: 22,884 (~3,814 unique × up to 6 variants)
 - **Repo**: https://github.com/google/material-design-icons (`symbols/` directory)
 - **Community mirror** (cleaner structure): https://github.com/marella/material-symbols
   - SVGs at: `svg/400/outlined/*.svg`, `svg/400/rounded/*.svg`, `svg/400/sharp/*.svg`
@@ -111,15 +110,15 @@ The current files use inconsistent naming that must be unified:
   - `sharp` + filled → `_sharp_filled`
 - **Class**: `MaterialSymbols`
 - **Family tag**: `'material_symbols'`
-- **Root attrs**: TBD — examine upstream SVGs during generation
+- **Root attrs**: `viewBox: '0 -960 960 960'` (no fill/stroke — paths have implicit fill)
 - **IMPORTANT**: Use weight 400 only (default). Skip weight/grade/optical-size variations to keep file size manageable. Use 24px optical size.
 - **Key difference from Material Icons**: Variable font axes (fill, weight, grade, optical size). We only care about fill (0/1) and the 3 base styles at default weight 400.
 
 ### 4. Tabler Icons (`tabler_icons.dart`)
 
-- **Current count**: 5,963 (4,964 outline + 999 filled)
-- **Upstream count**: ~9,970 (4,985 unique × 2 styles)
-- **Gap**: **~4,000 filled variants missing** (biggest gap)
+- **Current count**: 5,986
+- **Upstream count**: ~5,986
+- **Gap**: None (up to date)
 - **Repo**: https://github.com/tabler/tabler-icons
 - **SVG paths**: `icons/outline/*.svg` and `icons/filled/*.svg`
 - **SVG naming**: kebab-case (`accessible.svg`, `ad-circle.svg`)
@@ -127,13 +126,13 @@ The current files use inconsistent naming that must be unified:
 - **Styles**: 2 — outline (base, no suffix) + filled (`_filled`)
 - **Class**: `TablerIcons`
 - **Family tag**: `'tabler'`
-- **Root attrs (outline)**: `fill: 'none'`, `stroke: 'currentColor'`, `stroke-width: '2'`, `stroke-linecap: 'round'`, `stroke-linejoin: 'round'`
-- **Root attrs (filled)**: `fill: 'currentColor'`
+- **Root attrs (outline)**: `viewBox: '0 0 24 24'`, `fill: 'none'`, `stroke: 'currentColor'`, `stroke-width: '2'`, `stroke-linecap: 'round'`, `stroke-linejoin: 'round'`
+- **Root attrs (filled)**: `viewBox: '0 0 24 24'`, `fill: 'currentColor'`
 
 ### 5. Fluent UI System Icons (`fluent_icons.dart`)
 
-- **Current count**: 4,744 (24px subset: 2,245 regular + 2,281 filled + 196 color + 22 other)
-- **Upstream count**: ~4,500+ at 24px (continuously updated)
+- **Current count**: 5,074 (24px subset)
+- **Upstream count**: ~5,100+ at 24px (continuously updated)
 - **Gap**: Small
 - **Repo**: https://github.com/microsoft/fluentui-system-icons
 - **SVG path**: `assets/<IconName>/SVG/<icon_name>_24_<style>.svg`
@@ -143,11 +142,12 @@ The current files use inconsistent naming that must be unified:
 - **Size filter**: **24px only** — filter filenames containing `_24_`; skip 16/20/28/32/48
 - **Class**: `FluentIcons`
 - **Family tag**: `'fluent'`
-- **Root attrs**: `fill: 'none'` (each child path has its own `fill: 'currentColor'`)
+- **Root attrs**: `viewBox: '0 0 24 24'`, `fill: 'none'` (each child path has `fill: 'currentColor'`)
+- **Fill handling**: Upstream SVGs use hardcoded `fill="#212121"` on paths. Generator replaces these with `currentColor` via `_replaceHardcodedFills()` for theming support.
 
-### 6. Font Awesome Free (`font_awesome_icons.dart`) — NEW
+### 6. Font Awesome Free (`font_awesome_icons.dart`)
 
-- **Target count**: ~2,860 free icons (solid: ~2,000 + regular: ~273 + brands: ~587)
+- **Current count**: 2,860 free icons (solid: ~2,000 + regular: ~273 + brands: ~587)
 - **Repo**: https://github.com/FortAwesome/Font-Awesome (branch: `7.x`)
 - **SVG paths**:
   - `svgs/solid/*.svg` — filled icons (base, no suffix)
@@ -158,7 +158,7 @@ The current files use inconsistent naming that must be unified:
 - **Styles**: solid (base, no suffix), regular (`_regular`), brands (`_brand`)
 - **Class**: `FontAwesomeIcons`
 - **Family tag**: `'font_awesome'`
-- **Root attrs**: TBD — examine upstream SVGs during generation
+- **Root attrs**: `viewBox: '0 0 {width} 512'` (varies per icon — e.g. `0 0 384 512`, `0 0 448 512`, `0 0 640 512`); paths have `fill: 'currentColor'`
 - **IMPORTANT**: Only free icons. Do NOT include Pro, Sharp, Duotone, or any paid variants. The `svgs/` directory in the repo contains only free icons. The `svgs-full/` directory may contain Pro icons — avoid it.
 - **Brand icons**: These are company logos (github, apple, twitter, etc.). Use `_brand` suffix to distinguish from similarly-named non-brand icons.
 
@@ -175,7 +175,7 @@ static const IconData icon_name = IconData([
   // Optional root element (metadata + default SVG attributes)
   {
     'tag': 'root',
-    'family': '<family>',       // 'lucid', 'tabler', 'fluent', 'material_symbols', 'font_awesome'
+    'family': '<family>',       // 'lucide', 'tabler', 'fluent', 'material_symbols', 'font_awesome'
     'attrs': { ... },           // default SVG attributes from <svg> element
   },
   // One or more SVG child elements
@@ -191,14 +191,14 @@ static const IconData icon_name = IconData([
 
 ### Root Element Rules
 
-| Family | Has root? | Family tag | Notes |
-|--------|----------|-----------|-------|
-| Lucide | Yes | `'lucid'` | Stroke-based defaults |
-| Material Icons | **No** | N/A | Bare path elements only |
-| Material Symbols | Yes | `'material_symbols'` | TBD — match upstream SVG attrs |
-| Tabler | Yes | `'tabler'` | Different attrs for outline vs filled |
-| Fluent | Yes | `'fluent'` | `fill: 'none'` on root; `fill: 'currentColor'` on paths |
-| Font Awesome | Yes | `'font_awesome'` | TBD — match upstream SVG attrs |
+| Family | Has root? | Family tag | viewBox | Notes |
+|--------|----------|-----------|---------|-------|
+| Lucide | Yes | `'lucide'` | `0 0 24 24` | Stroke-based defaults |
+| Material Icons | **No** | N/A | default `0 0 24 24` | Bare path elements only |
+| Material Symbols | Yes | `'material_symbols'` | `0 -960 960 960` | Fill-based, no stroke attrs |
+| Tabler | Yes | `'tabler'` | `0 0 24 24` | Different attrs for outline vs filled |
+| Fluent | Yes | `'fluent'` | `0 0 24 24` | `fill: 'none'` on root; `fill: 'currentColor'` on paths (hardcoded fills replaced by generator) |
+| Font Awesome | Yes | `'font_awesome'` | varies (e.g. `0 0 384 512`) | Per-icon viewBox; paths have `fill: 'currentColor'` |
 
 ### SVG Element Tags Used
 
@@ -246,7 +246,7 @@ class <ClassName> {
 
 | File | Class Name |
 |------|-----------|
-| `lucid_icons.dart` | `LucidIcons` |
+| `lucide_icons.dart` | `LucideIcons` |
 | `material_icons.dart` | `MaterialIcons` |
 | `material_symbols.dart` | `MaterialSymbols` |
 | `tabler_icons.dart` | `TablerIcons` |
@@ -312,7 +312,7 @@ Use `/tmp/` for disposable clones. If already cloned, `git pull` to update.
 For each SVG file:
 
 1. **Read and parse XML** using `package:xml`
-2. **Extract root `<svg>` attributes** — keep: `fill`, `stroke`, `stroke-width`, `stroke-linecap`, `stroke-linejoin`. Skip: `xmlns`, `width`, `height`, `viewBox`, `class`, `style`.
+2. **Extract root `<svg>` attributes** — keep: `viewBox`, `fill`, `stroke`, `stroke-width`, `stroke-linecap`, `stroke-linejoin`. Skip: `xmlns`, `width`, `height`, `class`, `style`.
 3. **Extract child elements recursively** — for each child of `<svg>`:
    - Record `tag` name and all attributes as `Map<String, String>`
    - Handle nested elements (e.g., `<g>` containing `<path>`)
@@ -366,7 +366,7 @@ export 'icon.dart';
 export 'helpers.dart';
 export 'material_icons.dart';
 export 'material_symbols.dart';
-export 'lucid_icons.dart';
+export 'lucide_icons.dart';
 export 'fluent_icons.dart';
 export 'tabler_icons.dart';
 export 'font_awesome_icons.dart';
@@ -376,32 +376,35 @@ export 'font_awesome_icons.dart';
 
 ## Key Gotchas
 
-1. **Lucide family tag is `'lucid'`** (not `'lucide'`) — historical convention, keep it
-2. **Material Icons has NO root element** — paths go directly in the list, no `{'tag': 'root', ...}`
+1. **viewBox stored in root attrs** — all families (except Material Icons) store `viewBox` in root attrs; Icon component reads it automatically, falling back to `0 0 24 24`
+2. **Material Icons has NO root element** — paths go directly in the list, no `{'tag': 'root', ...}`; uses default viewBox `0 0 24 24`
 3. **Fluent: 24px only** — filter `_24_` in filename; skip all other sizes (16/20/28/32/48)
-4. **Fluent: fill on paths, not root** — root has `fill: 'none'`, each child path has `fill: 'currentColor'`
+4. **Fluent: hardcoded fills replaced** — upstream SVGs use `fill="#212121"` on paths; generator's `_replaceHardcodedFills()` converts to `currentColor` for theming
 5. **Tabler outline vs filled** — different root attrs (stroke-based vs fill-based)
-6. **Font Awesome: free only** — use `svgs/` directory from `7.x` branch; NEVER use `svgs-full/` or Pro icons
-7. **Font Awesome: brands are special** — company logos; use `_brand` suffix
-8. **Material Symbols: weight 400 only** — skip weight/grade variations; only use default weight at 24px optical size
-9. **Material Symbols: community mirror recommended** — https://github.com/marella/material-symbols has cleaner structure than official repo
-10. **Raw strings** — all attribute values: `r'''value'''`
-11. **`// ignore_for_file: constant_identifier_names`** — required in all generated files
-12. **`// GENERATED CODE - DO NOT MODIFY BY HAND`** — required header in all generated files
-13. **Alphabetical sort** — icons sorted alphabetically within each class
-14. **Dart keyword collision** — prefix with `icon_` if name is a reserved word or starts with digit
-15. **File sizes are large** — Material Icons is 13MB, Fluent is 17MB. This is expected for ~5,000-10,000 const definitions with base64 previews. Tree-shaking handles unused icons.
+6. **Font Awesome: variable viewBox** — each icon has its own viewBox (e.g. `0 0 384 512`, `0 0 640 512`); stored in root attrs, Icon component uses it automatically
+7. **Material Symbols: non-standard viewBox** — uses `0 -960 960 960` (not 24x24); stored in root attrs
+8. **Font Awesome: free only** — use `svgs/` directory from `7.x` branch; NEVER use `svgs-full/` or Pro icons
+9. **Font Awesome: brands are special** — company logos; use `_brand` suffix
+10. **Material Symbols: weight 400 only** — skip weight/grade variations; only use default weight at 24px optical size
+11. **Material Symbols: community mirror recommended** — https://github.com/marella/material-symbols has cleaner structure than official repo
+12. **Raw strings** — all attribute values: `r'''value'''`
+13. **`// ignore_for_file: constant_identifier_names`** — required in all generated files
+14. **`// GENERATED CODE - DO NOT MODIFY BY HAND`** — required header in all generated files
+15. **Alphabetical sort** — icons sorted alphabetically within each class
+16. **Dart keyword collision** — prefix with `icon_` if name is a reserved word or starts with digit
+17. **File sizes are large** — Material Icons is 13MB, Fluent is 17MB. This is expected for ~5,000-10,000 const definitions with base64 previews. Tree-shaking handles unused icons.
 
 ---
 
-## Priority Order for Updates
+## Maintenance Notes
 
-1. **Tabler** — ~4,000 missing filled variants (biggest gap) + rename to unified convention
-2. **Material Symbols** — NEW dataset, ~2,500+ icons, actively maintained successor to Material Icons
-3. **Font Awesome** — NEW dataset, ~2,860 free icons, very popular
-4. **Lucide** — ~20-30 missing recent additions + rename to unified convention
-5. **Fluent** — small gap + rename to unified convention
-6. **Material Icons** — frozen, only needs naming convention update (no new icons)
+All 6 families are generated and up to date. To refresh from upstream:
+```bash
+dart run tool/generate_icons.dart              # all families
+dart run tool/generate_icons.dart lucide tabler # specific families
+```
+- Material Icons is **frozen** (no new icons from Google)
+- Other families receive periodic upstream updates — re-run generator to pull latest
 
 ---
 
