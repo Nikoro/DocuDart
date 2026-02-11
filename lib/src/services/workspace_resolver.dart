@@ -9,8 +9,8 @@ class WorkspaceResolver {
   /// Resolves the website directory from the given working directory.
   ///
   /// Search strategy:
-  /// 1. If cwd IS the website dir (has config.dart + pubspec.yaml), use cwd
-  /// 2. If cwd has a website/ subdirectory with config.dart, use that
+  /// 1. If cwd IS the docudart dir (has config.dart + pubspec.yaml), use cwd
+  /// 2. If cwd has a docudart/ subdirectory with config.dart, use that
   /// 3. Legacy: if cwd has config.dart directly (old-style project), use cwd
   ///
   /// Returns the absolute path to the website directory, or null if not found.
@@ -22,8 +22,8 @@ class WorkspaceResolver {
       return p.normalize(p.absolute(cwd));
     }
 
-    // Check for website/ subdirectory
-    final websiteDir = p.join(cwd, 'website');
+    // Check for docudart/ subdirectory
+    final websiteDir = p.join(cwd, 'docudart');
     if (_isWebsiteDir(websiteDir)) {
       return p.normalize(p.absolute(websiteDir));
     }

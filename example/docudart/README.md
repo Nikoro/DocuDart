@@ -15,7 +15,7 @@ docudart serve
 ## Project Structure
 
 ```
-website/
+docudart/
   config.dart        # Site configuration (title, theme, layout components)
   docs/              # Markdown documentation files
   pages/             # Custom page components (Dart/Jaspr)
@@ -99,4 +99,4 @@ Config configure(BuildContext context) => Config(
 
 ## Build Output
 
-Running `docudart build` generates static files in `website/build/web/`. You can deploy this directory to any static hosting provider (GitHub Pages, Netlify, Vercel, Firebase Hosting, etc.).
+Running `docudart build` generates static files in `build/web/`. You can deploy this directory to any static hosting provider (GitHub Pages, Netlify, Vercel, Firebase Hosting, etc.).

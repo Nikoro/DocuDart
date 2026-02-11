@@ -32,8 +32,8 @@ class DocuDartErrors {
     return const DocuDartException(
       'DocuDart project not found.',
       hint:
-          'Make sure you are in a project with a website/ directory, '
-          'or inside the website/ directory itself.',
+          'Make sure you are in a project with a docudart/ directory, '
+          'or inside the docudart/ directory itself.',
       command: 'docudart create',
     );
   }

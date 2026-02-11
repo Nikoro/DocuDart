@@ -1,6 +1,6 @@
 ---
 name: regenerate
-description: Removes the website/ directory in a target folder and re-runs docudart create --full to regenerate it. Accepts an optional directory argument (defaults to "example").
+description: Removes the docudart/ directory in a target folder and re-runs docudart create --full to regenerate it. Accepts an optional directory argument (defaults to "example").
 ---
 
 When this skill is invoked:
@@ -13,7 +13,7 @@ When this skill is invoked:
    - If it does NOT exist, report an error: "Directory '<target>/' does not exist."
    - If it exists, continue
 
-3. Remove `<target>/website/` if it exists
+3. Remove `<target>/docudart/` if it exists
 
 4. Run `docudart create --full` from the target directory:
    ```

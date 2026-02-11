@@ -30,17 +30,17 @@ dart test
 ```
 User Project                    DocuDart CLI                    Output
 ============                    ============                    ======
-website/
+docudart/
   config.dart    ─────────>
-  docs/*.md      ─────────>    SiteGenerator    ─────────>    website/.dart_tool/docudart/
-  pages/*.dart   ─────────>    (Jaspr project)  ─────────>    website/build/web/
+  docs/*.md      ─────────>    SiteGenerator    ─────────>    docudart/.dart_tool/docudart/
+  pages/*.dart   ─────────>    (Jaspr project)  ─────────>    docudart/build/web/
   components/    ─────────>
   themes/        ─────────>
 ```
 
-**Key Insight**: `docudart create` creates a `website/` subdirectory inside the user's project. This directory is a self-contained Dart package with its own `pubspec.yaml` that depends on `docudart` (path dependency). DocuDart re-exports `package:jaspr/jaspr.dart`, so user code only needs `import 'package:docudart/docudart.dart'`.
+**Key Insight**: `docudart create` creates a `docudart/` subdirectory (configurable via positional argument) inside the user's project. This directory is a self-contained Dart package with its own `pubspec.yaml` that depends on `docudart` (path dependency). DocuDart re-exports `package:jaspr/jaspr.dart`, so user code only needs `import 'package:docudart/docudart.dart'`.
 
-The `build`/`serve` commands auto-detect the `website/` directory from the project root using `WorkspaceResolver`.
+The `build`/`serve` commands auto-detect the `docudart/` directory from the project root using `WorkspaceResolver`.
 
 ## Project Structure
 
@@ -81,7 +81,7 @@ docudart/
 │       │   └── versioning_config.dart  # VersioningConfig
 │       ├── generators/                  # Code generation
 │       │   ├── site_generator.dart      # Generate .dart_tool/docudart
-│       │   ├── project_generator.dart   # Generate website/ project (init)
+│       │   ├── project_generator.dart   # Generate docudart/ project (init)
 │       │   ├── asset_path_generator.dart # Generate type-safe asset paths
 │       │   └── sidebar_generator.dart   # Generate sidebar from folder structure
 │       ├── processing/                  # Content processing pipeline
@@ -91,7 +91,7 @@ docudart/
 │       ├── services/                    # Runtime services + resolvers
 │       │   ├── file_watcher.dart        # Watch files for hot reload
 │       │   ├── package_resolver.dart    # Resolve docudart package path
-│       │   └── workspace_resolver.dart  # Auto-detect website/ directory
+│       │   └── workspace_resolver.dart  # Auto-detect docudart/ directory
 │       ├── markdown/                    # Markdown processing
 │       │   ├── markdown_processor.dart  # Convert MD to HTML
 │       │   ├── frontmatter_handler.dart # Extract YAML frontmatter
@@ -148,7 +148,7 @@ docudart/
 │   ├── pubspec.yaml                     # Example Dart project
 │   ├── lib/                             # Example project code
 │   ├── README.md
-│   └── website/                         # DocuDart documentation site
+│   └── docudart/                        # DocuDart documentation site
 │       ├── pubspec.yaml                 # Depends on docudart via path: ../../
 │       ├── config.dart
 │       ├── labels.dart                      # Label string constants (Labels.github, Labels.docs, etc.)
@@ -173,7 +173,7 @@ docudart/
 user-project/
   pubspec.yaml           # User's own project
   lib/                   # User's own code
-  website/               # Created by docudart create
+  docudart/              # Created by docudart create (name configurable via positional arg)
     pubspec.yaml         # Depends on docudart (path dependency)
     config.dart          # configure() function returning Config + header/footer/sidebar
     labels.dart          # Label string constants (Labels.github, Labels.docs, etc.)
@@ -384,7 +384,7 @@ typedef LayoutBuilder = Component Function({
 - Used by `Config.layoutBuilder` to fully replace the default `Layout` component
 
 ### ProjectGenerator (lib/src/generators/project_generator.dart)
-Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart create`.
+Creates a named subdirectory (default `docudart/`) with its own `pubspec.yaml` during `docudart create`.
 - `InitTemplate.defaultTemplate` - Basic setup
 - `InitTemplate.full` - All features with examples, including sidebar subfolder showcase
 - Uses `PackageResolver` to compute path dependency to docudart
@@ -395,14 +395,14 @@ Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart cre
 - Generates `labels.dart` at website root with label string constants (Labels.github, Labels.docs, Labels.changelog, Labels.topics, etc.)
 - **Smart pub.dev URL**: `_resolvePubDevUrl()` makes a HEAD request to `https://pub.dev/packages/{name}` at init time; if 200, uses specific package URL, else falls back to generic `https://pub.dev` (5s timeout, graceful fallback on errors)
 - **Smart repository link**: Generated config.dart uses `?context.project.pubspec.repository.let((repository) => .url(repository.link, label: repository.label, leading: repository.icon, trailing: Icon(MaterialIcons.open_in_new)))` for runtime provider detection with external link indicator; null-safe via `.let()` — if no repository, the entry is omitted
-- **Lint dependency propagation**: `_resolveLintDependency()` checks parent's `pubspec.yaml` for `lints` or `flutter_lints` (in `dev_dependencies` then `dependencies`), propagates as `dev_dependency` in generated `website/pubspec.yaml`
-- Runs `dart pub get` then `dart format .` in website/ after generation
+- **Lint dependency propagation**: `_resolveLintDependency()` checks parent's `pubspec.yaml` for `lints` or `flutter_lints` (in `dev_dependencies` then `dependencies`), propagates as `dev_dependency` in generated project's `pubspec.yaml`
+- Runs `dart pub get` then `dart format .` in project dir after generation
 - **Conditional changelog**: Checks for `CHANGELOG.md` in parent project root; if present, generates `pages/changelog_page.dart` (uses `Markdown(content: context.project.changelog ?? '')`) via `_generateChangelogPage()` and adds `.path('/changelog', label: Labels.changelog)` link to header in config.dart; if absent, neither page nor link is generated
 - Looks for `README.md` in project root to auto-generate docs
 - `_generateFullTemplateSubfolders()` - creates example subfolders for full template (always runs, even when README.md exists): `01-guides_expanded/` (expanded sidebar) and `02-advanced/` with nested `deployment/` (collapsed)
 
 ### SiteGenerator (lib/src/generators/site_generator.dart)
-Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
+Generates the managed Jaspr project in `<projectDir>/.dart_tool/docudart/`.
 - Accepts optional `websiteDir` parameter (defaults to cwd) and `serveMode` flag (default: false)
 - `serveMode: true` enables live-reload script injection (only during `docudart serve`)
 - `generate({bool fullClean = true, Pubspec? pubspec, String? changelog})` — `fullClean: false` skips directory deletion and `dart pub get` (used during serve hot reload)
@@ -419,12 +419,12 @@ Generates the managed Jaspr project in `website/.dart_tool/docudart/`.
 
 ### PackageResolver (lib/src/services/package_resolver.dart)
 Resolves the docudart package installation path using `Isolate.resolvePackageUri`.
-Used to generate the path dependency in `website/pubspec.yaml` and managed project pubspec.
+Used to generate the path dependency in the project's `pubspec.yaml` and managed project pubspec.
 
 ### WorkspaceResolver (lib/src/services/workspace_resolver.dart)
-Auto-detects the website directory for build/serve commands.
-- Checks if cwd IS the website dir (has config.dart + pubspec.yaml)
-- Checks for `website/` subdirectory
+Auto-detects the project directory for build/serve commands.
+- Checks if cwd IS the project dir (has config.dart + pubspec.yaml)
+- Checks for `docudart/` subdirectory
 - Legacy: supports old-style config.dart directly in cwd
 
 ### ConfigLoader (lib/src/config/config_loader.dart)
@@ -451,22 +451,23 @@ Flutter docs style theme with:
 
 ## CLI Command Flow
 
-### `docudart create`
-1. `CreateCommand` resolves target directory
-2. Checks for existing `website/config.dart`
-3. `ProjectGenerator.generate()` creates `website/` with all files including components/
+### `docudart create [name]`
+1. `CreateCommand` resolves target directory and folder name (positional arg, default: `'docudart'`)
+2. Validates folder name against `^[a-z][a-z0-9_]*$` (lowercase_with_underscores, starts with letter)
+3. Checks for existing `<folderName>/config.dart`
+4. `ProjectGenerator.generate(folderName: folderName)` creates `<folderName>/` with all files including components/
    - Loads pubspec.yaml for name, description, and repository
    - Checks pub.dev for package existence (HEAD request with 5s timeout)
    - Resolves lint dependency (`lints`/`flutter_lints`) from parent's pubspec.yaml
    - Generates config.dart with smart pub.dev URL and runtime repository detection
    - If `CHANGELOG.md` exists in project root: generates `pages/changelog_page.dart` and adds changelog header link
-   - Copies default logo (`logo.webp`) and favicon assets into `website/assets/`
+   - Copies default logo (`logo.webp`) and favicon assets into `<folderName>/assets/`
    - Generates `assets/assets.dart` with type-safe asset path constants
-4. Runs `dart pub get` in `website/`
-5. Runs `dart format .` in `website/`
+5. Runs `dart pub get` in `<folderName>/`
+6. Runs `dart format .` in `<folderName>/`
 
 ### `docudart build`
-1. `WorkspaceResolver.resolve()` finds `website/` directory
+1. `WorkspaceResolver.resolve()` finds `docudart/` directory
 2. `ConfigLoader.load(websiteDir)` loads config with absolute paths
 3. `ConfigLoader.loadParentPubspec(websiteDir)` reads parent project's pubspec.yaml; `ConfigLoader.loadParentChangelog(websiteDir)` reads CHANGELOG.md
 4. `SiteGenerator(config, websiteDir: websiteDir).generate(pubspec: pubspec, changelog: changelog)`:
@@ -474,13 +475,13 @@ Flutter docs style theme with:
    - Copies config.dart, root `.dart` files, components/, pages/, `assets/assets.dart` into managed project
    - Generates pubspec_data.dart + project_data.dart with Project/Pubspec data
    - Generates layout.dart with LayoutDelegate that calls `configure(context)`, resolves sections, delegates to `config.layoutBuilder` or library `Layout`
-5. Runs `dart run jaspr build` in `website/.dart_tool/docudart/`
-6. Copies output to `website/build/web/` (or `--output` flag)
+5. Runs `dart run jaspr build` in `<projectDir>/.dart_tool/docudart/`
+6. Copies output to `<projectDir>/build/web/` (or `--output` flag)
 
 ### `docudart serve`
 1. Same as build steps 1-3 (uses `generate()` with `fullClean: true` for initial build)
 2. Starts `DocuDartFileWatcher` (watches docs, assets, all root `.dart` files, components/, pages/, parent's CHANGELOG.md)
-3. Runs `dart run jaspr serve` in `website/.dart_tool/docudart/`
+3. Runs `dart run jaspr serve` in `<projectDir>/.dart_tool/docudart/`
 4. On file change: regenerates with `fullClean: false` (in-place update, no pub get) → Jaspr rebuilds → browser auto-refreshes via live-reload polling
 5. Jaspr's internal proxy logs (SocketException, shelf_proxy errors) are filtered out by `_shouldShowLog()` in `ServeCommand`
 
@@ -517,7 +518,7 @@ Flutter docs style theme with:
 The managed Jaspr site is generated in `SiteGenerator`:
 - `_generatePubspec()` - pubspec.yaml (includes docudart path dep)
 - `_generateMain()` - lib/main.server.dart, lib/main.client.dart
-- `_generateAssetPaths()` - generates `website/assets/assets.dart` via `AssetPathGenerator` (type-safe asset constants)
+- `_generateAssetPaths()` - generates `assets/assets.dart` via `AssetPathGenerator` (type-safe asset constants)
 - `_copyUserFiles()` - copies config.dart, root `.dart` files, components/, pages/, and `assets/assets.dart` into lib/
 - `_generatePubspecData()` - lib/pubspec_data.dart (const Pubspec from parent pubspec.yaml)
 - `_generateProjectData()` - lib/project_data.dart (Project with pubspec + docs as `List<Doc>` + changelog)
@@ -573,14 +574,14 @@ await File(path).writeAsString(content);
 ## Testing
 
 **After making changes to code generation (SiteGenerator, ProjectGenerator, etc.), always test by regenerating the example project.** Use the `/regenerate` skill (or `/regenerate example`) which will:
-1. Delete the `example/website/` directory
+1. Delete the `example/docudart/` directory
 2. Re-run `docudart create --full` in the `example/` directory
 
 This ensures the generated output reflects your changes. Then verify with `docudart build` and/or `docudart serve`.
 
 ```bash
 # Quick test workflow (preferred):
-# 1. Use /regenerate skill to regenerate example/website/
+# 1. Use /regenerate skill to regenerate example/docudart/
 # 2. Then build:
 cd example
 dart run ../bin/docudart.dart build
@@ -699,12 +700,12 @@ None currently tracked.
 - `ConfigLoader` parses `config.dart` via text-based regex (`ConfigEvaluator`), falling back to YAML if it fails
 - Function fields (home/header/footer/sidebar) cannot be extracted from text parsing — managed project imports config.dart directly
 - All generated user files import `package:docudart/docudart.dart`
-- `website/pubspec.yaml` uses a path dependency to docudart
-- Generated Jaspr project lives in `website/.dart_tool/docudart/` and also has docudart as a path dependency
+- The project's `pubspec.yaml` uses a path dependency to docudart
+- Generated Jaspr project lives in `<projectDir>/.dart_tool/docudart/` and also has docudart as a path dependency
 - ConfigLoader absolutizes directory paths relative to the website directory
 - Clean URLs by default (`/docs/intro/` not `/docs/intro.html`)
 - Theme mode (system/light/dark) via `themeMode` field — injected into `theme.js` as `forcedMode`; when set to light/dark it overrides localStorage; toggle still works for user override
-- WorkspaceResolver supports backward compatibility with old flat structure
+- WorkspaceResolver checks `docudart/` subdirectory (default), supports legacy flat structure
 - **Live reload**: `configure()` is a plain function — no lazy init, no stored callbacks. `_copyUserFiles()` uses `writeAsString` (not `File.copy()`) for reliable filesystem events. During serve, `live-reload.js` polls `live-reload-version.txt` every 1s; after regeneration, version is bumped and the browser auto-refreshes. The live-reload script is only injected during `docudart serve` (`serveMode: true`), not during `docudart build`.
 - `DocuDartFileWatcher` watches: docs/, assets/, all root `.dart` files (config.dart, labels.dart, etc.), components/, pages/, parent project's `pubspec.yaml`, and parent project's `CHANGELOG.md`; uses debounce + pending-regeneration queue to handle rapid edits
 - `_handleEvent()` skips `assets.dart` inside the assets dir to prevent infinite rebuild loops (it's regenerated on each build and lives inside the watched assets/ dir)

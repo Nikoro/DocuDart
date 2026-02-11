@@ -16,14 +16,15 @@ enum InitTemplate {
   full,
 }
 
-/// Generates a new DocuDart project structure inside a website/ subdirectory.
+/// Generates a new DocuDart project structure inside a named subdirectory.
 class ProjectGenerator {
-  /// Generate project files in a website/ subdirectory of [directory].
+  /// Generate project files in a [folderName]/ subdirectory of [directory].
   Future<void> generate({
     required String directory,
     required InitTemplate template,
+    required String folderName,
   }) async {
-    final websiteDir = p.join(directory, 'website');
+    final websiteDir = p.join(directory, folderName);
     final dir = Directory(websiteDir);
     if (!dir.existsSync()) {
       await dir.create(recursive: true);
@@ -92,7 +93,7 @@ class ProjectGenerator {
     await _generateReadme(websiteDir, title);
 
     // Update .gitignore at project root
-    await _updateGitignore(directory);
+    await _updateGitignore(directory, folderName);
 
     // Run dart pub get in website/
     print('Installing dependencies...');
@@ -108,7 +109,7 @@ class ProjectGenerator {
     await Process.run('dart', ['format', '.'], workingDirectory: websiteDir);
 
     print('Created project structure:');
-    print('  website/');
+    print('  $folderName/');
     print('    pubspec.yaml');
     print('    config.dart');
     print('    labels.dart');
@@ -865,7 +866,7 @@ sidebar_position: 1
 
 # Deploy to GitHub Pages
 
-Run `docudart build` and deploy the `website/build/web/` directory.
+Run `docudart build` and deploy the `build/web/` directory.
 
 ## GitHub Actions
 
@@ -880,7 +881,7 @@ sidebar_position: 2
 
 # Deploy to Netlify
 
-Connect your repository and set the build command to `docudart build` with the publish directory set to `website/build/web/`.
+Connect your repository and set the build command to `docudart build` with the publish directory set to `build/web/`.
 ''');
   }
 
@@ -904,7 +905,7 @@ docudart serve
 ## Project Structure
 
 ```
-website/
+docudart/
   config.dart        # Site configuration (title, theme, layout components)
   docs/              # Markdown documentation files
   pages/             # Custom page components (Dart/Jaspr)
@@ -988,13 +989,13 @@ Config configure(BuildContext context) => Config(
 
 ## Build Output
 
-Running `docudart build` generates static files in `website/build/web/`. You can deploy this directory to any static hosting provider (GitHub Pages, Netlify, Vercel, Firebase Hosting, etc.).
+Running `docudart build` generates static files in `build/web/`. You can deploy this directory to any static hosting provider (GitHub Pages, Netlify, Vercel, Firebase Hosting, etc.).
 ''';
 
     await File(p.join(websiteDir, 'README.md')).writeAsString(readme);
   }
 
-  Future<void> _updateGitignore(String projectDir) async {
+  Future<void> _updateGitignore(String projectDir, String folderName) async {
     final gitignoreFile = File(p.join(projectDir, '.gitignore'));
     final content = gitignoreFile.existsSync()
         ? await gitignoreFile.readAsString()
@@ -1003,11 +1004,11 @@ Running `docudart build` generates static files in `website/build/web/`. You can
     final additions = <String>[];
 
     // Add DocuDart-specific entries
-    if (!content.contains('website/.dart_tool/')) {
-      additions.add('website/.dart_tool/');
+    if (!content.contains('$folderName/.dart_tool/')) {
+      additions.add('$folderName/.dart_tool/');
     }
-    if (!content.contains('website/build/')) {
-      additions.add('website/build/');
+    if (!content.contains('$folderName/build/')) {
+      additions.add('$folderName/build/');
     }
 
     if (additions.isNotEmpty) {

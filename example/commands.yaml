@@ -6,6 +6,6 @@ serve:
 
 regenerate:
   script: |
-    rm -rf website
+    rm -rf docudart
     create
     serve

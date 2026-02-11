@@ -5,7 +5,7 @@ sidebar_position: 1
 
 # Deploy to GitHub Pages
 
-Run `docudart build` and deploy the `website/build/web/` directory.
+Run `docudart build` and deploy the `build/web/` directory.
 
 ## GitHub Actions
 
