@@ -2,7 +2,6 @@
 .dart_tool/
 .packages
 build/
-pubspec.lock
 
 # IDE
 .idea/
@@ -19,3 +18,7 @@ coverage/
 # OS
 .DS_Store
 Thumbs.db
+
+# DocuDart
+docudart/.dart_tool/
+docudart/build/

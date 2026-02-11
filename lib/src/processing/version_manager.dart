@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
+import '../cli/errors.dart';
 import '../models/versioning_config.dart';
 import '../config/docudart_config.dart';
 import 'content_processor.dart';
@@ -149,7 +150,7 @@ class VersionManager {
     // Look for version in versions/ directory
     final versionDir = Directory(p.join(_versionConfig.versionDir, version));
     if (!versionDir.existsSync()) {
-      print('Warning: Version directory not found: ${versionDir.path}');
+      CliPrinter.warning('Version directory not found: ${versionDir.path}');
       return null;
     }
 

@@ -148,10 +148,13 @@ class MarkdownProcessor {
   }
 
   /// Generate a URL-safe ID from heading text.
+  ///
+  /// Allows Unicode word characters for internationalization
+  /// (e.g. "Café API" → "café-api").
   String _generateId(String text) {
     return text
         .toLowerCase()
-        .replaceAll(RegExp(r'[^a-z0-9\s-]'), '')
+        .replaceAll(RegExp(r'[^\w\s-]', unicode: true), '')
         .replaceAll(RegExp(r'\s+'), '-')
         .replaceAll(RegExp(r'-+'), '-')
         .replaceAll(RegExp(r'^-|-$'), '');

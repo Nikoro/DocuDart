@@ -30,6 +30,9 @@ class Layout extends StatelessComponent {
     return Column(
       crossAxisAlignment: .stretch,
       children: [
+        a(classes: 'skip-to-content', href: '#main-content', [
+          .text('Skip to content'),
+        ]),
         ?header,
         Expanded(
           child:
@@ -39,6 +42,7 @@ class Layout extends StatelessComponent {
                 children: [
                   ?sidebar,
                   ?body?.apply(
+                    id: 'main-content',
                     classes: 'site-main',
                     styles: Styles(
                       flex: Flex(grow: 1, shrink: 1, basis: Unit.zero),

@@ -176,6 +176,11 @@ class CliPrinter {
     print('─' * 40);
   }
 
+  /// Print a line with no icon prefix (e.g. tree structure output).
+  static void line(String message) {
+    print(message);
+  }
+
   /// Print a header.
   static void header(String title) {
     print('');

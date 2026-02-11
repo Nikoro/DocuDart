@@ -19,10 +19,7 @@ class ThemeToggle extends StatelessComponent {
   Component build(BuildContext context) {
     return button(
       classes: 'theme-toggle',
-      attributes: {
-        'aria-label': 'Toggle dark mode',
-        'title': 'Toggle dark mode',
-      },
+      attributes: {'aria-label': 'Toggle theme', 'title': 'Toggle theme'},
       [
         span(classes: 'theme-toggle-light', [light]),
         span(classes: 'theme-toggle-dark', [dark]),

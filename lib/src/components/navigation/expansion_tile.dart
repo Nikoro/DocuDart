@@ -50,7 +50,11 @@ class ExpansionTile extends StatelessComponent {
       [
         div(
           classes: 'expansion-tile-header',
-          attributes: {'role': 'button', 'tabindex': '0'},
+          attributes: {
+            'role': 'button',
+            'tabindex': '0',
+            'aria-expanded': expanded.toString(),
+          },
           [.text(title)],
         ),
         div(classes: 'expansion-tile-content', children),

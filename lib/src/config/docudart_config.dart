@@ -1,6 +1,11 @@
 import 'package:docudart/docudart.dart';
 
+import '../theme/theme_loader.dart';
+
 /// Main configuration class for DocuDart.
+///
+/// The file is named `docudart_config.dart` (not `config.dart`) to avoid
+/// conflicts with the user's `config.dart` in generated projects.
 class Config {
   Config({
     this.title,
@@ -98,8 +103,8 @@ class Config {
       return DefaultTheme(primaryColor: json['primaryColor'] as int?);
     }
 
-    // Reconstruct as CustomTheme for any other type
-    return CustomTheme(
+    // Reconstruct as LoadedTheme for any other type
+    return LoadedTheme(
       name: json['name'] as String? ?? 'custom',
       colors: json['colors'] != null
           ? ThemeColors.fromJson(json['colors'] as Map<String, dynamic>)

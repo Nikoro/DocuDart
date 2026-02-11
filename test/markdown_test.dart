@@ -1,5 +1,6 @@
 import 'package:test/test.dart';
-import 'package:docudart/docudart.dart';
+import 'package:docudart/src/markdown/component_parser.dart';
+import 'package:docudart/src/markdown/frontmatter_handler.dart';
 
 void main() {
   group('FrontmatterHandler', () {

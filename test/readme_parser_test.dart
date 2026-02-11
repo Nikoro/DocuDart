@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:docudart/docudart.dart';
+import 'package:docudart/src/processing/readme_parser.dart';
 
 void main() {
   group('ReadmeParser', () {

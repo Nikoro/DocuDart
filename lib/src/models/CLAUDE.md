@@ -1,0 +1,74 @@
+# Models
+
+Immutable data models used throughout DocuDart. All exported via `docudart.dart`.
+
+## Doc (`doc.dart`) — Sealed Hierarchy
+
+Documentation structure enabling exhaustive pattern matching.
+
+```dart
+sealed class Doc { name, order }
+  +-- DocLink(name, path, order)                        // leaf doc page
+  +-- DocCategory(name, children, expanded, order)      // folder/section
+```
+
+- `expanded` (not `collapsed`) — aligns with `_expanded` folder suffix convention
+- No `depth` field — computed implicitly during rendering via nesting
+- Pattern matching: `case DocLink(:final name, :final path):` / `case DocCategory(:final children):`
+- `context.project.docs` is `List<Doc>`
+
+## DocPage / DocFolder (`doc_content.dart`)
+
+Internal content processing models used by `ContentProcessor` and `SidebarGenerator`.
+
+- `DocPage` — represents a single markdown file with frontmatter
+- `DocFolder` — represents a directory; has `expanded` flag from `_expanded` suffix
+
+## Project (`project.dart`)
+
+Context object available via `context.project` in components.
+
+- `Project(pubspec: Pubspec, docs: List<Doc>, pages: List<Page>, changelog: String?)`
+- Provided by `ProjectProvider` (InheritedComponent)
+
+## Pubspec (`pubspec.dart`)
+
+Immutable model parsed from the parent project's `pubspec.yaml`.
+
+- `name` (required), `version?`, `description?`, `homepage?`, `repository` (`Repository?`), `issueTracker?`, `documentation?`, `publishTo?`, `funding` (`List<String>?`), `topics` (`List<String>?`), `environment` (`Environment`, required)
+- `Environment({required String sdk, String? flutter})`
+- Generated `pubspec_data.dart` has `const projectPubspec = Pubspec(...)`
+
+## Repository (`repository.dart`)
+
+Wraps a repository URL with auto-detected provider label and icon.
+
+```dart
+const repo = Repository('https://github.com/user/repo');
+repo.link   // 'https://github.com/user/repo'
+repo.label  // 'GitHub' (auto-detected)
+repo.icon   // Component (FontAwesomeIcons brand icon)
+```
+
+- `const` constructible — works in `const Pubspec(repository: Repository('...'))`
+- Detection via `_matchHost<T>()`: github/gitlab/bitbucket/generic
+- Icons: `FontAwesomeIcons` for brands, `FontAwesomeIcons.link` for fallback
+- `==`/`hashCode` based on `link`
+
+## Page (`page.dart`)
+
+Auto-discovered page metadata from `pages/` directory.
+
+- `Page(path: String, name: String)` — immutable model
+- `pages/foo/bar_page.dart` -> path `/foo/bar`, name `Bar` (strip `_page` suffix, `_` -> `-`)
+- Usage: `context.project.pages.map((p) => Link.path(p.path, label: p.name))`
+
+## ThemeMode (`theme_mode.dart`)
+
+Enum: `system`, `light`, `dark`. Injected into `theme.js` as `forcedMode`.
+
+## Ordering & Sidebar Conventions
+
+- Numeric filename prefix (`01-guides/`) or `sidebar_position` frontmatter
+- `index.md`/`intro.md` default to position 0; no prefix defaults to 999
+- `_expanded` suffix on folder name -> `DocCategory(expanded: true)`; suffix stripped from display name and URL

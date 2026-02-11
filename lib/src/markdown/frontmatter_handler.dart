@@ -83,6 +83,8 @@ class FrontmatterHandler {
   /// Returns a [FrontmatterResult] with the parsed data and remaining content.
   /// If no frontmatter is found, returns empty data and original content.
   static FrontmatterResult parse(String content) {
+    // Normalize line endings (Windows CRLF → LF) before parsing.
+    content = content.replaceAll('\r\n', '\n').replaceAll('\r', '\n');
     final match = _frontmatterRegex.firstMatch(content);
 
     if (match == null) {

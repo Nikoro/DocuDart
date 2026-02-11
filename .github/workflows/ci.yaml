@@ -13,6 +13,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up dart
         uses: dart-lang/setup-dart@v1
+      - name: Cache pub dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('pubspec.lock') }}
+          restore-keys: ${{ runner.os }}-pub-
       - name: Get dependencies
         run: dart pub get --no-example
       - name: Static code analysis
@@ -21,3 +27,28 @@ jobs:
         run: dart format --output=none --set-exit-if-changed .
       - name: Unit tests
         run: dart test --test-randomize-ordering-seed=random
+
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+      - name: Set up dart
+        uses: dart-lang/setup-dart@v1
+      - name: Cache pub dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('pubspec.lock') }}
+          restore-keys: ${{ runner.os }}-pub-
+      - name: Get dependencies
+        run: dart pub get --no-example
+      - name: Smoke test - create project
+        run: |
+          mkdir /tmp/test-project
+          cd /tmp/test-project
+          dart run $GITHUB_WORKSPACE/bin/docudart.dart create --full
+      - name: Smoke test - build project
+        run: |
+          cd /tmp/test-project
+          dart run $GITHUB_WORKSPACE/bin/docudart.dart build

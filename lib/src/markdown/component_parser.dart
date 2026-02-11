@@ -55,6 +55,11 @@ class ComponentParser {
   );
 
   /// Pattern for parsing props: prop="value" or prop={value}
+  ///
+  /// **Limitation**: Does not support escaped quotes in string props
+  /// (e.g. `prop="value with \" quote"`) or nested braces (`prop={{nested}}`).
+  /// Built-in components don't use these patterns, but custom components
+  /// should avoid them.
   static final _propPattern = RegExp(r'(\w+)=(?:"([^"]*)"|{([^}]*)}|(\S+))');
 
   /// Parse components from markdown content.

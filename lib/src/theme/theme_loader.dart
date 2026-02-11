@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
+import '../cli/errors.dart';
 import 'base_theme.dart';
 import 'theme_colors.dart';
 import 'theme_typography.dart';
 
 /// A theme loaded from a YAML configuration file.
-class CustomTheme extends BaseTheme {
-  const CustomTheme({
+class LoadedTheme extends BaseTheme {
+  const LoadedTheme({
     required this.name,
     required this.colors,
     required this.typography,
@@ -30,7 +31,7 @@ class CustomTheme extends BaseTheme {
 /// Loads custom themes from YAML files.
 class ThemeLoader {
   /// Load a theme from a YAML file.
-  static Future<CustomTheme?> loadFromFile(String path) async {
+  static Future<LoadedTheme?> loadFromFile(String path) async {
     final file = File(path);
     if (!file.existsSync()) {
       return null;
@@ -41,13 +42,13 @@ class ThemeLoader {
       final yaml = loadYaml(content) as YamlMap;
       return _parseTheme(yaml, p.basenameWithoutExtension(path));
     } catch (e) {
-      print('Warning: Failed to load theme from $path: $e');
+      CliPrinter.warning('Failed to load theme from $path: $e');
       return null;
     }
   }
 
   /// Load a theme by name from the themes directory.
-  static Future<CustomTheme?> loadByName(
+  static Future<LoadedTheme?> loadByName(
     String name, [
     String themesDir = 'themes',
   ]) async {
@@ -63,7 +64,7 @@ class ThemeLoader {
   }
 
   /// Discover all themes in a directory.
-  static Future<List<CustomTheme>> discoverThemes([
+  static Future<List<LoadedTheme>> discoverThemes([
     String themesDir = 'themes',
   ]) async {
     final dir = Directory(themesDir);
@@ -71,7 +72,7 @@ class ThemeLoader {
       return [];
     }
 
-    final themes = <CustomTheme>[];
+    final themes = <LoadedTheme>[];
 
     await for (final entity in dir.list()) {
       if (entity is File) {
@@ -88,7 +89,7 @@ class ThemeLoader {
     return themes;
   }
 
-  static CustomTheme _parseTheme(YamlMap yaml, String fallbackName) {
+  static LoadedTheme _parseTheme(YamlMap yaml, String fallbackName) {
     final name = yaml['name'] as String? ?? fallbackName;
 
     // Parse colors
@@ -130,7 +131,7 @@ class ThemeLoader {
           (typographyYaml['headingLineHeight'] as num?)?.toDouble() ?? 1.3,
     );
 
-    return CustomTheme(name: name, colors: colors, typography: typography);
+    return LoadedTheme(name: name, colors: colors, typography: typography);
   }
 
   /// Parse a color value from string or int.

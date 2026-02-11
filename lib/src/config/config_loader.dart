@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
+import '../cli/errors.dart';
 import 'config_evaluator.dart';
 import 'docudart_config.dart';
 import '../models/pubspec.dart';
@@ -94,7 +95,8 @@ class ConfigLoader {
           flutter: env?['flutter']?.toString(),
         ),
       );
-    } catch (_) {
+    } catch (e) {
+      CliPrinter.warning('Failed to parse pubspec.yaml: $e');
       return const Pubspec(
         name: 'unknown',
         environment: Environment(sdk: 'any'),
@@ -169,11 +171,13 @@ class ConfigLoader {
           if (customTheme != null) {
             theme = customTheme;
           } else {
-            print('Warning: Theme "$themeName" not found, using default theme');
+            CliPrinter.warning(
+              'Theme "$themeName" not found, using default theme',
+            );
           }
         }
       } catch (e) {
-        print('Warning: Failed to load docudart.yaml: $e');
+        CliPrinter.warning('Failed to load docudart.yaml: $e');
       }
     }
 
