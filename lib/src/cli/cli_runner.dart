@@ -1,8 +1,11 @@
 import 'package:args/command_runner.dart';
 
-import 'commands/init_command.dart';
 import 'commands/build_command.dart';
+import 'commands/create_command.dart';
 import 'commands/serve_command.dart';
+import 'commands/update_command.dart';
+import 'commands/version_command.dart';
+import 'version/version_printer.dart';
 
 /// Main CLI runner for DocuDart.
 class DocuDartCliRunner extends CommandRunner<int> {
@@ -11,9 +14,11 @@ class DocuDartCliRunner extends CommandRunner<int> {
         'docudart',
         'A static documentation generator for Dart, powered by Jaspr.',
       ) {
-    addCommand(InitCommand());
+    addCommand(CreateCommand());
     addCommand(BuildCommand());
     addCommand(ServeCommand());
+    addCommand(VersionCommand());
+    addCommand(UpdateCommand());
 
     argParser.addFlag(
       'version',
@@ -28,7 +33,7 @@ class DocuDartCliRunner extends CommandRunner<int> {
     try {
       final results = parse(args);
       if (results['version'] == true) {
-        print('docudart version 0.0.1');
+        await showVersion();
         return 0;
       }
       return await runCommand(results) ?? 0;

@@ -34,7 +34,7 @@ class DocuDartErrors {
       hint:
           'Make sure you are in a project with a website/ directory, '
           'or inside the website/ directory itself.',
-      command: 'docudart init',
+      command: 'docudart create',
     );
   }
 

@@ -14,7 +14,7 @@ dart pub get
 
 # Run CLI
 dart run bin/docudart.dart --help
-dart run bin/docudart.dart init --full
+dart run bin/docudart.dart create --full
 dart run bin/docudart.dart build
 dart run bin/docudart.dart serve
 
@@ -38,7 +38,7 @@ website/
   themes/        ─────────>
 ```
 
-**Key Insight**: `docudart init` creates a `website/` subdirectory inside the user's project. This directory is a self-contained Dart package with its own `pubspec.yaml` that depends on `docudart` (path dependency). DocuDart re-exports `package:jaspr/jaspr.dart`, so user code only needs `import 'package:docudart/docudart.dart'`.
+**Key Insight**: `docudart create` creates a `website/` subdirectory inside the user's project. This directory is a self-contained Dart package with its own `pubspec.yaml` that depends on `docudart` (path dependency). DocuDart re-exports `package:jaspr/jaspr.dart`, so user code only needs `import 'package:docudart/docudart.dart'`.
 
 The `build`/`serve` commands auto-detect the `website/` directory from the project root using `WorkspaceResolver`.
 
@@ -56,10 +56,16 @@ docudart/
 │       ├── cli/                         # CLI commands
 │       │   ├── cli_runner.dart          # CommandRunner
 │       │   ├── errors.dart              # DocuDartException, CliPrinter
-│       │   └── commands/
-│       │       ├── init_command.dart    # docudart init
-│       │       ├── build_command.dart   # docudart build
-│       │       └── serve_command.dart   # docudart serve
+│       │   ├── commands/
+│       │   │   ├── create_command.dart  # docudart create
+│       │   │   ├── build_command.dart   # docudart build
+│       │   │   ├── serve_command.dart   # docudart serve
+│       │   │   ├── version_command.dart # docudart version
+│       │   │   └── update_command.dart  # docudart update
+│       │   └── version/
+│       │       ├── installation_source.dart # InstallationSource detection from pub-cache
+│       │       ├── version_checker.dart    # VersionCheckResult + pub.dev/GitHub API checks
+│       │       └── version_printer.dart    # showVersion() shared by --version flag and version command
 │       ├── config/                      # Configuration (Config class + loading)
 │       │   ├── docudart_config.dart     # Config class (has toJson/fromJson)
 │       │   ├── config_loader.dart       # Load config (evaluates config.dart, falls back to YAML)
@@ -149,13 +155,13 @@ docudart/
 └── pubspec.yaml
 ```
 
-## Generated User Project Structure (after `docudart init --full`)
+## Generated User Project Structure (after `docudart create --full`)
 
 ```
 user-project/
   pubspec.yaml           # User's own project
   lib/                   # User's own code
-  website/               # Created by docudart init
+  website/               # Created by docudart create
     pubspec.yaml         # Depends on docudart (path dependency)
     config.dart          # configure() function returning Config + header/footer/sidebar
     icons.dart           # SVG icon constants (Icons.github, Icons.pubDev, Icons.docs, etc.)
@@ -367,7 +373,7 @@ typedef LayoutBuilder = Component Function({
 - Used by `Config.layoutBuilder` to fully replace the default `Layout` component
 
 ### ProjectGenerator (lib/src/generators/project_generator.dart)
-Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart init`.
+Creates `website/` subdirectory with its own `pubspec.yaml` during `docudart create`.
 - `InitTemplate.defaultTemplate` - Basic setup
 - `InitTemplate.full` - All features with examples, including sidebar subfolder showcase
 - Uses `PackageResolver` to compute path dependency to docudart
@@ -435,8 +441,8 @@ Flutter docs style theme with:
 
 ## CLI Command Flow
 
-### `docudart init`
-1. `InitCommand` resolves target directory
+### `docudart create`
+1. `CreateCommand` resolves target directory
 2. Checks for existing `website/config.dart`
 3. `ProjectGenerator.generate()` creates `website/` with all files including components/
    - Loads pubspec.yaml for name, description, and repository
@@ -471,6 +477,18 @@ Flutter docs style theme with:
 **Live reload**: During `docudart serve`, a `live-reload.js` script is injected into the HTML and a `live-reload-version.txt` file is written to the web directory. The JS polls the version file every 1 second. After each file change, DocuDart regenerates the site and bumps the version file — the browser detects the change and calls `location.reload()` automatically. This only runs during serve mode (`serveMode: true`); `docudart build` does not include the live-reload script.
 
 **Log filtering**: Jaspr's serve runs an internal build daemon on a separate port; during reload transitions the proxy briefly disconnects, producing transient SocketException errors. `ServeCommand._shouldShowLog()` suppresses these noisy internal logs while preserving user-facing output. Process output is piped (not `inheritStdio`) and filtered line-by-line.
+
+### `docudart version` / `--version` / `-v`
+1. Detects if running globally (via `Platform.script.toFilePath().contains('.pub-cache/global_packages')`)
+2. Gets current version from `dart pub global list` (global) or `pubspec.lock` (local)
+3. Checks for newer version: pub.dev API (`/api/packages/docudart`) or GitHub releases API (if git-installed)
+4. If update available: prints version diff, clickable changelog URL (OSC 8), and `docudart update` suggestion
+
+### `docudart update`
+1. Detects installation source from `~/.pub-cache/global_packages/docudart/pubspec.lock`
+2. If `source: hosted` → runs `dart pub global activate docudart`
+3. If `source: git` → runs `dart pub global activate --source git https://github.com/Nikoro/docudart`
+4. If running locally (not globally activated) → prints info message
 
 ## Common Tasks
 
@@ -546,7 +564,7 @@ await File(path).writeAsString(content);
 
 **After making changes to code generation (SiteGenerator, ProjectGenerator, etc.), always test by regenerating the example project.** Use the `/regenerate` skill (or `/regenerate example`) which will:
 1. Delete the `example/website/` directory
-2. Re-run `docudart init --full` in the `example/` directory
+2. Re-run `docudart create --full` in the `example/` directory
 
 This ensures the generated output reflects your changes. Then verify with `docudart build` and/or `docudart serve`.
 
@@ -560,7 +578,7 @@ dart run ../bin/docudart.dart build
 # Manual test with a fresh project:
 mkdir /tmp/test-docudart
 cd /tmp/test-docudart
-dart run /path/to/docudart/bin/docudart.dart init --full
+dart run /path/to/docudart/bin/docudart.dart create --full
 dart run /path/to/docudart/bin/docudart.dart build
 ```
 

@@ -6,9 +6,9 @@ import 'package:path/path.dart' as p;
 import '../../generators/project_generator.dart';
 import '../errors.dart';
 
-/// Command to initialize a new DocuDart project.
-class InitCommand extends Command<int> {
-  InitCommand() {
+/// Command to create a new DocuDart project.
+class CreateCommand extends Command<int> {
+  CreateCommand() {
     argParser.addFlag(
       'full',
       abbr: 'f',
@@ -23,10 +23,10 @@ class InitCommand extends Command<int> {
     );
   }
   @override
-  String get name => 'init';
+  String get name => 'create';
 
   @override
-  String get description => 'Initialize a new DocuDart documentation project.';
+  String get description => 'Create a new DocuDart documentation project.';
 
   @override
   Future<int> run() async {
@@ -67,7 +67,7 @@ class InitCommand extends Command<int> {
       await generator.generate(directory: targetDir, template: template);
 
       CliPrinter.blank();
-      CliPrinter.success('DocuDart project initialized successfully!');
+      CliPrinter.success('DocuDart project created successfully!');
       CliPrinter.blank();
       CliPrinter.info('Next steps:');
       if (directory != '.') {
@@ -81,7 +81,7 @@ class InitCommand extends Command<int> {
       CliPrinter.exception(e);
       return 1;
     } catch (e) {
-      CliPrinter.error('Error initializing project: $e');
+      CliPrinter.error('Error creating project: $e');
       return 1;
     }
   }
