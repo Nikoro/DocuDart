@@ -181,6 +181,15 @@ const _families = <IconFamily>[
     familyTag: 'font_awesome',
     hasRoot: true,
   ),
+  IconFamily(
+    key: 'remix',
+    repoUrl: 'https://github.com/Remix-Design/RemixIcon',
+    branch: 'master',
+    className: 'RemixIcons',
+    libraryName: 'Remix',
+    familyTag: 'remix',
+    hasRoot: true,
+  ),
 ];
 
 // ---------------------------------------------------------------------------
@@ -295,6 +304,8 @@ List<IconEntry> _discoverAndParse(IconFamily family) {
       return _parseFluent(family);
     case 'font-awesome':
       return _parseFontAwesome(family);
+    case 'remix':
+      return _parseRemixIcon(family);
     default:
       throw StateError('Unknown family: ${family.key}');
   }
@@ -623,6 +634,72 @@ List<IconEntry> _parseFontAwesome(IconFamily family) {
       final baseName = filename.replaceAll('.svg', '');
       var dartName = _toDartName(baseName);
       dartName = '$dartName${entry.value}';
+
+      final svgString = file.readAsStringSync();
+      final doc = XmlDocument.parse(svgString);
+      final svgElement = doc.rootElement;
+
+      final rootAttrs = _extractRootAttrs(svgElement);
+      final children = _extractChildren(svgElement);
+
+      final content = <Map<String, dynamic>>[
+        {'tag': 'root', 'family': family.familyTag, 'attrs': rootAttrs},
+        ...children,
+      ];
+
+      final preview = _makePreview(svgString, isStroke: false);
+      icons.add(
+        IconEntry(name: dartName, content: content, previewSvg: preview),
+      );
+    }
+  }
+  print('  Found $totalFiles SVG files');
+  return icons;
+}
+
+// ---------------------------------------------------------------------------
+// Remix Icon
+// ---------------------------------------------------------------------------
+List<IconEntry> _parseRemixIcon(IconFamily family) {
+  final iconsDir = Directory('${family.cloneDir}/icons');
+  if (!iconsDir.existsSync()) {
+    print('  Error: icons/ directory not found in ${family.cloneDir}');
+    return [];
+  }
+
+  final icons = <IconEntry>[];
+  var totalFiles = 0;
+
+  // Remix Icon has category subdirectories (Arrows, Buildings, Logos, etc.)
+  // Both -line and -fill variants live in the same directory.
+  final categoryDirs = iconsDir.listSync().whereType<Directory>().toList();
+
+  for (final categoryDir in categoryDirs) {
+    final files = categoryDir
+        .listSync()
+        .whereType<File>()
+        .where((f) => f.path.endsWith('.svg'))
+        .toList();
+    totalFiles += files.length;
+
+    for (final file in files) {
+      final filename = _basename(file.path);
+      var baseName = filename.replaceAll('.svg', '');
+
+      // Determine style from filename suffix
+      String suffix;
+      if (baseName.endsWith('-fill')) {
+        baseName = baseName.substring(0, baseName.length - '-fill'.length);
+        suffix = '_fill';
+      } else if (baseName.endsWith('-line')) {
+        baseName = baseName.substring(0, baseName.length - '-line'.length);
+        suffix = ''; // line is the base style
+      } else {
+        // Icons without style suffix — treat as base
+        suffix = '';
+      }
+
+      final dartName = '${_toDartName(baseName)}$suffix';
 
       final svgString = file.readAsStringSync();
       final doc = XmlDocument.parse(svgString);

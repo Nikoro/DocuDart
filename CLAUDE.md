@@ -127,7 +127,7 @@ docudart/
 │       │   │   └── sized_box.dart     # SizedBox component (fixed-size box / spacer)
 │       │   └── providers/              # Context/state providers
 │       │       └── project_provider.dart # ProjectProvider (InheritedComponent + context.project)
-│       ├── icons/                       # Icon system (6 families, ~49k icons)
+│       ├── icons/                       # Icon system (7 families, ~52k icons)
 │       │   ├── icons.dart               # Barrel file exporting all icon modules
 │       │   ├── icon.dart                # Icon component (renders SVG from IconData)
 │       │   ├── helpers.dart             # IconData class, StrokeLineJoin/Cap enums
@@ -136,7 +136,8 @@ docudart/
 │       │   ├── material_symbols.dart    # GENERATED - Material Symbols (~22,884)
 │       │   ├── tabler_icons.dart        # GENERATED - Tabler Icons (~5,986)
 │       │   ├── fluent_icons.dart        # GENERATED - Fluent UI Icons (~5,074)
-│       │   └── font_awesome_icons.dart  # GENERATED - Font Awesome Icons (~2,860)
+│       │   ├── font_awesome_icons.dart  # GENERATED - Font Awesome Icons (~2,860)
+│       │   └── remix_icons.dart         # GENERATED - Remix Icons (~3,228)
 │       └── extensions/                  # Dart extensions (re-exported to users)
 │           ├── extensions.dart          # Barrel file
 │           ├── object_extensions.dart   # .let() extension on T?
@@ -632,7 +633,7 @@ Live reload works automatically during `docudart serve`. To verify with Playwrig
 
 ## Icon System
 
-DocuDart ships a library-level icon system with ~49,000 icons across 6 families, all exported via `lib/src/icons/icons.dart` (re-exported through `docudart.dart`).
+DocuDart ships a library-level icon system with ~52,000 icons across 7 families, all exported via `lib/src/icons/icons.dart` (re-exported through `docudart.dart`).
 
 ### Icon Component & IconData (lib/src/icons/)
 - `IconData(List<Map<String, dynamic>> content)` — stores SVG element data; defined in `helpers.dart`
@@ -650,6 +651,7 @@ DocuDart ships a library-level icon system with ~49,000 icons across 6 families,
 | `TablerIcons` | Tabler | ~5,986 | outline (no suffix), `_filled` |
 | `FluentIcons` | Fluent UI | ~5,074 | regular (no suffix), `_filled` |
 | `FontAwesomeIcons` | Font Awesome | ~2,860 | solid (no suffix), `_regular`, `_brand` |
+| `RemixIcons` | Remix | ~3,228 | line (no suffix), `_fill` |
 
 - All classes are `abstract class` with private `const ClassName._()` constructor
 - Naming: snake_case identifiers, base style has no suffix, variants get suffixes
