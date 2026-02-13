@@ -86,6 +86,9 @@ class Icon extends StatelessComponent {
       classes: classes,
       styles: styles,
       attributes: {
+        // Default fill for icons without root attrs (e.g. Material Icons).
+        // Root attrs or explicit parameters override this.
+        if (!rootAttrs.containsKey('fill')) 'fill': 'currentColor',
         // Spread root attrs but exclude viewBox (handled as dedicated param)
         for (final e in rootAttrs.entries)
           if (e.key != 'viewBox') e.key: e.value,

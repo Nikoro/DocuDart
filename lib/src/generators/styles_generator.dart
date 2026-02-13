@@ -186,7 +186,6 @@ header a:not(.logo).active {
 .nav-link-icon svg {
   width: 100%;
   height: 100%;
-  fill: currentColor;
 }
 
 /* Sidebar */
@@ -813,7 +812,6 @@ footer .column {
 .theme-toggle-dark svg {
   width: 100%;
   height: 100%;
-  fill: currentColor;
 }
 
 /* Default: light icon visible, dark icon hidden */
