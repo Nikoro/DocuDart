@@ -52,14 +52,19 @@ class BuildCommand extends Command<int> {
           ? p.normalize(p.absolute(outputArg))
           : config.outputDir;
 
-      // Load parent project pubspec and changelog
+      // Load parent project pubspec, changelog, and license
       final pubspec = await ConfigLoader.loadParentPubspec(websiteDir);
       final changelog = await ConfigLoader.loadParentChangelog(websiteDir);
+      final license = await ConfigLoader.loadParentLicense(websiteDir);
 
       // Generate the managed Jaspr site
       CliPrinter.step('Generating site structure');
       final generator = SiteGenerator(config, websiteDir: websiteDir);
-      await generator.generate(pubspec: pubspec, changelog: changelog);
+      await generator.generate(
+        pubspec: pubspec,
+        changelog: changelog,
+        license: license,
+      );
 
       // Run jaspr build
       CliPrinter.step('Running Jaspr build');

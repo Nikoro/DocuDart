@@ -181,7 +181,7 @@ class Sidebar extends StatelessComponent {
         '      ),\n'
         '      center: Column(\n'
         '        children: [\n'
-        '          Copyright(text: pubspec.name),\n'
+        '          Copyright(text: context.project.license?.holder ?? pubspec.name),\n'
         '          BuiltWithDocuDart(),\n'
         '        ],\n'
         '      ),\n'

@@ -60,7 +60,7 @@ Config configure(BuildContext context) => Config(
       ),
       center: Column(
         children: [
-          Copyright(text: pubspec.name),
+          Copyright(text: context.project.license?.holder ?? pubspec.name),
           BuiltWithDocuDart(),
         ],
       ),

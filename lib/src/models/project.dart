@@ -1,4 +1,5 @@
 import 'doc.dart';
+import 'license.dart';
 import 'page.dart';
 import 'pubspec.dart';
 
@@ -11,6 +12,7 @@ class Project {
     required this.pubspec,
     required this.docs,
     required this.pages,
+    this.license,
     this.changelog,
     this.assets,
   });
@@ -23,6 +25,9 @@ class Project {
 
   /// Auto-discovered pages from the pages/ directory.
   final List<Page> pages;
+
+  /// Parsed license information from the parent project's LICENSE file.
+  final License? license;
 
   /// Raw content of CHANGELOG.md from the parent project, if it exists.
   final String? changelog;

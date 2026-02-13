@@ -6,6 +6,7 @@ import '../cli/errors.dart';
 import '../config/config_loader.dart';
 import '../config/docudart_config.dart';
 import '../models/doc.dart';
+import '../models/license.dart';
 import '../models/pubspec.dart';
 import 'asset_path_generator.dart';
 import '../processing/content_processor.dart';
@@ -41,6 +42,7 @@ class SiteGenerator {
     bool fullClean = true,
     Pubspec? pubspec,
     String? changelog,
+    License? license,
   }) async {
     CliPrinter.step('Generating site structure...');
 
@@ -91,7 +93,12 @@ class SiteGenerator {
     await _generateMain();
     await _copyUserFiles();
     await _generatePubspecData(resolvedPubspec);
-    await _generateProjectData(defaultSidebarItems, changelog, discoveredPages);
+    await _generateProjectData(
+      defaultSidebarItems,
+      changelog,
+      license,
+      discoveredPages,
+    );
     await _generateLayout();
     await _generateApp(allPages, versionManager, discoveredPages);
     await _generateStyles(includeVersionSwitcher: versionManager.isEnabled);
@@ -267,6 +274,7 @@ jaspr:
   Future<void> _generateProjectData(
     List<Doc> sidebarItems,
     String? changelog,
+    License? license,
     List<_DiscoveredPage> discoveredPages,
   ) async {
     // Generate asset tree classes.
@@ -304,6 +312,17 @@ jaspr:
     }
 
     buffer.writeln('  ],');
+
+    if (license != null) {
+      buffer.write('  license: License(type: LicenseType.${license.type.name}');
+      if (license.year != null) {
+        buffer.write(", year: '${_escapeForDart(license.year!)}'");
+      }
+      if (license.holder != null) {
+        buffer.write(", holder: '${_escapeForDart(license.holder!)}'");
+      }
+      buffer.writeln('),');
+    }
 
     if (changelog != null) {
       buffer.writeln("  changelog: '${_escapeForDart(changelog)}',");

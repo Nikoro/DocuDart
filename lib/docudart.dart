@@ -8,6 +8,7 @@ export 'src/config/setup.dart';
 // Models
 export 'src/models/asset.dart';
 export 'src/models/doc.dart';
+export 'src/models/license.dart';
 export 'src/models/project.dart';
 export 'src/models/pubspec.dart';
 export 'src/models/repository.dart';
