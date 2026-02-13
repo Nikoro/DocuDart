@@ -8,6 +8,9 @@ import '../cli/errors.dart';
 import '../services/package_resolver.dart';
 import 'project_templates.dart';
 
+/// Default timeout for HTTP requests to external services.
+const _httpTimeout = Duration(seconds: 5);
+
 /// Template options for project initialization.
 enum InitTemplate {
   /// Basic setup with config, landing page, and docs.
@@ -190,7 +193,8 @@ class ProjectGenerator {
       }
 
       return null;
-    } catch (_) {
+    } catch (e) {
+      CliPrinter.warning('Failed to resolve lint dependency: $e');
       return null;
     }
   }
@@ -204,7 +208,7 @@ class ProjectGenerator {
 
     try {
       final client = HttpClient();
-      client.connectionTimeout = const Duration(seconds: 5);
+      client.connectionTimeout = _httpTimeout;
       final request = await client.headUrl(
         Uri.parse('https://pub.dev/packages/$packageName'),
       );

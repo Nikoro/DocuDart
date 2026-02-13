@@ -14,7 +14,8 @@ This directory contains a local fork of the `jaspr_icons` package, maintained in
 | `material_symbols.dart` | Generated | **NEW** — Google Material Symbols (active successor to Material Icons) |
 | `tabler_icons.dart` | Generated | Tabler icons (outline + filled) |
 | `fluent_icons.dart` | Generated | Microsoft Fluent UI System icons (24px) |
-| `font_awesome_icons.dart` | Generated | **NEW** — Font Awesome free icons |
+| `font_awesome_icons.dart` | Generated | Font Awesome free icons |
+| `remix_icons.dart` | Generated | Remix icons (line + filled) |
 
 Exported via `lib/docudart.dart` → `export 'src/icons/icons.dart'`.
 
@@ -44,6 +45,7 @@ Exported via `lib/docudart.dart` → `export 'src/icons/icons.dart'`.
 | **Tabler** | outline | `_filled` | `home`, `home_filled`, `abacus`, `abacus_filled` |
 | **Fluent** | regular | `_filled`, `_color` | `access_time`, `access_time_filled`, `add_circle_color` |
 | **Font Awesome** | solid (default) | `_regular`, `_brand` | `house`, `house_regular`, `github_brand`, `apple_brand` |
+| **Remix** | line (default) | `_fill` | `home`, `home_fill`, `account_box`, `account_box_fill` |
 
 ### Examples
 
@@ -60,6 +62,8 @@ Exported via `lib/docudart.dart` → `export 'src/icons/icons.dart'`.
 | `FluentIcons.home_filled` | Fluent filled variant |
 | `FontAwesomeIcons.house` | Font Awesome solid (default) |
 | `FontAwesomeIcons.github_brand` | Font Awesome brand |
+| `RemixIcons.home` | Remix line (default) |
+| `RemixIcons.home_fill` | Remix filled variant |
 
 ---
 
@@ -162,6 +166,20 @@ Exported via `lib/docudart.dart` → `export 'src/icons/icons.dart'`.
 - **IMPORTANT**: Only free icons. Do NOT include Pro, Sharp, Duotone, or any paid variants. The `svgs/` directory in the repo contains only free icons. The `svgs-full/` directory may contain Pro icons — avoid it.
 - **Brand icons**: These are company logos (github, apple, twitter, etc.). Use `_brand` suffix to distinguish from similarly-named non-brand icons.
 
+### 7. Remix Icons (`remix_icons.dart`)
+
+- **Current count**: 3,228
+- **Upstream count**: ~3,228
+- **Gap**: None (up to date)
+- **Repo**: https://github.com/nicedoc/remixicon (or https://github.com/nicedoc/remixicon-npm)
+- **SVG paths**: `icons/<Category>/*.svg`
+- **SVG naming**: kebab-case (`arrow-right-line.svg`, `home-fill.svg`)
+- **License**: Apache 2.0
+- **Styles**: 2 — line (base, no suffix) + fill (`_fill`)
+- **Class**: `RemixIcons`
+- **Family tag**: `'remix'`
+- **Root attrs**: `viewBox: '0 0 24 24'`, `fill: 'currentColor'`
+
 ---
 
 ## Icon Data Format Specification
@@ -175,7 +193,7 @@ static const IconData icon_name = IconData([
   // Optional root element (metadata + default SVG attributes)
   {
     'tag': 'root',
-    'family': '<family>',       // 'lucide', 'tabler', 'fluent', 'material_symbols', 'font_awesome'
+    'family': '<family>',       // 'lucide', 'tabler', 'fluent', 'material_symbols', 'font_awesome', 'remix'
     'attrs': { ... },           // default SVG attributes from <svg> element
   },
   // One or more SVG child elements
@@ -199,6 +217,7 @@ static const IconData icon_name = IconData([
 | Tabler | Yes | `'tabler'` | `0 0 24 24` | Different attrs for outline vs filled |
 | Fluent | Yes | `'fluent'` | `0 0 24 24` | `fill: 'none'` on root; `fill: 'currentColor'` on paths (hardcoded fills replaced by generator) |
 | Font Awesome | Yes | `'font_awesome'` | varies (e.g. `0 0 384 512`) | Per-icon viewBox; paths have `fill: 'currentColor'` |
+| Remix | Yes | `'remix'` | `0 0 24 24` | Fill-based; `fill: 'currentColor'` |
 
 ### SVG Element Tags Used
 
@@ -252,6 +271,7 @@ class <ClassName> {
 | `tabler_icons.dart` | `TablerIcons` |
 | `fluent_icons.dart` | `FluentIcons` |
 | `font_awesome_icons.dart` | `FontAwesomeIcons` |
+| `remix_icons.dart` | `RemixIcons` |
 
 All classes: `const ClassName._()` private constructor (non-instantiable).
 
@@ -283,6 +303,7 @@ dart run tool/generate_icons.dart tabler     # regenerate only Tabler
 dart run tool/generate_icons.dart fluent     # regenerate only Fluent
 dart run tool/generate_icons.dart material-symbols  # regenerate only Material Symbols
 dart run tool/generate_icons.dart font-awesome      # regenerate only Font Awesome
+dart run tool/generate_icons.dart remix             # regenerate only Remix
 ```
 
 ### Algorithm
@@ -306,6 +327,7 @@ Use `/tmp/` for disposable clones. If already cloned, `git pull` to update.
 | Tabler | `/tmp/tabler/icons/outline/*.svg`, `filled/*.svg` | Style from directory name |
 | Fluent | `/tmp/fluent/assets/*/SVG/*_24_*.svg` | Only `_24_` (24px); style from suffix before `.svg` |
 | Font Awesome | `/tmp/Font-Awesome/svgs/solid/*.svg`, `regular/*.svg`, `brands/*.svg` | Style from directory name |
+| Remix | `/tmp/remixicon/icons/*/*.svg` | `-line.svg` = base (no suffix), `-fill.svg` = `_fill` suffix |
 
 #### Step 3: Parse each SVG
 
@@ -370,6 +392,7 @@ export 'lucide_icons.dart';
 export 'fluent_icons.dart';
 export 'tabler_icons.dart';
 export 'font_awesome_icons.dart';
+export 'remix_icons.dart';
 ```
 
 ---
@@ -398,7 +421,7 @@ export 'font_awesome_icons.dart';
 
 ## Maintenance Notes
 
-All 6 families are generated and up to date. To refresh from upstream:
+All 7 families are generated and up to date. To refresh from upstream:
 ```bash
 dart run tool/generate_icons.dart              # all families
 dart run tool/generate_icons.dart lucide tabler # specific families
@@ -418,3 +441,4 @@ dart run tool/generate_icons.dart lucide tabler # specific families
 | Tabler | https://github.com/tabler/tabler-icons | `icons/{outline,filled}/*.svg` | `main` | MIT |
 | Fluent | https://github.com/microsoft/fluentui-system-icons | `assets/*/SVG/*_24_*.svg` | `main` | MIT |
 | Font Awesome | https://github.com/FortAwesome/Font-Awesome | `svgs/{solid,regular,brands}/*.svg` | `7.x` | CC BY 4.0 / MIT |
+| Remix | https://github.com/nicedoc/remixicon | `icons/*/*.svg` | `main` | Apache 2.0 |

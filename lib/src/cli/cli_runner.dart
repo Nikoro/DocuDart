@@ -5,6 +5,7 @@ import 'commands/create_command.dart';
 import 'commands/serve_command.dart';
 import 'commands/update_command.dart';
 import 'commands/version_command.dart';
+import 'errors.dart';
 import 'version/version_printer.dart';
 
 /// Main CLI runner for DocuDart.
@@ -38,10 +39,10 @@ class DocuDartCliRunner extends CommandRunner<int> {
       }
       return await runCommand(results) ?? 0;
     } on UsageException catch (e) {
-      print(e);
+      CliPrinter.error(e.toString());
       return 64;
     } catch (e) {
-      print('Error: $e');
+      CliPrinter.error('$e');
       return 1;
     }
   }

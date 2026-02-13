@@ -51,7 +51,7 @@ class UpdateCommand extends Command<int> {
 
     if (result.exitCode == 0) {
       final output = result.stdout.toString();
-      print(output);
+      CliPrinter.line(output);
 
       final alreadyUpToDate = [
         'already activated at newest available version',

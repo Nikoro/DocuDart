@@ -101,9 +101,9 @@ class CreateCommand extends Command<int> {
       CliPrinter.blank();
       CliPrinter.info('Next steps:');
       if (directory != '.') {
-        print('  cd $directory');
+        CliPrinter.line('  cd $directory');
       }
-      print('  docudart serve');
+      CliPrinter.line('  docudart serve');
       CliPrinter.blank();
 
       return 0;
@@ -117,10 +117,10 @@ class CreateCommand extends Command<int> {
   }
 
   Future<InitTemplate> _promptForTemplate() async {
-    print('Select a template:');
+    CliPrinter.line('Select a template:');
     CliPrinter.blank();
-    print('  [1] Default - Basic setup with config, landing page, and docs');
-    print('  [2] Full    - All features with examples');
+    CliPrinter.line('  [1] Default - Basic setup with config, landing page, and docs');
+    CliPrinter.line('  [2] Full    - All features with examples');
     CliPrinter.blank();
     stdout.write('Enter choice (1 or 2) [1]: ');
 

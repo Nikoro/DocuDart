@@ -3,6 +3,9 @@ import 'dart:io';
 
 import 'installation_source.dart';
 
+/// Default timeout for HTTP requests to external services.
+const _httpTimeout = Duration(seconds: 5);
+
 class VersionCheckResult {
   VersionCheckResult({
     required this.currentVersion,
@@ -47,7 +50,7 @@ Future<VersionCheckResult?> checkForUpdate(String currentVersion) async {
 Future<VersionCheckResult?> _checkPubDev(String currentVersion) async {
   try {
     final client = HttpClient();
-    client.connectionTimeout = const Duration(seconds: 5);
+    client.connectionTimeout = _httpTimeout;
     final request = await client.getUrl(
       Uri.parse('https://pub.dev/api/packages/docudart'),
     );
@@ -93,7 +96,7 @@ Future<VersionCheckResult?> _checkGitHubRelease(
     final repo = match.group(2);
 
     final client = HttpClient();
-    client.connectionTimeout = const Duration(seconds: 5);
+    client.connectionTimeout = _httpTimeout;
     final request = await client.getUrl(
       Uri.parse('https://api.github.com/repos/$owner/$repo/releases/latest'),
     );

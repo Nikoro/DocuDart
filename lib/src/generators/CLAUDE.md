@@ -72,3 +72,7 @@ ProjectGenerator.generate()
 - **`_escapeForDart()`**: Escapes `\`, `'`, `$`, `\n`, `\r`, `\t` for safe embedding in Dart string literals
 - **`writeAsString()` over `File.copy()`**: Triggers filesystem events for hot reload detection
 - **`_copyUserFiles()` skips `assets.dart`**: Prevents infinite rebuild loops (it lives inside watched `assets/` dir)
+
+## Known Limitations
+
+- **All page HTML is embedded in `app.dart`**: Every `DocPage`'s full HTML content is embedded as a string literal in the generated `app.dart` route map. For very large documentation sets (1000+ pages), this could produce a multi-megabyte Dart file that is slow to compile. A future improvement could lazy-load HTML content from separate files instead of embedding everything inline.

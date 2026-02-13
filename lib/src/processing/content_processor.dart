@@ -15,6 +15,11 @@ class ContentProcessor {
   final Config config;
   final MarkdownProcessor _markdownProcessor = MarkdownProcessor();
 
+  static const _expandedSuffix = '_expanded';
+  static const _docsPathPrefix = '/docs';
+  static final _numericPrefixPattern = RegExp(r'^\d+[-_]?');
+  static final _numericLeadingPattern = RegExp(r'^(\d+)');
+
   /// Process all markdown files in the docs directory.
   ///
   /// Returns a list of processed pages and the folder structure.
@@ -97,7 +102,7 @@ class ContentProcessor {
     folders.sort((a, b) => a.order.compareTo(b.order));
 
     final baseName = p.basename(relativePath.isEmpty ? 'docs' : relativePath);
-    final isExpanded = baseName.endsWith('_expanded');
+    final isExpanded = baseName.endsWith(_expandedSuffix);
 
     return DocFolder(
       relativePath: relativePath,
@@ -144,37 +149,41 @@ class ContentProcessor {
     var path = relativePath.replaceAll('.md', '');
 
     // Remove _expanded suffix and numeric prefixes from path segments
+    // Always use forward slashes for URLs, regardless of platform
     path = path
         .split(p.separator)
         .map((segment) {
           var s = segment;
-          if (s.endsWith('_expanded')) {
-            s = s.substring(0, s.length - '_expanded'.length);
+          if (s.endsWith(_expandedSuffix)) {
+            s = s.substring(0, s.length - _expandedSuffix.length);
           }
-          return s.replaceFirst(RegExp(r'^\d+[-_]?'), '');
+          return s.replaceFirst(_numericPrefixPattern, '');
         })
         .join('/');
 
-    // Handle index files
-    if (path.endsWith('/index') || path == 'index') {
-      path = path.replaceAll('/index', '').replaceAll('index', '');
+    // Handle index files — use targeted removal to avoid corrupting
+    // paths that contain "index" as a substring (e.g. "indexing-guide")
+    if (path.endsWith('/index')) {
+      path = path.substring(0, path.length - '/index'.length);
+    } else if (path == 'index') {
+      path = '';
     }
 
     // Ensure leading slash and clean URL format
     if (path.isEmpty) {
-      return '/docs';
+      return _docsPathPrefix;
     }
 
-    return '/docs/$path';
+    return '$_docsPathPrefix/$path';
   }
 
   int _extractOrder(String name) {
     // Strip _expanded suffix before extracting order
-    if (name.endsWith('_expanded')) {
-      name = name.substring(0, name.length - '_expanded'.length);
+    if (name.endsWith(_expandedSuffix)) {
+      name = name.substring(0, name.length - _expandedSuffix.length);
     }
     // Extract numeric prefix (e.g., "01-getting-started" -> 1)
-    final match = RegExp(r'^(\d+)').firstMatch(name);
+    final match = _numericLeadingPattern.firstMatch(name);
     if (match != null) {
       return int.tryParse(match.group(1)!) ?? 999;
     }
@@ -192,11 +201,11 @@ class ContentProcessor {
 
     var name = p.basename(relativePath);
     // Remove _expanded suffix
-    if (name.endsWith('_expanded')) {
-      name = name.substring(0, name.length - '_expanded'.length);
+    if (name.endsWith(_expandedSuffix)) {
+      name = name.substring(0, name.length - _expandedSuffix.length);
     }
     // Remove numeric prefix and convert to title case
-    final withoutPrefix = name.replaceFirst(RegExp(r'^\d+[-_]?'), '');
+    final withoutPrefix = name.replaceFirst(_numericPrefixPattern, '');
     return withoutPrefix
         .replaceAll(RegExp(r'[-_]'), ' ')
         .split(' ')

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:markdown/markdown.dart' as md;
 
 import 'frontmatter_handler.dart';
@@ -110,7 +112,7 @@ class MarkdownProcessor {
         // Unknown component - render a warning
         result = result.replaceAll(
           placeholder,
-          '<div class="component-unknown">Unknown component: ${component.name}</div>',
+          '<div class="component-unknown">Unknown component: ${htmlEscape.convert(component.name)}</div>',
         );
       }
     }

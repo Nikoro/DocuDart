@@ -240,10 +240,14 @@ class ReadmeParser {
       }
     }
 
-    // Trim leading/trailing empty lines
-    while (cleaned.isNotEmpty && cleaned.first.trim().isEmpty) {
-      cleaned.removeAt(0);
-    }
+    // Trim leading empty lines
+    final firstNonEmpty = cleaned.indexWhere(
+      (line) => line.trim().isNotEmpty,
+    );
+    if (firstNonEmpty == -1) return '';
+    if (firstNonEmpty > 0) cleaned.removeRange(0, firstNonEmpty);
+
+    // Trim trailing empty lines
     while (cleaned.isNotEmpty && cleaned.last.trim().isEmpty) {
       cleaned.removeLast();
     }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import '../errors.dart';
 import 'version_checker.dart';
 
 // ANSI color codes
@@ -13,13 +14,13 @@ const _orange = '\x1B[38;5;209m';
 /// Shared by both the `--version` flag and the `version` subcommand.
 Future<void> showVersion() async {
   final version = await _getVersion();
-  print('docudart version: $_bold$_blue$version$_reset');
+  CliPrinter.line('docudart version: $_bold$_blue$version$_reset');
 
   if (version != null) {
     final updateCheck = await checkForUpdate(version);
 
     if (updateCheck != null && updateCheck.hasNewerVersion) {
-      print(
+      CliPrinter.line(
         '${_orange}Update available!$_reset '
         '$_blue$version$_reset → $_blue${updateCheck.latestVersion}$_reset',
       );
@@ -29,18 +30,21 @@ Future<void> showVersion() async {
         // OSC 8 hyperlink: \x1B]8;;URL\x1B\\TEXT\x1B]8;;\x1B\\
         final clickableLink =
             '\x1B]8;;$url\x1B\\$_blue$url$_reset\x1B]8;;\x1B\\';
-        print('${_orange}Changelog:$_reset $clickableLink');
+        CliPrinter.line('${_orange}Changelog:$_reset $clickableLink');
       }
 
-      print('Run $_blue${_bold}docudart update$_reset to update');
+      CliPrinter.line('Run $_blue${_bold}docudart update$_reset to update');
     }
   }
 }
 
 Future<String?> _getVersion() async {
-  final isGlobalExecution = Platform.script.toFilePath().contains(
-    '.pub-cache/global_packages',
-  );
+  final scriptPath = Platform.script.toFilePath();
+  final customPubCache = Platform.environment['PUB_CACHE'];
+  final isGlobalExecution =
+      scriptPath.contains('.pub-cache/global_packages') ||
+      (customPubCache != null &&
+          scriptPath.contains('$customPubCache/global_packages'));
 
   if (isGlobalExecution) {
     final globalResult = await Process.run('dart', [

@@ -91,7 +91,7 @@ class MyCommand extends Command<int> {
 
 - `CliPrinter` in `errors.dart` — `success()`, `info()`, `warning()`, `error()` methods with colored output
 - `DocuDartException` — typed exceptions for user-facing error messages
-- All generators use `CliPrinter` (not bare `print()`)
+- All CLI and generator code should use `CliPrinter` (not bare `print()`)
 
 ## Version System
 

@@ -135,8 +135,8 @@ class ConfigLoader {
         final yaml = loadYaml(content) as YamlMap;
         title = yaml['name'] as String?;
         description = yaml['description'] as String?;
-      } catch (_) {
-        // Ignore errors reading pubspec
+      } catch (e) {
+        CliPrinter.warning('Failed to parse pubspec.yaml: $e');
       }
     }
 
