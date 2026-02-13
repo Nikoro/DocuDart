@@ -244,7 +244,9 @@ class ProjectGenerator {
     await for (final entity in sourceDir.list()) {
       if (entity is File) {
         final targetPath = p.join(targetDir.path, p.basename(entity.path));
-        await entity.copy(targetPath);
+        if (!File(targetPath).existsSync()) {
+          await entity.copy(targetPath);
+        }
       }
     }
   }
@@ -268,7 +270,9 @@ class ProjectGenerator {
       await for (final entity in variantSource.list()) {
         if (entity is File) {
           final targetPath = p.join(targetDir.path, p.basename(entity.path));
-          await entity.copy(targetPath);
+          if (!File(targetPath).existsSync()) {
+            await entity.copy(targetPath);
+          }
         }
       }
     }

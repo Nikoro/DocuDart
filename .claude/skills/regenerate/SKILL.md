@@ -13,11 +13,19 @@ When this skill is invoked:
    - If it does NOT exist, report an error: "Directory '<target>/' does not exist."
    - If it exists, continue
 
-3. Remove `<target>/docudart/` if it exists
+3. Back up user assets before deleting:
+   - If `<target>/docudart/assets/` exists, copy it to a temporary location (e.g., `/tmp/docudart-assets-backup/`)
+   - This preserves custom logos, favicons, and other user-modified assets
 
-4. Run `docudart create --full` from the target directory:
+4. Remove `<target>/docudart/` if it exists
+
+5. Run `docudart create --full` from the target directory:
    ```
    cd <target> && dart run ../bin/docudart.dart create --full
    ```
 
-5. Report the result to the user
+6. Restore user assets:
+   - Copy the backed-up assets back over `<target>/docudart/assets/`, overwriting the defaults
+   - Remove the temporary backup directory
+
+7. Report the result to the user
