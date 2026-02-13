@@ -11,10 +11,7 @@ Config configure(BuildContext context) => Config(
   themeMode: .system,
   theme: DefaultTheme(),
   // Home page component. Set to null to redirect '/' to '/docs'.
-  home: () => context.project.pubspec.let(
-    (pubspec) =>
-        LandingPage(title: pubspec.name, description: pubspec.description),
-  ),
+  home: () => LandingPage(),
   // Header, footer, and sidebar are components.
   // Set to null to hide any section.
   header: () => Header(
@@ -85,7 +82,5 @@ Config configure(BuildContext context) => Config(
       ),
     ),
   ),
-  sidebar: () => context.url.contains('/docs')
-      ? Sidebar(items: context.project.docs)
-      : null,
+  sidebar: () => context.url.contains('/docs') ? Sidebar() : null,
 );

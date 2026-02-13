@@ -109,10 +109,7 @@ void main() {
     });
 
     test('invalidFrontmatter includes path', () {
-      final e = DocuDartErrors.invalidFrontmatter(
-        '/docs/intro.md',
-        'bad yaml',
-      );
+      final e = DocuDartErrors.invalidFrontmatter('/docs/intro.md', 'bad yaml');
 
       expect(e.message, contains('/docs/intro.md'));
       expect(e.hint, equals('bad yaml'));

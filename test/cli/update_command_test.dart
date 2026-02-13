@@ -35,10 +35,13 @@ void main() {
     ];
 
     for (final msg in upToDateMessages) {
-      test('"${msg.substring(0, msg.length.clamp(0, 50))}..." detected as up-to-date', () {
-        final isUpToDate = patterns.any(msg.contains);
-        expect(isUpToDate, isTrue);
-      });
+      test(
+        '"${msg.substring(0, msg.length.clamp(0, 50))}..." detected as up-to-date',
+        () {
+          final isUpToDate = patterns.any(msg.contains);
+          expect(isUpToDate, isTrue);
+        },
+      );
     }
 
     for (final msg in notUpToDateMessages) {

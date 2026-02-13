@@ -259,9 +259,7 @@ void main() {
     test('processes a single file correctly', () async {
       await writeDoc('guide.md', '# Guide\n\nSome content here.');
       final processor = makeProcessor();
-      final result = await processor.processFile(
-        p.join(docsPath, 'guide.md'),
-      );
+      final result = await processor.processFile(p.join(docsPath, 'guide.md'));
 
       expect(result, isNotNull);
       expect(result!.urlPath, equals('/docs/guide'));

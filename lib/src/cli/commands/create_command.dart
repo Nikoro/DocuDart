@@ -119,7 +119,9 @@ class CreateCommand extends Command<int> {
   Future<InitTemplate> _promptForTemplate() async {
     CliPrinter.line('Select a template:');
     CliPrinter.blank();
-    CliPrinter.line('  [1] Default - Basic setup with config, landing page, and docs');
+    CliPrinter.line(
+      '  [1] Default - Basic setup with config, landing page, and docs',
+    );
     CliPrinter.line('  [2] Full    - All features with examples');
     CliPrinter.blank();
     stdout.write('Enter choice (1 or 2) [1]: ');

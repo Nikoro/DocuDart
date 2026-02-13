@@ -63,7 +63,8 @@ void main() {
     // Verify the suppression patterns match what _shouldShowLog checks
     for (final line in suppressedPatterns) {
       test('suppresses: "${_truncate(line, 50)}"', () {
-        final shouldSuppress = line.contains('SocketException') ||
+        final shouldSuppress =
+            line.contains('SocketException') ||
             line.contains('Connection attempt cancelled') ||
             line.contains('ClientException with SocketException') ||
             line.contains('dart:_http') ||
@@ -83,7 +84,8 @@ void main() {
 
     for (final line in passedPatterns) {
       test('passes through: "${_truncate(line, 50)}"', () {
-        final shouldSuppress = line.contains('SocketException') ||
+        final shouldSuppress =
+            line.contains('SocketException') ||
             line.contains('Connection attempt cancelled') ||
             line.contains('ClientException with SocketException') ||
             line.contains('dart:_http') ||

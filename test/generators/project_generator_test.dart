@@ -17,9 +17,7 @@ void main() {
     late Directory tempDir;
 
     setUp(() {
-      tempDir = Directory.systemTemp.createTempSync(
-        'project_generator_test_',
-      );
+      tempDir = Directory.systemTemp.createTempSync('project_generator_test_');
     });
 
     tearDown(() {

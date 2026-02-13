@@ -396,6 +396,10 @@ footer .column {
   max-width: 600px;
 }
 
+.landing-page .logo-image img {
+  height: 5rem;
+}
+
 /* Buttons */
 .button {
   display: inline-flex;

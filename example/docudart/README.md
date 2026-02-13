@@ -93,7 +93,7 @@ Config configure(BuildContext context) => Config(
   // Layout components (set to null to hide)
   header: () => Header(leading: Logo(title: context.project.pubspec.name)),
   footer: () => Footer(center: Copyright(text: context.project.pubspec.name)),
-  sidebar: () => Sidebar(items: context.project.docs),
+  sidebar: () => Sidebar(),
 );
 ```
 

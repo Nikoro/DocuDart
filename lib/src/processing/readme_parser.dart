@@ -241,9 +241,7 @@ class ReadmeParser {
     }
 
     // Trim leading empty lines
-    final firstNonEmpty = cleaned.indexWhere(
-      (line) => line.trim().isNotEmpty,
-    );
+    final firstNonEmpty = cleaned.indexWhere((line) => line.trim().isNotEmpty);
     if (firstNonEmpty == -1) return '';
     if (firstNonEmpty > 0) cleaned.removeRange(0, firstNonEmpty);
 

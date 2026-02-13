@@ -99,13 +99,11 @@ import 'package:docudart/docudart.dart';
 /// The [DefaultSidebar] renders a navigation tree from the docs structure.
 /// The [items] are auto-generated from your docs/ folder.
 class Sidebar extends StatelessComponent {
-  final List<Doc> items;
-
-  const Sidebar({required this.items, super.key});
+  const Sidebar({super.key});
 
   @override
   Component build(BuildContext context) {
-    return DefaultSidebar(items: items);
+    return DefaultSidebar(items: context.project.docs);
   }
 }
 ''');
@@ -137,10 +135,7 @@ class Sidebar extends StatelessComponent {
         '  themeMode: .system,\n'
         '  theme: DefaultTheme(),\n'
         "  // Home page component. Set to null to redirect '/' to '/docs'.\n"
-        '  home: () => context.project.pubspec.let(\n'
-        '    (pubspec) =>\n'
-        '        LandingPage(title: pubspec.name, description: pubspec.description),\n'
-        '  ),\n'
+        '  home: () => LandingPage(),\n'
         '  // Header, footer, and sidebar are components.\n'
         '  // Set to null to hide any section.\n'
         '  header: () => Header(\n'
@@ -199,9 +194,7 @@ class Sidebar extends StatelessComponent {
         '      ),\n'
         '    ),\n'
         '  ),\n'
-        "  sidebar: () => context.url.contains('/docs')\n"
-        '      ? Sidebar(items: context.project.docs)\n'
-        '      : null,\n'
+        "  sidebar: () => context.url.contains('/docs') ? Sidebar() : null,\n"
         ');\n';
 
     await File(p.join(websiteDir, 'config.dart')).writeAsString(configContent);
@@ -258,17 +251,17 @@ import '../components/button.dart';
 
 /// Landing page component.
 class LandingPage extends StatelessComponent {
-  final String? title;
-  final String? description;
-
-  const LandingPage({this.title, this.description, super.key});
+  const LandingPage({super.key});
 
   @override
   Component build(BuildContext context) {
+    final title = context.project.pubspec.name;
+    final description = context.project.pubspec.description;
     return Column(
       mainAxisAlignment: .center,
       spacing: 1.5.rem,
       children: [
+        Logo(image: context.project.assets.logo.logo_webp()),
         ?title.let((t) => h1([.text(t)])),
         ?description.let((d) => p(classes: 'description', [.text(d)])),
         Button.primary(text: 'Get Started', href: '/docs'),
@@ -692,7 +685,7 @@ Config configure(BuildContext context) => Config(
   // Layout components (set to null to hide)
   header: () => Header(leading: Logo(title: context.project.pubspec.name)),
   footer: () => Footer(center: Copyright(text: context.project.pubspec.name)),
-  sidebar: () => Sidebar(items: context.project.docs),
+  sidebar: () => Sidebar(),
 );
 ```
 
