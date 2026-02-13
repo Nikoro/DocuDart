@@ -1,6 +1,7 @@
 {
   "permissions": {
     "allow": [
+      "Bash(git add *)",
       "Bash(dart run:*)",
       "Bash(dart analyze:*)",
       "Bash(dart test:*)",
