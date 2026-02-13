@@ -6,6 +6,7 @@ export 'src/config/docudart_config.dart';
 export 'src/config/setup.dart';
 
 // Models
+export 'src/models/asset.dart';
 export 'src/models/doc.dart';
 export 'src/models/project.dart';
 export 'src/models/pubspec.dart';

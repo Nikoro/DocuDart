@@ -12,6 +12,7 @@ class Project {
     required this.docs,
     required this.pages,
     this.changelog,
+    this.assets,
   });
 
   /// The user's project pubspec.yaml data.
@@ -25,4 +26,15 @@ class Project {
 
   /// Raw content of CHANGELOG.md from the parent project, if it exists.
   final String? changelog;
+
+  /// Auto-generated asset tree from the assets/ directory.
+  ///
+  /// The concrete type is generated per-project (e.g. `_ProjectAssets`),
+  /// so this field is typed as `dynamic` to accommodate any structure.
+  ///
+  /// Access assets via dot notation:
+  /// ```dart
+  /// context.project.assets.logo.logo_webp(alt: 'Logo')
+  /// ```
+  final dynamic assets;
 }

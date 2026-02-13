@@ -125,7 +125,6 @@ class Sidebar extends StatelessComponent {
 
     final configContent =
         "import 'package:docudart/docudart.dart';\n"
-        "import 'assets/assets.dart';\n"
         "import 'components/header.dart';\n"
         "import 'components/footer.dart';\n"
         "import 'components/sidebar.dart';\n"
@@ -146,11 +145,8 @@ class Sidebar extends StatelessComponent {
         '  // Set to null to hide any section.\n'
         '  header: () => Header(\n'
         "    leading: Logo(\n"
-        "      image: img(\n"
-        "        src: Assets.logo.logo_webp,\n"
-        r"        alt: '${context.project.pubspec.name} logo',"
+        r"      image: context.project.assets.logo.logo_webp(alt: '${context.project.pubspec.name} logo'),"
         "\n"
-        "      ),\n"
         '      title: context.project.pubspec.name,\n'
         '    ),\n'
         '    links: [\n'

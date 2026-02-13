@@ -1,5 +1,4 @@
 import 'package:docudart/docudart.dart';
-import 'assets/assets.dart';
 import 'components/header.dart';
 import 'components/footer.dart';
 import 'components/sidebar.dart';
@@ -20,8 +19,7 @@ Config configure(BuildContext context) => Config(
   // Set to null to hide any section.
   header: () => Header(
     leading: Logo(
-      image: img(
-        src: Assets.logo.logo_webp,
+      image: context.project.assets.logo.logo_webp(
         alt: '${context.project.pubspec.name} logo',
       ),
       title: context.project.pubspec.name,

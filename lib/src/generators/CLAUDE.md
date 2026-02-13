@@ -11,7 +11,7 @@ Code generation modules for DocuDart.
 | `project_templates.dart` | `ProjectTemplates` | Template content (components, config, labels, pages, docs, README) |
 | `styles_generator.dart` | `StylesGenerator` | Generates `styles.css` with theme colors and component styles |
 | `theme_script_generator.dart` | `ThemeScriptGenerator` | Generates `theme.js` (toggle + sidebar) and `live-reload.js` |
-| `asset_path_generator.dart` | `AssetPathGenerator` | Scans `assets/` → generates `assets.dart` with typed constants |
+| `asset_path_generator.dart` | `AssetPathGenerator` | Scans `assets/` (with `light/`/`dark/` theme variants) → generates typed asset tree for `project_data.dart` |
 | `sidebar_generator.dart` | `SidebarGenerator` | Converts `DocFolder` tree → `List<Doc>` for sidebar rendering |
 
 ## Architecture
@@ -26,10 +26,9 @@ SiteGenerator.generate()
   ├─ SidebarGenerator → List<Doc>
   ├─ _generatePubspec()      — managed project pubspec.yaml
   ├─ _generateMain()         — main.server.dart, main.client.dart
-  ├─ _generateAssetPaths()   — assets/assets.dart via AssetPathGenerator
-  ├─ _copyUserFiles()        — config.dart, components/, pages/, labels.dart, etc.
+  ├─ _copyUserFiles()        — config.dart, components/, pages/, labels.dart
   ├─ _generatePubspecData()  — pubspec_data.dart (const Pubspec)
-  ├─ _generateProjectData()  — project_data.dart (Project with docs + pages)
+  ├─ _generateProjectData()  — project_data.dart (Project with docs + pages + asset tree)
   ├─ _generateLayout()       — layout.dart (LayoutDelegate)
   ├─ _generateApp()          — app.dart (Router with ProjectProvider)
   ├─ _generateStyles()       → delegates to StylesGenerator
@@ -60,7 +59,6 @@ ProjectGenerator.generate()
   │   └─ .generateReadme()        — website README.md
   ├─ _generateFavicons()          — copy bundled favicon assets
   ├─ _generateLogo()              — copy bundled logo asset
-  ├─ _generateAssetPaths()        — assets.dart via AssetPathGenerator
   ├─ _updateGitignore()           — add .dart_tool/ and build/ entries
   ├─ dart pub get
   └─ dart format .
@@ -71,7 +69,7 @@ ProjectGenerator.generate()
 - **String templates**: Generated Dart/JS/CSS files use multi-line string interpolation
 - **`_escapeForDart()`**: Escapes `\`, `'`, `$`, `\n`, `\r`, `\t` for safe embedding in Dart string literals
 - **`writeAsString()` over `File.copy()`**: Triggers filesystem events for hot reload detection
-- **`_copyUserFiles()` skips `assets.dart`**: Prevents infinite rebuild loops (it lives inside watched `assets/` dir)
+- **Theme-aware assets**: `AssetPathGenerator.generateProjectAssets()` scans root, `light/`, `dark/` and merges into `SimpleAsset`/`ThemedAsset` tree embedded in `project_data.dart`
 
 ## Known Limitations
 

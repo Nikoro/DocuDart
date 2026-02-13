@@ -89,7 +89,6 @@ class SiteGenerator {
     // Generate all required files
     await _generatePubspec();
     await _generateMain();
-    await _generateAssetPaths();
     await _copyUserFiles();
     await _generatePubspecData(resolvedPubspec);
     await _generateProjectData(defaultSidebarItems, changelog, discoveredPages);
@@ -149,15 +148,6 @@ jaspr:
     await File(p.join(managedDir, 'pubspec.yaml')).writeAsString(pubspec);
   }
 
-  /// Copy user's config.dart and components/ into managed project's lib/.
-  /// Generate `assets/assets.dart` with type-safe asset path constants.
-  Future<void> _generateAssetPaths() async {
-    final content = AssetPathGenerator.generate(config.assetsDir);
-    final targetFile = File(p.join(config.assetsDir, 'assets.dart'));
-    await targetFile.parent.create(recursive: true);
-    await targetFile.writeAsString(content);
-  }
-
   Future<void> _copyUserFiles() async {
     final libDir = p.join(managedDir, 'lib');
     await Directory(libDir).create(recursive: true);
@@ -190,16 +180,6 @@ jaspr:
           p.join(libDir, p.basename(entity.path)),
         ).writeAsString(await entity.readAsString());
       }
-    }
-
-    // Copy assets/assets.dart (auto-generated type-safe asset paths)
-    final assetsDataSrc = File(p.join(config.assetsDir, 'assets.dart'));
-    if (assetsDataSrc.existsSync()) {
-      final assetsLibDir = p.join(libDir, 'assets');
-      await Directory(assetsLibDir).create(recursive: true);
-      await File(
-        p.join(assetsLibDir, 'assets.dart'),
-      ).writeAsString(await assetsDataSrc.readAsString());
     }
   }
 
@@ -289,13 +269,25 @@ jaspr:
     String? changelog,
     List<_DiscoveredPage> discoveredPages,
   ) async {
+    // Generate asset tree classes.
+    final assetCode = AssetPathGenerator.generateProjectAssets(
+      config.assetsDir,
+    );
+
     final buffer = StringBuffer();
     buffer.writeln("import 'package:docudart/docudart.dart';");
     buffer.writeln("import 'pubspec_data.dart';");
     buffer.writeln();
+    buffer.writeln('// ignore_for_file: non_constant_identifier_names');
+    buffer.writeln();
+
+    // Embed asset tree classes before the project constant.
+    buffer.write(assetCode);
+
     buffer.writeln('/// Auto-generated project data.');
-    buffer.writeln('const project = Project(');
+    buffer.writeln('final project = Project(');
     buffer.writeln('  pubspec: projectPubspec,');
+    buffer.writeln('  assets: _ProjectAssets(),');
     buffer.writeln('  docs: [');
 
     for (final item in sidebarItems) {

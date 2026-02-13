@@ -824,6 +824,22 @@ footer .column {
   :root:not([data-theme="light"]) .theme-toggle-dark { display: inline-flex; }
   :root:not([data-theme="light"]) .theme-toggle-light { display: none; }
 }
+
+/* ========== Theme-Aware Assets ========== */
+
+.theme-asset { display: inline-block; }
+.theme-asset > .theme-asset-light { display: inline; }
+.theme-asset > .theme-asset-dark { display: none; }
+
+/* Dark mode via attribute */
+:root[data-theme="dark"] .theme-asset > .theme-asset-light { display: none; }
+:root[data-theme="dark"] .theme-asset > .theme-asset-dark { display: inline; }
+
+/* Dark mode via system preference (no explicit toggle yet) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-asset > .theme-asset-light { display: none; }
+  :root:not([data-theme="light"]) .theme-asset > .theme-asset-dark { display: inline; }
+}
 ''';
 
     // Add version switcher styles if enabled

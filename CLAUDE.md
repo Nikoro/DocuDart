@@ -86,7 +86,7 @@ See `lib/src/generators/CLAUDE.md` for the full generation pipeline. Key methods
 - `_generateApp()` — Router with ProjectProvider
 - `_generateLayout()` — LayoutDelegate
 - `_generateStyles()` — delegates to StylesGenerator
-- `_copyUserFiles()` — copies config.dart, components/, pages/, etc.
+- `_copyUserFiles()` — copies config.dart, components/, pages/, labels.dart
 
 ## Committing
 
@@ -123,6 +123,8 @@ Key things to verify: header, sidebar (active link, collapsible categories), lan
 - Clean URLs by default (`/docs/intro/` not `/docs/intro.html`)
 - Generated Jaspr project lives in `<projectDir>/.dart_tool/docudart/`
 - Lint rules: `sort_constructors_first`, `use_null_aware_elements`
+- Assets use `context.project.assets` (not static `Assets` class) — callable `Asset` returns Component, `.path` for String
+- Theme-aware assets: `assets/light/` and `assets/dark/` subdirs auto-switch via CSS visibility
 
 ## Dependencies
 

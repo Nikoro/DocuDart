@@ -2,153 +2,247 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
-/// Scans an assets directory and generates a typed Dart source file
-/// with [Assets] class providing compile-time safe asset path constants.
+/// Scans an assets directory and generates typed Dart source for the
+/// asset tree, with theme-aware support for `light/` and `dark/` subdirectories.
 ///
-/// Used by both [SiteGenerator] (on every build) and [ProjectGenerator]
-/// (during init) to keep `assets/assets.dart` in sync with the filesystem.
+/// Used by [SiteGenerator] to embed asset data in `project_data.dart`.
 class AssetPathGenerator {
   AssetPathGenerator._();
 
-  /// Scan [assetsDir] and return the generated Dart source for `assets.dart`.
+  /// Theme variant directory names (reserved, not included in the asset tree
+  /// as regular subdirectories).
+  static const _themeVariants = {'light', 'dark'};
+
+  /// Generate Dart source for the project asset tree classes.
   ///
-  /// If [assetsDir] does not exist or is empty, returns a minimal file
-  /// with an empty [Assets] class.
-  static String generate(String assetsDir) {
+  /// Scans [assetsDir] (excluding `light/` and `dark/` at the root level),
+  /// then scans `light/` and `dark/` separately, merging them into a single
+  /// tree where files that exist in multiple variants become `ThemedAsset`
+  /// and files with a single source become `SimpleAsset`.
+  ///
+  /// Returns empty string if [assetsDir] does not exist or has no assets.
+  static String generateProjectAssets(String assetsDir) {
     final dir = Directory(assetsDir);
     if (!dir.existsSync()) return _emptyAssets();
 
-    final root = _scanDirectory(dir, 'assets');
-    if (root.dirs.isEmpty && root.files.isEmpty) return _emptyAssets();
+    // Scan root (excluding theme variant dirs and special files).
+    final rootFiles = _collectFiles(dir, exclude: _themeVariants);
 
-    return _generateCode(root);
+    // Scan light/ and dark/ variant dirs.
+    final lightDir = Directory(p.join(assetsDir, 'light'));
+    final darkDir = Directory(p.join(assetsDir, 'dark'));
+    final lightFiles = lightDir.existsSync()
+        ? _collectFiles(lightDir)
+        : <String, String>{};
+    final darkFiles = darkDir.existsSync()
+        ? _collectFiles(darkDir)
+        : <String, String>{};
+
+    // Merge into a unified asset tree.
+    final merged = _mergeAssets(rootFiles, lightFiles, darkFiles);
+    if (merged.isEmpty) return _emptyAssets();
+
+    // Build a hierarchical tree from the flat merged map.
+    final tree = _buildTree(merged);
+
+    return _generateCode(tree);
   }
 
   // ---------------------------------------------------------------------------
-  // Scanning
+  // File collection
   // ---------------------------------------------------------------------------
 
-  static _AssetDir _scanDirectory(Directory dir, String webPath) {
-    final dirs = <_AssetDir>[];
-    final files = <_AssetFile>[];
+  /// Recursively collect files from [dir], returning a map of
+  /// relative path → web path.
+  ///
+  /// [exclude] is a set of root-level directory names to skip.
+  static Map<String, String> _collectFiles(
+    Directory dir, {
+    Set<String> exclude = const {},
+  }) {
+    final files = <String, String>{};
+    _collectFilesRecursive(dir, dir.path, '', exclude, files);
+    return files;
+  }
 
+  static void _collectFilesRecursive(
+    Directory dir,
+    String baseDir,
+    String relativePath,
+    Set<String> exclude,
+    Map<String, String> result,
+  ) {
     final entities = dir.listSync()..sort((a, b) => a.path.compareTo(b.path));
 
     for (final entity in entities) {
       final name = p.basename(entity.path);
 
-      // Skip hidden files/dirs and the generated assets.dart itself.
+      // Skip hidden files/dirs and the legacy assets.dart.
       if (name.startsWith('.') || name == 'assets.dart') continue;
 
+      final relPath = relativePath.isEmpty ? name : '$relativePath/$name';
+
       if (entity is File) {
-        files.add(
-          _AssetFile(
-            name: name,
-            identifier: _toIdentifier(name),
-            webPath: '/$webPath/$name',
-          ),
-        );
+        result[relPath] = name;
       } else if (entity is Directory) {
-        final child = _scanDirectory(entity, '$webPath/$name');
-        // Skip empty directories.
-        if (child.dirs.isNotEmpty || child.files.isNotEmpty) {
-          dirs.add(child);
-        }
+        if (exclude.contains(name)) continue;
+        _collectFilesRecursive(entity, baseDir, relPath, const {}, result);
+      }
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Merging
+  // ---------------------------------------------------------------------------
+
+  /// Merge root, light, and dark file maps into a flat map of
+  /// relative path → [_MergedAsset].
+  ///
+  /// Priority rules:
+  /// - light + dark exist → ThemedAsset(light: light/..., dark: dark/...)
+  /// - root + light only  → ThemedAsset(light: light/..., dark: root/...)
+  /// - root + dark only   → ThemedAsset(light: root/..., dark: dark/...)
+  /// - root only          → SimpleAsset(root/...)
+  /// - light only         → SimpleAsset(light/...)
+  /// - dark only          → SimpleAsset(dark/...)
+  static Map<String, _MergedAsset> _mergeAssets(
+    Map<String, String> rootFiles,
+    Map<String, String> lightFiles,
+    Map<String, String> darkFiles,
+  ) {
+    final allKeys = <String>{
+      ...rootFiles.keys,
+      ...lightFiles.keys,
+      ...darkFiles.keys,
+    };
+
+    final merged = <String, _MergedAsset>{};
+
+    for (final key in allKeys) {
+      final inRoot = rootFiles.containsKey(key);
+      final inLight = lightFiles.containsKey(key);
+      final inDark = darkFiles.containsKey(key);
+
+      final rootPath = '/assets/$key';
+      final lightPath = '/assets/light/$key';
+      final darkPath = '/assets/dark/$key';
+
+      if (inLight && inDark) {
+        merged[key] = _MergedAsset.themed(lightPath, darkPath);
+      } else if (inRoot && inLight) {
+        merged[key] = _MergedAsset.themed(lightPath, rootPath);
+      } else if (inRoot && inDark) {
+        merged[key] = _MergedAsset.themed(rootPath, darkPath);
+      } else if (inRoot) {
+        merged[key] = _MergedAsset.simple(rootPath);
+      } else if (inLight) {
+        merged[key] = _MergedAsset.simple(lightPath);
+      } else {
+        merged[key] = _MergedAsset.simple(darkPath);
       }
     }
 
-    return _AssetDir(
-      name: p.basename(dir.path),
-      identifier: _toIdentifier(p.basename(dir.path)),
-      webPath: webPath,
-      dirs: dirs,
-      files: files,
-    );
+    return merged;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Tree building
+  // ---------------------------------------------------------------------------
+
+  /// Build a hierarchical [_AssetNode] tree from a flat map of
+  /// relative paths to merged assets.
+  static _AssetNode _buildTree(Map<String, _MergedAsset> merged) {
+    final root = _AssetNode(name: 'assets', identifier: 'assets');
+
+    for (final entry in merged.entries) {
+      final parts = entry.key.split('/');
+      var node = root;
+
+      // Navigate/create intermediate directory nodes.
+      for (var i = 0; i < parts.length - 1; i++) {
+        final dirName = parts[i];
+        final id = _toIdentifier(dirName);
+        node = node.dirs.putIfAbsent(
+          dirName,
+          () => _AssetNode(name: dirName, identifier: id),
+        );
+      }
+
+      // Add the file leaf.
+      final fileName = parts.last;
+      node.files[fileName] = _AssetLeaf(
+        identifier: _toIdentifier(fileName),
+        asset: entry.value,
+      );
+    }
+
+    return root;
   }
 
   // ---------------------------------------------------------------------------
   // Code generation
   // ---------------------------------------------------------------------------
 
-  static String _generateCode(_AssetDir root) {
+  static String _generateCode(_AssetNode root) {
     final buffer = StringBuffer();
-    buffer.writeln('// AUTO-GENERATED by DocuDart from the assets/ directory.');
-    buffer.writeln('// This file is regenerated on every build. Do not edit.');
-    buffer.writeln();
-    buffer.writeln('// ignore_for_file: non_constant_identifier_names');
-    buffer.writeln();
 
-    // Generate the top-level Assets class first for readability.
-    buffer.writeln(
-      '/// Type-safe asset paths generated from the `assets/` directory.',
-    );
-    buffer.writeln('///');
-    buffer.writeln('/// Usage:');
-    buffer.writeln('/// ```dart');
-    buffer.writeln('/// img(src: Assets.logo.logo_webp, alt: \'Logo\')');
-    buffer.writeln('/// ```');
-    buffer.writeln('abstract class Assets {');
-    buffer.writeln('  Assets._();');
-
-    // Root-level files as static final fields.
-    for (final file in root.files) {
-      buffer.writeln();
-      buffer.writeln("  /// `${file.webPath}`");
-      buffer.writeln(
-        "  static const String ${file.identifier} = '${file.webPath}';",
-      );
-    }
-
-    // Subdirectories as static const instances.
-    for (final dir in root.dirs) {
-      final className = _className('Assets', dir.name);
-      buffer.writeln();
-      buffer.writeln('  static const ${dir.identifier} = $className();');
-    }
-
+    // Generate the root class.
+    buffer.writeln('class _ProjectAssets {');
+    buffer.writeln('  _ProjectAssets();');
+    _writeNodeFields(buffer, root, '_ProjectAssets');
     buffer.writeln('}');
     buffer.writeln();
 
-    // Generate private classes for each subdirectory (depth-first).
-    _generateDirClasses(buffer, root.dirs, 'Assets');
+    // Generate nested classes (depth-first).
+    _generateNodeClasses(buffer, root, '_ProjectAssets');
 
     return buffer.toString();
   }
 
-  /// Recursively generate private `_Assets*` classes for each subdirectory.
-  static void _generateDirClasses(
+  static void _writeNodeFields(
     StringBuffer buffer,
-    List<_AssetDir> dirs,
+    _AssetNode node,
+    String className,
+  ) {
+    // File leaves.
+    for (final entry in node.files.entries) {
+      final leaf = entry.value;
+      final asset = leaf.asset;
+      buffer.writeln();
+      if (asset.isThemed) {
+        buffer.writeln(
+          "  final Asset ${leaf.identifier} = ThemedAsset(light: '${asset.lightPath}', dark: '${asset.darkPath}');",
+        );
+      } else {
+        buffer.writeln(
+          "  final Asset ${leaf.identifier} = SimpleAsset('${asset.lightPath}');",
+        );
+      }
+    }
+
+    // Subdirectory nodes.
+    for (final entry in node.dirs.entries) {
+      final childClassName = _className(className, entry.key);
+      buffer.writeln();
+      buffer.writeln('  final ${entry.value.identifier} = $childClassName();');
+    }
+  }
+
+  static void _generateNodeClasses(
+    StringBuffer buffer,
+    _AssetNode node,
     String parentClassName,
   ) {
-    for (final dir in dirs) {
-      final className = _className(parentClassName, dir.name);
+    for (final entry in node.dirs.entries) {
+      final childClassName = _className(parentClassName, entry.key);
+      final childNode = entry.value;
 
       // Recurse first so nested classes are defined before they are referenced.
-      _generateDirClasses(buffer, dir.dirs, className);
+      _generateNodeClasses(buffer, childNode, childClassName);
 
-      buffer.writeln('/// Asset paths for `${dir.webPath}/`.');
-      buffer.writeln('class $className {');
-      buffer.writeln('  const $className();');
-
-      // Files in this directory.
-      for (final file in dir.files) {
-        buffer.writeln();
-        buffer.writeln("  /// `${file.webPath}`");
-        buffer.writeln(
-          "  final String ${file.identifier} = '${file.webPath}';",
-        );
-      }
-
-      // Nested subdirectories.
-      for (final child in dir.dirs) {
-        final childClassName = _className(className, child.name);
-        buffer.writeln();
-        buffer.writeln(
-          '  final $childClassName ${child.identifier} = const $childClassName();',
-        );
-      }
-
+      buffer.writeln('class $childClassName {');
+      buffer.writeln('  $childClassName();');
+      _writeNodeFields(buffer, childNode, childClassName);
       buffer.writeln('}');
       buffer.writeln();
     }
@@ -160,26 +254,22 @@ class AssetPathGenerator {
 
   /// Build a private class name from a parent class name and a directory name.
   ///
-  /// Example: `_className('Assets', 'logo')` → `_AssetsLogo`.
-  /// Example: `_className('_AssetsLogo', 'icons')` → `_AssetsLogoIcons`.
+  /// Example: `_className('_ProjectAssets', 'logo')` → `_ProjectAssetsLogo`.
   static String _className(String parent, String dirName) {
     final pascal = _toPascalCase(dirName);
-    if (parent == 'Assets') return '_Assets$pascal';
-    // parent is already prefixed with `_Assets`.
+    if (parent == '_ProjectAssets') return '_ProjectAssets$pascal';
     return '$parent$pascal';
   }
 
   /// Convert a directory name to PascalCase.
   ///
-  /// `my-icons` → `MyIcons`, `01-guides` → `$01Guides`.
+  /// `my-icons` → `MyIcons`, `01-guides` → `\$01Guides`.
   static String _toPascalCase(String name) {
-    // Split on non-alphanumeric characters.
     final parts = name
         .split(RegExp(r'[^a-zA-Z0-9]'))
         .where((s) => s.isNotEmpty);
     final result = parts.map((s) => s[0].toUpperCase() + s.substring(1)).join();
     if (result.isEmpty) return 'Unnamed';
-    // Leading digit — prefix with `$`.
     if (RegExp(r'^[0-9]').hasMatch(result)) return '\$$result';
     return result;
   }
@@ -187,16 +277,12 @@ class AssetPathGenerator {
   /// Convert a filename to a valid Dart snake_case identifier.
   ///
   /// `logo.webp` → `logo_webp`, `favicon-32x32.png` → `favicon_32x32_png`,
-  /// `1icon.svg` → `$1icon_svg`.
+  /// `1icon.svg` → `\$1icon_svg`.
   static String _toIdentifier(String name) {
-    // Replace non-alphanumeric characters with underscores.
     var result = name.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
-    // Collapse consecutive underscores.
     result = result.replaceAll(RegExp(r'_+'), '_');
-    // Strip leading/trailing underscores.
     result = result.replaceAll(RegExp(r'^_+|_+$'), '');
     if (result.isEmpty) return 'unnamed';
-    // Leading digit — prefix with `$`.
     if (RegExp(r'^[0-9]').hasMatch(result)) return '\$$result';
     return result;
   }
@@ -207,47 +293,41 @@ class AssetPathGenerator {
 
   static String _emptyAssets() {
     return '''
-// AUTO-GENERATED by DocuDart from the assets/ directory.
-// This file is regenerated on every build. Do not edit.
-
-// ignore_for_file: non_constant_identifier_names
-
-/// Type-safe asset paths generated from the `assets/` directory.
-///
-/// The assets directory is empty. Add files to `assets/` and rebuild.
-abstract class Assets {
-  Assets._();
+class _ProjectAssets {
+  _ProjectAssets();
 }
 ''';
   }
 }
 
 // ---------------------------------------------------------------------------
-// Internal tree representation (not exported)
+// Internal data structures (not exported)
 // ---------------------------------------------------------------------------
 
-class _AssetDir {
-  const _AssetDir({
-    required this.name,
-    required this.identifier,
-    required this.webPath,
-    required this.dirs,
-    required this.files,
-  });
-  final String name;
-  final String identifier;
-  final String webPath;
-  final List<_AssetDir> dirs;
-  final List<_AssetFile> files;
+/// A merged asset entry — either simple (one path) or themed (light + dark).
+class _MergedAsset {
+  _MergedAsset.simple(this.lightPath) : darkPath = lightPath, isThemed = false;
+  _MergedAsset.themed(this.lightPath, this.darkPath) : isThemed = true;
+
+  final String lightPath;
+  final String darkPath;
+  final bool isThemed;
 }
 
-class _AssetFile {
-  const _AssetFile({
-    required this.name,
-    required this.identifier,
-    required this.webPath,
-  });
+/// A node in the asset tree (represents a directory).
+class _AssetNode {
+  _AssetNode({required this.name, required this.identifier});
+
   final String name;
   final String identifier;
-  final String webPath;
+  final Map<String, _AssetNode> dirs = {};
+  final Map<String, _AssetLeaf> files = {};
+}
+
+/// A leaf in the asset tree (represents a file).
+class _AssetLeaf {
+  const _AssetLeaf({required this.identifier, required this.asset});
+
+  final String identifier;
+  final _MergedAsset asset;
 }

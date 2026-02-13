@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
-import 'asset_path_generator.dart';
 import '../cli/errors.dart';
 import '../services/package_resolver.dart';
 import 'project_templates.dart';
@@ -95,9 +94,6 @@ class ProjectGenerator {
     // Generate default logo
     await _generateLogo(websiteDir);
 
-    // Generate type-safe asset paths (assets/assets.dart)
-    await _generateAssetPaths(websiteDir);
-
     // Generate README.md
     await _templates.generateReadme(websiteDir, title);
 
@@ -138,8 +134,10 @@ class ProjectGenerator {
     CliPrinter.line('      button.dart');
     CliPrinter.line('      sidebar.dart');
     CliPrinter.line('    assets/');
-    CliPrinter.line('      assets.dart');
-    CliPrinter.line('      logo/');
+    CliPrinter.line('      light/');
+    CliPrinter.line('        logo/');
+    CliPrinter.line('      dark/');
+    CliPrinter.line('        logo/');
     CliPrinter.line('      favicon/');
     CliPrinter.line('    themes/');
   }
@@ -258,23 +256,22 @@ class ProjectGenerator {
     );
     if (!sourceDir.existsSync()) return;
 
-    final targetDir = Directory(p.join(websiteDir, 'assets', 'logo'));
-    await targetDir.create(recursive: true);
+    for (final variant in ['light', 'dark']) {
+      final variantSource = Directory(p.join(sourceDir.path, variant));
+      if (!variantSource.existsSync()) continue;
 
-    await for (final entity in sourceDir.list()) {
-      if (entity is File) {
-        final targetPath = p.join(targetDir.path, p.basename(entity.path));
-        await entity.copy(targetPath);
+      final targetDir = Directory(
+        p.join(websiteDir, 'assets', variant, 'logo'),
+      );
+      await targetDir.create(recursive: true);
+
+      await for (final entity in variantSource.list()) {
+        if (entity is File) {
+          final targetPath = p.join(targetDir.path, p.basename(entity.path));
+          await entity.copy(targetPath);
+        }
       }
     }
-  }
-
-  Future<void> _generateAssetPaths(String websiteDir) async {
-    final assetsDir = p.join(websiteDir, 'assets');
-    final content = AssetPathGenerator.generate(assetsDir);
-    final targetFile = File(p.join(assetsDir, 'assets.dart'));
-    await targetFile.parent.create(recursive: true);
-    await targetFile.writeAsString(content);
   }
 
   Future<void> _generateWebsitePubspec(
