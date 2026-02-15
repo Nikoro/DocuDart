@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 
+import 'color_resolver.dart';
 import 'color_scheme.dart';
 import 'component_theme.dart';
 import 'markdown_theme.dart';
@@ -15,18 +16,22 @@ import 'text_theme.dart';
 /// - [Theme.material3] — Material Design 3
 /// - [Theme.shadcn] — shadcn/ui inspired
 ///
-/// Each preset accepts an optional [primaryColor] to auto-generate a
-/// harmonious color palette via [ColorScheme.fromSeed].
+/// Each preset accepts an optional [seedColor] to auto-generate a
+/// harmonious color palette via [ColorScheme.fromSeed]. Pass either an
+/// [int] (0xAARRGGBB) or a Jaspr [Color] (e.g., `Colors.indigo`).
 ///
 /// ```dart
 /// // Use a preset as-is
 /// Theme.classic()
 ///
-/// // Seed a custom palette from one color
-/// Theme.material3(primaryColor: 0xFF006D40)
+/// // Seed from a named color
+/// Theme.classic(seedColor: Colors.indigo)
+///
+/// // Seed from a hex int
+/// Theme.material3(seedColor: 0xFF006D40)
 ///
 /// // Deep customization
-/// Theme.shadcn(primaryColor: 0xFF0EA5E9).copyWith(
+/// Theme.shadcn(seedColor: Colors.sky).copyWith(
 ///   textTheme: TextTheme.shadcn().copyWith(
 ///     fontFamily: 'Geist, system-ui, sans-serif',
 ///   ),
@@ -45,64 +50,64 @@ class Theme {
 
   /// dart.dev / flutter.dev style — clean, professional, familiar to Dart devs.
   ///
-  /// When [primaryColor] is provided, both light and dark color schemes are
-  /// auto-generated from that seed color. Otherwise, handcrafted defaults are
-  /// used.
-  factory Theme.classic({int? primaryColor}) => Theme(
-    name: 'classic',
-    lightColorScheme: primaryColor != null
-        ? ColorScheme.fromSeed(seedColor: primaryColor)
-        : const ColorScheme.light(),
-    darkColorScheme: primaryColor != null
-        ? ColorScheme.fromSeed(
-            seedColor: primaryColor,
-            brightness: Brightness.dark,
-          )
-        : const ColorScheme.dark(),
-    textTheme: const TextTheme.classic(),
-    markdownTheme: const MarkdownTheme.classic(),
-    componentTheme: const ComponentTheme.classic(),
-  );
+  /// When [seedColor] is provided (as [int] or [Color]), both light and dark
+  /// color schemes are auto-generated from that seed. Otherwise, handcrafted
+  /// defaults are used.
+  factory Theme.classic({Object? seedColor}) {
+    final seed = seedColor != null ? resolveColor(seedColor) : null;
+    return Theme(
+      name: 'classic',
+      lightColorScheme: seed != null
+          ? ColorScheme.fromSeed(seedColor: seed)
+          : const ColorScheme.light(),
+      darkColorScheme: seed != null
+          ? ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.dark)
+          : const ColorScheme.dark(),
+      textTheme: const TextTheme.classic(),
+      markdownTheme: const MarkdownTheme.classic(),
+      componentTheme: const ComponentTheme.classic(),
+    );
+  }
 
   /// Material Design 3 — larger radii, lighter heading weights, Roboto.
   ///
-  /// When [primaryColor] is provided, both light and dark color schemes are
-  /// auto-generated from that seed color.
-  factory Theme.material3({int? primaryColor}) => Theme(
-    name: 'material3',
-    lightColorScheme: primaryColor != null
-        ? ColorScheme.fromSeed(seedColor: primaryColor)
-        : const ColorScheme.light(),
-    darkColorScheme: primaryColor != null
-        ? ColorScheme.fromSeed(
-            seedColor: primaryColor,
-            brightness: Brightness.dark,
-          )
-        : const ColorScheme.dark(),
-    textTheme: const TextTheme.material3(),
-    markdownTheme: const MarkdownTheme.material3(),
-    componentTheme: const ComponentTheme.material3(),
-  );
+  /// When [seedColor] is provided (as [int] or [Color]), both light and dark
+  /// color schemes are auto-generated from that seed.
+  factory Theme.material3({Object? seedColor}) {
+    final seed = seedColor != null ? resolveColor(seedColor) : null;
+    return Theme(
+      name: 'material3',
+      lightColorScheme: seed != null
+          ? ColorScheme.fromSeed(seedColor: seed)
+          : const ColorScheme.light(),
+      darkColorScheme: seed != null
+          ? ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.dark)
+          : const ColorScheme.dark(),
+      textTheme: const TextTheme.material3(),
+      markdownTheme: const MarkdownTheme.material3(),
+      componentTheme: const ComponentTheme.material3(),
+    );
+  }
 
   /// shadcn/ui — tight spacing, sharp radii, bold typography.
   ///
-  /// When [primaryColor] is provided, both light and dark color schemes are
-  /// auto-generated from that seed color.
-  factory Theme.shadcn({int? primaryColor}) => Theme(
-    name: 'shadcn',
-    lightColorScheme: primaryColor != null
-        ? ColorScheme.fromSeed(seedColor: primaryColor)
-        : const ColorScheme.light(),
-    darkColorScheme: primaryColor != null
-        ? ColorScheme.fromSeed(
-            seedColor: primaryColor,
-            brightness: Brightness.dark,
-          )
-        : const ColorScheme.dark(),
-    textTheme: const TextTheme.shadcn(),
-    markdownTheme: const MarkdownTheme.shadcn(),
-    componentTheme: const ComponentTheme.shadcn(),
-  );
+  /// When [seedColor] is provided (as [int] or [Color]), both light and dark
+  /// color schemes are auto-generated from that seed.
+  factory Theme.shadcn({Object? seedColor}) {
+    final seed = seedColor != null ? resolveColor(seedColor) : null;
+    return Theme(
+      name: 'shadcn',
+      lightColorScheme: seed != null
+          ? ColorScheme.fromSeed(seedColor: seed)
+          : const ColorScheme.light(),
+      darkColorScheme: seed != null
+          ? ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.dark)
+          : const ColorScheme.dark(),
+      textTheme: const TextTheme.shadcn(),
+      markdownTheme: const MarkdownTheme.shadcn(),
+      componentTheme: const ComponentTheme.shadcn(),
+    );
+  }
 
   factory Theme.fromJson(Map<String, dynamic> json) => Theme(
     name: json['name'] as String? ?? 'custom',

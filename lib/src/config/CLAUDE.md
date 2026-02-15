@@ -79,8 +79,9 @@ Two-step loading strategy:
 
 Parses serializable fields from `config.dart` by reading it as **text** (no subprocess).
 
-- Extracts: title, description, docsDir, assetsDir, outputDir, themeMode, primaryColor
-- Skips commented lines for primaryColor extraction
+- Extracts: title, description, docsDir, assetsDir, outputDir, themeMode, seedColor
+- Supports seedColor as hex literal (`0xFF...`), `Colors.xxx`, or `Color.value(0xFF...)`
+- Skips commented lines for theme extraction
 - Returns null if parsing fails (ConfigLoader falls back to YAML)
 - **Why text-based?** Running config.dart as a subprocess fails because it imports `package:docudart` and user components that aren't resolvable in the CLI context
 

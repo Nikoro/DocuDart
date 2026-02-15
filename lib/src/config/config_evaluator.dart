@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 
 import 'docudart_config.dart';
+import '../theme/color_resolver.dart';
 import '../theme/theme.dart';
 import '../models/theme_mode.dart';
 
@@ -72,37 +73,61 @@ class ConfigEvaluator {
   /// Extract Theme from config.dart source text.
   ///
   /// Recognizes:
-  /// - `Theme.classic()` / `Theme.classic(primaryColor: 0xFF...)`
-  /// - `Theme.material3()` / `Theme.material3(primaryColor: 0xFF...)`
-  /// - `Theme.shadcn()` / `Theme.shadcn(primaryColor: 0xFF...)`
+  /// - `Theme.classic()` / `Theme.classic(seedColor: 0xFF...)`
+  /// - `Theme.classic(seedColor: Colors.indigo)`
+  /// - `Theme.classic(seedColor: Color.value(0xFF...))`
+  /// - Same for `material3` and `shadcn`
   static Theme? _extractTheme(String content) {
     // Strip single-line comments to avoid matching commented-out theme lines
     final stripped = content.replaceAll(RegExp(r'//.*'), '');
 
-    // Match Theme.factory(primaryColor: 0xFF...) or Theme.factory()
-    final pattern = RegExp(r'Theme\.(classic|material3|shadcn)\s*\(([^)]*)\)');
+    // Match Theme.factory(...) allowing one level of nested parens
+    // (for Color.value(...) inside the constructor)
+    final pattern = RegExp(
+      r'Theme\.(classic|material3|shadcn)\s*\(([^)]*(?:\([^)]*\)[^)]*)*)\)',
+    );
     final match = pattern.firstMatch(stripped);
     if (match == null) return null;
 
     final factory = match.group(1)!;
     final args = match.group(2) ?? '';
 
-    // Extract primaryColor if present
-    final primaryColor = _extractPrimaryColorFromArgs(args);
+    final seedColor = _extractSeedColorFromArgs(args);
 
     return switch (factory) {
-      'classic' => Theme.classic(primaryColor: primaryColor),
-      'material3' => Theme.material3(primaryColor: primaryColor),
-      'shadcn' => Theme.shadcn(primaryColor: primaryColor),
+      'classic' => Theme.classic(seedColor: seedColor),
+      'material3' => Theme.material3(seedColor: seedColor),
+      'shadcn' => Theme.shadcn(seedColor: seedColor),
       _ => null,
     };
   }
 
-  /// Extract primaryColor from constructor arguments string.
-  static int? _extractPrimaryColorFromArgs(String args) {
-    final pattern = RegExp(r'primaryColor\s*:\s*(0x[0-9A-Fa-f]+)');
-    final match = pattern.firstMatch(args);
-    if (match == null) return null;
-    return int.tryParse(match.group(1)!);
+  /// Extract seedColor from constructor arguments string.
+  ///
+  /// Recognizes:
+  /// - `seedColor: 0xFF006D40` (hex int literal)
+  /// - `seedColor: Colors.indigo` (named color)
+  /// - `seedColor: Color.value(0xFF006D40)` (Color.value constructor)
+  static int? _extractSeedColorFromArgs(String args) {
+    // Hex int literal: seedColor: 0xFF...
+    final hexPattern = RegExp(r'seedColor\s*:\s*(0x[0-9A-Fa-f]+)');
+    final hexMatch = hexPattern.firstMatch(args);
+    if (hexMatch != null) return int.tryParse(hexMatch.group(1)!);
+
+    // Named color: seedColor: Colors.xxx
+    final namedPattern = RegExp(r'seedColor\s*:\s*Colors\.(\w+)');
+    final namedMatch = namedPattern.firstMatch(args);
+    if (namedMatch != null) {
+      return cssNamedColors[namedMatch.group(1)!.toLowerCase()];
+    }
+
+    // Color.value constructor: seedColor: Color.value(0xFF...)
+    final valuePattern = RegExp(
+      r'seedColor\s*:\s*Color\.value\s*\(\s*(0x[0-9A-Fa-f]+)\s*\)',
+    );
+    final valueMatch = valuePattern.firstMatch(args);
+    if (valueMatch != null) return int.tryParse(valueMatch.group(1)!);
+
+    return null;
   }
 }

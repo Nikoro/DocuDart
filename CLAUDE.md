@@ -59,7 +59,7 @@ docudart/
 │       ├── processing/                  # Content processing pipeline
 │       ├── services/                    # File watcher, resolvers
 │       ├── markdown/                    # Markdown processing + frontmatter
-│       ├── theme/                       # Theming (BaseTheme, DefaultTheme)
+│       ├── theme/                       # Theming (Theme presets, ColorScheme, color resolver)
 │       ├── components/                  # Component system (layout, nav, branding)
 │       ├── icons/                       # Icon system (7 families, ~52k icons)
 │       └── extensions/                  # .let() and .apply() extensions
@@ -125,6 +125,7 @@ Key things to verify: header, sidebar (active link, collapsible categories), lan
 - Lint rules: `sort_constructors_first`, `use_null_aware_elements`
 - Assets use `context.project.assets` (not static `Assets` class) — callable `Asset` returns Component, `.path` for String
 - Theme-aware assets: `assets/light/` and `assets/dark/` subdirs auto-switch via CSS visibility
+- Theme `seedColor` accepts `int` (0xAARRGGBB) or Jaspr `Color` (e.g. `Colors.indigo`)
 
 ## Dependencies
 
