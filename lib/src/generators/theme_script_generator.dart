@@ -213,11 +213,17 @@ class ThemeScriptGenerator {
   };
 
   window.addEventListener('popstate', function() {
-    setTimeout(updateActiveLink, 50);
+    setTimeout(function() {
+      updateActiveLink();
+      highlightCode();
+    }, 50);
   });
 
   window.addEventListener('docudart-navigate', function() {
-    setTimeout(updateActiveLink, 50);
+    setTimeout(function() {
+      updateActiveLink();
+      highlightCode();
+    }, 50);
   });
 
   // MutationObserver: re-apply if Jaspr re-renders sidebar
@@ -231,9 +237,21 @@ class ThemeScriptGenerator {
     observer.observe(sidebar, { childList: true, subtree: true });
   }
 
+  // Syntax highlighting via highlight.js
+  function highlightCode() {
+    if (typeof hljs !== 'undefined') {
+      document.querySelectorAll('pre code').forEach(function(block) {
+        if (!block.getAttribute('data-highlighted')) {
+          hljs.highlightElement(block);
+        }
+      });
+    }
+  }
+
   function init() {
     initCollapse();
     updateActiveLink();
+    highlightCode();
     startObserver();
   }
 

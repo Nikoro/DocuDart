@@ -1,7 +1,5 @@
 import 'package:docudart/docudart.dart';
 
-import '../theme/theme_loader.dart';
-
 /// Main configuration class for DocuDart.
 ///
 /// The file is named `docudart_config.dart` (not `config.dart`) to avoid
@@ -13,7 +11,7 @@ class Config {
     this.docsDir = 'docs',
     this.assetsDir = 'assets',
     this.outputDir = 'build/web',
-    BaseTheme? theme,
+    Theme? theme,
     this.themeMode = ThemeMode.system,
     this.versioning,
     this.header,
@@ -21,7 +19,7 @@ class Config {
     this.sidebar,
     this.home,
     this.layoutBuilder,
-  }) : theme = theme ?? const DefaultTheme();
+  }) : theme = theme ?? Theme.classic();
 
   factory Config.fromJson(Map<String, dynamic> json) {
     return Config(
@@ -30,7 +28,9 @@ class Config {
       docsDir: json['docsDir'] as String? ?? 'docs',
       assetsDir: json['assetsDir'] as String? ?? 'assets',
       outputDir: json['outputDir'] as String? ?? 'build/web',
-      theme: _themeFromJson(json['theme'] as Map<String, dynamic>?),
+      theme: json['theme'] != null
+          ? Theme.fromJson(json['theme'] as Map<String, dynamic>)
+          : null,
       themeMode: json['themeMode'] != null
           ? ThemeMode.fromJson(json['themeMode'] as String)
           : ThemeMode.system,
@@ -58,7 +58,7 @@ class Config {
   final String outputDir;
 
   /// Theme configuration.
-  final BaseTheme theme;
+  final Theme theme;
 
   /// Theme mode (light, dark, or system).
   final ThemeMode themeMode;
@@ -95,26 +95,6 @@ class Config {
     if (versioning != null) 'versioning': versioning!.toJson(),
   };
 
-  static BaseTheme _themeFromJson(Map<String, dynamic>? json) {
-    if (json == null) return const DefaultTheme();
-
-    final type = json['type'] as String?;
-    if (type == 'default') {
-      return DefaultTheme(primaryColor: json['primaryColor'] as int?);
-    }
-
-    // Reconstruct as LoadedTheme for any other type
-    return LoadedTheme(
-      name: json['name'] as String? ?? 'custom',
-      colors: json['colors'] != null
-          ? ThemeColors.fromJson(json['colors'] as Map<String, dynamic>)
-          : const DefaultTheme().colors,
-      typography: json['typography'] != null
-          ? ThemeTypography.fromJson(json['typography'] as Map<String, dynamic>)
-          : const ThemeTypography(),
-    );
-  }
-
   /// Creates a copy with the given fields replaced.
   Config copyWith({
     String? title,
@@ -122,7 +102,7 @@ class Config {
     String? docsDir,
     String? assetsDir,
     String? outputDir,
-    BaseTheme? theme,
+    Theme? theme,
     ThemeMode? themeMode,
     VersioningConfig? versioning,
     Component? Function()? header,

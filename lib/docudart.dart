@@ -17,10 +17,13 @@ export 'src/models/theme_mode.dart';
 export 'src/models/versioning_config.dart';
 
 // Theme
-export 'src/theme/base_theme.dart';
-export 'src/theme/default_theme.dart';
-export 'src/theme/theme_colors.dart';
-export 'src/theme/theme_typography.dart';
+export 'src/theme/theme.dart';
+export 'src/theme/color_scheme.dart';
+export 'src/theme/text_style.dart';
+export 'src/theme/text_theme.dart';
+export 'src/theme/markdown_theme.dart';
+export 'src/theme/component_theme.dart';
+export 'src/theme/code_theme.dart';
 
 // Components — Navigation
 export 'src/components/navigation/expansion_tile.dart';
@@ -58,4 +61,4 @@ export 'src/extensions/extensions.dart';
 
 // Re-export Jaspr so user pages can use Jaspr APIs via docudart
 export 'package:jaspr/jaspr.dart';
-export 'package:jaspr/dom.dart';
+export 'package:jaspr/dom.dart' hide ColorScheme;

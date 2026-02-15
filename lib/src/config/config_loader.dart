@@ -10,8 +10,7 @@ import '../models/license.dart';
 import '../models/license_parser.dart';
 import '../models/pubspec.dart';
 import '../models/repository.dart';
-import '../theme/base_theme.dart';
-import '../theme/default_theme.dart';
+import '../theme/theme.dart';
 import '../theme/theme_loader.dart';
 
 /// Loads DocuDart configuration from config.dart or defaults.
@@ -167,7 +166,7 @@ class ConfigLoader {
     }
 
     // Try to load additional config from docudart.yaml
-    BaseTheme theme = const DefaultTheme();
+    Theme theme = Theme.classic();
     String? docsDir;
     String? outputDir;
     String? assetsDir;

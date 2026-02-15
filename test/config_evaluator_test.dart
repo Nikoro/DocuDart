@@ -91,23 +91,50 @@ Config configure(BuildContext context) => Config(
       expect(result!.themeMode, equals(ThemeMode.light));
     });
 
-    test('extracts primaryColor from uncommented line', () async {
+    test('extracts Theme.classic with primaryColor', () async {
       File(p.join(tempDir.path, 'config.dart')).writeAsStringSync('''
 Config configure(BuildContext context) => Config(
-  theme: DefaultTheme(primaryColor: 0xFF6366F1),
+  theme: Theme.classic(primaryColor: 0xFF6366F1),
 );
 ''');
 
       final result = await ConfigEvaluator.evaluate(tempDir.path);
 
       expect(result, isNotNull);
-      expect(result!.theme.colors.primary, equals(0xFF6366F1));
+      expect(result!.theme.lightColorScheme.primary, equals(0xFF6366F1));
     });
 
-    test('skips primaryColor on commented lines', () async {
+    test('extracts Theme.material3', () async {
       File(p.join(tempDir.path, 'config.dart')).writeAsStringSync('''
 Config configure(BuildContext context) => Config(
-  // theme: DefaultTheme(primaryColor: 0xFFFF0000),
+  theme: Theme.material3(),
+);
+''');
+
+      final result = await ConfigEvaluator.evaluate(tempDir.path);
+
+      expect(result, isNotNull);
+      expect(result!.theme.name, equals('material3'));
+    });
+
+    test('extracts Theme.shadcn with primaryColor', () async {
+      File(p.join(tempDir.path, 'config.dart')).writeAsStringSync('''
+Config configure(BuildContext context) => Config(
+  theme: Theme.shadcn(primaryColor: 0xFF0EA5E9),
+);
+''');
+
+      final result = await ConfigEvaluator.evaluate(tempDir.path);
+
+      expect(result, isNotNull);
+      expect(result!.theme.name, equals('shadcn'));
+      expect(result.theme.lightColorScheme.primary, equals(0xFF0EA5E9));
+    });
+
+    test('uses default theme when theme line is commented', () async {
+      File(p.join(tempDir.path, 'config.dart')).writeAsStringSync('''
+Config configure(BuildContext context) => Config(
+  // theme: Theme.classic(primaryColor: 0xFFFF0000),
   title: 'Test',
 );
 ''');
@@ -115,8 +142,8 @@ Config configure(BuildContext context) => Config(
       final result = await ConfigEvaluator.evaluate(tempDir.path);
 
       expect(result, isNotNull);
-      // Should use default theme since the primaryColor line is commented
-      expect(result!.theme.colors.primary, equals(0xFF0175C2));
+      // Should use default classic theme since the theme line is commented
+      expect(result!.theme.lightColorScheme.primary, equals(0xFF0175C2));
     });
 
     test('uses default themeMode (system) when not specified', () async {

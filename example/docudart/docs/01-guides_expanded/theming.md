@@ -16,9 +16,7 @@ DocuDart comes with a default theme inspired by Flutter docs.
 Edit `config.dart` to change the primary color:
 
 ```dart
-theme: DefaultTheme(
-  primaryColor: 0xFF6366F1, // Indigo
-),
+theme: Theme.classic(primaryColor: 0xFF6366F1), // Indigo
 ```
 
 ## Theme Mode
@@ -31,4 +29,4 @@ Control dark mode behavior via the `themeMode` field in `config.dart`:
 
 ## Custom Themes
 
-Create a custom theme by extending `BaseTheme` in the `themes/` folder.
+Create a custom theme using `Theme()` or customize a preset with `copyWith`.

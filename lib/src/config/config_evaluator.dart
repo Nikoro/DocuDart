@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 
 import 'docudart_config.dart';
-import '../theme/default_theme.dart';
+import '../theme/theme.dart';
 import '../models/theme_mode.dart';
 
 /// Parses serializable fields from config.dart by reading it as text.
@@ -38,7 +38,7 @@ class ConfigEvaluator {
     final assetsDir = _extractString(content, 'assetsDir') ?? 'assets';
     final outputDir = _extractString(content, 'outputDir') ?? 'build/web';
     final themeMode = _extractThemeMode(content);
-    final primaryColor = _extractPrimaryColor(content);
+    final theme = _extractTheme(content);
 
     return Config(
       title: title,
@@ -47,9 +47,7 @@ class ConfigEvaluator {
       assetsDir: assetsDir,
       outputDir: outputDir,
       themeMode: themeMode,
-      theme: primaryColor != null
-          ? DefaultTheme(primaryColor: primaryColor)
-          : const DefaultTheme(),
+      theme: theme,
     );
   }
 
@@ -63,28 +61,48 @@ class ConfigEvaluator {
     return match?.group(2);
   }
 
-  /// Extract ThemeMode from: `themeMode: ThemeMode.system`
+  /// Extract ThemeMode from: `themeMode: ThemeMode.system` or `themeMode: .system`
   static ThemeMode _extractThemeMode(String content) {
-    final pattern = RegExp(r'themeMode\s*:\s*ThemeMode\.(\w+)');
+    final pattern = RegExp(r'themeMode\s*:\s*(?:ThemeMode\.)?(\w+)');
     final match = pattern.firstMatch(content);
     if (match == null) return ThemeMode.system;
     return ThemeMode.fromJson(match.group(1)!);
   }
 
-  /// Extract primaryColor from: `primaryColor: 0xFF0175C2`
-  /// Only matches uncommented lines.
-  static int? _extractPrimaryColor(String content) {
-    final lines = content.split('\n');
-    for (final line in lines) {
-      final trimmed = line.trimLeft();
-      // Skip commented lines
-      if (trimmed.startsWith('//')) continue;
-      final pattern = RegExp(r'primaryColor\s*:\s*(0x[0-9A-Fa-f]+)');
-      final match = pattern.firstMatch(trimmed);
-      if (match != null) {
-        return int.tryParse(match.group(1)!);
-      }
-    }
-    return null;
+  /// Extract Theme from config.dart source text.
+  ///
+  /// Recognizes:
+  /// - `Theme.classic()` / `Theme.classic(primaryColor: 0xFF...)`
+  /// - `Theme.material3()` / `Theme.material3(primaryColor: 0xFF...)`
+  /// - `Theme.shadcn()` / `Theme.shadcn(primaryColor: 0xFF...)`
+  static Theme? _extractTheme(String content) {
+    // Strip single-line comments to avoid matching commented-out theme lines
+    final stripped = content.replaceAll(RegExp(r'//.*'), '');
+
+    // Match Theme.factory(primaryColor: 0xFF...) or Theme.factory()
+    final pattern = RegExp(r'Theme\.(classic|material3|shadcn)\s*\(([^)]*)\)');
+    final match = pattern.firstMatch(stripped);
+    if (match == null) return null;
+
+    final factory = match.group(1)!;
+    final args = match.group(2) ?? '';
+
+    // Extract primaryColor if present
+    final primaryColor = _extractPrimaryColorFromArgs(args);
+
+    return switch (factory) {
+      'classic' => Theme.classic(primaryColor: primaryColor),
+      'material3' => Theme.material3(primaryColor: primaryColor),
+      'shadcn' => Theme.shadcn(primaryColor: primaryColor),
+      _ => null,
+    };
+  }
+
+  /// Extract primaryColor from constructor arguments string.
+  static int? _extractPrimaryColorFromArgs(String args) {
+    final pattern = RegExp(r'primaryColor\s*:\s*(0x[0-9A-Fa-f]+)');
+    final match = pattern.firstMatch(args);
+    if (match == null) return null;
+    return int.tryParse(match.group(1)!);
   }
 }

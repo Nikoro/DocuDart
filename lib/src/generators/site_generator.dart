@@ -423,12 +423,9 @@ void main() {
     },
     head: [
 $faviconLinks      link(rel: 'stylesheet', href: '/styles.css'),
-      link(
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap',
-      ),
-      script(src: 'main.client.dart.js', defer: true),
+${_fontImportLink()}      script(src: 'main.client.dart.js', defer: true),
       script(src: '/theme.js'),
+      script(src: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js', defer: true),
 ${serveMode ? "      script(src: '/live-reload.js', defer: true),\n" : ''}    ],
     body: DocuDartApp(),
   ));
@@ -757,6 +754,12 @@ class DocsPageContent extends StatelessComponent {
       );
     }
     return buffer.toString();
+  }
+
+  String _fontImportLink() {
+    final url = config.theme.textTheme.fontImportUrl;
+    if (url == null) return '';
+    return "      link(\n        rel: 'stylesheet',\n        href: '$url',\n      ),\n";
   }
 
   Future<void> _copyAssets() async {

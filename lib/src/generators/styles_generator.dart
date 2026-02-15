@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 
 import '../config/docudart_config.dart';
+import '../theme/color_scheme.dart';
 
 /// Generates the CSS stylesheet for the DocuDart site.
 class StylesGenerator {
@@ -10,16 +11,59 @@ class StylesGenerator {
 
   final Config config;
 
-  static String _toHex(int color) =>
-      '#${(color & 0xFFFFFF).toRadixString(16).padLeft(6, '0')}';
-
   /// Generate styles.css in the given [webDir].
   Future<void> generate(
     String webDir, {
     bool includeVersionSwitcher = false,
   }) async {
-    final colors = config.theme.colors;
-    final typography = config.theme.typography;
+    final theme = config.theme;
+    final light = theme.lightColorScheme;
+    final dark = theme.darkColorScheme;
+    final text = theme.textTheme;
+    final md = theme.markdownTheme;
+    final comp = theme.componentTheme;
+
+    // Generate heading CSS from TextTheme + MarkdownTheme spacing
+    final h1Props = text.h1.toCssProperties();
+    final h2Props = text.h2.toCssProperties();
+    final h3Props = text.h3.toCssProperties();
+    final h4Props = text.h4.toCssProperties();
+
+    final headingsCss =
+        '''
+.docs-content h1 {
+${h1Props.entries.map((e) => '  ${e.key}: ${e.value};').join('\n')}
+  margin-bottom: ${md.h1MarginBottom}rem;
+  padding-bottom: ${md.h1PaddingBottom}rem;
+${md.h1HasBorderBottom ? '  border-bottom: 1px solid var(--color-border);' : ''}
+}
+
+.docs-content h2 {
+${h2Props.entries.map((e) => '  ${e.key}: ${e.value};').join('\n')}
+  margin-top: ${md.h2MarginTop}rem;
+  margin-bottom: ${md.h2MarginBottom}rem;
+}
+
+.docs-content h3 {
+${h3Props.entries.map((e) => '  ${e.key}: ${e.value};').join('\n')}
+  margin-top: ${md.h3MarginTop}rem;
+  margin-bottom: ${md.h3MarginBottom}rem;
+}
+
+.docs-content h4 {
+${h4Props.entries.map((e) => '  ${e.key}: ${e.value};').join('\n')}
+  margin-top: ${md.h4MarginTop}rem;
+  margin-bottom: ${md.h4MarginBottom}rem;
+}''';
+
+    // Generate syntax highlighting CSS
+    final lightCodeCss = theme.markdownTheme.lightCodeTheme.toCss();
+    final darkCodeCss = theme.markdownTheme.darkCodeTheme.toCss(
+      selector: ':root[data-theme="dark"]',
+    );
+    final darkCodeCssMedia = theme.markdownTheme.darkCodeTheme.toCss(
+      selector: ':root:not([data-theme="light"])',
+    );
 
     final styles =
         '''
@@ -27,46 +71,22 @@ class StylesGenerator {
 
 :root {
   /* Colors - Light Mode */
-  --color-primary: ${_toHex(colors.primary)};
-  --color-secondary: ${_toHex(colors.secondary)};
-  --color-background: ${_toHex(colors.background)};
-  --color-surface: ${_toHex(colors.surface)};
-  --color-text: ${_toHex(colors.text)};
-  --color-text-muted: ${_toHex(colors.textMuted)};
-  --color-border: ${_toHex(colors.border)};
-  --color-code-background: ${_toHex(colors.codeBackground)};
+${_cssVars(light.cssVariables)}
 
   /* Typography */
-  --font-family: ${typography.fontFamily};
-  --font-family-mono: ${typography.monoFontFamily};
-  --font-size-base: ${typography.baseFontSize}px;
-  --line-height: ${typography.lineHeight};
+${_cssVars(text.cssVariables)}
 }
 
 /* Dark mode via system preference */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-primary: ${_toHex(colors.darkPrimary)};
-    --color-secondary: ${_toHex(colors.darkSecondary)};
-    --color-background: ${_toHex(colors.darkBackground)};
-    --color-surface: ${_toHex(colors.darkSurface)};
-    --color-text: ${_toHex(colors.darkText)};
-    --color-text-muted: ${_toHex(colors.darkTextMuted)};
-    --color-border: ${_toHex(colors.darkBorder)};
-    --color-code-background: ${_toHex(colors.darkCodeBackground)};
+${_cssVars(dark.cssVariables, indent: '    ')}
   }
 }
 
 /* Dark mode via toggle */
 :root[data-theme="dark"] {
-  --color-primary: ${_toHex(colors.darkPrimary)};
-  --color-secondary: ${_toHex(colors.darkSecondary)};
-  --color-background: ${_toHex(colors.darkBackground)};
-  --color-surface: ${_toHex(colors.darkSurface)};
-  --color-text: ${_toHex(colors.darkText)};
-  --color-text-muted: ${_toHex(colors.darkTextMuted)};
-  --color-border: ${_toHex(colors.darkBorder)};
-  --color-code-background: ${_toHex(colors.darkCodeBackground)};
+${_cssVars(dark.cssVariables)}
 }
 
 /* Reset */
@@ -116,9 +136,9 @@ header {
 }
 
 header > .row {
-  max-width: 1400px;
+  max-width: ${comp.headerMaxWidth.toInt()}px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: ${comp.headerPaddingV}rem ${comp.headerPaddingH}rem;
 }
 
 .logo,
@@ -144,14 +164,14 @@ header > .row {
 }
 
 .logo-image img {
-  height: 1.75rem;
+  height: ${comp.logoImageHeight}rem;
   width: auto;
   display: block;
 }
 
 .logo-title {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: ${comp.logoFontSize}rem;
+  font-weight: ${comp.logoFontWeight};
   white-space: nowrap;
 }
 
@@ -190,9 +210,9 @@ header a:not(.logo).active {
 
 /* Sidebar */
 .sidebar {
-  width: 280px;
+  width: ${comp.sidebarWidth.toInt()}px;
   flex-shrink: 0;
-  padding: 2rem 1rem;
+  padding: ${comp.sidebarPaddingV}rem ${comp.sidebarPaddingH}rem;
   border-right: 1px solid var(--color-border);
   background-color: var(--color-surface);
   height: calc(100vh - 65px);
@@ -211,11 +231,11 @@ header a:not(.logo).active {
   align-items: center;
   cursor: pointer;
   user-select: none;
-  font-size: 0.875rem;
+  font-size: ${comp.sidebarFontSize}rem;
   font-weight: 600;
   color: var(--color-text);
   padding: 0.375rem 0.75rem;
-  border-radius: 0.375rem;
+  border-radius: ${comp.sidebarLinkBorderRadius}rem;
   transition: color 0.15s;
 }
 
@@ -258,9 +278,9 @@ header a:not(.logo).active {
   padding: 0.5rem 0.75rem;
   color: var(--color-text);
   text-decoration: none;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  border-left: 3px solid transparent;
+  border-radius: ${comp.sidebarLinkBorderRadius}rem;
+  font-size: ${comp.sidebarFontSize}rem;
+  border-left: ${comp.sidebarActiveBorderWidth.toInt()}px solid transparent;
   transition: all 0.15s;
 }
 
@@ -272,24 +292,24 @@ header a:not(.logo).active {
 .sidebar-link.active {
   border-left-color: var(--color-primary);
   color: var(--color-primary);
-  background-color: rgba(1, 117, 194, 0.08);
+  background-color: ${ColorScheme.toRgba(light.primary, 0.08)};
   font-weight: 500;
 }
 
 /* Main */
 .site-main {
-  padding: 2rem 3rem;
+  padding: ${comp.mainPaddingV}rem ${comp.mainPaddingH}rem;
 }
 
 /* Footer */
 footer {
   background-color: var(--color-surface);
   border-top: 1px solid var(--color-border);
-  padding: 2rem;
+  padding: ${comp.footerPaddingV}rem ${comp.footerPaddingH}rem;
 }
 
 footer > .row {
-  max-width: 1400px;
+  max-width: ${comp.footerMaxWidth.toInt()}px;
   margin: 0 auto;
   color: var(--color-text-muted);
 }
@@ -374,23 +394,23 @@ footer .column {
 
 /* Hero */
 .home-page {
-  max-width: 800px;
+  max-width: ${comp.contentMaxWidth.toInt()}px;
   margin: 0 auto;
 }
 
 .landing-page.column {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: ${comp.landingPaddingV}rem 2rem;
 }
 
 .landing-page.column h1 {
-  font-size: 3rem;
+  font-size: ${comp.landingTitleFontSize}rem;
   font-weight: 700;
   color: var(--color-text);
 }
 
 .landing-page .description {
-  font-size: 1.25rem;
+  font-size: ${comp.landingDescriptionFontSize}rem;
   color: var(--color-text-muted);
   max-width: 600px;
 }
@@ -404,10 +424,10 @@ footer .column {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 1.5rem;
+  padding: ${comp.buttonPaddingV}rem ${comp.buttonPaddingH}rem;
   font-size: 1rem;
-  font-weight: 500;
-  border-radius: 0.5rem;
+  font-weight: ${comp.buttonFontWeight};
+  border-radius: ${comp.buttonBorderRadius}rem;
   text-decoration: none;
   transition: all 0.2s;
   cursor: pointer;
@@ -432,69 +452,42 @@ footer .column {
   max-width: 100%;
 }
 
-.docs-content h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.docs-content h2 {
-  font-size: 1.75rem;
-  font-weight: 600;
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.docs-content h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
-}
-
-.docs-content h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-}
+$headingsCss
 
 .docs-content p {
-  margin-bottom: 1rem;
+  margin-bottom: ${md.paragraphMarginBottom}rem;
 }
 
 .docs-content ul, .docs-content ol {
-  margin-bottom: 1rem;
-  padding-left: 1.5rem;
+  margin-bottom: ${md.listMarginBottom}rem;
+  padding-left: ${md.listPaddingLeft}rem;
 }
 
 .docs-content li {
-  margin-bottom: 0.5rem;
+  margin-bottom: ${md.listItemMarginBottom}rem;
 }
 
 .docs-content a {
   color: var(--color-primary);
-  text-decoration: none;
+  text-decoration: ${md.linkDecoration};
 }
 
 .docs-content a:hover {
-  text-decoration: underline;
+  text-decoration: ${md.linkHoverDecoration};
 }
 
 .docs-content code {
   font-family: var(--font-family-mono);
   font-size: 0.875em;
   background-color: var(--color-code-background);
-  padding: 0.2em 0.4em;
-  border-radius: 0.25rem;
+  padding: ${md.codeInlinePaddingV}em ${md.codeInlinePaddingH}em;
+  border-radius: ${md.codeInlineBorderRadius}rem;
 }
 
 .docs-content pre {
   background-color: var(--color-code-background);
-  padding: 1rem;
-  border-radius: 0.5rem;
+  padding: ${md.codeBlockPadding}rem;
+  border-radius: ${md.codeBlockBorderRadius}rem;
   overflow-x: auto;
   margin-bottom: 1rem;
 }
@@ -506,8 +499,8 @@ footer .column {
 }
 
 .docs-content blockquote {
-  border-left: 4px solid var(--color-primary);
-  padding-left: 1rem;
+  border-left: ${md.blockquoteBorderWidth.toInt()}px solid var(--color-primary);
+  padding-left: ${md.blockquotePaddingLeft}rem;
   margin: 1rem 0;
   color: var(--color-text-muted);
 }
@@ -519,7 +512,7 @@ footer .column {
 }
 
 .docs-content th, .docs-content td {
-  padding: 0.75rem;
+  padding: ${md.tableCellPadding}rem;
   text-align: left;
   border-bottom: 1px solid var(--color-border);
 }
@@ -532,13 +525,13 @@ footer .column {
 .docs-content img {
   max-width: 100%;
   height: auto;
-  border-radius: 0.5rem;
+  border-radius: ${md.imageBorderRadius}rem;
 }
 
 .docs-content hr {
   border: none;
   border-top: 1px solid var(--color-border);
-  margin: 2rem 0;
+  margin: ${md.hrMarginY}rem 0;
 }
 
 /* Responsive */
@@ -578,10 +571,10 @@ footer .column {
 
 /* Callout Component */
 .callout {
-  padding: 1rem 1.25rem;
+  padding: ${comp.calloutPadding}rem ${comp.calloutPadding * 1.25}rem;
   margin: 1rem 0;
-  border-radius: 0.5rem;
-  border-left: 4px solid;
+  border-radius: ${comp.calloutBorderRadius}rem;
+  border-left: ${comp.calloutBorderWidth.toInt()}px solid;
 }
 
 .callout-icon {
@@ -602,23 +595,23 @@ footer .column {
 }
 
 .callout-info {
-  background-color: rgba(59, 130, 246, 0.1);
-  border-color: #3b82f6;
+  background-color: ${ColorScheme.toRgba(light.info, 0.1)};
+  border-color: var(--color-info);
 }
 
 .callout-tip {
-  background-color: rgba(34, 197, 94, 0.1);
-  border-color: #22c55e;
+  background-color: ${ColorScheme.toRgba(light.success, 0.1)};
+  border-color: var(--color-success);
 }
 
 .callout-warning {
-  background-color: rgba(234, 179, 8, 0.1);
-  border-color: #eab308;
+  background-color: ${ColorScheme.toRgba(light.warning, 0.1)};
+  border-color: var(--color-warning);
 }
 
 .callout-danger {
-  background-color: rgba(239, 68, 68, 0.1);
-  border-color: #ef4444;
+  background-color: ${ColorScheme.toRgba(light.error, 0.1)};
+  border-color: var(--color-error);
 }
 
 .callout-note {
@@ -630,7 +623,7 @@ footer .column {
 .tabs-container {
   margin: 1.5rem 0;
   border: 1px solid var(--color-border);
-  border-radius: 0.5rem;
+  border-radius: ${comp.cardBorderRadius}rem;
   overflow: hidden;
 }
 
@@ -649,7 +642,7 @@ footer .column {
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
-  border-bottom: 2px solid transparent;
+  border-bottom: ${comp.tabBorderWidth.toInt()}px solid transparent;
   white-space: nowrap;
   transition: all 0.15s;
 }
@@ -678,9 +671,9 @@ footer .column {
 
 /* Card Component */
 .card {
-  padding: 1.5rem;
+  padding: ${comp.cardPadding}rem;
   border: 1px solid var(--color-border);
-  border-radius: 0.5rem;
+  border-radius: ${comp.cardBorderRadius}rem;
   background-color: var(--color-surface);
   transition: all 0.15s;
 }
@@ -723,29 +716,29 @@ footer .column {
 .component-unknown {
   padding: 1rem;
   margin: 1rem 0;
-  background-color: rgba(239, 68, 68, 0.1);
-  border: 1px dashed #ef4444;
-  border-radius: 0.5rem;
-  color: #ef4444;
+  background-color: ${ColorScheme.toRgba(light.error, 0.1)};
+  border: 1px dashed var(--color-error);
+  border-radius: ${comp.cardBorderRadius}rem;
+  color: var(--color-error);
   font-size: 0.875rem;
 }
 
 /* Dark Mode for Components */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .callout-info {
-    background-color: rgba(59, 130, 246, 0.15);
+    background-color: ${ColorScheme.toRgba(dark.info, 0.15)};
   }
 
   :root:not([data-theme="light"]) .callout-tip {
-    background-color: rgba(34, 197, 94, 0.15);
+    background-color: ${ColorScheme.toRgba(dark.success, 0.15)};
   }
 
   :root:not([data-theme="light"]) .callout-warning {
-    background-color: rgba(234, 179, 8, 0.15);
+    background-color: ${ColorScheme.toRgba(dark.warning, 0.15)};
   }
 
   :root:not([data-theme="light"]) .callout-danger {
-    background-color: rgba(239, 68, 68, 0.15);
+    background-color: ${ColorScheme.toRgba(dark.error, 0.15)};
   }
 
   :root:not([data-theme="light"]) .callout-note {
@@ -758,19 +751,19 @@ footer .column {
 }
 
 :root[data-theme="dark"] .callout-info {
-  background-color: rgba(59, 130, 246, 0.15);
+  background-color: ${ColorScheme.toRgba(dark.info, 0.15)};
 }
 
 :root[data-theme="dark"] .callout-tip {
-  background-color: rgba(34, 197, 94, 0.15);
+  background-color: ${ColorScheme.toRgba(dark.success, 0.15)};
 }
 
 :root[data-theme="dark"] .callout-warning {
-  background-color: rgba(234, 179, 8, 0.15);
+  background-color: ${ColorScheme.toRgba(dark.warning, 0.15)};
 }
 
 :root[data-theme="dark"] .callout-danger {
-  background-color: rgba(239, 68, 68, 0.15);
+  background-color: ${ColorScheme.toRgba(dark.error, 0.15)};
 }
 
 :root[data-theme="dark"] .callout-note {
@@ -842,6 +835,19 @@ footer .column {
   :root:not([data-theme="light"]) .theme-asset > .theme-asset-light { display: none; }
   :root:not([data-theme="light"]) .theme-asset > .theme-asset-dark { display: inline; }
 }
+
+/* ========== Syntax Highlighting ========== */
+
+/* Light mode */
+$lightCodeCss
+
+/* Dark mode via toggle */
+$darkCodeCss
+
+/* Dark mode via system preference */
+@media (prefers-color-scheme: dark) {
+$darkCodeCssMedia
+}
 ''';
 
     // Add version switcher styles if enabled
@@ -878,7 +884,7 @@ footer .column {
 .version-select:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(1, 117, 194, 0.1);
+  box-shadow: 0 0 0 3px ${ColorScheme.toRgba(light.primary, 0.1)};
 }
 
 .version-select option {
@@ -892,7 +898,7 @@ footer .column {
   }
 
   .version-select:focus {
-    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+    box-shadow: 0 0 0 3px ${ColorScheme.toRgba(dark.primary, 0.2)};
   }
 }
 '''
@@ -902,5 +908,10 @@ footer .column {
     await File(
       p.join(webDir, 'styles.css'),
     ).writeAsString(styles + versionSwitcherStyles);
+  }
+
+  /// Format CSS variable declarations.
+  static String _cssVars(Map<String, String> vars, {String indent = '  '}) {
+    return vars.entries.map((e) => '$indent${e.key}: ${e.value};').join('\n');
   }
 }

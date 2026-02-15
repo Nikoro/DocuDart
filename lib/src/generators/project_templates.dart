@@ -133,7 +133,7 @@ class Sidebar extends StatelessComponent {
         '  title: context.project.pubspec.name,\n'
         '  description: context.project.pubspec.description,\n'
         '  themeMode: .system,\n'
-        '  theme: DefaultTheme(),\n'
+        '  theme: Theme.classic(),\n'
         "  // Home page component. Set to null to redirect '/' to '/docs'.\n"
         '  home: () => LandingPage(),\n'
         '  // Header, footer, and sidebar are components.\n'
@@ -504,9 +504,7 @@ DocuDart comes with a default theme inspired by Flutter docs.
 Edit `config.dart` to change the primary color:
 
 ```dart
-theme: DefaultTheme(
-  primaryColor: 0xFF6366F1, // Indigo
-),
+theme: Theme.classic(primaryColor: 0xFF6366F1), // Indigo
 ```
 
 ## Theme Mode
@@ -519,7 +517,7 @@ Control dark mode behavior via the `themeMode` field in `config.dart`:
 
 ## Custom Themes
 
-Create a custom theme by extending `BaseTheme` in the `themes/` folder.
+Create a custom theme using `Theme()` or customize a preset with `copyWith`.
 ''');
 
     // Advanced folder — collapsed by default, with a nested subfolder
@@ -678,7 +676,7 @@ Config configure(BuildContext context) => Config(
 
   // Theme
   themeMode: ThemeMode.system,  // system | light | dark
-  theme: DefaultTheme(
+  theme: Theme.classic(
     primaryColor: 0xFF0175C2,   // custom primary color
   ),
 

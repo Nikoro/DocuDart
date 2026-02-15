@@ -94,26 +94,51 @@ void main() {
     });
   });
 
-  group('DefaultTheme', () {
-    test('has correct default values', () {
-      const theme = DefaultTheme();
+  group('Theme', () {
+    test('classic factory has correct defaults', () {
+      final theme = Theme.classic();
 
-      expect(theme.name, equals('default'));
-      expect(theme.colors.primary, equals(0xFF0175C2));
+      expect(theme.name, equals('classic'));
+      expect(theme.lightColorScheme.primary, equals(0xFF0175C2));
+      expect(theme.darkColorScheme.primary, equals(0xFF54C5F8));
     });
 
-    test('accepts custom primary color', () {
-      const theme = DefaultTheme(primaryColor: 0xFF6366F1);
+    test('classic factory accepts custom primary color', () {
+      final theme = Theme.classic(primaryColor: 0xFF6366F1);
 
-      expect(theme.colors.primary, equals(0xFF6366F1));
+      expect(theme.lightColorScheme.primary, equals(0xFF6366F1));
+    });
+
+    test('material3 factory creates theme', () {
+      final theme = Theme.material3();
+      expect(theme.name, equals('material3'));
+    });
+
+    test('shadcn factory creates theme', () {
+      final theme = Theme.shadcn();
+      expect(theme.name, equals('shadcn'));
     });
   });
 
-  group('ThemeColors', () {
+  group('ColorScheme', () {
     test('toHex converts color correctly', () {
-      expect(ThemeColors.toHex(0xFF0175C2), equals('#0175c2'));
-      expect(ThemeColors.toHex(0xFFFFFFFF), equals('#ffffff'));
-      expect(ThemeColors.toHex(0xFF000000), equals('#000000'));
+      expect(ColorScheme.toHex(0xFF0175C2), equals('#0175c2'));
+      expect(ColorScheme.toHex(0xFFFFFFFF), equals('#ffffff'));
+      expect(ColorScheme.toHex(0xFF000000), equals('#000000'));
+    });
+
+    test('fromSeed generates light palette', () {
+      final scheme = ColorScheme.fromSeed(seedColor: 0xFF0175C2);
+      expect(scheme.primary, equals(0xFF0175C2));
+      expect(scheme.error, equals(0xFFDC3545));
+    });
+
+    test('fromSeed generates dark palette', () {
+      final scheme = ColorScheme.fromSeed(
+        seedColor: 0xFF0175C2,
+        brightness: Brightness.dark,
+      );
+      expect(scheme.error, equals(0xFFFF6B6B));
     });
   });
 

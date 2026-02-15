@@ -86,7 +86,7 @@ Config configure(BuildContext context) => Config(
 
   // Theme
   themeMode: ThemeMode.system,  // system | light | dark
-  theme: DefaultTheme(
+  theme: Theme.classic(
     primaryColor: 0xFF0175C2,   // custom primary color
   ),
 

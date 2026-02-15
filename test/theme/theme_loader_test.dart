@@ -34,45 +34,46 @@ void main() {
     test('loads a complete theme from YAML', () async {
       final path = await writeTheme('custom.yaml', '''
 name: My Custom Theme
-colors:
+lightColorScheme:
   primary: "#FF5733"
-  secondary: 0xFF13B9FD
+  secondary: "#13B9FD"
   background: "#FFFFFF"
   surface: "#F8F9FA"
+  surfaceVariant: "#F1F3F5"
   text: "#1D1D1D"
   textMuted: "#6C757D"
   border: "#E0E0E0"
   codeBackground: "#F5F5F5"
-darkColors:
+  error: "#DC3545"
+  success: "#28A745"
+  warning: "#FFC107"
+  info: "#17A2B8"
+darkColorScheme:
   primary: "#54C5F8"
   secondary: "#13B9FD"
   background: "#0D1117"
   surface: "#161B22"
+  surfaceVariant: "#21262D"
   text: "#E6EDF3"
   textMuted: "#8B949E"
   border: "#30363D"
   codeBackground: "#161B22"
-typography:
-  fontFamily: "Roboto, sans-serif"
-  monoFontFamily: "Fira Code, monospace"
-  baseFontSize: 18
-  lineHeight: 1.7
-  headingLineHeight: 1.2
+  error: "#FF6B6B"
+  success: "#51CF66"
+  warning: "#FFD43B"
+  info: "#4DABF7"
 ''');
 
       final theme = await ThemeLoader.loadFromFile(path);
       expect(theme, isNotNull);
       expect(theme!.name, equals('My Custom Theme'));
-      expect(theme.typography.fontFamily, equals('Roboto, sans-serif'));
-      expect(theme.typography.monoFontFamily, equals('Fira Code, monospace'));
-      expect(theme.typography.baseFontSize, equals(18.0));
-      expect(theme.typography.lineHeight, equals(1.7));
-      expect(theme.typography.headingLineHeight, equals(1.2));
+      expect(theme.lightColorScheme.primary, equals(0xFFFF5733));
+      expect(theme.darkColorScheme.primary, equals(0xFF54C5F8));
     });
 
     test('uses filename as fallback name when name field missing', () async {
       final path = await writeTheme('ocean.yaml', '''
-colors:
+lightColorScheme:
   primary: "#0077B6"
 ''');
 
@@ -83,81 +84,60 @@ colors:
 
     test('parses hex color with # prefix', () async {
       final path = await writeTheme('hex.yaml', '''
-colors:
+lightColorScheme:
   primary: "#FF5733"
 ''');
 
       final theme = await ThemeLoader.loadFromFile(path);
       expect(theme, isNotNull);
-      expect(theme!.colors.primary, equals(0xFFFF5733));
+      expect(theme!.lightColorScheme.primary, equals(0xFFFF5733));
     });
 
     test('parses shorthand 3-char hex (#F00 -> FF0000)', () async {
       final path = await writeTheme('short.yaml', '''
-colors:
+lightColorScheme:
   primary: "#F00"
 ''');
 
       final theme = await ThemeLoader.loadFromFile(path);
       expect(theme, isNotNull);
-      expect(theme!.colors.primary, equals(0xFFFF0000));
+      expect(theme!.lightColorScheme.primary, equals(0xFFFF0000));
     });
 
     test('parses hex without # prefix', () async {
       final path = await writeTheme('nohash.yaml', '''
-colors:
+lightColorScheme:
   primary: "00AAFF"
 ''');
 
       final theme = await ThemeLoader.loadFromFile(path);
       expect(theme, isNotNull);
-      expect(theme!.colors.primary, equals(0xFF00AAFF));
+      expect(theme!.lightColorScheme.primary, equals(0xFF00AAFF));
     });
 
     test('parses integer color values', () async {
       final path = await writeTheme('intcolor.yaml', '''
-colors:
+lightColorScheme:
   primary: 16734003
 ''');
 
       final theme = await ThemeLoader.loadFromFile(path);
       expect(theme, isNotNull);
-      expect(theme!.colors.primary, equals(16734003));
+      expect(theme!.lightColorScheme.primary, equals(16734003));
     });
 
-    test('uses default colors when colors section is missing', () async {
+    test('uses default colors when color schemes are missing', () async {
       final path = await writeTheme('minimal.yaml', '''
 name: Minimal
 ''');
 
       final theme = await ThemeLoader.loadFromFile(path);
       expect(theme, isNotNull);
-      // Check default primary color
-      expect(theme!.colors.primary, equals(0xFF0175C2));
-      expect(theme.colors.darkPrimary, equals(0xFF54C5F8));
+      // Check default light primary color
+      expect(theme!.lightColorScheme.primary, equals(0xFF0175C2));
+      // Check default dark primary color
+      expect(theme.darkColorScheme.primary, equals(0xFF54C5F8));
     });
-
-    test(
-      'uses default typography when typography section is missing',
-      () async {
-        final path = await writeTheme('notypo.yaml', '''
-name: NoTypo
-''');
-
-        final theme = await ThemeLoader.loadFromFile(path);
-        expect(theme, isNotNull);
-        expect(
-          theme!.typography.fontFamily,
-          equals('Inter, system-ui, -apple-system, sans-serif'),
-        );
-        expect(
-          theme.typography.monoFontFamily,
-          equals('JetBrains Mono, Fira Code, monospace'),
-        );
-        expect(theme.typography.baseFontSize, equals(16.0));
-        expect(theme.typography.lineHeight, equals(1.6));
-      },
-    );
 
     test('returns null for invalid YAML', () async {
       final path = await writeTheme('broken.yaml', '''
@@ -168,7 +148,7 @@ this is not: [valid: yaml: content
       expect(theme, isNull);
     });
 
-    test('toJson includes custom type', () async {
+    test('toJson includes name', () async {
       final path = await writeTheme('typed.yaml', '''
 name: Typed
 ''');
@@ -176,7 +156,6 @@ name: Typed
       final theme = await ThemeLoader.loadFromFile(path);
       expect(theme, isNotNull);
       final json = theme!.toJson();
-      expect(json['type'], equals('custom'));
       expect(json['name'], equals('Typed'));
     });
   });
@@ -187,7 +166,7 @@ name: Typed
       await Directory(themesDir).create();
       await File(p.join(themesDir, 'ocean.yaml')).writeAsString('''
 name: Ocean
-colors:
+lightColorScheme:
   primary: "#0077B6"
 ''');
 
@@ -201,7 +180,7 @@ colors:
       await Directory(themesDir).create();
       await File(p.join(themesDir, 'forest.yml')).writeAsString('''
 name: Forest
-colors:
+lightColorScheme:
   primary: "#228B22"
 ''');
 

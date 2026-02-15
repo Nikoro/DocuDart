@@ -4,34 +4,13 @@ import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
 import '../cli/errors.dart';
-import 'base_theme.dart';
-import 'theme_colors.dart';
-import 'theme_typography.dart';
-
-/// A theme loaded from a YAML configuration file.
-class LoadedTheme extends BaseTheme {
-  const LoadedTheme({
-    required this.name,
-    required this.colors,
-    required this.typography,
-  });
-  @override
-  final String name;
-
-  @override
-  final ThemeColors colors;
-
-  @override
-  final ThemeTypography typography;
-
-  @override
-  Map<String, dynamic> toJson() => {...super.toJson(), 'type': 'custom'};
-}
+import 'color_scheme.dart';
+import 'theme.dart';
 
 /// Loads custom themes from YAML files.
 class ThemeLoader {
   /// Load a theme from a YAML file.
-  static Future<LoadedTheme?> loadFromFile(String path) async {
+  static Future<Theme?> loadFromFile(String path) async {
     final file = File(path);
     if (!file.existsSync()) {
       return null;
@@ -48,7 +27,7 @@ class ThemeLoader {
   }
 
   /// Load a theme by name from the themes directory.
-  static Future<LoadedTheme?> loadByName(
+  static Future<Theme?> loadByName(
     String name, [
     String themesDir = 'themes',
   ]) async {
@@ -64,7 +43,7 @@ class ThemeLoader {
   }
 
   /// Discover all themes in a directory.
-  static Future<List<LoadedTheme>> discoverThemes([
+  static Future<List<Theme>> discoverThemes([
     String themesDir = 'themes',
   ]) async {
     final dir = Directory(themesDir);
@@ -72,7 +51,7 @@ class ThemeLoader {
       return [];
     }
 
-    final themes = <LoadedTheme>[];
+    final themes = <Theme>[];
 
     await for (final entity in dir.list()) {
       if (entity is File) {
@@ -89,49 +68,46 @@ class ThemeLoader {
     return themes;
   }
 
-  static LoadedTheme _parseTheme(YamlMap yaml, String fallbackName) {
+  static Theme _parseTheme(YamlMap yaml, String fallbackName) {
     final name = yaml['name'] as String? ?? fallbackName;
 
-    // Parse colors
-    final colorsYaml = yaml['colors'] as YamlMap? ?? YamlMap();
-    final darkColorsYaml = yaml['darkColors'] as YamlMap? ?? YamlMap();
-
-    final colors = ThemeColors(
-      primary: _parseColor(colorsYaml['primary']) ?? 0xFF0175C2,
-      secondary: _parseColor(colorsYaml['secondary']) ?? 0xFF13B9FD,
-      background: _parseColor(colorsYaml['background']) ?? 0xFFFFFFFF,
-      surface: _parseColor(colorsYaml['surface']) ?? 0xFFF8F9FA,
-      text: _parseColor(colorsYaml['text']) ?? 0xFF1D1D1D,
-      textMuted: _parseColor(colorsYaml['textMuted']) ?? 0xFF6C757D,
-      border: _parseColor(colorsYaml['border']) ?? 0xFFE0E0E0,
-      codeBackground: _parseColor(colorsYaml['codeBackground']) ?? 0xFFF5F5F5,
-      darkPrimary: _parseColor(darkColorsYaml['primary']) ?? 0xFF54C5F8,
-      darkSecondary: _parseColor(darkColorsYaml['secondary']) ?? 0xFF13B9FD,
-      darkBackground: _parseColor(darkColorsYaml['background']) ?? 0xFF0D1117,
-      darkSurface: _parseColor(darkColorsYaml['surface']) ?? 0xFF161B22,
-      darkText: _parseColor(darkColorsYaml['text']) ?? 0xFFE6EDF3,
-      darkTextMuted: _parseColor(darkColorsYaml['textMuted']) ?? 0xFF8B949E,
-      darkBorder: _parseColor(darkColorsYaml['border']) ?? 0xFF30363D,
-      darkCodeBackground:
-          _parseColor(darkColorsYaml['codeBackground']) ?? 0xFF161B22,
+    // Parse color schemes
+    final lightColors = _parseColorScheme(
+      yaml['lightColorScheme'] as YamlMap?,
+      const ColorScheme.light(),
+    );
+    final darkColors = _parseColorScheme(
+      yaml['darkColorScheme'] as YamlMap?,
+      const ColorScheme.dark(),
     );
 
-    // Parse typography
-    final typographyYaml = yaml['typography'] as YamlMap? ?? YamlMap();
-    final typography = ThemeTypography(
-      fontFamily:
-          typographyYaml['fontFamily'] as String? ??
-          'Inter, system-ui, -apple-system, sans-serif',
-      monoFontFamily:
-          typographyYaml['monoFontFamily'] as String? ??
-          'JetBrains Mono, Fira Code, monospace',
-      baseFontSize: (typographyYaml['baseFontSize'] as num?)?.toDouble() ?? 16,
-      lineHeight: (typographyYaml['lineHeight'] as num?)?.toDouble() ?? 1.6,
-      headingLineHeight:
-          (typographyYaml['headingLineHeight'] as num?)?.toDouble() ?? 1.3,
+    return Theme(
+      name: name,
+      lightColorScheme: lightColors,
+      darkColorScheme: darkColors,
     );
+  }
 
-    return LoadedTheme(name: name, colors: colors, typography: typography);
+  static ColorScheme _parseColorScheme(YamlMap? yaml, ColorScheme defaults) {
+    if (yaml == null) return defaults;
+
+    return ColorScheme(
+      primary: _parseColor(yaml['primary']) ?? defaults.primary,
+      secondary: _parseColor(yaml['secondary']) ?? defaults.secondary,
+      background: _parseColor(yaml['background']) ?? defaults.background,
+      surface: _parseColor(yaml['surface']) ?? defaults.surface,
+      surfaceVariant:
+          _parseColor(yaml['surfaceVariant']) ?? defaults.surfaceVariant,
+      text: _parseColor(yaml['text']) ?? defaults.text,
+      textMuted: _parseColor(yaml['textMuted']) ?? defaults.textMuted,
+      border: _parseColor(yaml['border']) ?? defaults.border,
+      codeBackground:
+          _parseColor(yaml['codeBackground']) ?? defaults.codeBackground,
+      error: _parseColor(yaml['error']) ?? defaults.error,
+      success: _parseColor(yaml['success']) ?? defaults.success,
+      warning: _parseColor(yaml['warning']) ?? defaults.warning,
+      info: _parseColor(yaml['info']) ?? defaults.info,
+    );
   }
 
   /// Parse a color value from string or int.
