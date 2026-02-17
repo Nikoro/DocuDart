@@ -100,10 +100,10 @@ packages:
     dependency: transitive
     description:
       name: jaspr
-      sha256: e691d1a4f6a2ca028a36d33081ffc23483b07aaf98b247d5ca03f176c3044396
+      sha256: "1ef6f6bf5996209a8e2e650159c3554c07ad77613f5db2174d4f47b6204b6a19"
       url: "https://pub.dev"
     source: hosted
-    version: "0.22.2"
+    version: "0.22.3"
   lints:
     dependency: "direct dev"
     description:
