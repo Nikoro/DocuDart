@@ -46,7 +46,6 @@ class Layout extends StatelessComponent {
                     classes: 'site-main',
                     styles: Styles(
                       flex: Flex(grow: 1, shrink: 1, basis: Unit.zero),
-                      maxWidth: hasSidebar ? 900.px : 100.percent,
                       padding: hasSidebar ? null : .zero,
                     ),
                     attributes: {'role': 'main'},
