@@ -280,11 +280,38 @@ class ThemeScriptGenerator {
     }
   }
 
+  // Mobile sidebar drawer toggle
+  function initMobileMenu() {
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('.mobile-menu-btn');
+      if (btn) {
+        e.preventDefault();
+        document.body.classList.toggle('sidebar-open');
+        return;
+      }
+
+      var backdrop = e.target.closest('.sidebar-backdrop');
+      if (backdrop) {
+        document.body.classList.remove('sidebar-open');
+        return;
+      }
+
+      // Close sidebar when a sidebar link is clicked (mobile navigation)
+      if (document.body.classList.contains('sidebar-open')) {
+        var link = e.target.closest('.sidebar-link');
+        if (link) {
+          document.body.classList.remove('sidebar-open');
+        }
+      }
+    });
+  }
+
   function init() {
     initCollapse();
     updateActiveLink();
     highlightCode();
     startObserver();
+    initMobileMenu();
   }
 
   if (document.readyState === 'loading') {

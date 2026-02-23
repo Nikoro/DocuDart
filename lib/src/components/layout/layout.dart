@@ -34,6 +34,24 @@ class Layout extends StatelessComponent {
           .text('Skip to content'),
         ]),
         ?header,
+        if (hasSidebar)
+          button(
+            classes: 'mobile-menu-btn',
+            attributes: {
+              'aria-label': 'Open navigation menu',
+              'title': 'Open navigation menu',
+            },
+            [
+              RawText(
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+                'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+                '<line x1="3" y1="6" x2="21" y2="6"/>'
+                '<line x1="3" y1="12" x2="21" y2="12"/>'
+                '<line x1="3" y1="18" x2="21" y2="18"/>'
+                '</svg>',
+              ),
+            ],
+          ),
         Expanded(
           child:
               Row(
@@ -59,6 +77,7 @@ class Layout extends StatelessComponent {
               ),
         ),
         ?footer,
+        if (hasSidebar) div(classes: 'sidebar-backdrop', []),
       ],
     ).apply(styles: Styles(minHeight: 100.vh));
   }
