@@ -199,7 +199,7 @@ SlideTransition(
 
 These live in the user's `components/` directory, not in the library:
 
-- **Header**: `Header(leading:, links:, trailing:)` → `header > Row` directly. Uses `context.screen.maybeWhen(mobile:, tablet:, orElse:)` to show `SidebarToggle()` on mobile/tablet.
+- **Header**: `Header(leading:, links:, trailing:, showSidebarToggle:)` → `header > Row` directly. Uses `?context.screen.maybeWhen(mobile:, tablet:)` to show `SidebarToggle()` on mobile/tablet (null on desktop, no spacing gap).
 - **Footer**: `Footer(leading:, center:, trailing:)` → `footer > Row` directly
 - **Button**: `Button(text:, href:, classes:)` with `.primary()` factory
 - **Sidebar**: Wrapper around `DefaultSidebar`

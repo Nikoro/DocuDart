@@ -65,7 +65,7 @@ docudart/
 │       ├── theme/                       # Theming (Theme presets, ColorScheme, color resolver)
 │       ├── components/                  # Component system (layout, nav, branding)
 │       ├── icons/                       # Icon system (7 families, ~52k icons)
-│       └── extensions/                  # .let() and .apply() extensions
+│       └── extensions/                  # .let(), .apply(), and .screen extensions
 ├── tool/generate_icons.dart             # Icon generator tool
 ├── example/                             # Example DocuDart project
 └── pubspec.yaml
@@ -122,7 +122,7 @@ Key things to verify: header, sidebar (active link, collapsible categories), mob
 ## Important Notes
 
 - User's config is `config.dart` (Dart, not YAML) — must export `Config configure(BuildContext context)`
-- `docudart` re-exports `package:jaspr/jaspr.dart` and extensions (`.let()`, `.apply()`)
+- `docudart` re-exports `package:jaspr/jaspr.dart` and extensions (`.let()`, `.apply()`, `.screen`)
 - Jaspr `build()` returns `Component` (single), NOT `Iterable<Component>`
 - Jaspr `classes` takes `String` (space-separated), NOT `List<String>`
 - Jaspr `main(...)` from dom.dart shadows Dart's `main()` function
@@ -147,6 +147,7 @@ Key things to verify: header, sidebar (active link, collapsible categories), mob
 | `yaml` | YAML/frontmatter parsing |
 | `markdown` | Markdown to HTML |
 | `jaspr` | Web framework for SSG (re-exported to users) |
+| `universal_web` | DOM access in `@client` components (web API on browser, stubs on server) |
 | `meta` | @immutable annotation |
 | `xml` (dev) | SVG parsing for icon generator tool |
 
