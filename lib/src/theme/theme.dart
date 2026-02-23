@@ -1,3 +1,4 @@
+import 'package:jaspr/dom.dart' show Color;
 import 'package:meta/meta.dart';
 
 import 'color_resolver.dart';
@@ -17,8 +18,8 @@ import 'text_theme.dart';
 /// - [Theme.shadcn] — shadcn/ui inspired
 ///
 /// Each preset accepts an optional [seedColor] to auto-generate a
-/// harmonious color palette via [ColorScheme.fromSeed]. Pass either an
-/// [int] (0xAARRGGBB) or a Jaspr [Color] (e.g., `Colors.indigo`).
+/// harmonious color palette via [ColorScheme.fromSeed]. Pass any Jaspr
+/// [Color] (e.g., `Colors.indigo`, `Color.value(0xFF006D40)`).
 ///
 /// ```dart
 /// // Use a preset as-is
@@ -27,8 +28,8 @@ import 'text_theme.dart';
 /// // Seed from a named color
 /// Theme.classic(seedColor: Colors.indigo)
 ///
-/// // Seed from a hex int
-/// Theme.material3(seedColor: 0xFF006D40)
+/// // Seed from a hex value
+/// Theme.material3(seedColor: Color.value(0xFF006D40))
 ///
 /// // Deep customization
 /// Theme.shadcn(seedColor: Colors.sky).copyWith(
@@ -50,10 +51,9 @@ class Theme {
 
   /// dart.dev / flutter.dev style — clean, professional, familiar to Dart devs.
   ///
-  /// When [seedColor] is provided (as [int] or [Color]), both light and dark
-  /// color schemes are auto-generated from that seed. Otherwise, handcrafted
-  /// defaults are used.
-  factory Theme.classic({Object? seedColor}) {
+  /// When [seedColor] is provided, both light and dark color schemes are
+  /// auto-generated from that seed. Otherwise, handcrafted defaults are used.
+  factory Theme.classic({Color? seedColor}) {
     final seed = seedColor != null ? resolveColor(seedColor) : null;
     return Theme(
       name: 'classic',
@@ -71,9 +71,9 @@ class Theme {
 
   /// Material Design 3 — larger radii, lighter heading weights, Roboto.
   ///
-  /// When [seedColor] is provided (as [int] or [Color]), both light and dark
-  /// color schemes are auto-generated from that seed.
-  factory Theme.material3({Object? seedColor}) {
+  /// When [seedColor] is provided, both light and dark color schemes are
+  /// auto-generated from that seed.
+  factory Theme.material3({Color? seedColor}) {
     final seed = seedColor != null ? resolveColor(seedColor) : null;
     return Theme(
       name: 'material3',
@@ -91,9 +91,9 @@ class Theme {
 
   /// shadcn/ui — tight spacing, sharp radii, bold typography.
   ///
-  /// When [seedColor] is provided (as [int] or [Color]), both light and dark
-  /// color schemes are auto-generated from that seed.
-  factory Theme.shadcn({Object? seedColor}) {
+  /// When [seedColor] is provided, both light and dark color schemes are
+  /// auto-generated from that seed.
+  factory Theme.shadcn({Color? seedColor}) {
     final seed = seedColor != null ? resolveColor(seedColor) : null;
     return Theme(
       name: 'shadcn',

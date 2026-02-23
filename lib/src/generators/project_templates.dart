@@ -677,7 +677,7 @@ Config configure(BuildContext context) => Config(
   // Theme
   themeMode: ThemeMode.system,  // system | light | dark
   theme: Theme.classic(
-    seedColor: Colors.blue,     // accepts Colors.xxx or 0xAARRGGBB
+    seedColor: Colors.blue,     // accepts Colors.xxx or Color.value(0xAARRGGBB)
   ),
 
   // Layout components (set to null to hide)

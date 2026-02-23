@@ -11,7 +11,7 @@ dart pub get                              # Install dependencies
 dart run bin/docudart.dart create --full  # Create project
 dart run bin/docudart.dart build          # Build site
 dart run bin/docudart.dart serve          # Dev server with hot reload
-dart analyze lib bin                      # Analyze code
+dart analyze lib bin test                  # Analyze code
 dart test                                 # Run tests
 ```
 
@@ -87,7 +87,7 @@ See `lib/src/generators/CLAUDE.md` for the full generation pipeline. Key methods
 - `_generateApp()` — Router with ProjectProvider
 - `_generateLayout()` — LayoutDelegate
 - `_generateStyles()` — delegates to `StylesGenerator` (theme-name-aware: emits different CSS per preset)
-- `_copyUserFiles()` — copies config.dart, components/, pages/, labels.dart
+- `_copyUserFiles()` — copies config.dart, components/, pages/, themes/, labels.dart
 
 ## Committing
 
@@ -130,7 +130,7 @@ Key things to verify: header, sidebar (active link, collapsible categories), lan
 - Assets use `context.project.assets` (not static `Assets` class) — callable `Asset` returns Component, `.path` for String
 - Theme-aware assets: `assets/light/` and `assets/dark/` subdirs auto-switch via CSS visibility
 - 3 theme presets with distinct palettes: `classic` (blue), `material3` (purple), `shadcn` (zinc/black)
-- Theme `seedColor` accepts `int` (0xAARRGGBB) or Jaspr `Color` (e.g. `Colors.indigo`) — overrides preset defaults
+- Theme `seedColor` accepts Jaspr `Color` (e.g. `Colors.indigo`, `Color.value(0xFF006D40)`) — overrides preset defaults
 
 ## Dependencies
 

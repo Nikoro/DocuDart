@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:jaspr/dom.dart' show Color;
 import 'package:path/path.dart' as p;
 
 import 'docudart_config.dart';
@@ -84,7 +85,7 @@ class ConfigEvaluator {
     // Match Theme.factory(...) allowing one level of nested parens
     // (for Color.value(...) inside the constructor)
     final pattern = RegExp(
-      r'Theme\.(classic|material3|shadcn)\s*\(([^)]*(?:\([^)]*\)[^)]*)*)\)',
+      r'Theme\.(classic|material3|shadcn)\s*\(([^()]*(?:\([^)]*\)[^()]*)*)\)',
     );
     final match = pattern.firstMatch(stripped);
     if (match == null) return null;
@@ -105,20 +106,15 @@ class ConfigEvaluator {
   /// Extract seedColor from constructor arguments string.
   ///
   /// Recognizes:
-  /// - `seedColor: 0xFF006D40` (hex int literal)
   /// - `seedColor: Colors.indigo` (named color)
   /// - `seedColor: Color.value(0xFF006D40)` (Color.value constructor)
-  static int? _extractSeedColorFromArgs(String args) {
-    // Hex int literal: seedColor: 0xFF...
-    final hexPattern = RegExp(r'seedColor\s*:\s*(0x[0-9A-Fa-f]+)');
-    final hexMatch = hexPattern.firstMatch(args);
-    if (hexMatch != null) return int.tryParse(hexMatch.group(1)!);
-
+  static Color? _extractSeedColorFromArgs(String args) {
     // Named color: seedColor: Colors.xxx
     final namedPattern = RegExp(r'seedColor\s*:\s*Colors\.(\w+)');
     final namedMatch = namedPattern.firstMatch(args);
     if (namedMatch != null) {
-      return cssNamedColors[namedMatch.group(1)!.toLowerCase()];
+      final argb = cssNamedColors[namedMatch.group(1)!.toLowerCase()];
+      if (argb != null) return Color.value(argb);
     }
 
     // Color.value constructor: seedColor: Color.value(0xFF...)
@@ -126,7 +122,10 @@ class ConfigEvaluator {
       r'seedColor\s*:\s*Color\.value\s*\(\s*(0x[0-9A-Fa-f]+)\s*\)',
     );
     final valueMatch = valuePattern.firstMatch(args);
-    if (valueMatch != null) return int.tryParse(valueMatch.group(1)!);
+    if (valueMatch != null) {
+      final parsed = int.tryParse(valueMatch.group(1)!);
+      if (parsed != null) return Color.value(parsed);
+    }
 
     return null;
   }

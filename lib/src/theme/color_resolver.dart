@@ -2,21 +2,15 @@ import 'package:jaspr/dom.dart' show Color;
 
 import 'color_utils.dart';
 
-/// Resolves a color value (either [Color] or [int]) to an ARGB int.
+/// Resolves a [Color] to an ARGB int (0xAARRGGBB).
 ///
-/// Supported inputs:
-/// - [int]: returned as-is (assumed 0xAARRGGBB format)
-/// - [Color]: parsed from its [Color.value] string
+/// Parses the color's CSS value string — supports hex, rgb(), rgba(),
+/// hsl(), hsla(), and CSS named colors.
 ///
 /// Throws [ArgumentError] for unsupported color formats (CSS variables,
 /// relative colors, CSS keywords like `inherit`).
-int resolveColor(Object color) {
-  if (color is int) return color;
-  if (color is Color) return _resolveColorValue(color.value);
-  throw ArgumentError(
-    'seedColor must be an int (0xAARRGGBB) or a Color object, '
-    'got ${color.runtimeType}',
-  );
+int resolveColor(Color color) {
+  return _resolveColorValue(color.value);
 }
 
 int _resolveColorValue(String value) {

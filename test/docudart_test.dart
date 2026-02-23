@@ -104,7 +104,7 @@ void main() {
     });
 
     test('classic factory accepts custom primary color', () {
-      final theme = Theme.classic(seedColor: 0xFF6366F1);
+      final theme = Theme.classic(seedColor: Color.value(0xFF6366F1));
 
       expect(theme.lightColorScheme.primary, equals(0xFF6366F1));
     });

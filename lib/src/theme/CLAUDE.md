@@ -8,7 +8,7 @@ The theme subsystem defines the visual identity of generated DocuDart sites. A `
 |------|-------|---------|
 | `theme.dart` | `Theme` | Top-level theme with 3 preset factories (classic, material3, shadcn) |
 | `color_scheme.dart` | `ColorScheme` | 13 colors (light + dark) with preset and seed-based constructors |
-| `color_resolver.dart` | `resolveColor()` | Converts `Color` / `int` / CSS string → `int` (0xAARRGGBB) |
+| `color_resolver.dart` | `resolveColor()` | Converts `Color` → `int` (0xAARRGGBB) via CSS value parsing |
 | `color_utils.dart` | `HSL` | HSL ↔ ARGB conversion for seed-based palette generation |
 | `text_theme.dart` | `TextTheme` | Typography: fonts, heading sizes, weights, line-heights |
 | `text_style.dart` | `TextStyle` | Individual text style → CSS properties |

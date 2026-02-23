@@ -94,7 +94,7 @@ Config configure(BuildContext context) => Config(
     test('extracts Theme.classic with primaryColor', () async {
       File(p.join(tempDir.path, 'config.dart')).writeAsStringSync('''
 Config configure(BuildContext context) => Config(
-  theme: Theme.classic(seedColor: 0xFF6366F1),
+  theme: Theme.classic(seedColor: Color.value(0xFF6366F1)),
 );
 ''');
 
@@ -120,7 +120,7 @@ Config configure(BuildContext context) => Config(
     test('extracts Theme.shadcn with primaryColor', () async {
       File(p.join(tempDir.path, 'config.dart')).writeAsStringSync('''
 Config configure(BuildContext context) => Config(
-  theme: Theme.shadcn(seedColor: 0xFF0EA5E9),
+  theme: Theme.shadcn(seedColor: Color.value(0xFF0EA5E9)),
 );
 ''');
 
