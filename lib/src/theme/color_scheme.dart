@@ -61,6 +61,74 @@ class ColorScheme {
     this.info = 0xFF4DABF7,
   });
 
+  /// Material Design 3 light — purple primary, warmer neutrals.
+  const ColorScheme.material3Light({
+    this.primary = 0xFF6750A4,
+    this.secondary = 0xFF625B71,
+    this.background = 0xFFFFFBFE,
+    this.surface = 0xFFF7F2FA,
+    this.surfaceVariant = 0xFFE7E0EC,
+    this.text = 0xFF1C1B1F,
+    this.textMuted = 0xFF49454F,
+    this.border = 0xFFCAC4D0,
+    this.codeBackground = 0xFFF3EDF7,
+    this.error = 0xFFB3261E,
+    this.success = 0xFF386A20,
+    this.warning = 0xFF7D5700,
+    this.info = 0xFF0061A4,
+  });
+
+  /// Material Design 3 dark — purple primary, dark neutrals.
+  const ColorScheme.material3Dark({
+    this.primary = 0xFFD0BCFF,
+    this.secondary = 0xFFCCC2DC,
+    this.background = 0xFF1C1B1F,
+    this.surface = 0xFF2B2930,
+    this.surfaceVariant = 0xFF49454F,
+    this.text = 0xFFE6E1E5,
+    this.textMuted = 0xFFCAC4D0,
+    this.border = 0xFF49454F,
+    this.codeBackground = 0xFF2B2930,
+    this.error = 0xFFF2B8B5,
+    this.success = 0xFFA8D494,
+    this.warning = 0xFFFFDE9C,
+    this.info = 0xFFA0CAFD,
+  });
+
+  /// shadcn/ui light — neutral zinc palette, stark contrast.
+  const ColorScheme.shadcnLight({
+    this.primary = 0xFF18181B,
+    this.secondary = 0xFFF4F4F5,
+    this.background = 0xFFFFFFFF,
+    this.surface = 0xFFFFFFFF,
+    this.surfaceVariant = 0xFFF4F4F5,
+    this.text = 0xFF09090B,
+    this.textMuted = 0xFF71717A,
+    this.border = 0xFFE4E4E7,
+    this.codeBackground = 0xFFF4F4F5,
+    this.error = 0xFFEF4444,
+    this.success = 0xFF16A34A,
+    this.warning = 0xFFEAB308,
+    this.info = 0xFF2563EB,
+  });
+
+  /// shadcn/ui dark — zinc dark palette, high contrast.
+  const ColorScheme.shadcnDark({
+    this.primary = 0xFFFAFAFA,
+    this.secondary = 0xFF27272A,
+    this.background = 0xFF09090B,
+    this.surface = 0xFF09090B,
+    this.surfaceVariant = 0xFF27272A,
+    this.text = 0xFFFAFAFA,
+    this.textMuted = 0xFFA1A1AA,
+    this.border = 0xFF27272A,
+    this.codeBackground = 0xFF18181B,
+    this.error = 0xFFF87171,
+    this.success = 0xFF4ADE80,
+    this.warning = 0xFFFACC15,
+    this.info = 0xFF60A5FA,
+  });
+
   /// Generate a complete color scheme from a single seed color.
   ///
   /// All neutral colors (background, surface, text, border) carry a subtle

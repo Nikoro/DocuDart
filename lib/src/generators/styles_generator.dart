@@ -17,6 +17,7 @@ class StylesGenerator {
     bool includeVersionSwitcher = false,
   }) async {
     final theme = config.theme;
+    final themeName = theme.name;
     final light = theme.lightColorScheme;
     final dark = theme.darkColorScheme;
     final text = theme.textTheme;
@@ -133,7 +134,7 @@ header {
   z-index: 100;
   background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
-}
+${themeName == 'material3' ? '  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);\n' : ''}}
 
 header > .row {
   max-width: ${comp.headerMaxWidth.toInt()}px;
@@ -213,8 +214,11 @@ header a:not(.logo).active {
   width: ${comp.sidebarWidth.toInt()}px;
   flex-shrink: 0;
   padding: ${comp.sidebarPaddingV}rem ${comp.sidebarPaddingH}rem;
-  border-right: 1px solid var(--color-border);
-  background-color: var(--color-surface);
+${themeName == 'shadcn'
+            ? '  border-right: 1px solid var(--color-border);\n  background-color: var(--color-background);'
+            : themeName == 'material3'
+            ? '  border-right: none;\n  background-color: var(--color-surface);'
+            : '  border-right: 1px solid var(--color-border);\n  background-color: var(--color-surface);'}
   height: calc(100vh - 65px);
   position: sticky;
   top: 65px;
@@ -241,6 +245,7 @@ header a:not(.logo).active {
 
 .expansion-tile-header:hover {
   color: var(--color-primary);
+${themeName == 'material3' ? '  background-color: var(--color-surface-variant);' : ''}
 }
 
 .expansion-tile-header::before {
@@ -276,24 +281,27 @@ header a:not(.logo).active {
 .sidebar-link {
   display: block;
   padding: 0.5rem 0.75rem;
-  color: var(--color-text);
+  color: var(--color-text-muted);
   text-decoration: none;
   border-radius: ${comp.sidebarLinkBorderRadius}rem;
   font-size: ${comp.sidebarFontSize}rem;
-  border-left: ${comp.sidebarActiveBorderWidth.toInt()}px solid transparent;
-  transition: all 0.15s;
+${themeName == 'material3' ? '' : '  border-left: ${comp.sidebarActiveBorderWidth.toInt()}px solid transparent;\n'}  transition: all 0.15s;
 }
 
 .sidebar-link:hover {
-  background-color: var(--color-background);
-  color: var(--color-primary);
+${themeName == 'material3'
+            ? '  background-color: var(--color-surface-variant);\n  color: var(--color-primary);'
+            : themeName == 'shadcn'
+            ? '  background-color: var(--color-surface-variant);\n  color: var(--color-text);'
+            : '  background-color: var(--color-background);\n  color: var(--color-primary);'}
 }
 
 .sidebar-link.active {
-  border-left-color: var(--color-primary);
-  color: var(--color-primary);
-  background-color: ${ColorScheme.toRgba(light.primary, 0.08)};
-  font-weight: 500;
+${themeName == 'material3'
+            ? '  color: var(--color-primary);\n  background-color: ${ColorScheme.toRgba(light.primary, 0.12)};\n  font-weight: 500;'
+            : themeName == 'shadcn'
+            ? '  border-left-color: var(--color-primary);\n  color: var(--color-text);\n  background-color: var(--color-surface-variant);\n  font-weight: 500;'
+            : '  border-left-color: var(--color-primary);\n  color: var(--color-primary);\n  background-color: ${ColorScheme.toRgba(light.primary, 0.08)};\n  font-weight: 500;'}
 }
 
 /* Main */
@@ -436,11 +444,15 @@ footer .column {
 
 .button-primary {
   background-color: var(--color-primary);
-  color: white;
+${themeName == 'shadcn' ? '  color: var(--color-background);' : '  color: white;'}
 }
 
 .button-primary:hover {
-  filter: brightness(1.1);
+${themeName == 'material3'
+            ? '  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);\n  filter: brightness(1.05);'
+            : themeName == 'shadcn'
+            ? '  opacity: 0.9;'
+            : '  filter: brightness(1.1);'}
 }
 
 /* Docs Content */
@@ -676,11 +688,15 @@ $headingsCss
   border-radius: ${comp.cardBorderRadius}rem;
   background-color: var(--color-surface);
   transition: all 0.15s;
+${themeName == 'material3' ? '  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);' : ''}
 }
 
 .card:hover {
-  border-color: var(--color-primary);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+${themeName == 'material3'
+            ? '  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  transform: translateY(-1px);'
+            : themeName == 'shadcn'
+            ? '  border-color: var(--color-text-muted);\n  box-shadow: none;'
+            : '  border-color: var(--color-primary);\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);'}
 }
 
 .card-icon {

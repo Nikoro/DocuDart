@@ -79,10 +79,10 @@ class Theme {
       name: 'material3',
       lightColorScheme: seed != null
           ? ColorScheme.fromSeed(seedColor: seed)
-          : const ColorScheme.light(),
+          : const ColorScheme.material3Light(),
       darkColorScheme: seed != null
           ? ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.dark)
-          : const ColorScheme.dark(),
+          : const ColorScheme.material3Dark(),
       textTheme: const TextTheme.material3(),
       markdownTheme: const MarkdownTheme.material3(),
       componentTheme: const ComponentTheme.material3(),
@@ -99,10 +99,10 @@ class Theme {
       name: 'shadcn',
       lightColorScheme: seed != null
           ? ColorScheme.fromSeed(seedColor: seed)
-          : const ColorScheme.light(),
+          : const ColorScheme.shadcnLight(),
       darkColorScheme: seed != null
           ? ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.dark)
-          : const ColorScheme.dark(),
+          : const ColorScheme.shadcnDark(),
       textTheme: const TextTheme.shadcn(),
       markdownTheme: const MarkdownTheme.shadcn(),
       componentTheme: const ComponentTheme.shadcn(),

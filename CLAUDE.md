@@ -41,6 +41,7 @@ Detailed docs for each subsystem live alongside the code:
 | `lib/src/models/CLAUDE.md` | Doc hierarchy, Pubspec, Repository, Page, ordering conventions |
 | `lib/src/components/CLAUDE.md` | Link, Layout, Sidebar, Logo, ThemeToggle, all components |
 | `lib/src/generators/CLAUDE.md` | SiteGenerator, ProjectGenerator, templates, asset paths |
+| `lib/src/theme/CLAUDE.md` | Theme presets, ColorScheme, CSS generation, seed-based palettes |
 | `lib/src/icons/CLAUDE.md` | Icon system (7 families, ~52k icons), generator tool, data format |
 
 ## Project Structure
@@ -85,7 +86,7 @@ docudart/
 See `lib/src/generators/CLAUDE.md` for the full generation pipeline. Key methods in `SiteGenerator`:
 - `_generateApp()` — Router with ProjectProvider
 - `_generateLayout()` — LayoutDelegate
-- `_generateStyles()` — delegates to StylesGenerator
+- `_generateStyles()` — delegates to `StylesGenerator` (theme-name-aware: emits different CSS per preset)
 - `_copyUserFiles()` — copies config.dart, components/, pages/, labels.dart
 
 ## Committing
@@ -108,8 +109,11 @@ cd example && dart run ../bin/docudart.dart build
 After style/layout/template changes, verify with Playwright:
 
 1. `cd example && dart run ../bin/docudart.dart serve &`
-2. Use Playwright skill for screenshots (light + dark mode)
-3. `pkill -f "docudart.dart serve"; pkill -f "jaspr"`
+2. Wait for cold start (~2 min for first `jaspr serve` — compiles builders/JIT)
+3. Use Playwright skill for screenshots (light + dark mode)
+4. `pkill -f "docudart.dart serve"; pkill -f "jaspr"`
+
+**Important**: Use `http://127.0.0.1:8080/` (not `localhost`) — `jaspr serve` binds IPv4 only, and `localhost` resolves to IPv6 (`::1`) on macOS.
 
 Key things to verify: header, sidebar (active link, collapsible categories), landing page, footer, dark mode, doc content rendering.
 
@@ -125,7 +129,8 @@ Key things to verify: header, sidebar (active link, collapsible categories), lan
 - Lint rules: `sort_constructors_first`, `use_null_aware_elements`
 - Assets use `context.project.assets` (not static `Assets` class) — callable `Asset` returns Component, `.path` for String
 - Theme-aware assets: `assets/light/` and `assets/dark/` subdirs auto-switch via CSS visibility
-- Theme `seedColor` accepts `int` (0xAARRGGBB) or Jaspr `Color` (e.g. `Colors.indigo`)
+- 3 theme presets with distinct palettes: `classic` (blue), `material3` (purple), `shadcn` (zinc/black)
+- Theme `seedColor` accepts `int` (0xAARRGGBB) or Jaspr `Color` (e.g. `Colors.indigo`) — overrides preset defaults
 
 ## Dependencies
 
