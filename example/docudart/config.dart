@@ -15,6 +15,7 @@ Config configure(BuildContext context) => Config(
   // Header, footer, and sidebar are components.
   // Set to null to hide any section.
   header: () => Header(
+    showSidebarToggle: context.url.contains('/docs'),
     leading: Logo(
       image: context.project.assets.logo.logo_webp(
         alt: '${context.project.pubspec.name} logo',

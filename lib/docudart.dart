@@ -29,6 +29,7 @@ export 'src/theme/code_theme.dart';
 export 'src/components/navigation/expansion_tile.dart';
 export 'src/components/navigation/link.dart';
 export 'src/components/navigation/sidebar.dart';
+export 'src/components/navigation/sidebar_toggle.dart';
 export 'src/components/navigation/theme_toggle.dart';
 
 // Components — Content
@@ -40,6 +41,12 @@ export 'src/components/branding/copyright.dart';
 export 'src/components/branding/built_with_docudart.dart';
 export 'src/components/branding/socials.dart';
 export 'src/components/branding/topics.dart';
+
+// Components — Interaction
+export 'src/components/interaction/icon_button.dart';
+
+// Components — Animation
+export 'src/components/animation/slide_transition.dart';
 
 // Components — Layout
 export 'src/components/layout/layout.dart';

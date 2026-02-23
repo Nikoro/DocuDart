@@ -4,6 +4,8 @@
 
 **DocuDart** is a static documentation generator for Dart, similar to Docusaurus but using Jaspr as the rendering engine. Users write documentation in Markdown files with YAML frontmatter, and DocuDart generates a static website.
 
+**Design philosophy**: DocuDart provides a Flutter-identical API — components like `Row`, `Column`, `IconButton`, and `SlideTransition` look and feel like Flutter widgets, but underneath they produce optimized HTML, CSS, and JavaScript via Jaspr.
+
 ## Quick Start Commands
 
 ```bash
@@ -87,7 +89,7 @@ See `lib/src/generators/CLAUDE.md` for the full generation pipeline. Key methods
 - `_generateApp()` — Router with ProjectProvider
 - `_generateLayout()` — LayoutDelegate
 - `_generateStyles()` — delegates to `StylesGenerator` (theme-name-aware: emits different CSS per preset)
-- `_copyUserFiles()` — copies config.dart, components/, pages/, themes/, labels.dart
+- `_copyUserFiles()` — copies config.dart, components/, pages/, root-level .dart files (e.g. labels.dart)
 
 ## Committing
 
@@ -115,7 +117,7 @@ After style/layout/template changes, verify with Playwright:
 
 **Important**: Use `http://127.0.0.1:8080/` (not `localhost`) — `jaspr serve` binds IPv4 only, and `localhost` resolves to IPv6 (`::1`) on macOS.
 
-Key things to verify: header, sidebar (active link, collapsible categories), landing page, footer, dark mode, doc content rendering.
+Key things to verify: header, sidebar (active link, collapsible categories), mobile sidebar drawer (hamburger menu at <= 1024px), landing page, footer, dark mode, doc content rendering.
 
 ## Important Notes
 
@@ -131,6 +133,8 @@ Key things to verify: header, sidebar (active link, collapsible categories), lan
 - Theme-aware assets: `assets/light/` and `assets/dark/` subdirs auto-switch via CSS visibility
 - 3 theme presets with distinct palettes: `classic` (blue), `material3` (purple), `shadcn` (zinc/black)
 - Theme `seedColor` accepts Jaspr `Color` (e.g. `Colors.indigo`, `Color.value(0xFF006D40)`) — overrides preset defaults
+- `@client` components require `build_web_compilers` in the generated pubspec's `dev_dependencies` — without it, `dart2js` never runs and client JS is never produced (see `lib/src/generators/CLAUDE.md` for full hydration pipeline)
+- Don't manually add `<script src="main.client.dart.js">` — Jaspr's `ClientScriptAdapter` handles it automatically when `@client` components exist
 
 ## Dependencies
 

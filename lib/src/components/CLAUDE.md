@@ -51,12 +51,28 @@ CSS-driven light/dark icon swap — no JS text manipulation.
 - CSS uses `:root[data-theme="dark"]` and `@media (prefers-color-scheme: dark)` for visibility toggle
 - Reuses `.theme-toggle` click handler in `theme.js`
 
+### SidebarToggle (`navigation/sidebar_toggle.dart`)
+
+`@client` component that toggles the mobile sidebar drawer from Dart.
+
+```dart
+SidebarToggle()
+```
+
+- Annotated with `@client` — hydrated client-side by Jaspr's `ClientApp`
+- Renders an `IconButton(icon: Icon(MaterialSymbols.menu))` with an `onPressed` callback
+- On click: calls `web.document.body.classList.toggle('sidebar-open')` via `universal_web`
+- Uses `kIsWeb` guard so DOM access only runs in the browser
+- No constructor params (serialization-free) — `super.key` is automatically excluded by `jaspr_builder`
+- The generated Header template uses `context.screen.maybeWhen()` to show `SidebarToggle()` on mobile/tablet
+
 ### Sidebar Interactivity (vanilla JS in `theme.js`)
 
 - **Collapsible categories**: `.expansion-tile[data-category]` click/keyboard toggle, CSS chevron rotation + `max-height` transition, state persisted in localStorage (`docudart-sidebar-state` key). `initCollapse()` suppresses transitions on page load to prevent visual flash.
 - **Active link highlighting**: `.sidebar-link.active` class via JS matching `window.location.pathname` against `data-path`; left blue border accent + subtle background tint
 - **SPA navigation**: monkey-patches `history.pushState`/`replaceState` → `docudart-navigate` event; MutationObserver re-applies collapse + active link if Jaspr re-renders
 - **Auto-expand**: parent categories of active link automatically expand on navigation
+- **Mobile drawer close** (`initMobileMenu()`): `.sidebar-backdrop` click or `.sidebar-link` click closes drawer by removing `body.sidebar-open`. The sidebar toggle itself is handled by the `@client` `SidebarToggle` component, not JS.
 
 ## Content
 
@@ -111,7 +127,9 @@ Layout(header: myHeader, sidebar: mySidebar, body: content, footer: myFooter)
 ```
 
 - All 4 params optional `Component?`; `const`-constructible
-- Structure: `Column > [header?, Expanded(Row > [sidebar?, body?]), footer?]`
+- Structure: `Column > [skip-link, header?, Expanded(Row > [sidebar?, body?]), footer?, sidebar-backdrop?]`
+- Layout does NOT render the mobile menu button — that's the user's responsibility in their Header component using `context.screen` and `SidebarToggle`
+- When sidebar is present: renders `.sidebar-backdrop` (full-screen overlay for closing drawer)
 - Body: `.site-main` CSS class; inline flex/maxWidth styles based on sidebar presence
 - Sidebar presence controls Row maxWidth (1400px with sidebar, 100% without) and alignment
 - Generated `LayoutDelegate` delegates to this or to `config.layoutBuilder`
@@ -124,6 +142,48 @@ Flutter-like flex containers with inline styles. CSS classes kept as selector ho
 ### Expanded / Flexible / Spacer / SizedBox (`layout/`)
 
 Standard Flutter-like layout primitives. `SizedBox` named to avoid conflict with Jaspr's `Gap`.
+
+## Interaction
+
+### IconButton (`interaction/icon_button.dart`)
+
+Flutter-like icon button. Renders `<button class="icon-button">` with an icon child.
+
+```dart
+IconButton(
+  icon: Icon(MaterialSymbols.menu),
+  tooltip: 'Open menu',
+  onPressed: () { /* ... */ },
+)
+```
+
+- `icon` (`Component`) — the icon widget to display
+- `onPressed` (`VoidCallback?`) — optional click callback
+- `tooltip` (`String?`) — maps to `title` and `aria-label` attributes
+- CSS: `.icon-button` base styles (inline-flex, no border, hover state)
+
+## Animation
+
+### SlideTransition (`animation/slide_transition.dart`)
+
+CSS transform-based slide animation with JS-driven trigger.
+
+```dart
+SlideTransition(
+  direction: SlideDirection.left,
+  trigger: 'body.sidebar-open',
+  child: sidebar,
+)
+```
+
+- `child` (`Component`) — content to slide in/out
+- `direction` (`SlideDirection`) — slides FROM this direction when entering (`left`, `right`, `top`, `bottom`)
+- `duration` (`Duration`) — CSS transition duration (default 300ms)
+- `curve` (`Curve`) — timing curve (default `Curve.ease`; uses Jaspr's `Curve` class)
+- `trigger` (`String?`) — CSS selector; when `document.querySelector(trigger)` matches, `data-slide-active` is set and child slides to natural position
+- `classes` (`String?`) — additional CSS classes
+- Uses Jaspr's typed `Transform.translate()` and `Transition()` for inline styles
+- JS `initSlideTransitions()` in `theme.js` observes class changes on `<body>`/`<html>` to toggle `data-slide-active`
 
 ## Providers
 
@@ -139,10 +199,33 @@ Standard Flutter-like layout primitives. `SizedBox` named to avoid conflict with
 
 These live in the user's `components/` directory, not in the library:
 
-- **Header**: `Header(leading:, links:, trailing:)` → `header > Row` directly
+- **Header**: `Header(leading:, links:, trailing:)` → `header > Row` directly. Uses `context.screen.maybeWhen(mobile:, tablet:, orElse:)` to show `SidebarToggle()` on mobile/tablet.
 - **Footer**: `Footer(leading:, center:, trailing:)` → `footer > Row` directly
 - **Button**: `Button(text:, href:, classes:)` with `.primary()` factory
 - **Sidebar**: Wrapper around `DefaultSidebar`
+
+## Screen Extension (`extensions/screen_extension.dart`)
+
+Responsive rendering via CSS media queries. Renders all variants; CSS shows the matching one.
+
+```dart
+context.screen.when(
+  mobile: () => MobileNav(),
+  tablet: () => TabletNav(),
+  desktop: () => DesktopNav(),
+)
+
+context.screen.maybeWhen(
+  mobile: () => HamburgerMenu(),
+  orElse: () => FullNav(),
+)
+```
+
+- Breakpoints: mobile (0–768px), tablet (769–1024px), desktop (1025px+)
+- Uses `display: contents` on `.screen-mobile`, `.screen-tablet`, `.screen-desktop` so wrappers are layout-invisible
+- SSR-compatible: all variants rendered to DOM, CSS controls visibility
+- `when()` requires all three callbacks; `maybeWhen()` has optional `orElse` — when omitted, unspecified breakpoints produce no DOM (returns `Component?`)
+- Use `?context.screen.maybeWhen(mobile: ..., tablet: ...)` with null-aware `?` to conditionally include in children lists without leaving empty spacing gaps
 
 ## Gotchas
 

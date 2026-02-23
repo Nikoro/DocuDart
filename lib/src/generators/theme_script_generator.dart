@@ -280,16 +280,9 @@ class ThemeScriptGenerator {
     }
   }
 
-  // Mobile sidebar drawer toggle
+  // Mobile sidebar drawer: close on backdrop click or sidebar link navigation
   function initMobileMenu() {
     document.addEventListener('click', function(e) {
-      var btn = e.target.closest('.mobile-menu-btn');
-      if (btn) {
-        e.preventDefault();
-        document.body.classList.toggle('sidebar-open');
-        return;
-      }
-
       var backdrop = e.target.closest('.sidebar-backdrop');
       if (backdrop) {
         document.body.classList.remove('sidebar-open');
@@ -306,12 +299,32 @@ class ThemeScriptGenerator {
     });
   }
 
+  // SlideTransition trigger observer
+  function initSlideTransitions() {
+    function update() {
+      var slides = document.querySelectorAll('[data-slide-trigger]');
+      slides.forEach(function(el) {
+        var trigger = el.getAttribute('data-slide-trigger');
+        if (trigger && document.querySelector(trigger)) {
+          el.setAttribute('data-slide-active', '');
+        } else {
+          el.removeAttribute('data-slide-active');
+        }
+      });
+    }
+    var observer = new MutationObserver(update);
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    update();
+  }
+
   function init() {
     initCollapse();
     updateActiveLink();
     highlightCode();
     startObserver();
     initMobileMenu();
+    initSlideTransitions();
   }
 
   if (document.readyState === 'loading') {

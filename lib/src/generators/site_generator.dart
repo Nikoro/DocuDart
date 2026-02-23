@@ -146,6 +146,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.4.0
+  build_web_compilers: ^4.0.0
   jaspr_builder: ^0.22.0
   jaspr_cli: ^0.22.0
 
@@ -410,10 +411,13 @@ class LayoutDelegate extends StatelessComponent {
         '''
 import 'package:jaspr/server.dart';
 import 'package:jaspr/dom.dart' show link, script;
+import 'main.server.options.dart';
 import 'app.dart';
 
 void main() {
-  Jaspr.initializeApp();
+  Jaspr.initializeApp(
+    options: defaultServerOptions,
+  );
 
   runApp(Document(
     title: '$title',
@@ -423,8 +427,7 @@ void main() {
     },
     head: [
 $faviconLinks      link(rel: 'stylesheet', href: '/styles.css'),
-${_fontImportLink()}      script(src: 'main.client.dart.js', defer: true),
-      script(src: '/theme.js'),
+${_fontImportLink()}      script(src: '/theme.js'),
       script(src: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js', defer: true),
 ${serveMode ? "      script(src: '/live-reload.js', defer: true),\n" : ''}    ],
     body: DocuDartApp(),
@@ -453,6 +456,17 @@ void main() {
     await File(
       p.join(managedDir, 'lib', 'main.client.dart'),
     ).writeAsString(clientMain);
+
+    // Server options placeholder (lib/main.server.options.dart)
+    final serverOptions = '''
+// ignore_for_file: type=lint
+import 'package:jaspr/server.dart';
+
+ServerOptions get defaultServerOptions => ServerOptions();
+''';
+    await File(
+      p.join(managedDir, 'lib', 'main.server.options.dart'),
+    ).writeAsString(serverOptions);
 
     // Client options placeholder (lib/main.client.options.dart)
     final clientOptions = '''

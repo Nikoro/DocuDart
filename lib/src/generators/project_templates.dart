@@ -20,12 +20,24 @@ import 'package:docudart/docudart.dart';
 ///
 /// Customize this component to change the header layout.
 /// The [leading] slot is typically a [Logo].
+///
+/// Uses [context.screen] to show a [SidebarToggle] on mobile/tablet
+/// when [showSidebarToggle] is true (e.g., on pages with a sidebar).
 class Header extends StatelessComponent {
-  const Header({this.leading, this.links, this.trailing, super.key});
+  const Header({
+    this.leading,
+    this.links,
+    this.trailing,
+    this.showSidebarToggle = false,
+    super.key,
+  });
 
   final Component? leading;
   final List<Link>? links;
   final Component? trailing;
+
+  /// Whether to show the sidebar toggle button on mobile/tablet.
+  final bool showSidebarToggle;
 
   @override
   Component build(BuildContext context) {
@@ -33,7 +45,18 @@ class Header extends StatelessComponent {
       Row(
         crossAxisAlignment: .center,
         spacing: 1.5.rem,
-        children: [?leading, Spacer(), ...?links, ?trailing],
+        children: [
+          // Show hamburger menu on mobile/tablet when sidebar is present
+          if (showSidebarToggle)
+            ?context.screen.maybeWhen(
+              mobile: () => SidebarToggle(),
+              tablet: () => SidebarToggle(),
+            ),
+          ?leading,
+          Spacer(),
+          ...?links,
+          ?trailing,
+        ],
       ),
     ]);
   }
@@ -139,6 +162,7 @@ class Sidebar extends StatelessComponent {
         '  // Header, footer, and sidebar are components.\n'
         '  // Set to null to hide any section.\n'
         '  header: () => Header(\n'
+        "    showSidebarToggle: context.url.contains('/docs'),\n"
         "    leading: Logo(\n"
         r"      image: context.project.assets.logo.logo_webp(alt: '${context.project.pubspec.name} logo'),"
         "\n"

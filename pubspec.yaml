@@ -23,6 +23,7 @@ dependencies:
   markdown: ^7.3.0
   meta: ^1.18.1
   path: ^1.9.1
+  universal_web: ^1.1.1
   watcher: ^1.2.1
   yaml: ^3.1.3
 
