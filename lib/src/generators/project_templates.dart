@@ -133,7 +133,7 @@ class Sidebar extends StatelessComponent {
         '  title: context.project.pubspec.name,\n'
         '  description: context.project.pubspec.description,\n'
         '  themeMode: .system,\n'
-        '  theme: Theme.classic(),\n'
+        '  theme: .classic(),\n'
         "  // Home page component. Set to null to redirect '/' to '/docs'.\n"
         '  home: () => LandingPage(),\n'
         '  // Header, footer, and sidebar are components.\n'
