@@ -502,12 +502,15 @@ $headingsCss
   border-radius: ${md.codeBlockBorderRadius}rem;
   overflow-x: auto;
   margin-bottom: 1rem;
+  line-height: 1.6;
 }
 
 .docs-content pre code {
   background: none;
   padding: 0;
+  border-radius: 0;
   font-size: 0.875rem;
+  line-height: inherit;
 }
 
 .docs-content blockquote {

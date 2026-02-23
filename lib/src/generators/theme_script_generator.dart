@@ -237,8 +237,40 @@ class ThemeScriptGenerator {
     observer.observe(sidebar, { childList: true, subtree: true });
   }
 
+  // Strip SSR indentation that Jaspr adds inside <pre> blocks.
+  // The last line before </code> is whitespace-only SSR indent — use it
+  // as the exact amount to strip from all subsequent lines.
+  function normalizeCodeBlocks() {
+    document.querySelectorAll('pre code').forEach(function(block) {
+      if (block.getAttribute('data-normalized')) return;
+      var text = block.textContent;
+      var lines = text.split('\\n');
+      // Detect SSR indent from the trailing whitespace-only line
+      var indent = 0;
+      if (lines.length > 1) {
+        var last = lines[lines.length - 1];
+        if (last.trim() === '') {
+          indent = last.length;
+        }
+      }
+      // Remove trailing empty lines
+      while (lines.length && lines[lines.length - 1].trim() === '') lines.pop();
+      if (lines.length === 0) { block.setAttribute('data-normalized', 'true'); return; }
+      // Strip the detected SSR indent from lines 1+ (line 0 is on <code> tag line)
+      if (indent > 0) {
+        var re = new RegExp('^' + ' '.repeat(indent), '');
+        for (var j = 1; j < lines.length; j++) {
+          lines[j] = lines[j].replace(re, '');
+        }
+      }
+      block.textContent = lines.join('\\n') + '\\n';
+      block.setAttribute('data-normalized', 'true');
+    });
+  }
+
   // Syntax highlighting via highlight.js
   function highlightCode() {
+    normalizeCodeBlocks();
     if (typeof hljs !== 'undefined') {
       document.querySelectorAll('pre code').forEach(function(block) {
         if (!block.getAttribute('data-highlighted')) {
