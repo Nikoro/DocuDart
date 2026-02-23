@@ -9,7 +9,7 @@ Config configure(BuildContext context) => Config(
   title: context.project.pubspec.name,
   description: context.project.pubspec.description,
   themeMode: .system,
-  theme: .classic(seedColor: Colors.aliceBlue),
+  theme: .classic(),
   // Home page component. Set to null to redirect '/' to '/docs'.
   home: () => LandingPage(),
   // Header, footer, and sidebar are components.
