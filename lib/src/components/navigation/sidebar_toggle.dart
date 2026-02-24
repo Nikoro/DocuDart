@@ -1,3 +1,4 @@
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:universal_web/web.dart' as web;
 
@@ -26,6 +27,7 @@ class SidebarToggle extends StatelessComponent {
     return IconButton(
       icon: Icon(MaterialSymbols.menu),
       tooltip: 'Open navigation menu',
+      padding: Padding.zero,
       onPressed: () {
         if (kIsWeb) {
           web.document.body?.classList.toggle('sidebar-open');

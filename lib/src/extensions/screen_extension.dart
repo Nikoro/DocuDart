@@ -22,7 +22,7 @@ class Screen {
     required Component Function() tablet,
     required Component Function() desktop,
   }) {
-    return div([
+    return div(styles: Styles(display: Display.contents), [
       div(classes: 'screen-mobile', [mobile()]),
       div(classes: 'screen-tablet', [tablet()]),
       div(classes: 'screen-desktop', [desktop()]),
@@ -69,7 +69,7 @@ class Screen {
     ];
 
     if (children.isEmpty) return null;
-    return div(children);
+    return div(styles: Styles(display: Display.contents), children);
   }
 }
 

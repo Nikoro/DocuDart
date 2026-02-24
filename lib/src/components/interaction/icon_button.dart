@@ -16,6 +16,7 @@ class IconButton extends StatelessComponent {
     required this.icon,
     this.onPressed,
     this.tooltip,
+    this.padding,
     super.key,
   });
 
@@ -28,10 +29,14 @@ class IconButton extends StatelessComponent {
   /// Tooltip text — maps to HTML `title` and `aria-label` attributes.
   final String? tooltip;
 
+  /// Custom padding. Defaults to the CSS-defined `0.5rem` when null.
+  final Padding? padding;
+
   @override
   Component build(BuildContext context) {
     return button(
       classes: 'icon-button',
+      styles: padding != null ? Styles(padding: padding) : null,
       onClick: onPressed,
       attributes: {'aria-label': ?tooltip, 'title': ?tooltip},
       [icon],
