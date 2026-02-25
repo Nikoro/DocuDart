@@ -1,61 +1,102 @@
-# Example Project
+# docudart - Documentation Site
 
-A sample Dart library demonstrating DocuDart documentation generation.
+This documentation site is powered by [DocuDart](https://github.com/docudart/docudart).
 
-## Installation
-
-Add this to your `pubspec.yaml`:
-
-```yaml
-dependencies:
-  example_project: ^1.0.0
-```
-
-Then run:
+## Quick Start
 
 ```bash
-dart pub get
+# Build the static site
+docudart build
+
+# Start a development server with hot reload
+docudart serve
 ```
 
-## Usage
+## Project Structure
 
-Import the library and use the greeting function:
+```
+docudart/
+  config.dart        # Site configuration (title, theme, layout components)
+  docs/              # Markdown documentation files
+  pages/             # Custom page components (Dart/Jaspr)
+  components/        # Layout components (header, footer, sidebar)
+    header.dart      # Header component
+    footer.dart      # Footer component
+    sidebar.dart     # Sidebar component wrapping DefaultSidebar
+  assets/            # Static files (images, fonts, etc.)
+  themes/            # Custom theme implementations
+```
+
+## Writing Documentation
+
+Add Markdown files to the `docs/` directory. Each file becomes a page on your site.
+
+Every doc file should start with YAML frontmatter:
+
+```markdown
+---
+title: Page Title
+sidebar_position: 1
+description: Optional description for SEO
+---
+
+# Page Title
+
+Your content here.
+```
+
+- **`title`** - Displayed in the sidebar and browser tab.
+- **`sidebar_position`** - Controls ordering in the sidebar (lower numbers appear first).
+- **`description`** - Used for SEO meta tags.
+
+### Organizing Docs
+
+Create subdirectories inside `docs/` to group related pages. The folder structure is reflected in the sidebar.
+
+## Customizing Layout
+
+The header, footer, and sidebar are components defined in `components/`. Edit them to customize your site's layout.
+
+### Disabling a Section
+
+Set any layout section to `null` in `config.dart` to hide it:
 
 ```dart
-import 'package:example_project/example_project.dart';
-
-void main() {
-  final greeter = Greeter('World');
-  print(greeter.greet()); // Hello, World!
-}
+Config configure(BuildContext context) => Config(
+  title: context.project.pubspec.name,
+  header: () => Header(leading: Logo(title: context.project.pubspec.name)),
+  footer: null,    // No footer
+  sidebar: null,   // No sidebar
+);
 ```
 
-## API Reference
+## Configuration
 
-### Greeter Class
-
-The main class for generating greetings.
+All site settings live in `config.dart`:
 
 ```dart
-final greeter = Greeter('Alice');
-greeter.greet(); // Returns "Hello, Alice!"
-greeter.greetFormal(); // Returns "Good day, Alice."
+import 'package:docudart/docudart.dart';
+import 'components/header.dart';
+import 'components/footer.dart';
+import 'components/sidebar.dart';
+
+Config configure(BuildContext context) => Config(
+  title: context.project.pubspec.name,
+  description: context.project.pubspec.description,
+
+  // Theme
+  themeMode: ThemeMode.system,  // system | light | dark
+  theme: Theme.classic(
+    seedColor: Colors.blue,     // accepts Colors.xxx or Color.value(0xAARRGGBB)
+  ),
+
+  // Layout components (set to null to hide)
+  header: () => Header(leading: Logo(title: context.project.pubspec.name)),
+  footer: () => Footer(center: Copyright(text: context.project.pubspec.name)),
+  sidebar: () => Sidebar(),
+);
 ```
 
-### Calculator Class
+## Build Output
 
-A simple calculator for basic operations.
-
-```dart
-final calc = Calculator();
-calc.add(2, 3); // Returns 5
-calc.multiply(4, 5); // Returns 20
-```
-
-## Contributing
-
-Contributions are welcome! Please read our contributing guidelines before submitting PRs.
-
-## License
-
-MIT License - see LICENSE file for details.
+Running `docudart build` generates static files in `build/web/`. You can deploy this directory to any static hosting provider (GitHub Pages, Netlify, Vercel, Firebase Hosting, etc.).

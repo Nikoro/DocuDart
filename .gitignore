@@ -22,3 +22,7 @@ Thumbs.db
 # DocuDart
 docudart/.dart_tool/
 docudart/build/
+
+# DocuDart
+example/.dart_tool/
+example/build/
