@@ -11,7 +11,7 @@ class FooterTheme {
 
   const FooterTheme.shadcn({this.paddingH = 2.0, this.paddingV = 1.5});
 
-  factory FooterTheme.fromJson(Map<String, dynamic> json) => FooterTheme(
+  factory FooterTheme.fromJson(Map<String, dynamic> json) => .new(
     paddingH: (json['paddingH'] as num?)?.toDouble() ?? 2.0,
     paddingV: (json['paddingV'] as num?)?.toDouble() ?? 2.0,
   );
@@ -22,7 +22,7 @@ class FooterTheme {
   /// Vertical padding in rem.
   final double paddingV;
 
-  FooterTheme copyWith({double? paddingH, double? paddingV}) => FooterTheme(
+  FooterTheme copyWith({double? paddingH, double? paddingV}) => .new(
     paddingH: paddingH ?? this.paddingH,
     paddingV: paddingV ?? this.paddingV,
   );

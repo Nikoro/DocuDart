@@ -74,7 +74,7 @@ void main() {
         EmbeddedComponent callout({
           Map<String, dynamic> props = const {},
           String? children,
-        }) => EmbeddedComponent(
+        }) => .new(
           name: 'Callout',
           props: props,
           children: children,
@@ -197,7 +197,7 @@ void main() {
         EmbeddedComponent codeBlock({
           Map<String, dynamic> props = const {},
           String? children,
-        }) => EmbeddedComponent(
+        }) => .new(
           name: 'CodeBlock',
           props: props,
           children: children,
@@ -263,7 +263,7 @@ void main() {
         EmbeddedComponent card({
           Map<String, dynamic> props = const {},
           String? children,
-        }) => EmbeddedComponent(
+        }) => .new(
           name: 'Card',
           props: props,
           children: children,

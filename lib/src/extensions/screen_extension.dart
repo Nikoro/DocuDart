@@ -84,5 +84,5 @@ extension ScreenContext on BuildContext {
   ///   desktop: () => DesktopLayout(),
   /// )
   /// ```
-  Screen get screen => const Screen();
+  Screen get screen => const .new();
 }

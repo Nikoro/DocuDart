@@ -136,12 +136,12 @@ class ColorScheme {
   /// (error, success, warning, info) stay fixed for accessibility.
   factory ColorScheme.fromSeed({
     required int seedColor,
-    Brightness brightness = Brightness.light,
+    Brightness brightness = .light,
   }) {
     final seed = HSL.fromInt(seedColor);
     final h = seed.hue;
 
-    if (brightness == Brightness.light) {
+    if (brightness == .light) {
       return ColorScheme(
         primary: seedColor,
         secondary: HSL(h + 30, 0.70, 0.55).toInt(),
@@ -176,7 +176,7 @@ class ColorScheme {
     );
   }
 
-  factory ColorScheme.fromJson(Map<String, dynamic> json) => ColorScheme(
+  factory ColorScheme.fromJson(Map<String, dynamic> json) => .new(
     primary: json['primary'] as int,
     secondary: json['secondary'] as int,
     background: json['background'] as int,
@@ -274,7 +274,7 @@ class ColorScheme {
     int? success,
     int? warning,
     int? info,
-  }) => ColorScheme(
+  }) => .new(
     primary: primary ?? this.primary,
     secondary: secondary ?? this.secondary,
     background: background ?? this.background,

@@ -29,27 +29,28 @@ class DefaultSidebar extends StatelessComponent {
   }
 
   List<Component> _buildItems(List<Doc> items, [String parentSlug = '']) {
-    return items.map<Component>((item) {
-      switch (item) {
-        case DocLink(:final name, :final path):
-          return a(
+    return [
+      for (final item in items)
+        switch (item) {
+          DocLink(:final name, :final path) => a(
             href: path,
             classes: 'sidebar-link',
             attributes: {'data-path': path},
             [.text(name)],
-          );
-        case DocCategory(:final name, :final children, :final expanded):
-          final slug = parentSlug.isEmpty
-              ? _slugify(name)
-              : '$parentSlug/${_slugify(name)}';
-          return ExpansionTile(
-            id: slug,
-            title: name,
-            expanded: expanded,
-            children: _buildItems(children, slug),
-          );
-      }
-    }).toList();
+          ),
+          DocCategory(:final name, :final children, :final expanded) => () {
+            final slug = parentSlug.isEmpty
+                ? _slugify(name)
+                : '$parentSlug/${_slugify(name)}';
+            return ExpansionTile(
+              id: slug,
+              title: name,
+              expanded: expanded,
+              children: _buildItems(children, slug),
+            );
+          }(),
+        },
+    ];
   }
 
   static String _slugify(String text) {

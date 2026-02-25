@@ -41,7 +41,7 @@ class ComponentParseResult {
 /// - Self-closing: `<Component prop="value" />`
 /// - With children: `<Component prop="value">children</Component>`
 /// - Nested components
-class ComponentParser {
+abstract final class ComponentParser {
   /// Pattern for self-closing components: `<Component prop="value" />`
   static final _selfClosingPattern = RegExp(
     r'<([A-Z][a-zA-Z0-9]*)\s*([^>]*?)\s*/>',
@@ -67,8 +67,8 @@ class ComponentParser {
   /// Returns content with placeholders and a list of extracted components.
   static ComponentParseResult parse(String content) {
     final components = <EmbeddedComponent>[];
-    var processedContent = content;
-    var placeholderIndex = 0;
+    String processedContent = content;
+    int placeholderIndex = 0;
 
     // First pass: extract components with children (to handle nesting)
     processedContent = processedContent.replaceAllMapped(_withChildrenPattern, (
@@ -127,9 +127,9 @@ class ComponentParser {
 
     for (final match in _propPattern.allMatches(propsString)) {
       final key = match.group(1)!;
-      final stringValue = match.group(2); // "value"
-      final expressionValue = match.group(3); // {value}
-      final plainValue = match.group(4); // value (no quotes)
+      final stringValue = match.group(2); // quoted value
+      final expressionValue = match.group(3); // braced expression
+      final plainValue = match.group(4); // unquoted plain value
 
       if (stringValue != null) {
         props[key] = stringValue;
@@ -158,7 +158,7 @@ class ComponentParser {
     final doubleValue = double.tryParse(trimmed);
     if (doubleValue != null) return doubleValue;
 
-    // Array (simple parsing)
+    // Bracket-delimited list
     if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
       final inner = trimmed.substring(1, trimmed.length - 1);
       return inner
@@ -169,7 +169,7 @@ class ComponentParser {
           .toList();
     }
 
-    // String (remove quotes if present)
+    // Quoted text — strip surrounding quotes
     if ((trimmed.startsWith('"') && trimmed.endsWith('"')) ||
         (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
       return trimmed.substring(1, trimmed.length - 1);

@@ -27,7 +27,7 @@ class CalloutTheme {
     this.borderWidth = 2,
   });
 
-  factory CalloutTheme.fromJson(Map<String, dynamic> json) => CalloutTheme(
+  factory CalloutTheme.fromJson(Map<String, dynamic> json) => .new(
     padding: (json['padding'] as num?)?.toDouble() ?? 1.0,
     borderRadius: (json['borderRadius'] as num?)?.toDouble() ?? 0.5,
     borderWidth: (json['borderWidth'] as num?)?.toDouble() ?? 4,
@@ -46,7 +46,7 @@ class CalloutTheme {
     double? padding,
     double? borderRadius,
     double? borderWidth,
-  }) => CalloutTheme(
+  }) => .new(
     padding: padding ?? this.padding,
     borderRadius: borderRadius ?? this.borderRadius,
     borderWidth: borderWidth ?? this.borderWidth,

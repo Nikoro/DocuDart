@@ -47,10 +47,13 @@ void main() {
 
   group('Doc model', () {
     test('DocLink stores name and path', () {
-      const link = DocLink(name: 'Intro', path: '/docs/intro');
-      expect(link.name, equals('Intro'));
-      expect(link.path, equals('/docs/intro'));
-      expect(link.order, equals(0));
+      final DocLink(:name, :path, :order) = DocLink(
+        name: 'Intro',
+        path: '/docs/intro',
+      );
+      expect(name, equals('Intro'));
+      expect(path, equals('/docs/intro'));
+      expect(order, equals(0));
     });
 
     test('DocLink with custom order', () {
@@ -59,17 +62,17 @@ void main() {
     });
 
     test('DocCategory stores children and expanded state', () {
-      const category = DocCategory(
+      final DocCategory(:name, :children, :expanded) = DocCategory(
         name: 'Guides',
-        children: [
+        children: const [
           DocLink(name: 'Quick Start', path: '/docs/quick-start'),
           DocLink(name: 'Advanced', path: '/docs/advanced'),
         ],
         expanded: true,
       );
-      expect(category.name, equals('Guides'));
-      expect(category.children, hasLength(2));
-      expect(category.expanded, isTrue);
+      expect(name, equals('Guides'));
+      expect(children, hasLength(2));
+      expect(expanded, isTrue);
     });
 
     test('DocCategory defaults to collapsed', () {
@@ -93,7 +96,7 @@ void main() {
     });
 
     test('Doc sealed class pattern matching', () {
-      const Doc item = DocLink(name: 'Test', path: '/test');
+      final Doc item = DocLink(name: 'Test', path: '/test');
       final result = switch (item) {
         DocLink(:final path) => 'link:$path',
         DocCategory(:final children) => 'cat:${children.length}',

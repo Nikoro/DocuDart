@@ -82,11 +82,7 @@ class ProjectGenerator {
     await _templates.generateLandingPage(websiteDir, title, description);
 
     // Generate documentation files (look for README.md in project root)
-    await _templates.generateDocs(
-      websiteDir,
-      directory,
-      template == InitTemplate.full,
-    );
+    await _templates.generateDocs(websiteDir, directory, template == .full);
 
     // Generate default favicon files
     await _generateFavicons(websiteDir);

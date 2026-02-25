@@ -5,24 +5,24 @@ void main() {
   group('AssetVariant', () {
     test('path returns the stored path', () {
       const variant = AssetVariant('/assets/logo.webp');
-      expect(variant.path, '/assets/logo.webp');
+      expect(variant.path, equals('/assets/logo.webp'));
     });
   });
 
   group('SimpleAsset', () {
     test('path returns the single path', () {
       const asset = SimpleAsset('/assets/logo.webp');
-      expect(asset.path, '/assets/logo.webp');
+      expect(asset.path, equals('/assets/logo.webp'));
     });
 
     test('light.path returns the same path', () {
       const asset = SimpleAsset('/assets/logo.webp');
-      expect(asset.light.path, '/assets/logo.webp');
+      expect(asset.light.path, equals('/assets/logo.webp'));
     });
 
     test('dark.path returns the same path', () {
       const asset = SimpleAsset('/assets/logo.webp');
-      expect(asset.dark.path, '/assets/logo.webp');
+      expect(asset.dark.path, equals('/assets/logo.webp'));
     });
   });
 
@@ -32,7 +32,7 @@ void main() {
         light: '/assets/light/logo.webp',
         dark: '/assets/dark/logo.webp',
       );
-      expect(asset.path, '/assets/light/logo.webp');
+      expect(asset.path, equals('/assets/light/logo.webp'));
     });
 
     test('light.path returns the light path', () {
@@ -40,7 +40,7 @@ void main() {
         light: '/assets/light/logo.webp',
         dark: '/assets/dark/logo.webp',
       );
-      expect(asset.light.path, '/assets/light/logo.webp');
+      expect(asset.light.path, equals('/assets/light/logo.webp'));
     });
 
     test('dark.path returns the dark path', () {
@@ -48,7 +48,7 @@ void main() {
         light: '/assets/light/logo.webp',
         dark: '/assets/dark/logo.webp',
       );
-      expect(asset.dark.path, '/assets/dark/logo.webp');
+      expect(asset.dark.path, equals('/assets/dark/logo.webp'));
     });
   });
 
@@ -76,7 +76,7 @@ void main() {
         SimpleAsset() => 'simple',
         ThemedAsset() => 'themed',
       };
-      expect(result, 'themed');
+      expect(result, equals('themed'));
     });
   });
 }

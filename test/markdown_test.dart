@@ -75,14 +75,26 @@ tags: [api, reference]
 
 Content.
 ''';
-      final (meta, markdown) = FrontmatterHandler.parseWithMeta(content);
+      final (
+        PageMeta(
+          :title,
+          :sidebarPosition,
+          :sidebarTitle,
+          :description,
+          :tags,
+          :showInSidebar,
+        ),
+        markdown,
+      ) = FrontmatterHandler.parseWithMeta(
+        content,
+      );
 
-      expect(meta.title, equals('My Page'));
-      expect(meta.sidebarPosition, equals(2));
-      expect(meta.sidebarTitle, equals('Short Title'));
-      expect(meta.description, equals('SEO description'));
-      expect(meta.tags, equals(['api', 'reference']));
-      expect(meta.showInSidebar, isTrue);
+      expect(title, equals('My Page'));
+      expect(sidebarPosition, equals(2));
+      expect(sidebarTitle, equals('Short Title'));
+      expect(description, equals('SEO description'));
+      expect(tags, equals(['api', 'reference']));
+      expect(showInSidebar, isTrue);
       expect(markdown.trim(), equals('Content.'));
     });
 
@@ -192,11 +204,11 @@ Some text.
 
   group('PageMeta', () {
     test('creates with default values', () {
-      const meta = PageMeta();
+      final PageMeta(:title, :showInSidebar, :tags) = const PageMeta();
 
-      expect(meta.title, isNull);
-      expect(meta.showInSidebar, isTrue);
-      expect(meta.tags, isEmpty);
+      expect(title, isNull);
+      expect(showInSidebar, isTrue);
+      expect(tags, isEmpty);
     });
 
     test('fromMap parses all fields', () {
@@ -210,15 +222,25 @@ Some text.
         'slug': '/custom-slug',
       };
 
-      final meta = PageMeta.fromMap(map);
+      final PageMeta(
+        :title,
+        :description,
+        :sidebarPosition,
+        :sidebarTitle,
+        :showInSidebar,
+        :tags,
+        :slug,
+      ) = PageMeta.fromMap(
+        map,
+      );
 
-      expect(meta.title, equals('Test'));
-      expect(meta.description, equals('Desc'));
-      expect(meta.sidebarPosition, equals(5));
-      expect(meta.sidebarTitle, equals('Short'));
-      expect(meta.showInSidebar, isFalse);
-      expect(meta.tags, equals(['a', 'b']));
-      expect(meta.slug, equals('/custom-slug'));
+      expect(title, equals('Test'));
+      expect(description, equals('Desc'));
+      expect(sidebarPosition, equals(5));
+      expect(sidebarTitle, equals('Short'));
+      expect(showInSidebar, isFalse);
+      expect(tags, equals(['a', 'b']));
+      expect(slug, equals('/custom-slug'));
     });
 
     test('toMap exports fields correctly', () {

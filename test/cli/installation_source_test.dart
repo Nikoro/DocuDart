@@ -4,28 +4,31 @@ import 'package:docudart/src/cli/version/installation_source.dart';
 void main() {
   group('InstallationInfo', () {
     test('stores source and git fields', () {
-      final info = InstallationInfo(
+      final InstallationInfo(
+        :source,
+        :gitUrl,
+        :gitRef,
+        :version,
+      ) = InstallationInfo(
         source: InstallationSource.git,
         gitUrl: 'https://github.com/Nikoro/docudart',
         gitRef: 'abc123',
       );
 
-      expect(info.source, equals(InstallationSource.git));
-      expect(info.gitUrl, equals('https://github.com/Nikoro/docudart'));
-      expect(info.gitRef, equals('abc123'));
-      expect(info.version, isNull);
+      expect(source, equals(InstallationSource.git));
+      expect(gitUrl, equals('https://github.com/Nikoro/docudart'));
+      expect(gitRef, equals('abc123'));
+      expect(version, isNull);
     });
 
     test('stores source and version for hosted', () {
-      final info = InstallationInfo(
-        source: InstallationSource.hosted,
-        version: '1.0.0',
-      );
+      final InstallationInfo(:source, :version, :gitUrl, :gitRef) =
+          InstallationInfo(source: InstallationSource.hosted, version: '1.0.0');
 
-      expect(info.source, equals(InstallationSource.hosted));
-      expect(info.version, equals('1.0.0'));
-      expect(info.gitUrl, isNull);
-      expect(info.gitRef, isNull);
+      expect(source, equals(InstallationSource.hosted));
+      expect(version, equals('1.0.0'));
+      expect(gitUrl, isNull);
+      expect(gitRef, isNull);
     });
   });
 

@@ -10,11 +10,12 @@ void main() {
 
   group('MarkdownProcessor', () {
     test('empty content returns empty HTML', () {
-      final result = processor.process('');
+      final ProcessedMarkdown(:html, :tableOfContents, :components) = processor
+          .process('');
 
-      expect(result.html, isEmpty);
-      expect(result.tableOfContents, isEmpty);
-      expect(result.components, isEmpty);
+      expect(html, isEmpty);
+      expect(tableOfContents, isEmpty);
+      expect(components, isEmpty);
     });
 
     test('processes plain markdown without frontmatter', () {

@@ -52,12 +52,13 @@ void main() {
 
   group('DocuDartErrors', () {
     test('configNotFound creates exception with hint and command', () {
-      final e = DocuDartErrors.configNotFound();
+      final DocuDartException(:message, :hint, :command) =
+          DocuDartErrors.configNotFound();
 
-      expect(e.message, equals('DocuDart project not found.'));
-      expect(e.hint, isNotNull);
-      expect(e.hint, contains('docudart/ directory'));
-      expect(e.command, equals('docudart create'));
+      expect(message, equals('DocuDart project not found.'));
+      expect(hint, isNotNull);
+      expect(hint, contains('docudart/ directory'));
+      expect(command, equals('docudart create'));
     });
 
     test('docsNotFound includes directory path', () {

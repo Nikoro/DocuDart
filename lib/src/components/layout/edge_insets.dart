@@ -44,7 +44,7 @@ class EdgeInsets {
   /// Convert to Jaspr's [Spacing] type for use in `Styles(padding: ...)`.
   Spacing toSpacing() {
     if (left == top && top == right && right == bottom) {
-      if (left == 0) return Spacing.zero;
+      if (left == 0) return .zero;
       return Spacing.all(Unit.pixels(left));
     }
     if (left == right && top == bottom) {
@@ -66,7 +66,7 @@ class EdgeInsets {
     double? top,
     double? right,
     double? bottom,
-  }) => EdgeInsets.fromLTRB(
+  }) => .fromLTRB(
     left ?? this.left,
     top ?? this.top,
     right ?? this.right,

@@ -20,16 +20,16 @@ Future<void> showVersion() async {
     final updateCheck = await checkForUpdate(version);
 
     if (updateCheck != null && updateCheck.hasNewerVersion) {
+      final VersionCheckResult(:latestVersion, :changelogUrl) = updateCheck;
       CliPrinter.line(
         '${_orange}Update available!$_reset '
-        '$_blue$version$_reset → $_blue${updateCheck.latestVersion}$_reset',
+        '$_blue$version$_reset → $_blue$latestVersion$_reset',
       );
 
-      if (updateCheck.changelogUrl != null) {
-        final url = updateCheck.changelogUrl!;
+      if (changelogUrl != null) {
         // OSC 8 hyperlink: \x1B]8;;URL\x1B\\TEXT\x1B]8;;\x1B\\
         final clickableLink =
-            '\x1B]8;;$url\x1B\\$_blue$url$_reset\x1B]8;;\x1B\\';
+            '\x1B]8;;$changelogUrl\x1B\\$_blue$changelogUrl$_reset\x1B]8;;\x1B\\';
         CliPrinter.line('${_orange}Changelog:$_reset $clickableLink');
       }
 

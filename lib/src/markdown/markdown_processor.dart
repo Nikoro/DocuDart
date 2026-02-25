@@ -76,7 +76,7 @@ class MarkdownProcessor {
 
     final lines = componentResult.content.split('\n');
     final nodes = document.parseLines(lines);
-    var html = md.renderToHtml(nodes);
+    String html = md.renderToHtml(nodes);
 
     // Step 4: Extract table of contents
     final toc = _extractTableOfContents(nodes);
@@ -105,7 +105,7 @@ class MarkdownProcessor {
     String html,
     List<EmbeddedComponent> components,
   ) {
-    var result = html;
+    String result = html;
 
     for (final component in components) {
       // Find the placeholder div
@@ -173,7 +173,7 @@ class MarkdownProcessor {
 
   /// Add IDs to heading elements in HTML.
   String _addHeadingIds(String html, List<TocEntry> toc) {
-    var result = html;
+    String result = html;
 
     for (final entry in toc) {
       // Match heading tag without id attribute

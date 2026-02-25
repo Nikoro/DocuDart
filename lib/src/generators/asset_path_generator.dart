@@ -156,10 +156,10 @@ class AssetPathGenerator {
 
     for (final entry in merged.entries) {
       final parts = entry.key.split('/');
-      var node = root;
+      _AssetNode node = root;
 
       // Navigate/create intermediate directory nodes.
-      for (var i = 0; i < parts.length - 1; i++) {
+      for (int i = 0; i < parts.length - 1; i++) {
         final dirName = parts[i];
         final id = _toIdentifier(dirName);
         node = node.dirs.putIfAbsent(
@@ -207,15 +207,15 @@ class AssetPathGenerator {
     // File leaves.
     for (final entry in node.files.entries) {
       final leaf = entry.value;
-      final asset = leaf.asset;
+      final _MergedAsset(:isThemed, :lightPath, :darkPath) = leaf.asset;
       buffer.writeln();
-      if (asset.isThemed) {
+      if (isThemed) {
         buffer.writeln(
-          "  final Asset ${leaf.identifier} = ThemedAsset(light: '${asset.lightPath}', dark: '${asset.darkPath}');",
+          "  final Asset ${leaf.identifier} = ThemedAsset(light: '$lightPath', dark: '$darkPath');",
         );
       } else {
         buffer.writeln(
-          "  final Asset ${leaf.identifier} = SimpleAsset('${asset.lightPath}');",
+          "  final Asset ${leaf.identifier} = SimpleAsset('$lightPath');",
         );
       }
     }
@@ -279,7 +279,7 @@ class AssetPathGenerator {
   /// `logo.webp` → `logo_webp`, `favicon-32x32.png` → `favicon_32x32_png`,
   /// `1icon.svg` → `\$1icon_svg`.
   static String _toIdentifier(String name) {
-    var result = name.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
+    String result = name.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
     result = result.replaceAll(RegExp(r'_+'), '_');
     result = result.replaceAll(RegExp(r'^_+|_+$'), '');
     if (result.isEmpty) return 'unnamed';

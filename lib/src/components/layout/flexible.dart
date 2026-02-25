@@ -37,7 +37,7 @@ class Flexible extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       styles: Styles(
-        flex: fit == FlexFit.tight
+        flex: fit == .tight
             ? Flex(grow: flex.toDouble(), shrink: 0, basis: Unit.zero)
             : Flex.grow(flex.toDouble()),
       ),

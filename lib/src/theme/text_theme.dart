@@ -119,7 +119,7 @@ class TextTheme {
     this.code = const TextStyle(fontSize: 0.875),
   });
 
-  factory TextTheme.fromJson(Map<String, dynamic> json) => TextTheme(
+  factory TextTheme.fromJson(Map<String, dynamic> json) => .new(
     fontFamily:
         json['fontFamily'] as String? ?? 'system-ui, -apple-system, sans-serif',
     monoFontFamily: json['monoFontFamily'] as String? ?? 'monospace',
@@ -217,7 +217,7 @@ class TextTheme {
     TextStyle? h6,
     TextStyle? body,
     TextStyle? code,
-  }) => TextTheme(
+  }) => .new(
     fontFamily: fontFamily ?? this.fontFamily,
     monoFontFamily: monoFontFamily ?? this.monoFontFamily,
     fontImportUrl: fontImportUrl ?? this.fontImportUrl,

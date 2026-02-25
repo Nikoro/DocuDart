@@ -39,7 +39,7 @@ class VersionCheckResult {
 Future<VersionCheckResult?> checkForUpdate(String currentVersion) async {
   final installationInfo = await detectInstallationSource();
 
-  if (installationInfo.source == InstallationSource.git) {
+  if (installationInfo.source == .git) {
     return _checkGitHubRelease(currentVersion, installationInfo.gitUrl);
   } else {
     return _checkPubDev(currentVersion);

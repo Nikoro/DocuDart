@@ -35,7 +35,7 @@ class HeaderTheme {
     this.shadowOpacity = 0.08,
   });
 
-  factory HeaderTheme.fromJson(Map<String, dynamic> json) => HeaderTheme(
+  factory HeaderTheme.fromJson(Map<String, dynamic> json) => .new(
     paddingH: (json['paddingH'] as num?)?.toDouble() ?? 2.0,
     paddingV: (json['paddingV'] as num?)?.toDouble() ?? 1.0,
     hasBoxShadow: json['hasBoxShadow'] as bool? ?? false,
@@ -64,7 +64,7 @@ class HeaderTheme {
     bool? hasBoxShadow,
     double? shadowBlur,
     double? shadowOpacity,
-  }) => HeaderTheme(
+  }) => .new(
     paddingH: paddingH ?? this.paddingH,
     paddingV: paddingV ?? this.paddingV,
     hasBoxShadow: hasBoxShadow ?? this.hasBoxShadow,

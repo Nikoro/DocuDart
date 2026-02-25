@@ -51,7 +51,7 @@ class CardTheme {
     this.hoverTranslateY = 0,
   });
 
-  factory CardTheme.fromJson(Map<String, dynamic> json) => CardTheme(
+  factory CardTheme.fromJson(Map<String, dynamic> json) => .new(
     padding: (json['padding'] as num?)?.toDouble() ?? 1.5,
     borderRadius: (json['borderRadius'] as num?)?.toDouble() ?? 0.5,
     hasBoxShadow: json['hasBoxShadow'] as bool? ?? false,
@@ -103,7 +103,7 @@ class CardTheme {
     double? hoverShadowBlur,
     double? hoverShadowOpacity,
     double? hoverTranslateY,
-  }) => CardTheme(
+  }) => .new(
     padding: padding ?? this.padding,
     borderRadius: borderRadius ?? this.borderRadius,
     hasBoxShadow: hasBoxShadow ?? this.hasBoxShadow,

@@ -129,7 +129,7 @@ class ServeCommand extends Command<int> {
       ], workingDirectory: managedDir);
 
       // Filter Jaspr output — suppress noisy internal logs.
-      process.stdout
+      final stdoutSub = process.stdout
           .transform(utf8.decoder)
           .transform(const LineSplitter())
           .listen((line) {
@@ -137,7 +137,7 @@ class ServeCommand extends Command<int> {
               stdout.writeln(line);
             }
           });
-      process.stderr
+      final stderrSub = process.stderr
           .transform(utf8.decoder)
           .transform(const LineSplitter())
           .listen((line) {
@@ -147,10 +147,10 @@ class ServeCommand extends Command<int> {
           });
 
       // Forward stdin to the process.
-      stdin.listen(process.stdin.add);
+      final stdinSub = stdin.listen(process.stdin.add);
 
       // Handle Ctrl+C
-      ProcessSignal.sigint.watch().listen((_) async {
+      final sigintSub = ProcessSignal.sigint.watch().listen((_) async {
         await fileWatcher?.stop();
         process.kill();
         exit(0);
@@ -158,7 +158,11 @@ class ServeCommand extends Command<int> {
 
       final exitCode = await process.exitCode;
 
-      // Clean up file watcher
+      // Clean up subscriptions and file watcher
+      await stdoutSub.cancel();
+      await stderrSub.cancel();
+      await stdinSub.cancel();
+      await sigintSub.cancel();
       await fileWatcher?.stop();
 
       // Check for port in use error

@@ -11,8 +11,7 @@ import 'package:docudart/docudart.dart';
 /// Logo(image: img(src: '/assets/logo.svg', alt: 'Logo'), title: 'My Project')
 /// ```
 class Logo extends StatelessComponent {
-  const Logo({this.image, this.title, this.href = '/', super.key})
-    : assert(image != null || title != null);
+  const Logo({this.image, this.title, this.href = '/', super.key});
   final Component? image;
   final String? title;
   final String href;

@@ -131,7 +131,7 @@ class MarkdownTheme {
     this.darkCodeTheme = const CodeTheme.nightOwl(),
   });
 
-  factory MarkdownTheme.fromJson(Map<String, dynamic> json) => MarkdownTheme(
+  factory MarkdownTheme.fromJson(Map<String, dynamic> json) => .new(
     linkDecoration: json['linkDecoration'] as String? ?? 'none',
     linkHoverDecoration: json['linkHoverDecoration'] as String? ?? 'underline',
     blockquoteBorderWidth:
@@ -250,7 +250,7 @@ class MarkdownTheme {
     double? h4MarginBottom,
     CodeTheme? lightCodeTheme,
     CodeTheme? darkCodeTheme,
-  }) => MarkdownTheme(
+  }) => .new(
     linkDecoration: linkDecoration ?? this.linkDecoration,
     linkHoverDecoration: linkHoverDecoration ?? this.linkHoverDecoration,
     blockquoteBorderWidth: blockquoteBorderWidth ?? this.blockquoteBorderWidth,

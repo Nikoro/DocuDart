@@ -72,10 +72,10 @@ class SimpleAsset extends Asset {
   String get path => _path;
 
   @override
-  AssetVariant get light => AssetVariant(_path);
+  AssetVariant get light => .new(_path);
 
   @override
-  AssetVariant get dark => AssetVariant(_path);
+  AssetVariant get dark => .new(_path);
 
   @override
   Component call({String alt = '', String? classes}) =>

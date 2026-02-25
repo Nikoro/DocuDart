@@ -88,7 +88,7 @@ class PageMeta {
 }
 
 /// Handles parsing YAML frontmatter from markdown files.
-class FrontmatterHandler {
+abstract final class FrontmatterHandler {
   /// Regular expression to match frontmatter block.
   /// Matches content between --- delimiters at the start of the file.
   static final _frontmatterRegex = RegExp(

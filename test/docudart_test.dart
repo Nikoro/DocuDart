@@ -4,19 +4,33 @@ import 'package:docudart/docudart.dart';
 void main() {
   group('Config', () {
     test('creates with default values', () {
-      final config = Config();
+      final Config(
+        :docsDir,
+        :outputDir,
+        :assetsDir,
+        :themeMode,
+        :header,
+        :footer,
+        :sidebar,
+      ) = Config();
 
-      expect(config.docsDir, equals('docs'));
-      expect(config.outputDir, equals('build/web'));
-      expect(config.assetsDir, equals('assets'));
-      expect(config.themeMode, equals(ThemeMode.system));
-      expect(config.header, isNull);
-      expect(config.footer, isNull);
-      expect(config.sidebar, isNull);
+      expect(docsDir, equals('docs'));
+      expect(outputDir, equals('build/web'));
+      expect(assetsDir, equals('assets'));
+      expect(themeMode, equals(ThemeMode.system));
+      expect(header, isNull);
+      expect(footer, isNull);
+      expect(sidebar, isNull);
     });
 
     test('accepts custom values', () {
-      final config = Config(
+      final Config(
+        :title,
+        :description,
+        :docsDir,
+        :outputDir,
+        :themeMode,
+      ) = Config(
         title: 'My Docs',
         description: 'Test description',
         docsDir: 'documentation',
@@ -24,11 +38,11 @@ void main() {
         themeMode: ThemeMode.dark,
       );
 
-      expect(config.title, equals('My Docs'));
-      expect(config.description, equals('Test description'));
-      expect(config.docsDir, equals('documentation'));
-      expect(config.outputDir, equals('dist'));
-      expect(config.themeMode, equals(ThemeMode.dark));
+      expect(title, equals('My Docs'));
+      expect(description, equals('Test description'));
+      expect(docsDir, equals('documentation'));
+      expect(outputDir, equals('dist'));
+      expect(themeMode, equals(ThemeMode.dark));
     });
 
     test('copyWith creates modified copy', () {
@@ -41,19 +55,19 @@ void main() {
     });
 
     test('header/footer/sidebar accept functions', () {
-      final config = Config(
+      final Config(:header, :footer, :sidebar) = Config(
         header: () => div([.text('header')]),
         footer: () => div([.text('footer')]),
         sidebar: () => div([.text('sidebar')]),
       );
 
-      expect(config.header, isNotNull);
-      expect(config.footer, isNotNull);
-      expect(config.sidebar, isNotNull);
+      expect(header, isNotNull);
+      expect(footer, isNotNull);
+      expect(sidebar, isNotNull);
 
-      expect(config.header!(), isA<Component>());
-      expect(config.footer!(), isA<Component>());
-      expect(config.sidebar!(), isA<Component>());
+      expect(header!(), isA<Component>());
+      expect(footer!(), isA<Component>());
+      expect(sidebar!(), isA<Component>());
     });
 
     test('toJson excludes function fields', () {
@@ -70,12 +84,14 @@ void main() {
     });
 
     test('fromJson sets functions to null', () {
-      final config = Config.fromJson({'title': 'Test'});
+      final Config(:title, :header, :footer, :sidebar) = Config.fromJson({
+        'title': 'Test',
+      });
 
-      expect(config.title, equals('Test'));
-      expect(config.header, isNull);
-      expect(config.footer, isNull);
-      expect(config.sidebar, isNull);
+      expect(title, equals('Test'));
+      expect(header, isNull);
+      expect(footer, isNull);
+      expect(sidebar, isNull);
     });
   });
 
@@ -144,12 +160,15 @@ void main() {
 
   group('Link', () {
     test('creates path and url nav links', () {
-      final pathLink = Link.path('/docs', label: 'Docs');
+      final Link(:isExternal, :href, :label) = Link.path(
+        '/docs',
+        label: 'Docs',
+      );
       final urlLink = Link.url('https://github.com/example', label: 'GitHub');
 
-      expect(pathLink.isExternal, isFalse);
-      expect(pathLink.href, equals('/docs'));
-      expect(pathLink.label, equals('Docs'));
+      expect(isExternal, isFalse);
+      expect(href, equals('/docs'));
+      expect(label, equals('Docs'));
 
       expect(urlLink.isExternal, isTrue);
       expect(urlLink.href, equals('https://github.com/example'));
@@ -170,10 +189,13 @@ void main() {
     });
 
     test('supports leading-only link', () {
-      final link = Link.url('https://github.com', leading: span([.text('*')]));
-      expect(link.label, isNull);
-      expect(link.leading, isNotNull);
-      expect(link.href, equals('https://github.com'));
+      final Link(:label, :leading, :href) = Link.url(
+        'https://github.com',
+        leading: span([.text('*')]),
+      );
+      expect(label, isNull);
+      expect(leading, isNotNull);
+      expect(href, equals('https://github.com'));
     });
 
     test('supports leading and label together', () {
@@ -202,23 +224,44 @@ void main() {
 
   group('Pubspec', () {
     test('creates with required name', () {
-      const pubspec = Pubspec(
+      final Pubspec(
+        :name,
+        :version,
+        :description,
+        :homepage,
+        :repository,
+        :funding,
+        :topics,
+        :environment,
+      ) = const Pubspec(
         name: 'my_package',
         environment: Environment(sdk: '^3.10.0'),
       );
-      expect(pubspec.name, equals('my_package'));
-      expect(pubspec.version, isNull);
-      expect(pubspec.description, isNull);
-      expect(pubspec.homepage, isNull);
-      expect(pubspec.repository, isNull);
-      expect(pubspec.funding, isNull);
-      expect(pubspec.topics, isNull);
-      expect(pubspec.environment.sdk, equals('^3.10.0'));
-      expect(pubspec.environment.flutter, isNull);
+      expect(name, equals('my_package'));
+      expect(version, isNull);
+      expect(description, isNull);
+      expect(homepage, isNull);
+      expect(repository, isNull);
+      expect(funding, isNull);
+      expect(topics, isNull);
+      expect(environment.sdk, equals('^3.10.0'));
+      expect(environment.flutter, isNull);
     });
 
     test('creates with all fields', () {
-      const pubspec = Pubspec(
+      final Pubspec(
+        :name,
+        :version,
+        :description,
+        :homepage,
+        :repository,
+        :issueTracker,
+        :documentation,
+        :publishTo,
+        :funding,
+        :topics,
+        :environment,
+      ) = const Pubspec(
         name: 'my_package',
         version: '1.0.0',
         description: 'A test package',
@@ -231,50 +274,50 @@ void main() {
         topics: ['dart', 'test'],
         environment: Environment(sdk: '^3.10.0'),
       );
-      expect(pubspec.name, equals('my_package'));
-      expect(pubspec.version, equals('1.0.0'));
-      expect(pubspec.description, equals('A test package'));
-      expect(pubspec.homepage, equals('https://example.com'));
+      expect(name, equals('my_package'));
+      expect(version, equals('1.0.0'));
+      expect(description, equals('A test package'));
+      expect(homepage, equals('https://example.com'));
       expect(
-        pubspec.repository,
+        repository,
         equals(const Repository('https://github.com/example/my_package')),
       );
       expect(
-        pubspec.issueTracker,
+        issueTracker,
         equals('https://github.com/example/my_package/issues'),
       );
-      expect(pubspec.documentation, equals('https://example.com/docs'));
-      expect(pubspec.publishTo, equals('none'));
-      expect(pubspec.funding, equals(['https://github.com/sponsors/example']));
-      expect(pubspec.topics, equals(['dart', 'test']));
-      expect(pubspec.environment.sdk, equals('^3.10.0'));
-      expect(pubspec.environment.flutter, isNull);
+      expect(documentation, equals('https://example.com/docs'));
+      expect(publishTo, equals('none'));
+      expect(funding, equals(['https://github.com/sponsors/example']));
+      expect(topics, equals(['dart', 'test']));
+      expect(environment.sdk, equals('^3.10.0'));
+      expect(environment.flutter, isNull);
     });
   });
 
   group('Project', () {
     test('creates with required fields', () {
-      const project = Project(
-        pubspec: Pubspec(
-          name: 'test',
-          environment: Environment(sdk: 'any'),
-        ),
-        docs: [],
-        pages: [],
+      const pubspec = Pubspec(
+        name: 'test',
+        environment: Environment(sdk: 'any'),
       );
+      const project = Project(pubspec: pubspec, docs: [], pages: []);
+      final Project(pubspec: projectPubspec, :docs, :pages) = project;
 
-      expect(project.pubspec.name, equals('test'));
-      expect(project.docs, isEmpty);
-      expect(project.pages, isEmpty);
+      expect(projectPubspec, equals(pubspec));
+      expect(docs, isEmpty);
+      expect(pages, isEmpty);
     });
   });
 
   group('Repository', () {
     test('detects GitHub from URL', () {
-      const repo = Repository('https://github.com/user/repo');
-      expect(repo.link, equals('https://github.com/user/repo'));
-      expect(repo.label, equals('GitHub'));
-      expect(repo.icon, isA<Component>());
+      final Repository(:link, :label, :icon) = const Repository(
+        'https://github.com/user/repo',
+      );
+      expect(link, equals('https://github.com/user/repo'));
+      expect(label, equals('GitHub'));
+      expect(icon, isA<Component>());
     });
 
     test('detects GitHub from subdomain', () {
@@ -300,9 +343,8 @@ void main() {
 
     test('equality based on link', () {
       const repo1 = Repository('https://github.com/user/repo');
-      const repo2 = Repository('https://github.com/user/repo');
       const repo3 = Repository('https://gitlab.com/user/repo');
-      expect(repo1, equals(repo2));
+      expect(repo1, equals(repo1));
       expect(repo1, isNot(equals(repo3)));
     });
 
@@ -324,15 +366,19 @@ void main() {
     });
 
     test('can be enabled with versions', () {
-      const config = VersioningConfig(
+      final VersioningConfig(
+        :enabled,
+        :versions,
+        :defaultVersion,
+      ) = const VersioningConfig(
         enabled: true,
         versions: ['v1', 'v2'],
         defaultVersion: 'v2',
       );
 
-      expect(config.enabled, isTrue);
-      expect(config.versions, equals(['v1', 'v2']));
-      expect(config.defaultVersion, equals('v2'));
+      expect(enabled, isTrue);
+      expect(versions, equals(['v1', 'v2']));
+      expect(defaultVersion, equals('v2'));
     });
   });
 }

@@ -27,12 +27,11 @@ class IconButtonTheme {
     this.iconSize = 1.25,
   });
 
-  factory IconButtonTheme.fromJson(Map<String, dynamic> json) =>
-      IconButtonTheme(
-        padding: (json['padding'] as num?)?.toDouble() ?? 0.5,
-        borderRadius: (json['borderRadius'] as num?)?.toDouble() ?? 0.375,
-        iconSize: (json['iconSize'] as num?)?.toDouble() ?? 1.25,
-      );
+  factory IconButtonTheme.fromJson(Map<String, dynamic> json) => .new(
+    padding: (json['padding'] as num?)?.toDouble() ?? 0.5,
+    borderRadius: (json['borderRadius'] as num?)?.toDouble() ?? 0.375,
+    iconSize: (json['iconSize'] as num?)?.toDouble() ?? 1.25,
+  );
 
   /// Button padding in rem.
   final double padding;
@@ -47,7 +46,7 @@ class IconButtonTheme {
     double? padding,
     double? borderRadius,
     double? iconSize,
-  }) => IconButtonTheme(
+  }) => .new(
     padding: padding ?? this.padding,
     borderRadius: borderRadius ?? this.borderRadius,
     iconSize: iconSize ?? this.iconSize,

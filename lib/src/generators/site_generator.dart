@@ -5,6 +5,7 @@ import 'package:path/path.dart' as p;
 import '../cli/errors.dart';
 import '../config/config_loader.dart';
 import '../config/docudart_config.dart';
+import '../markdown/frontmatter_handler.dart';
 import '../markdown/markdown_processor.dart';
 import '../markdown/opal_highlighter.dart';
 import '../models/doc.dart';
@@ -216,56 +217,62 @@ jaspr:
 
   /// Generate pubspec_data.dart with const Pubspec from the parent project.
   Future<void> _generatePubspecData(Pubspec pubspec) async {
+    final Pubspec(
+      :name,
+      :version,
+      :description,
+      :homepage,
+      :repository,
+      :issueTracker,
+      :documentation,
+      :publishTo,
+      :funding,
+      :topics,
+      :environment,
+    ) = pubspec;
     final buffer = StringBuffer();
     buffer.writeln("import 'package:docudart/docudart.dart';");
     buffer.writeln();
     buffer.writeln('/// Auto-generated from the parent project pubspec.yaml.');
     buffer.writeln('const projectPubspec = Pubspec(');
-    buffer.writeln("  name: '${_escapeForDart(pubspec.name)}',");
-    if (pubspec.version != null) {
-      buffer.writeln("  version: '${_escapeForDart(pubspec.version!)}',");
+    buffer.writeln("  name: '${_escapeForDart(name)}',");
+    if (version != null) {
+      buffer.writeln("  version: '${_escapeForDart(version)}',");
     }
-    if (pubspec.description != null) {
+    if (description != null) {
+      buffer.writeln("  description: '${_escapeForDart(description)}',");
+    }
+    if (homepage != null) {
+      buffer.writeln("  homepage: '${_escapeForDart(homepage)}',");
+    }
+    if (repository != null) {
       buffer.writeln(
-        "  description: '${_escapeForDart(pubspec.description!)}',",
+        "  repository: Repository('${_escapeForDart(repository.link)}'),",
       );
     }
-    if (pubspec.homepage != null) {
-      buffer.writeln("  homepage: '${_escapeForDart(pubspec.homepage!)}',");
+    if (issueTracker != null) {
+      buffer.writeln("  issueTracker: '${_escapeForDart(issueTracker)}',");
     }
-    if (pubspec.repository != null) {
+    if (documentation != null) {
+      buffer.writeln("  documentation: '${_escapeForDart(documentation)}',");
+    }
+    if (publishTo != null) {
+      buffer.writeln("  publishTo: '${_escapeForDart(publishTo)}',");
+    }
+    if (funding?.isNotEmpty == true) {
       buffer.writeln(
-        "  repository: Repository('${_escapeForDart(pubspec.repository!.link)}'),",
+        "  funding: [${funding!.map((f) => "'${_escapeForDart(f)}'").join(', ')}],",
       );
     }
-    if (pubspec.issueTracker != null) {
+    if (topics?.isNotEmpty == true) {
       buffer.writeln(
-        "  issueTracker: '${_escapeForDart(pubspec.issueTracker!)}',",
+        "  topics: [${topics!.map((t) => "'${_escapeForDart(t)}'").join(', ')}],",
       );
     }
-    if (pubspec.documentation != null) {
-      buffer.writeln(
-        "  documentation: '${_escapeForDart(pubspec.documentation!)}',",
-      );
-    }
-    if (pubspec.publishTo != null) {
-      buffer.writeln("  publishTo: '${_escapeForDart(pubspec.publishTo!)}',");
-    }
-    if (pubspec.funding?.isNotEmpty == true) {
-      buffer.writeln(
-        "  funding: [${pubspec.funding!.map((f) => "'${_escapeForDart(f)}'").join(', ')}],",
-      );
-    }
-    if (pubspec.topics?.isNotEmpty == true) {
-      buffer.writeln(
-        "  topics: [${pubspec.topics!.map((t) => "'${_escapeForDart(t)}'").join(', ')}],",
-      );
-    }
-    final env = pubspec.environment;
     buffer.writeln('  environment: Environment(');
-    buffer.writeln("    sdk: '${_escapeForDart(env.sdk)}',");
-    if (env.flutter != null) {
-      buffer.writeln("    flutter: '${_escapeForDart(env.flutter!)}',");
+    buffer.writeln("    sdk: '${_escapeForDart(environment.sdk)}',");
+    if (environment.flutter != null) {
+      buffer.writeln("    flutter: '${_escapeForDart(environment.flutter!)}',");
     }
     buffer.writeln('  ),');
     buffer.writeln(');');
@@ -523,16 +530,16 @@ ClientOptions get defaultClientOptions => ClientOptions();
       final parts = p.split(relativeWithoutExt);
 
       // Strip _page suffix from the filename (last segment)
-      var filename = parts.last;
+      String filename = parts.last;
       if (filename.endsWith('_page')) {
         filename = filename.substring(0, filename.length - '_page'.length);
       }
       parts[parts.length - 1] = filename;
 
       // Replace underscores with hyphens in all segments
-      final normalizedParts = parts
-          .map((part) => part.replaceAll('_', '-'))
-          .toList();
+      final normalizedParts = [
+        for (final part in parts) part.replaceAll('_', '-'),
+      ];
       final routePath = '/${normalizedParts.join('/')}';
 
       // Derive display name from the leaf segment
@@ -638,39 +645,32 @@ ClientOptions get defaultClientOptions => ClientOptions();
 
     // Generate a route for each doc page
     for (final page in pages) {
-      final escapedHtml = _escapeForDart(_encodePreNewlines(page.html));
-      final escapedTitle = _escapeForDart(page.title);
-      final escapedDesc = page.meta.description != null
-          ? _escapeForDart(page.meta.description!)
+      final DocPage(:html, :title, :meta, :urlPath) = page;
+      final PageMeta(:description, :image, :canonical, :noIndex) = meta;
+      final escapedHtml = _escapeForDart(_encodePreNewlines(html));
+      final escapedTitle = _escapeForDart(title);
+      final escapedDesc = description != null
+          ? _escapeForDart(description)
           : null;
-      final escapedImage = page.meta.image != null
-          ? _escapeForDart(page.meta.image!)
-          : null;
-      final escapedCanonical = page.meta.canonical != null
-          ? _escapeForDart(page.meta.canonical!)
+      final escapedImage = image != null ? _escapeForDart(image) : null;
+      final escapedCanonical = canonical != null
+          ? _escapeForDart(canonical)
           : null;
 
-      final seoParams = StringBuffer();
-      if (escapedDesc != null) {
-        seoParams.writeln("              description: '$escapedDesc',");
-      }
-      if (escapedSiteUrl != null) {
-        seoParams.writeln("              siteUrl: '$escapedSiteUrl',");
-      }
-      seoParams.writeln("              pagePath: '${page.urlPath}',");
-      if (escapedImage != null) {
-        seoParams.writeln("              image: '$escapedImage',");
-      }
-      if (escapedCanonical != null) {
-        seoParams.writeln("              canonicalUrl: '$escapedCanonical',");
-      }
-      if (page.meta.noIndex) {
-        seoParams.writeln('              noIndex: true,');
-      }
+      final seoLines = <String>[
+        if (escapedDesc != null) "              description: '$escapedDesc',",
+        if (escapedSiteUrl != null) "              siteUrl: '$escapedSiteUrl',",
+        "              pagePath: '$urlPath',",
+        if (escapedImage != null) "              image: '$escapedImage',",
+        if (escapedCanonical != null)
+          "              canonicalUrl: '$escapedCanonical',",
+        if (noIndex) '              noIndex: true,',
+      ];
+      final seoParams = '${seoLines.join('\n')}\n';
 
       routesBuffer.writeln('''
         Route(
-          path: '${page.urlPath}',
+          path: '$urlPath',
           title: '$escapedTitle - $siteTitle',
           builder: (context, state) => const LayoutDelegate(
             child: DocsPageContent(
@@ -683,22 +683,22 @@ $seoParams              htmlContent: \'\'\'$escapedHtml\'\'\',
 
     // Generate routes for discovered custom pages
     for (final page in discoveredPages) {
-      final escapedName = _escapeForDart(page.name);
+      final _DiscoveredPage(:name, :routePath, :className) = page;
+      final escapedName = _escapeForDart(name);
       routesBuffer.writeln('''
         Route(
-          path: '${page.routePath}',
+          path: '$routePath',
           title: '$escapedName - $siteTitle',
           builder: (context, state) => LayoutDelegate(
-            child: const ${page.className}(),
+            child: const $className(),
           ),
         ),''');
     }
 
     // Generate imports for discovered pages
-    final pageImports = StringBuffer();
-    for (final page in discoveredPages) {
-      pageImports.writeln("import '${page.filePath}';");
-    }
+    final pageImports = discoveredPages
+        .map((page) => "import '${page.filePath}';")
+        .join('\n');
 
     final app =
         '''
@@ -712,7 +712,7 @@ import 'config.dart';
 import 'project_data.dart';
 import 'layout.dart';
 import 'docs_page_content.dart';
-${pageImports.toString()}
+$pageImports
 class DocuDartApp extends StatelessComponent {
   const DocuDartApp({super.key});
 
@@ -967,15 +967,15 @@ class DocsPageContent extends StatelessComponent {
     String componentsDir,
     VersionManager versionManager,
   ) async {
-    final versions = versionManager.versions;
-    final defaultVersion = versionManager.defaultVersion;
+    final VersionManager(:versions, :defaultVersion, :latestVersion) =
+        versionManager;
 
     // Generate version data
     final versionDataBuffer = StringBuffer();
     versionDataBuffer.writeln('const versionData = <VersionData>[');
     for (final version in versions) {
       final isDefault = version == defaultVersion;
-      final isLatest = version == versionManager.latestVersion;
+      final isLatest = version == latestVersion;
       final label = _escapeForDart(version);
       final badgeList = <String>[];
       if (isLatest) badgeList.add('latest');

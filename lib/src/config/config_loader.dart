@@ -14,7 +14,7 @@ import '../theme/theme.dart';
 import '../theme/theme_loader.dart';
 
 /// Loads DocuDart configuration from config.dart or defaults.
-class ConfigLoader {
+abstract final class ConfigLoader {
   /// Load configuration from the current directory.
   ///
   /// The loader will:
@@ -27,10 +27,11 @@ class ConfigLoader {
     // Try to evaluate config.dart first (the Dart-based config)
     final dartConfig = await ConfigEvaluator.evaluate(dir);
     if (dartConfig != null) {
+      final Config(:docsDir, :outputDir, :assetsDir) = dartConfig;
       return dartConfig.copyWith(
-        docsDir: _absolutize(dir, dartConfig.docsDir),
-        outputDir: _absolutize(dir, dartConfig.outputDir),
-        assetsDir: _absolutize(dir, dartConfig.assetsDir),
+        docsDir: _absolutize(dir, docsDir),
+        outputDir: _absolutize(dir, outputDir),
+        assetsDir: _absolutize(dir, assetsDir),
       );
     }
 
@@ -85,12 +86,14 @@ class ConfigLoader {
         issueTracker: yaml['issue_tracker'] as String?,
         documentation: yaml['documentation'] as String?,
         publishTo: yaml['publish_to'] as String?,
-        funding: (yaml['funding'] as YamlList?)
-            ?.map((e) => e.toString())
-            .toList(),
-        topics: (yaml['topics'] as YamlList?)
-            ?.map((e) => e.toString())
-            .toList(),
+        funding: switch (yaml['funding'] as YamlList?) {
+          final list? => [for (final e in list) e.toString()],
+          null => null,
+        },
+        topics: switch (yaml['topics'] as YamlList?) {
+          final list? => [for (final e in list) e.toString()],
+          null => null,
+        },
         environment: Environment(
           sdk: env?['sdk']?.toString() ?? 'any',
           flutter: env?['flutter']?.toString(),

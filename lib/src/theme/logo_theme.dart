@@ -27,7 +27,7 @@ class LogoTheme {
     this.imageHeight = 1.5,
   });
 
-  factory LogoTheme.fromJson(Map<String, dynamic> json) => LogoTheme(
+  factory LogoTheme.fromJson(Map<String, dynamic> json) => .new(
     fontSize: (json['fontSize'] as num?)?.toDouble() ?? 1.25,
     fontWeight: json['fontWeight'] as int? ?? 600,
     imageHeight: (json['imageHeight'] as num?)?.toDouble() ?? 1.75,
@@ -46,7 +46,7 @@ class LogoTheme {
     double? fontSize,
     int? fontWeight,
     double? imageHeight,
-  }) => LogoTheme(
+  }) => .new(
     fontSize: fontSize ?? this.fontSize,
     fontWeight: fontWeight ?? this.fontWeight,
     imageHeight: imageHeight ?? this.imageHeight,

@@ -72,13 +72,13 @@ void main() {
         additions.add('$folderName/build/');
       }
 
+      String result = content;
       if (additions.isNotEmpty) {
-        final newContent =
+        result =
             '${content.trimRight()}\n\n# DocuDart\n${additions.join('\n')}\n';
-        await gitignoreFile.writeAsString(newContent);
+        await gitignoreFile.writeAsString(result);
       }
 
-      final result = await gitignoreFile.readAsString();
       expect(result, contains('.dart_tool/')); // original entry preserved
       expect(result, contains('my_docs/.dart_tool/'));
       expect(result, contains('my_docs/build/'));

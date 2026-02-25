@@ -50,7 +50,7 @@ class OpalHighlighter {
     final buffer = StringBuffer()
       ..write('<pre class="opal"><code class="language-$language">');
 
-    for (var i = 0; i < tokenizedLines.length; i++) {
+    for (int i = 0; i < tokenizedLines.length; i++) {
       for (final token in tokenizedLines[i]) {
         if (token.content.isEmpty) continue;
 
@@ -80,7 +80,7 @@ class OpalHighlighter {
   /// Tags are ordered least-to-most specific. Walk from the most specific
   /// end so the best match wins.
   (String, String)? _resolveColorPair(List<Tag> tags) {
-    for (var i = tags.length - 1; i >= 0; i--) {
+    for (int i = tags.length - 1; i >= 0; i--) {
       final pair = _tagToColorPair(tags[i]);
       if (pair != null) return pair;
     }

@@ -27,7 +27,7 @@ class LandingTheme {
     this.descriptionFontSize = 1.25,
   });
 
-  factory LandingTheme.fromJson(Map<String, dynamic> json) => LandingTheme(
+  factory LandingTheme.fromJson(Map<String, dynamic> json) => .new(
     paddingV: (json['paddingV'] as num?)?.toDouble() ?? 4.0,
     titleFontSize: (json['titleFontSize'] as num?)?.toDouble() ?? 3.0,
     descriptionFontSize:
@@ -47,7 +47,7 @@ class LandingTheme {
     double? paddingV,
     double? titleFontSize,
     double? descriptionFontSize,
-  }) => LandingTheme(
+  }) => .new(
     paddingV: paddingV ?? this.paddingV,
     titleFontSize: titleFontSize ?? this.titleFontSize,
     descriptionFontSize: descriptionFontSize ?? this.descriptionFontSize,

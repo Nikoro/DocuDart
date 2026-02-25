@@ -85,7 +85,7 @@ class SidebarTheme {
     this.expansionTileHoverBg,
   });
 
-  factory SidebarTheme.fromJson(Map<String, dynamic> json) => SidebarTheme(
+  factory SidebarTheme.fromJson(Map<String, dynamic> json) => .new(
     width: (json['width'] as num?)?.toDouble() ?? 280,
     paddingH: (json['paddingH'] as num?)?.toDouble() ?? 1.0,
     paddingV: (json['paddingV'] as num?)?.toDouble() ?? 2.0,
@@ -169,7 +169,7 @@ class SidebarTheme {
     double? activeOpacity,
     int? activeFontWeight,
     int? expansionTileHoverBg,
-  }) => SidebarTheme(
+  }) => .new(
     width: width ?? this.width,
     paddingH: paddingH ?? this.paddingH,
     paddingV: paddingV ?? this.paddingV,

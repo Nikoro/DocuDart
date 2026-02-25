@@ -40,20 +40,23 @@ void main() {
 
     group('fromJson', () {
       test('parses path link', () {
-        final link = Link.fromJson({'label': 'Docs', 'path': '/docs'});
-        expect(link.label, equals('Docs'));
-        expect(link.href, equals('/docs'));
-        expect(link.isExternal, isFalse);
+        final Link(:label, :href, :isExternal) = Link.fromJson({
+          'label': 'Docs',
+          'path': '/docs',
+        });
+        expect(label, equals('Docs'));
+        expect(href, equals('/docs'));
+        expect(isExternal, isFalse);
       });
 
       test('parses url link', () {
-        final link = Link.fromJson({
+        final Link(:label, :href, :isExternal) = Link.fromJson({
           'label': 'GitHub',
           'url': 'https://github.com',
         });
-        expect(link.label, equals('GitHub'));
-        expect(link.href, equals('https://github.com'));
-        expect(link.isExternal, isTrue);
+        expect(label, equals('GitHub'));
+        expect(href, equals('https://github.com'));
+        expect(isExternal, isTrue);
       });
 
       test('supports legacy title key', () {
@@ -96,10 +99,21 @@ void main() {
       test('roundtrips through fromJson/toJson', () {
         final original = Link.path('/docs/intro', label: 'Introduction');
         final json = original.toJson();
-        final restored = Link.fromJson(json);
-        expect(restored.label, equals(original.label));
-        expect(restored.href, equals(original.href));
-        expect(restored.isExternal, equals(original.isExternal));
+        final Link(
+          label: restoredLabel,
+          href: restoredHref,
+          isExternal: restoredIsExternal,
+        ) = Link.fromJson(
+          json,
+        );
+        final Link(
+          label: originalLabel,
+          href: originalHref,
+          isExternal: originalIsExternal,
+        ) = original;
+        expect(restoredLabel, equals(originalLabel));
+        expect(restoredHref, equals(originalHref));
+        expect(restoredIsExternal, equals(originalIsExternal));
       });
     });
   });

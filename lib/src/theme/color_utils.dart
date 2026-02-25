@@ -83,15 +83,15 @@ class HSL {
   }
 
   /// Return a new HSL with a different [hue].
-  HSL withHue(double hue) => HSL(hue % 360, saturation, lightness);
+  HSL withHue(double hue) => .new(hue % 360, saturation, lightness);
 
   /// Return a new HSL with a different [saturation] (0.0–1.0).
-  HSL withSaturation(double saturation) => HSL(hue, saturation, lightness);
+  HSL withSaturation(double saturation) => .new(hue, saturation, lightness);
 
   /// Return a new HSL with a different [lightness] (0.0–1.0).
-  HSL withLightness(double lightness) => HSL(hue, saturation, lightness);
+  HSL withLightness(double lightness) => .new(hue, saturation, lightness);
 
   /// Rotate hue by [degrees] (positive = clockwise).
   HSL rotateHue(double degrees) =>
-      HSL((hue + degrees) % 360, saturation, lightness);
+      .new((hue + degrees) % 360, saturation, lightness);
 }

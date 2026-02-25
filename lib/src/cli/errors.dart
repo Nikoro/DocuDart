@@ -145,14 +145,15 @@ class CliPrinter {
 
   /// Print a DocuDartException with formatting.
   static void exception(DocuDartException e) {
-    error(e.message);
-    if (e.hint != null) {
+    final DocuDartException(:message, :hint, :command) = e;
+    error(message);
+    if (hint != null) {
       print('');
-      print('   Hint: ${e.hint}');
+      print('   Hint: $hint');
     }
-    if (e.command != null) {
+    if (command != null) {
       print('');
-      print('   Try: ${e.command}');
+      print('   Try: $command');
     }
   }
 

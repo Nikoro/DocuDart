@@ -158,7 +158,7 @@ class CodeTheme {
     this.lineHighlight = 0xFF0B2942,
   });
 
-  factory CodeTheme.fromJson(Map<String, dynamic> json) => CodeTheme(
+  factory CodeTheme.fromJson(Map<String, dynamic> json) => .new(
     background: json['background'] as int,
     foreground: json['foreground'] as int,
     keyword: json['keyword'] as int,
@@ -236,7 +236,7 @@ class CodeTheme {
     int? punctuation,
     int? annotation,
     int? lineHighlight,
-  }) => CodeTheme(
+  }) => .new(
     background: background ?? this.background,
     foreground: foreground ?? this.foreground,
     keyword: keyword ?? this.keyword,

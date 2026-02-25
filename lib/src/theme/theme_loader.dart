@@ -8,7 +8,7 @@ import 'color_scheme.dart';
 import 'theme.dart';
 
 /// Loads custom themes from YAML files.
-class ThemeLoader {
+abstract final class ThemeLoader {
   /// Load a theme from a YAML file.
   static Future<Theme?> loadFromFile(String path) async {
     final file = File(path);
@@ -91,22 +91,36 @@ class ThemeLoader {
   static ColorScheme _parseColorScheme(YamlMap? yaml, ColorScheme defaults) {
     if (yaml == null) return defaults;
 
+    final ColorScheme(
+      :primary,
+      :secondary,
+      :background,
+      :surface,
+      :surfaceVariant,
+      :text,
+      :textMuted,
+      :border,
+      :codeBackground,
+      :error,
+      :success,
+      :warning,
+      :info,
+    ) = defaults;
+
     return ColorScheme(
-      primary: _parseColor(yaml['primary']) ?? defaults.primary,
-      secondary: _parseColor(yaml['secondary']) ?? defaults.secondary,
-      background: _parseColor(yaml['background']) ?? defaults.background,
-      surface: _parseColor(yaml['surface']) ?? defaults.surface,
-      surfaceVariant:
-          _parseColor(yaml['surfaceVariant']) ?? defaults.surfaceVariant,
-      text: _parseColor(yaml['text']) ?? defaults.text,
-      textMuted: _parseColor(yaml['textMuted']) ?? defaults.textMuted,
-      border: _parseColor(yaml['border']) ?? defaults.border,
-      codeBackground:
-          _parseColor(yaml['codeBackground']) ?? defaults.codeBackground,
-      error: _parseColor(yaml['error']) ?? defaults.error,
-      success: _parseColor(yaml['success']) ?? defaults.success,
-      warning: _parseColor(yaml['warning']) ?? defaults.warning,
-      info: _parseColor(yaml['info']) ?? defaults.info,
+      primary: _parseColor(yaml['primary']) ?? primary,
+      secondary: _parseColor(yaml['secondary']) ?? secondary,
+      background: _parseColor(yaml['background']) ?? background,
+      surface: _parseColor(yaml['surface']) ?? surface,
+      surfaceVariant: _parseColor(yaml['surfaceVariant']) ?? surfaceVariant,
+      text: _parseColor(yaml['text']) ?? text,
+      textMuted: _parseColor(yaml['textMuted']) ?? textMuted,
+      border: _parseColor(yaml['border']) ?? border,
+      codeBackground: _parseColor(yaml['codeBackground']) ?? codeBackground,
+      error: _parseColor(yaml['error']) ?? error,
+      success: _parseColor(yaml['success']) ?? success,
+      warning: _parseColor(yaml['warning']) ?? warning,
+      info: _parseColor(yaml['info']) ?? info,
     );
   }
 
@@ -119,7 +133,7 @@ class ThemeLoader {
     }
 
     if (value is String) {
-      var hex = value.trim();
+      String hex = value.trim();
 
       // Remove # prefix
       if (hex.startsWith('#')) {

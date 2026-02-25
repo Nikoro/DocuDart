@@ -33,10 +33,7 @@ class Container extends StatelessComponent {
     this.constraints,
     this.child,
     super.key,
-  }) : assert(
-         color == null || decoration == null,
-         'Cannot provide both a color and a decoration',
-       );
+  });
 
   /// Fixed width in pixels.
   final double? width;
@@ -88,7 +85,7 @@ class Container extends StatelessComponent {
         margin: margin?.toSpacing(),
         raw: css.isNotEmpty ? css : null,
       ),
-      [if (child != null) child!],
+      [?child],
     );
   }
 }

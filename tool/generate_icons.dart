@@ -228,8 +228,9 @@ Future<void> main(List<String> args) async {
   final iconsDir = '${Directory.current.path}/lib/src/icons';
 
   for (final family in selectedFamilies) {
+    final IconFamily(:libraryName, :key, :outputFile) = family;
     print('\n${'=' * 60}');
-    print('Processing: ${family.libraryName} (${family.key})');
+    print('Processing: $libraryName ($key)');
     print('=' * 60);
 
     await _cloneOrUpdate(family);
@@ -247,7 +248,7 @@ Future<void> main(List<String> args) async {
     if (deduped.length < icons.length) {
       print('  Removed ${icons.length - deduped.length} duplicate names');
     }
-    print('  Generating ${deduped.length} icons → ${family.outputFile}');
+    print('  Generating ${deduped.length} icons → $outputFile');
     _writeDartFile(family, deduped, iconsDir);
   }
 
@@ -258,26 +259,25 @@ Future<void> main(List<String> args) async {
 // Git clone / update
 // ---------------------------------------------------------------------------
 Future<void> _cloneOrUpdate(IconFamily family) async {
-  final dir = Directory(family.cloneDir);
+  final IconFamily(:cloneDir, :repoUrl, :branch) = family;
+  final dir = Directory(cloneDir);
   if (dir.existsSync()) {
-    print('  Updating existing clone at ${family.cloneDir}...');
-    final result = Process.runSync('git', [
-      'pull',
-    ], workingDirectory: family.cloneDir);
+    print('  Updating existing clone at $cloneDir...');
+    final result = Process.runSync('git', ['pull'], workingDirectory: cloneDir);
     if (result.exitCode != 0) {
       print('  Warning: git pull failed, using existing clone');
       print('  ${result.stderr}');
     }
   } else {
-    print('  Cloning ${family.repoUrl} (branch: ${family.branch})...');
+    print('  Cloning $repoUrl (branch: $branch)...');
     final result = Process.runSync('git', [
       'clone',
       '--depth',
       '1',
       '--branch',
-      family.branch,
-      family.repoUrl,
-      family.cloneDir,
+      branch,
+      repoUrl,
+      cloneDir,
     ]);
     if (result.exitCode != 0) {
       print('  Error: git clone failed');
@@ -407,7 +407,7 @@ List<IconEntry> _parseMaterialSymbols(IconFamily family) {
   };
 
   final icons = <IconEntry>[];
-  var totalFiles = 0;
+  int totalFiles = 0;
 
   for (final entry in styleDirs.entries) {
     final dirPath = '${family.cloneDir}/svg/400/${entry.key}';
@@ -428,13 +428,13 @@ List<IconEntry> _parseMaterialSymbols(IconFamily family) {
       final filename = _basename(file.path);
       final isFilled = filename.endsWith('-fill.svg');
 
-      var baseName = filename.replaceAll('.svg', '');
+      String baseName = filename.replaceAll('.svg', '');
       if (isFilled) baseName = baseName.replaceAll(RegExp(r'-fill$'), '');
 
       // Convert to snake_case (hyphens → underscores)
       baseName = baseName.replaceAll('-', '_');
 
-      var dartName = _toDartName(baseName);
+      String dartName = _toDartName(baseName);
 
       // Apply style suffix
       final styleSuffix = entry.value;
@@ -470,7 +470,7 @@ List<IconEntry> _parseTabler(IconFamily family) {
   final styleDirs = <String, String>{'outline': '', 'filled': '_filled'};
 
   final icons = <IconEntry>[];
-  var totalFiles = 0;
+  int totalFiles = 0;
 
   for (final entry in styleDirs.entries) {
     final dirPath = '${family.cloneDir}/icons/${entry.key}';
@@ -492,7 +492,7 @@ List<IconEntry> _parseTabler(IconFamily family) {
     for (final file in files) {
       final filename = _basename(file.path);
       final baseName = filename.replaceAll('.svg', '');
-      var dartName = _toDartName(baseName);
+      String dartName = _toDartName(baseName);
       dartName = '$dartName${entry.value}';
 
       final svgString = file.readAsStringSync();
@@ -528,7 +528,7 @@ List<IconEntry> _parseFluent(IconFamily family) {
   }
 
   final icons = <IconEntry>[];
-  var totalFiles = 0;
+  int totalFiles = 0;
 
   // Walk all icon subdirectories
   final iconDirs = assetsDir.listSync().whereType<Directory>().toList();
@@ -545,7 +545,7 @@ List<IconEntry> _parseFluent(IconFamily family) {
     for (final file in files) {
       final filename = _basename(file.path);
       // e.g. ic_fluent_access_time_24_filled.svg → access_time_filled
-      var name = filename.replaceAll('.svg', '');
+      String name = filename.replaceAll('.svg', '');
 
       // Remove ic_fluent_ prefix if present
       name = name.replaceFirst(RegExp(r'^ic_fluent_'), '');
@@ -612,7 +612,7 @@ List<IconEntry> _parseFontAwesome(IconFamily family) {
   };
 
   final icons = <IconEntry>[];
-  var totalFiles = 0;
+  int totalFiles = 0;
 
   for (final entry in styleDirs.entries) {
     final dirPath = '${family.cloneDir}/svgs/${entry.key}';
@@ -632,7 +632,7 @@ List<IconEntry> _parseFontAwesome(IconFamily family) {
     for (final file in files) {
       final filename = _basename(file.path);
       final baseName = filename.replaceAll('.svg', '');
-      var dartName = _toDartName(baseName);
+      String dartName = _toDartName(baseName);
       dartName = '$dartName${entry.value}';
 
       final svgString = file.readAsStringSync();
@@ -668,7 +668,7 @@ List<IconEntry> _parseRemixIcon(IconFamily family) {
   }
 
   final icons = <IconEntry>[];
-  var totalFiles = 0;
+  int totalFiles = 0;
 
   // Remix Icon has category subdirectories (Arrows, Buildings, Logos, etc.)
   // Both -line and -fill variants live in the same directory.
@@ -684,7 +684,7 @@ List<IconEntry> _parseRemixIcon(IconFamily family) {
 
     for (final file in files) {
       final filename = _basename(file.path);
-      var baseName = filename.replaceAll('.svg', '');
+      String baseName = filename.replaceAll('.svg', '');
 
       // Determine style from filename suffix
       String suffix;
@@ -792,7 +792,7 @@ List<Map<String, dynamic>> _extractChildren(XmlElement parent) {
 
 /// Convert a kebab-case basename to a valid Dart snake_case identifier.
 String _toDartName(String baseName) {
-  var name = baseName.replaceAll('-', '_').toLowerCase();
+  String name = baseName.replaceAll('-', '_').toLowerCase();
 
   // Prefix if starts with digit
   if (name.isNotEmpty && RegExp(r'^\d').hasMatch(name)) {
@@ -817,7 +817,7 @@ String _basename(String path) => path.split(Platform.pathSeparator).last;
 /// Create a preview SVG string with currentColor replaced by #808080
 /// and optional stroke attributes added for visibility.
 String _makePreview(String svgString, {required bool isStroke}) {
-  var preview = svgString;
+  String preview = svgString;
 
   // Replace currentColor with gray for visibility
   preview = preview.replaceAll('currentColor', '#808080');
@@ -831,7 +831,7 @@ String _makePreview(String svgString, {required bool isStroke}) {
       ),
       (match) {
         final tag = match.group(1)!;
-        var attrs = match.group(2)!;
+        String attrs = match.group(2)!;
         final selfClose = match.group(3)!;
         if (!attrs.contains('stroke=')) {
           attrs = '$attrs stroke="#808080"';
@@ -846,7 +846,7 @@ String _makePreview(String svgString, {required bool isStroke}) {
       RegExp(r'<(path|circle|rect|ellipse|polygon)\b([^>]*?)(/?)>'),
       (match) {
         final tag = match.group(1)!;
-        var attrs = match.group(2)!;
+        String attrs = match.group(2)!;
         final selfClose = match.group(3)!;
         if (!attrs.contains('fill=')) {
           attrs = '$attrs fill="#808080"';
@@ -868,11 +868,18 @@ void _writeDartFile(
   List<IconEntry> icons,
   String outputDir,
 ) {
+  final IconFamily(
+    :licenseHeader,
+    :key,
+    :libraryName,
+    :className,
+    :outputFile,
+  ) = family;
   final buffer = StringBuffer();
 
   // File header
-  if (family.licenseHeader != null) {
-    buffer.writeln(family.licenseHeader);
+  if (licenseHeader != null) {
+    buffer.writeln(licenseHeader);
   } else {
     buffer.writeln('// GENERATED CODE - DO NOT MODIFY BY HAND');
   }
@@ -882,28 +889,27 @@ void _writeDartFile(
   buffer.writeln();
 
   // Class doc comment
-  if (family.key == 'fluent') {
-    buffer.writeln(
-      '/// A collection of ${family.libraryName} icons (24px variants).',
-    );
+  if (key == 'fluent') {
+    buffer.writeln('/// A collection of $libraryName icons (24px variants).');
   } else {
-    buffer.writeln('/// A collection of ${family.libraryName} icons.');
+    buffer.writeln('/// A collection of $libraryName icons.');
   }
-  buffer.writeln('abstract class ${family.className} {');
-  buffer.writeln('  const ${family.className}._();');
+  buffer.writeln('abstract class $className {');
+  buffer.writeln('  const $className._();');
 
   for (final icon in icons) {
+    final IconEntry(:base64Preview, :altText, :name, :content) = icon;
     buffer.writeln();
     // Doc comment with base64 preview
     buffer.writeln(
-      '  /// <img src="data:image/svg+xml;base64,${icon.base64Preview}" '
-      'width="64" alt="${icon.altText} icon" '
+      '  /// <img src="data:image/svg+xml;base64,$base64Preview" '
+      'width="64" alt="$altText icon" '
       'style="background-color: #f0f0f0; border-radius: 4px; padding: 2px;">',
     );
 
     // Icon data constant
-    buffer.writeln('  static const IconData ${icon.name} = IconData([');
-    for (final element in icon.content) {
+    buffer.writeln('  static const IconData $name = IconData([');
+    for (final element in content) {
       _writeElement(buffer, element, indent: 4);
     }
     buffer.writeln('  ]);');
@@ -911,7 +917,7 @@ void _writeDartFile(
 
   buffer.writeln('}');
 
-  final outputPath = '$outputDir/${family.outputFile}';
+  final outputPath = '$outputDir/$outputFile';
   File(outputPath).writeAsStringSync(buffer.toString());
   print('  Wrote $outputPath');
 }

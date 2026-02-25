@@ -56,10 +56,10 @@ class SlideTransition extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final offset = switch (direction) {
-      SlideDirection.left => Transform.translate(x: (-this.offset).percent),
-      SlideDirection.right => Transform.translate(x: this.offset.percent),
-      SlideDirection.top => Transform.translate(y: (-this.offset).percent),
-      SlideDirection.bottom => Transform.translate(y: this.offset.percent),
+      .left => Transform.translate(x: (-this.offset).percent),
+      .right => Transform.translate(x: this.offset.percent),
+      .top => Transform.translate(y: (-this.offset).percent),
+      .bottom => Transform.translate(y: this.offset.percent),
     };
 
     return div(

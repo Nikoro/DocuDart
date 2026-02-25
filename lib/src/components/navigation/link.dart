@@ -17,12 +17,7 @@ class Link extends StatelessComponent {
   Link._({this.label, this.leading, this.trailing, String? path, String? url})
     : classes = 'nav-link',
       _path = path,
-      _url = url,
-      assert(
-        label != null || leading != null || trailing != null,
-        'Either label, leading, or trailing must be set',
-      ),
-      assert(path != null || url != null, 'Either path or url must be set');
+      _url = url;
 
   /// Creates a nav link to an internal path.
   Link.path(
@@ -33,11 +28,7 @@ class Link extends StatelessComponent {
     this.classes = 'nav-link',
     super.key,
   }) : _path = path,
-       _url = null,
-       assert(
-         label != null || leading != null || trailing != null,
-         'Either label, leading, or trailing must be set',
-       );
+       _url = null;
 
   /// Creates a nav link to an external URL.
   Link.url(
@@ -48,13 +39,9 @@ class Link extends StatelessComponent {
     this.classes = 'nav-link',
     super.key,
   }) : _path = null,
-       _url = url,
-       assert(
-         label != null || leading != null || trailing != null,
-         'Either label, leading, or trailing must be set',
-       );
+       _url = url;
 
-  factory Link.fromJson(Map<String, dynamic> json) => Link._(
+  factory Link.fromJson(Map<String, dynamic> json) => ._(
     label: json['label'] as String? ?? json['title'] as String?,
     path: json['path'] as String?,
     url: json['url'] as String?,

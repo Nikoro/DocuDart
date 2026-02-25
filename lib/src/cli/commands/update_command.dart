@@ -29,7 +29,7 @@ class UpdateCommand extends Command<int> {
 
     final ProcessResult result;
 
-    if (installationInfo.source == InstallationSource.git) {
+    if (installationInfo.source == .git) {
       CliPrinter.step('Updating from git...');
       result = await Process.run('dart', [
         'pub',

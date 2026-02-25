@@ -124,6 +124,7 @@ class ContentProcessor {
   DocPage? _processMarkdownFile(String content, String relativePath) {
     try {
       final processed = _markdownProcessor.process(content);
+      final ProcessedMarkdown(:meta, :html, :tableOfContents) = processed;
 
       // Generate URL path
       final urlPath = _generateUrlPath(relativePath);
@@ -131,7 +132,7 @@ class ContentProcessor {
       // Determine order from filename or frontmatter
       final filename = p.basenameWithoutExtension(relativePath);
       final fileOrder = _extractOrder(filename);
-      final order = processed.meta.sidebarPosition ?? fileOrder;
+      final order = meta.sidebarPosition ?? fileOrder;
 
       // Determine parent path
       final parentPath = p.dirname(relativePath);
@@ -139,9 +140,9 @@ class ContentProcessor {
       return DocPage(
         relativePath: relativePath,
         urlPath: urlPath,
-        meta: processed.meta,
-        html: processed.html,
-        toc: processed.tableOfContents,
+        meta: meta,
+        html: html,
+        toc: tableOfContents,
         parentPath: parentPath == '.' ? null : parentPath,
         order: order,
       );
@@ -153,14 +154,14 @@ class ContentProcessor {
 
   String _generateUrlPath(String relativePath) {
     // Remove .md extension
-    var path = relativePath.replaceAll('.md', '');
+    String path = relativePath.replaceAll('.md', '');
 
     // Remove _expanded suffix and numeric prefixes from path segments
     // Always use forward slashes for URLs, regardless of platform
     path = path
         .split(p.separator)
         .map((segment) {
-          var s = segment;
+          String s = segment;
           if (s.endsWith(_expandedSuffix)) {
             s = s.substring(0, s.length - _expandedSuffix.length);
           }
@@ -206,7 +207,7 @@ class ContentProcessor {
   String _folderName(String relativePath) {
     if (relativePath.isEmpty) return 'Documentation';
 
-    var name = p.basename(relativePath);
+    String name = p.basename(relativePath);
     // Remove _expanded suffix
     if (name.endsWith(_expandedSuffix)) {
       name = name.substring(0, name.length - _expandedSuffix.length);

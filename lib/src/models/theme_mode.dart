@@ -12,9 +12,10 @@ enum ThemeMode {
   String toJson() => name;
 
   static ThemeMode fromJson(String value) {
-    return ThemeMode.values.firstWhere(
-      (e) => e.name == value,
-      orElse: () => ThemeMode.system,
-    );
+    try {
+      return ThemeMode.values.byName(value);
+    } on ArgumentError {
+      return .system;
+    }
   }
 }

@@ -50,15 +50,16 @@ void main() {
 
       expect(result.length, equals(2));
 
-      final first = result[0] as DocLink;
-      expect(first.name, equals('Getting Started'));
-      expect(first.path, equals('/docs/getting-started'));
-      expect(first.order, equals(1));
+      final DocLink(:name, :path, :order) = result[0] as DocLink;
+      expect(name, equals('Getting Started'));
+      expect(path, equals('/docs/getting-started'));
+      expect(order, equals(1));
 
-      final second = result[1] as DocLink;
-      expect(second.name, equals('Installation'));
-      expect(second.path, equals('/docs/installation'));
-      expect(second.order, equals(2));
+      final DocLink(name: secondName, path: secondPath, order: secondOrder) =
+          result[1] as DocLink;
+      expect(secondName, equals('Installation'));
+      expect(secondPath, equals('/docs/installation'));
+      expect(secondOrder, equals(2));
     });
 
     test('subfolders become DocCategory items with children', () {

@@ -48,7 +48,7 @@ class Card extends StatelessComponent {
       styles: Styles(
         raw: {
           if (borderRadius != null) 'border-radius': '${borderRadius}px',
-          if (bgColor != null) 'background-color': bgColor,
+          'background-color': ?bgColor,
           if (elevation != null && elevation! > 0)
             'box-shadow':
                 '0 ${(elevation! / 2).round()}px ${elevation!.round()}px rgba(0, 0, 0, 0.1)',

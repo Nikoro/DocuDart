@@ -6,7 +6,7 @@ class Page {
   const Page({required this.path, required this.name});
 
   factory Page.fromJson(Map<String, dynamic> json) =>
-      Page(path: json['path'] as String, name: json['name'] as String);
+      .new(path: json['path'] as String, name: json['name'] as String);
 
   /// URL route path (e.g., '/changelog', '/something/some').
   final String path;

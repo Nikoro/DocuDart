@@ -151,7 +151,7 @@ class Theme {
     );
   }
 
-  factory Theme.fromJson(Map<String, dynamic> json) => Theme(
+  factory Theme.fromJson(Map<String, dynamic> json) => .new(
     name: json['name'] as String? ?? 'custom',
     lightColorScheme: json['lightColorScheme'] != null
         ? ColorScheme.fromJson(json['lightColorScheme'] as Map<String, dynamic>)
@@ -273,7 +273,7 @@ class Theme {
     double? mainPaddingH,
     double? mainPaddingV,
     double? tabBorderWidth,
-  }) => Theme(
+  }) => .new(
     name: name ?? this.name,
     lightColorScheme: lightColorScheme ?? this.lightColorScheme,
     darkColorScheme: darkColorScheme ?? this.darkColorScheme,

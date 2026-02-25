@@ -379,17 +379,18 @@ $content
 
     // Generate a file for each section
     for (final section in sections) {
+      final ReadmeSection(:title, :content, :filename, :position) = section;
       final mdContent =
           '''
 ---
-title: ${section.title}
-sidebar_position: ${section.position}
+title: $title
+sidebar_position: $position
 ---
 
-${section.content}
+$content
 ''';
       await File(
-        p.join(websiteDir, 'docs', '${section.filename}.md'),
+        p.join(websiteDir, 'docs', '$filename.md'),
       ).writeAsString(mdContent);
     }
 

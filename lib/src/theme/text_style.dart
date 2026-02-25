@@ -15,7 +15,7 @@ class TextStyle {
     this.color,
   });
 
-  factory TextStyle.fromJson(Map<String, dynamic> json) => TextStyle(
+  factory TextStyle.fromJson(Map<String, dynamic> json) => .new(
     fontSize: (json['fontSize'] as num?)?.toDouble(),
     fontWeight: json['fontWeight'] as int?,
     lineHeight: (json['lineHeight'] as num?)?.toDouble(),
@@ -60,7 +60,7 @@ class TextStyle {
     double? letterSpacing,
     String? fontFamily,
     int? color,
-  }) => TextStyle(
+  }) => .new(
     fontSize: fontSize ?? this.fontSize,
     fontWeight: fontWeight ?? this.fontWeight,
     lineHeight: lineHeight ?? this.lineHeight,
@@ -72,13 +72,21 @@ class TextStyle {
   /// Merge another style on top — non-null values in [other] win.
   TextStyle merge(TextStyle? other) {
     if (other == null) return this;
+    final TextStyle(
+      fontSize: otherFontSize,
+      fontWeight: otherFontWeight,
+      lineHeight: otherLineHeight,
+      letterSpacing: otherLetterSpacing,
+      fontFamily: otherFontFamily,
+      color: otherColor,
+    ) = other;
     return TextStyle(
-      fontSize: other.fontSize ?? fontSize,
-      fontWeight: other.fontWeight ?? fontWeight,
-      lineHeight: other.lineHeight ?? lineHeight,
-      letterSpacing: other.letterSpacing ?? letterSpacing,
-      fontFamily: other.fontFamily ?? fontFamily,
-      color: other.color ?? color,
+      fontSize: otherFontSize ?? fontSize,
+      fontWeight: otherFontWeight ?? fontWeight,
+      lineHeight: otherLineHeight ?? lineHeight,
+      letterSpacing: otherLetterSpacing ?? letterSpacing,
+      fontFamily: otherFontFamily ?? fontFamily,
+      color: otherColor ?? color,
     );
   }
 

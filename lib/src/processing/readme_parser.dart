@@ -27,7 +27,7 @@ class ReadmeSection {
 }
 
 /// Parses README.md files and extracts sections for documentation.
-class ReadmeParser {
+abstract final class ReadmeParser {
   /// Parse a README file and return a list of sections.
   ///
   /// The parser will:
@@ -46,7 +46,7 @@ class ReadmeParser {
 
     // Track if we've seen any real content (not badges/shields)
     bool hasIntroContent = false;
-    final introBuffer = StringBuffer();
+    final introBuffer = StringBuffer('');
 
     for (int i = 0; i < lines.length; i++) {
       final line = lines[i];
@@ -164,17 +164,23 @@ class ReadmeParser {
       final introContent = _cleanIntroContent(introBuffer.toString());
       if (introContent.isNotEmpty) {
         // Renumber existing sections
-        final renumbered = sections
-            .map(
-              (s) => ReadmeSection(
-                title: s.title,
-                content: s.content,
-                level: s.level,
-                filename: s.filename,
-                position: s.position + 1,
-              ),
-            )
-            .toList();
+        final renumbered = [
+          for (final ReadmeSection(
+                :title,
+                :content,
+                :level,
+                :filename,
+                :position,
+              )
+              in sections)
+            ReadmeSection(
+              title: title,
+              content: content,
+              level: level,
+              filename: filename,
+              position: position + 1,
+            ),
+        ];
 
         return [
           ReadmeSection(

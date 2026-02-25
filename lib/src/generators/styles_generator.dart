@@ -1,10 +1,9 @@
+// ignore_for_file: prefer_class_destructuring
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
 import '../config/docudart_config.dart';
-import '../theme/button_theme.dart';
-import '../theme/card_theme.dart';
 import '../theme/code_theme.dart';
 import '../theme/color_scheme.dart';
 
@@ -68,18 +67,10 @@ ${h4Props.entries.map((e) => '  ${e.key}: ${e.value};').join('\n')}
 }''';
 
     // Generate opal syntax highlighting CSS
-    final lightBg = CodeTheme.toHex(
-      theme.markdownTheme.lightCodeTheme.background,
-    );
-    final lightFg = CodeTheme.toHex(
-      theme.markdownTheme.lightCodeTheme.foreground,
-    );
-    final darkBg = CodeTheme.toHex(
-      theme.markdownTheme.darkCodeTheme.background,
-    );
-    final darkFg = CodeTheme.toHex(
-      theme.markdownTheme.darkCodeTheme.foreground,
-    );
+    final lightBg = CodeTheme.toHex(md.lightCodeTheme.background);
+    final lightFg = CodeTheme.toHex(md.lightCodeTheme.foreground);
+    final darkBg = CodeTheme.toHex(md.darkCodeTheme.background);
+    final darkFg = CodeTheme.toHex(md.darkCodeTheme.foreground);
 
     // Sidebar CSS — driven by SidebarTheme
     final sidebarBgCss = sidebar.backgroundColor != null
@@ -119,10 +110,10 @@ ${h4Props.entries.map((e) => '  ${e.key}: ${e.value};').join('\n')}
 
     // Button hover CSS
     final btnHoverCss = switch (btn.hoverEffect) {
-      ButtonHoverEffect.brightness =>
+      .brightness =>
         '${btn.hoverHasBoxShadow ? '  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);\n' : ''}'
             '  filter: brightness(${btn.hoverBrightness});',
-      ButtonHoverEffect.opacity => '  opacity: ${btn.hoverOpacity};',
+      .opacity => '  opacity: ${btn.hoverOpacity};',
     };
 
     // Card CSS — driven by CardTheme
@@ -131,10 +122,10 @@ ${h4Props.entries.map((e) => '  ${e.key}: ${e.value};').join('\n')}
         : '';
 
     final cardHoverCss = switch (card.hoverEffect) {
-      CardHoverEffect.shadow =>
+      .shadow =>
         '  box-shadow: 0 ${card.hoverShadowBlur ~/ 4}px ${card.hoverShadowBlur.toInt()}px rgba(0, 0, 0, ${card.hoverShadowOpacity});'
             '${card.hoverTranslateY != 0 ? '\n  transform: translateY(${card.hoverTranslateY}px);' : ''}',
-      CardHoverEffect.borderHighlight =>
+      .borderHighlight =>
         '  border-color: var(--color-text-muted);\n  box-shadow: none;',
     };
 

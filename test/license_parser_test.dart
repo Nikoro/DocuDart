@@ -19,10 +19,10 @@ Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction.
 ''';
-      final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.mit);
-      expect(license.year, '2026');
-      expect(license.holder, 'Dominik Krajcer');
+      final License(:type, :year, :holder) = LicenseParser.parse(content)!;
+      expect(type, equals(LicenseType.mit));
+      expect(year, equals('2026'));
+      expect(holder, equals('Dominik Krajcer'));
     });
 
     test('parses BSD 3-Clause license', () {
@@ -35,10 +35,10 @@ All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
 ''';
-      final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.bsd3);
-      expect(license.year, '2024');
-      expect(license.holder, 'John Doe');
+      final License(:type, :year, :holder) = LicenseParser.parse(content)!;
+      expect(type, equals(LicenseType.bsd3));
+      expect(year, equals('2024'));
+      expect(holder, equals('John Doe'));
     });
 
     test('parses BSD 2-Clause license', () {
@@ -50,10 +50,10 @@ Copyright (c) 2023, Jane Smith
 Redistribution and use in source and binary forms, with or without
 modification, are permitted.
 ''';
-      final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.bsd2);
-      expect(license.year, '2023');
-      expect(license.holder, 'Jane Smith');
+      final License(:type, :year, :holder) = LicenseParser.parse(content)!;
+      expect(type, equals(LicenseType.bsd2));
+      expect(year, equals('2023'));
+      expect(holder, equals('Jane Smith'));
     });
 
     test('parses Apache 2.0 license', () {
@@ -66,10 +66,10 @@ Copyright 2025 Google LLC
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 ''';
-      final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.apache2);
-      expect(license.year, '2025');
-      expect(license.holder, 'Google LLC');
+      final License(:type, :year, :holder) = LicenseParser.parse(content)!;
+      expect(type, equals(LicenseType.apache2));
+      expect(year, equals('2025'));
+      expect(holder, equals('Google LLC'));
     });
 
     test('parses GPL v3 license', () {
@@ -79,10 +79,10 @@ Version 3, 29 June 2007
 
 Copyright (C) 2007 Free Software Foundation, Inc.
 ''';
-      final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.gpl3);
-      expect(license.year, '2007');
-      expect(license.holder, 'Free Software Foundation, Inc');
+      final License(:type, :year, :holder) = LicenseParser.parse(content)!;
+      expect(type, equals(LicenseType.gpl3));
+      expect(year, equals('2007'));
+      expect(holder, equals('Free Software Foundation, Inc'));
     });
 
     test('parses GPL v2 license', () {
@@ -93,7 +93,7 @@ Version 2, June 1991
 Copyright (C) 1989, 1991 Free Software Foundation, Inc.
 ''';
       final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.gpl2);
+      expect(license.type, equals(LicenseType.gpl2));
     });
 
     test('parses ISC license', () {
@@ -105,10 +105,10 @@ Copyright (c) 2024 Alice Bob
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted.
 ''';
-      final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.isc);
-      expect(license.year, '2024');
-      expect(license.holder, 'Alice Bob');
+      final License(:type, :year, :holder) = LicenseParser.parse(content)!;
+      expect(type, equals(LicenseType.isc));
+      expect(year, equals('2024'));
+      expect(holder, equals('Alice Bob'));
     });
 
     test('parses LGPL license', () {
@@ -119,7 +119,7 @@ Version 3, 29 June 2007
 Copyright (C) 2007 Free Software Foundation, Inc.
 ''';
       final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.lgpl);
+      expect(license.type, equals(LicenseType.lgpl));
     });
 
     test('parses AGPL license', () {
@@ -130,7 +130,7 @@ Version 3, 19 November 2007
 Copyright (C) 2007 Free Software Foundation, Inc.
 ''';
       final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.agpl);
+      expect(license.type, equals(LicenseType.agpl));
     });
 
     test('parses MPL 2.0 license', () {
@@ -140,8 +140,8 @@ Mozilla Public License Version 2.0
 Copyright (c) 2024 Mozilla Foundation
 ''';
       final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.mpl2);
-      expect(license.holder, 'Mozilla Foundation');
+      expect(license.type, equals(LicenseType.mpl2));
+      expect(license.holder, equals('Mozilla Foundation'));
     });
 
     test('parses Unlicense (no copyright holder)', () {
@@ -156,10 +156,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
 
 For more information, please refer to <https://unlicense.org>
 ''';
-      final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.unlicense);
-      expect(license.holder, isNull);
-      expect(license.year, isNull);
+      final License(:type, :holder, :year) = LicenseParser.parse(content)!;
+      expect(type, equals(LicenseType.unlicense));
+      expect(holder, isNull);
+      expect(year, isNull);
     });
 
     test('parses CC0 license', () {
@@ -172,7 +172,7 @@ The laws of most jurisdictions throughout the world automatically confer
 exclusive Copyright and Related Rights upon the creator.
 ''';
       final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.cc0);
+      expect(license.type, equals(LicenseType.cc0));
     });
 
     test('parses WTFPL license', () {
@@ -187,8 +187,8 @@ exclusive Copyright and Related Rights upon the creator.
  as the name is changed.
 ''';
       final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.wtfpl);
-      expect(license.holder, 'Sam Hocevar <sam@hocevar.net>');
+      expect(license.type, equals(LicenseType.wtfpl));
+      expect(license.holder, equals('Sam Hocevar <sam@hocevar.net>'));
     });
 
     test('handles year ranges', () {
@@ -197,10 +197,10 @@ MIT License
 
 Copyright (c) 2020-2026 Some Developer
 ''';
-      final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.mit);
-      expect(license.year, '2020-2026');
-      expect(license.holder, 'Some Developer');
+      final License(:type, :year, :holder) = LicenseParser.parse(content)!;
+      expect(type, equals(LicenseType.mit));
+      expect(year, equals('2020-2026'));
+      expect(holder, equals('Some Developer'));
     });
 
     test('handles unicode copyright symbol', () {
@@ -210,8 +210,8 @@ MIT License
 Copyright © 2026 Unicode Dev
 ''';
       final license = LicenseParser.parse(content)!;
-      expect(license.year, '2026');
-      expect(license.holder, 'Unicode Dev');
+      expect(license.year, equals('2026'));
+      expect(license.holder, equals('Unicode Dev'));
     });
 
     test('returns unknown type for unrecognized license', () {
@@ -223,8 +223,8 @@ Copyright (c) 2026 Custom Author
 You can do whatever you want with this.
 ''';
       final license = LicenseParser.parse(content)!;
-      expect(license.type, LicenseType.unknown);
-      expect(license.holder, 'Custom Author');
+      expect(license.type, equals(LicenseType.unknown));
+      expect(license.holder, equals('Custom Author'));
     });
 
     test('returns first copyright holder when multiple present', () {
@@ -237,7 +237,7 @@ Copyright (c) 2025 Second Author
 Permission is hereby granted.
 ''';
       final license = LicenseParser.parse(content)!;
-      expect(license.holder, 'First Author');
+      expect(license.holder, equals('First Author'));
     });
 
     test('handles uppercase (C) in copyright', () {
@@ -248,7 +248,7 @@ Version 3, 29 June 2007
 Copyright (C) 2026 My Organization
 ''';
       final license = LicenseParser.parse(content)!;
-      expect(license.holder, 'My Organization');
+      expect(license.holder, equals('My Organization'));
     });
   });
 }

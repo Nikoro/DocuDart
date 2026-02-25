@@ -10,17 +10,15 @@ class VersioningConfig {
     this.versionDir = 'versions',
   });
 
-  factory VersioningConfig.fromJson(Map<String, dynamic> json) =>
-      VersioningConfig(
-        enabled: json['enabled'] as bool? ?? false,
-        versions:
-            (json['versions'] as List<dynamic>?)
-                ?.map((e) => e as String)
-                .toList() ??
-            const [],
-        defaultVersion: json['defaultVersion'] as String? ?? '',
-        versionDir: json['versionDir'] as String? ?? 'versions',
-      );
+  factory VersioningConfig.fromJson(Map<String, dynamic> json) => .new(
+    enabled: json['enabled'] as bool? ?? false,
+    versions: switch (json['versions'] as List<dynamic>?) {
+      final list? => [for (final e in list) e as String],
+      null => const <String>[],
+    },
+    defaultVersion: json['defaultVersion'] as String? ?? '',
+    versionDir: json['versionDir'] as String? ?? 'versions',
+  );
 
   /// Whether versioning is enabled.
   final bool enabled;

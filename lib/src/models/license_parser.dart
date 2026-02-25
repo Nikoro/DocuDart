@@ -23,68 +23,68 @@ class LicenseParser {
     // Check specific variants before generic ones.
     if (upper.contains('MIT LICENSE') ||
         upper.contains('PERMISSION IS HEREBY GRANTED, FREE OF CHARGE')) {
-      return LicenseType.mit;
+      return .mit;
     }
     if (upper.contains('APACHE LICENSE, VERSION 2.0') ||
         upper.contains('APACHE LICENSE\n')) {
-      return LicenseType.apache2;
+      return .apache2;
     }
     if (upper.contains('BSD 2-CLAUSE') ||
         upper.contains('SIMPLIFIED BSD LICENSE') ||
         upper.contains('FREEBSD LICENSE')) {
-      return LicenseType.bsd2;
+      return .bsd2;
     }
     if (upper.contains('BSD 3-CLAUSE') ||
         upper.contains('NEW BSD LICENSE') ||
         upper.contains('MODIFIED BSD LICENSE')) {
-      return LicenseType.bsd3;
+      return .bsd3;
     }
     // Generic BSD fallback (after specific variants).
     if (upper.contains('BSD LICENSE') ||
         (upper.contains('REDISTRIBUTION AND USE IN SOURCE AND BINARY') &&
             !upper.contains('APACHE'))) {
-      return LicenseType.bsd3;
+      return .bsd3;
     }
     if (upper.contains('ISC LICENSE') ||
         upper.contains('ISC-LICENSE') ||
         (upper.contains('PERMISSION TO USE, COPY, MODIFY') &&
             upper.contains('ISC'))) {
-      return LicenseType.isc;
+      return .isc;
     }
     if (upper.contains('MOZILLA PUBLIC LICENSE VERSION 2.0') ||
         upper.contains('MOZILLA PUBLIC LICENSE, VERSION 2.0')) {
-      return LicenseType.mpl2;
+      return .mpl2;
     }
     if (upper.contains('GNU AFFERO GENERAL PUBLIC LICENSE')) {
-      return LicenseType.agpl;
+      return .agpl;
     }
     if (upper.contains('GNU LESSER GENERAL PUBLIC LICENSE')) {
-      return LicenseType.lgpl;
+      return .lgpl;
     }
     if (upper.contains('GNU GENERAL PUBLIC LICENSE') &&
         upper.contains('VERSION 3')) {
-      return LicenseType.gpl3;
+      return .gpl3;
     }
     if (upper.contains('GNU GENERAL PUBLIC LICENSE') &&
         upper.contains('VERSION 2')) {
-      return LicenseType.gpl2;
+      return .gpl2;
     }
     if (upper.contains('GNU GENERAL PUBLIC LICENSE')) {
-      return LicenseType.gpl3;
+      return .gpl3;
     }
     if (upper.contains('THE UNLICENSE') || upper.contains('UNLICENSE')) {
-      return LicenseType.unlicense;
+      return .unlicense;
     }
     if (upper.contains('CC0 1.0 UNIVERSAL') ||
         upper.contains('CREATIVE COMMONS ZERO')) {
-      return LicenseType.cc0;
+      return .cc0;
     }
     if (upper.contains('DO WHAT THE FUCK YOU WANT TO') ||
         upper.contains('WTFPL')) {
-      return LicenseType.wtfpl;
+      return .wtfpl;
     }
 
-    return LicenseType.unknown;
+    return .unknown;
   }
 
   /// Extracts the copyright year and holder from content.

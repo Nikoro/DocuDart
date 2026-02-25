@@ -18,10 +18,11 @@ class ComponentRegistry {
 
   /// Build HTML for a component.
   String? buildComponent(EmbeddedComponent component) {
-    final factory = _components[component.name];
+    final EmbeddedComponent(:name, :props, :children) = component;
+    final factory = _components[name];
     if (factory == null) return null;
 
-    return factory(component.props, component.children);
+    return factory(props, children);
   }
 
   /// Get all registered component names.

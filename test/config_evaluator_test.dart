@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:docudart/src/config/config_evaluator.dart';
+import 'package:docudart/src/config/docudart_config.dart';
 import 'package:docudart/src/models/theme_mode.dart';
 
 void main() {
@@ -169,10 +170,10 @@ Config configure(BuildContext context) => Config(
       final result = await ConfigEvaluator.evaluate(tempDir.path);
 
       expect(result, isNotNull);
-      final config = result!;
-      expect(config.docsDir, equals('docs'));
-      expect(config.assetsDir, equals('assets'));
-      expect(config.outputDir, equals('build/web'));
+      final Config(:docsDir, :assetsDir, :outputDir) = result!;
+      expect(docsDir, equals('docs'));
+      expect(assetsDir, equals('assets'));
+      expect(outputDir, equals('build/web'));
     });
 
     test('extracts custom directory paths', () async {
@@ -187,10 +188,10 @@ Config configure(BuildContext context) => Config(
       final result = await ConfigEvaluator.evaluate(tempDir.path);
 
       expect(result, isNotNull);
-      final config = result!;
-      expect(config.docsDir, equals('documentation'));
-      expect(config.assetsDir, equals('static'));
-      expect(config.outputDir, equals('dist'));
+      final Config(:docsDir, :assetsDir, :outputDir) = result!;
+      expect(docsDir, equals('documentation'));
+      expect(assetsDir, equals('static'));
+      expect(outputDir, equals('dist'));
     });
 
     test('function fields are null (not extractable from text)', () async {
@@ -206,12 +207,12 @@ Config configure(BuildContext context) => Config(
       final result = await ConfigEvaluator.evaluate(tempDir.path);
 
       expect(result, isNotNull);
-      final config = result!;
-      expect(config.title, equals('Test'));
-      expect(config.header, isNull);
-      expect(config.footer, isNull);
-      expect(config.sidebar, isNull);
-      expect(config.home, isNull);
+      final Config(:title, :header, :footer, :sidebar, :home) = result!;
+      expect(title, equals('Test'));
+      expect(header, isNull);
+      expect(footer, isNull);
+      expect(sidebar, isNull);
+      expect(home, isNull);
     });
   });
 }

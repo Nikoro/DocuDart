@@ -93,7 +93,7 @@ class VersionManager {
     final result = <String, VersionedDocs>{};
 
     // Process each version
-    for (var i = 0; i < versions.length; i++) {
+    for (int i = 0; i < versions.length; i++) {
       final version = versions[i];
       final isLatest = i == versions.length - 1;
       final isDefault = version == defaultVersion;
@@ -136,7 +136,7 @@ class VersionManager {
       // Other versions get prefixed (/v1/docs/...)
       final versionedPages = isDefault
           ? pages
-          : pages.map((page) => _withVersionedUrl(page, version)).toList();
+          : [for (final page in pages) _withVersionedUrl(page, version)];
 
       return VersionedDocs(
         version: version,
@@ -162,7 +162,7 @@ class VersionManager {
     // Non-latest versions always get prefixed URLs unless they are default
     final versionedPages = isDefault
         ? pages
-        : pages.map((page) => _withVersionedUrl(page, version)).toList();
+        : [for (final page in pages) _withVersionedUrl(page, version)];
 
     return VersionedDocs(
       version: version,
@@ -175,17 +175,26 @@ class VersionManager {
 
   /// Create a new DocPage with a versioned URL path.
   DocPage _withVersionedUrl(DocPage page, String version) {
+    final DocPage(
+      :relativePath,
+      :urlPath,
+      :meta,
+      :html,
+      :toc,
+      :parentPath,
+      :order,
+    ) = page;
     // Transform /docs/foo -> /v1/docs/foo
-    final versionedUrl = page.urlPath.replaceFirst('/docs', '/$version/docs');
+    final versionedUrl = urlPath.replaceFirst('/docs', '/$version/docs');
 
     return DocPage(
-      relativePath: page.relativePath,
+      relativePath: relativePath,
       urlPath: versionedUrl,
-      meta: page.meta,
-      html: page.html,
-      toc: page.toc,
-      parentPath: page.parentPath,
-      order: page.order,
+      meta: meta,
+      html: html,
+      toc: toc,
+      parentPath: parentPath,
+      order: order,
     );
   }
 
@@ -211,15 +220,16 @@ class VersionManager {
 
   /// Generate version switcher data for templates.
   List<VersionSwitcherItem> getVersionSwitcherItems(String currentVersion) {
-    return versions.map((version) {
-      return VersionSwitcherItem(
-        version: version,
-        label: _formatVersionLabel(version),
-        isCurrent: version == currentVersion,
-        isLatest: version == latestVersion,
-        isDefault: version == defaultVersion,
-      );
-    }).toList();
+    return [
+      for (final version in versions)
+        VersionSwitcherItem(
+          version: version,
+          label: _formatVersionLabel(version),
+          isCurrent: version == currentVersion,
+          isLatest: version == latestVersion,
+          isDefault: version == defaultVersion,
+        ),
+    ];
   }
 
   String _formatVersionLabel(String version) {

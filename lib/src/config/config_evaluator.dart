@@ -14,7 +14,7 @@ import '../models/theme_mode.dart';
 /// imports package:docudart and user components). The managed Jaspr
 /// project imports config.dart directly for function fields (header,
 /// footer, sidebar, home).
-class ConfigEvaluator {
+abstract final class ConfigEvaluator {
   /// Parse config.dart in the given website directory.
   /// Returns null if config.dart doesn't exist.
   static Future<Config?> evaluate(String websiteDir) async {
@@ -67,7 +67,7 @@ class ConfigEvaluator {
   static ThemeMode _extractThemeMode(String content) {
     final pattern = RegExp(r'themeMode\s*:\s*(?:ThemeMode\.)?(\w+)');
     final match = pattern.firstMatch(content);
-    if (match == null) return ThemeMode.system;
+    if (match == null) return .system;
     return ThemeMode.fromJson(match.group(1)!);
   }
 

@@ -30,7 +30,7 @@ int _resolveColorValue(String value) {
         int.parse(rgbMatch.group(3)!);
   }
 
-  // rgba(r, g, b, a) — alpha discarded for seed palette generation
+  // RGBA format — alpha channel discarded for seed palette generation
   final rgbaMatch = _rgbaPattern.firstMatch(value);
   if (rgbaMatch != null) {
     return 0xFF000000 |
@@ -39,7 +39,7 @@ int _resolveColorValue(String value) {
         int.parse(rgbaMatch.group(3)!);
   }
 
-  // hsl(h, s%, l%)
+  // HSL format
   final hslMatch = _hslPattern.firstMatch(value);
   if (hslMatch != null) {
     return HSL(
@@ -49,7 +49,7 @@ int _resolveColorValue(String value) {
     ).toInt();
   }
 
-  // hsla(h, s%, l%, a) — alpha discarded
+  // HSLA format — alpha channel discarded
   final hslaMatch = _hslaPattern.firstMatch(value);
   if (hslaMatch != null) {
     return HSL(

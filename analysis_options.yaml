@@ -1,5 +1,10 @@
 include: package:lints/recommended.yaml
 
+plugins:
+  many_lints:
+    rules:
+      prefer_async_callback: false
+
 linter:
   rules:
     - sort_constructors_first

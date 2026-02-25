@@ -51,7 +51,7 @@ class ButtonTheme {
     this.hoverHasBoxShadow = false,
   });
 
-  factory ButtonTheme.fromJson(Map<String, dynamic> json) => ButtonTheme(
+  factory ButtonTheme.fromJson(Map<String, dynamic> json) => .new(
     paddingH: (json['paddingH'] as num?)?.toDouble() ?? 1.5,
     paddingV: (json['paddingV'] as num?)?.toDouble() ?? 0.75,
     borderRadius: (json['borderRadius'] as num?)?.toDouble() ?? 0.5,
@@ -102,7 +102,7 @@ class ButtonTheme {
     double? hoverBrightness,
     double? hoverOpacity,
     bool? hoverHasBoxShadow,
-  }) => ButtonTheme(
+  }) => .new(
     paddingH: paddingH ?? this.paddingH,
     paddingV: paddingV ?? this.paddingV,
     borderRadius: borderRadius ?? this.borderRadius,
