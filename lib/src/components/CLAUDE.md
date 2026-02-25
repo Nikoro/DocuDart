@@ -130,8 +130,8 @@ Layout(header: myHeader, sidebar: mySidebar, body: content, footer: myFooter)
 - Structure: `Column > [skip-link, header?, Expanded(Row > [sidebar?, body?]), footer?, sidebar-backdrop?]`
 - Layout does NOT render the mobile menu button — that's the user's responsibility in their Header component using `context.screen` and `SidebarToggle`
 - When sidebar is present: renders `.sidebar-backdrop` (full-screen overlay for closing drawer)
-- Body: `.site-main` CSS class; inline flex/maxWidth styles based on sidebar presence
-- Sidebar presence controls Row maxWidth (1400px with sidebar, 100% without) and alignment
+- Body: `.site-main` CSS class; inline flex styles
+- Row always spans full viewport width (maxWidth 100%); header/footer also full-width (no max-width constraint)
 - Generated `LayoutDelegate` delegates to this or to `config.layoutBuilder`
 - Includes skip-to-content link (`<a class="skip-to-content" href="#main-content">`)
 
