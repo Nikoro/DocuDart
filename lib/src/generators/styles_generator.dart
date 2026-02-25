@@ -143,8 +143,6 @@ header {
 ${themeName == 'material3' ? '  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);\n' : ''}}
 
 header > .row {
-  max-width: ${comp.headerMaxWidth.toInt()}px;
-  margin: 0 auto;
   padding: ${comp.headerPaddingV}rem ${comp.headerPaddingH}rem;
 }
 
@@ -323,8 +321,7 @@ footer {
 }
 
 footer > .row {
-  max-width: ${comp.footerMaxWidth.toInt()}px;
-  margin: 0 auto;
+  padding: 0 ${comp.footerPaddingH}rem;
   color: var(--color-text-muted);
 }
 

@@ -53,7 +53,7 @@ class Layout extends StatelessComponent {
               ).apply(
                 styles: Styles(
                   height: 100.percent,
-                  maxWidth: hasSidebar ? 1400.px : 100.percent,
+                  maxWidth: 100.percent,
                   margin: .symmetric(horizontal: .auto),
                 ),
               ),
