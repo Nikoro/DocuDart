@@ -16,6 +16,9 @@ class PageMeta {
   const PageMeta({
     this.title,
     this.description,
+    this.image,
+    this.canonical,
+    this.noIndex = false,
     this.sidebarPosition,
     this.sidebarTitle,
     this.showInSidebar = true,
@@ -28,6 +31,9 @@ class PageMeta {
     return PageMeta(
       title: map['title'] as String?,
       description: map['description'] as String?,
+      image: map['image'] as String?,
+      canonical: map['canonical'] as String?,
+      noIndex: map['no_index'] as bool? ?? false,
       sidebarPosition: map['sidebar_position'] as int?,
       sidebarTitle: map['sidebar_title'] as String?,
       showInSidebar: map['sidebar'] as bool? ?? true,
@@ -39,8 +45,17 @@ class PageMeta {
   /// Page title (used in sidebar and browser title).
   final String? title;
 
-  /// Page description (used for SEO).
+  /// Page description (used for SEO meta description and Open Graph).
   final String? description;
+
+  /// Open Graph image path (relative to assets directory).
+  final String? image;
+
+  /// Canonical URL override. When null, auto-generated from siteUrl + page path.
+  final String? canonical;
+
+  /// Whether search engines should skip indexing this page.
+  final bool noIndex;
 
   /// Position in sidebar (lower = higher).
   final int? sidebarPosition;
@@ -61,6 +76,9 @@ class PageMeta {
   Map<String, dynamic> toMap() => {
     if (title != null) 'title': title,
     if (description != null) 'description': description,
+    if (image != null) 'image': image,
+    if (canonical != null) 'canonical': canonical,
+    if (noIndex) 'no_index': noIndex,
     if (sidebarPosition != null) 'sidebar_position': sidebarPosition,
     if (sidebarTitle != null) 'sidebar_title': sidebarTitle,
     if (!showInSidebar) 'sidebar': showInSidebar,

@@ -30,12 +30,16 @@ SiteGenerator.generate()
   ├─ _generatePubspecData()  — pubspec_data.dart (const Pubspec)
   ├─ _generateProjectData()  — project_data.dart (Project with docs + pages + asset tree)
   ├─ _generateLayout()       — layout.dart (LayoutDelegate)
-  ├─ _generateApp()          — app.dart (Router with ProjectProvider)
+  ├─ _generateApp()          — app.dart (Router with ProjectProvider + ThemeProvider)
+  │   ├─ _generatePages()              — pages/ directory
+  │   └─ _generateDocsPageContent()    — docs_page_content.dart (SEO meta + OG + JSON-LD)
   ├─ _generateStyles()       → delegates to StylesGenerator
   │   ├─ StylesGenerator.generate()      — styles.css
   │   ├─ ThemeScriptGenerator.generateThemeScript() — theme.js
   │   └─ ThemeScriptGenerator.generateLiveReload()  — live-reload.js (serve only)
-  └─ _copyAssets()           — static files to web/assets/
+  ├─ _copyAssets()           — static files to web/assets/
+  ├─ _generateSitemap()     — web/sitemap.xml (only when config.siteUrl set)
+  └─ _generateRobots()      — web/robots.txt
 ```
 
 ### ProjectGenerator (create)
@@ -72,6 +76,7 @@ ProjectGenerator.generate()
 - **Changelog pre-processing**: `_generateProjectData()` runs the raw CHANGELOG.md through `MarkdownProcessor` + `OpalHighlighter` at generation time, so `project_data.dart` stores highlighted HTML (not raw markdown). The `ChangelogPage` template renders it with `RawText`, not the `Markdown` component.
 - **`writeAsString()` over `File.copy()`**: Triggers filesystem events for hot reload detection
 - **Theme-aware assets**: `AssetPathGenerator.generateProjectAssets()` scans root, `light/`, `dark/` and merges into `SimpleAsset`/`ThemedAsset` tree embedded in `project_data.dart`
+- **SEO generation**: `_generateDocsPageContent()` produces a `DocsPageContent` component with `Document.head()` for per-page meta description, OG tags (via `meta(attributes: {'property': ...})`), canonical `<link>`, and Article JSON-LD `<script>`. Home route gets WebSite JSON-LD. `_generateSitemap()` and `_generateRobots()` write static files to `web/`. All SEO features gate on `config.siteUrl` being set.
 
 ## @client Component Hydration Pipeline
 

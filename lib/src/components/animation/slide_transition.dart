@@ -23,6 +23,7 @@ class SlideTransition extends StatelessComponent {
     this.direction = SlideDirection.left,
     this.duration = const Duration(milliseconds: 300),
     this.curve = Curve.ease,
+    this.offset = 100,
     this.trigger,
     this.classes,
     super.key,
@@ -40,6 +41,9 @@ class SlideTransition extends StatelessComponent {
   /// Timing curve for the CSS transition.
   final Curve curve;
 
+  /// Distance to slide in percent. Defaults to 100%.
+  final double offset;
+
   /// CSS selector that, when matched, activates the slide.
   ///
   /// Example: `'body.sidebar-open'` — the child slides in when `<body>`
@@ -52,10 +56,10 @@ class SlideTransition extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final offset = switch (direction) {
-      SlideDirection.left => Transform.translate(x: (-100).percent),
-      SlideDirection.right => Transform.translate(x: 100.percent),
-      SlideDirection.top => Transform.translate(y: (-100).percent),
-      SlideDirection.bottom => Transform.translate(y: 100.percent),
+      SlideDirection.left => Transform.translate(x: (-this.offset).percent),
+      SlideDirection.right => Transform.translate(x: this.offset.percent),
+      SlideDirection.top => Transform.translate(y: (-this.offset).percent),
+      SlideDirection.bottom => Transform.translate(y: this.offset.percent),
     };
 
     return div(

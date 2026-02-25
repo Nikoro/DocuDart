@@ -10,10 +10,11 @@ Main configuration — all user settings flow through this.
 Config(
   title: String?,
   description: String?,
+  siteUrl: String?,            // enables canonical URLs, OG tags, sitemap, robots.txt
   docsDir: String,             // default: 'docs' (absolutized by ConfigLoader)
   assetsDir: String,           // default: 'assets'
   outputDir: String,           // default: 'build/web'
-  theme: BaseTheme,            // default: DefaultTheme()
+  theme: Theme,                // default: Theme.classic()
   themeMode: ThemeMode,        // default: ThemeMode.system
   versioning: VersioningConfig?,
   home: Component? Function()?,      // null = redirect '/' to '/docs'
@@ -79,8 +80,8 @@ Two-step loading strategy:
 
 Parses serializable fields from `config.dart` by reading it as **text** (no subprocess).
 
-- Extracts: title, description, docsDir, assetsDir, outputDir, themeMode, seedColor
-- Supports seedColor as hex literal (`0xFF...`), `Colors.xxx`, or `Color.value(0xFF...)`
+- Extracts: title, description, docsDir, assetsDir, outputDir, themeMode, theme (preset + seedColor)
+- Detects theme preset (`.classic()`, `.material3()`, `.shadcn()`) and seedColor (`0xFF...`, `Colors.xxx`, `Color.value(0xFF...)`)
 - Skips commented lines for theme extraction
 - Returns null if parsing fails (ConfigLoader falls back to YAML)
 - **Why text-based?** Running config.dart as a subprocess fails because it imports `package:docudart` and user components that aren't resolvable in the CLI context

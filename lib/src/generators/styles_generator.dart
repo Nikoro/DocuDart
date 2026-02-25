@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 
 import '../config/docudart_config.dart';
+import '../theme/button_theme.dart';
+import '../theme/card_theme.dart';
 import '../theme/code_theme.dart';
 import '../theme/color_scheme.dart';
 
@@ -18,12 +20,19 @@ class StylesGenerator {
     bool includeVersionSwitcher = false,
   }) async {
     final theme = config.theme;
-    final themeName = theme.name;
     final light = theme.lightColorScheme;
     final dark = theme.darkColorScheme;
     final text = theme.textTheme;
     final md = theme.markdownTheme;
-    final comp = theme.componentTheme;
+    final sidebar = theme.sidebarTheme;
+    final header = theme.headerTheme;
+    final footer = theme.footerTheme;
+    final logo = theme.logoTheme;
+    final btn = theme.buttonTheme;
+    final card = theme.cardTheme;
+    final callout = theme.calloutTheme;
+    final iconBtn = theme.iconButtonTheme;
+    final landing = theme.landingTheme;
 
     // Generate heading CSS from TextTheme + MarkdownTheme spacing
     final h1Props = text.h1.toCssProperties();
@@ -58,7 +67,7 @@ ${h4Props.entries.map((e) => '  ${e.key}: ${e.value};').join('\n')}
   margin-bottom: ${md.h4MarginBottom}rem;
 }''';
 
-    // Generate opal syntax highlighting CSS (build-time inline styles with dark-mode toggle)
+    // Generate opal syntax highlighting CSS
     final lightBg = CodeTheme.toHex(
       theme.markdownTheme.lightCodeTheme.background,
     );
@@ -71,6 +80,63 @@ ${h4Props.entries.map((e) => '  ${e.key}: ${e.value};').join('\n')}
     final darkFg = CodeTheme.toHex(
       theme.markdownTheme.darkCodeTheme.foreground,
     );
+
+    // Sidebar CSS — driven by SidebarTheme
+    final sidebarBgCss = sidebar.backgroundColor != null
+        ? '  background-color: ${_hex(sidebar.backgroundColor!)};'
+        : '  background-color: var(--color-surface);';
+    final sidebarBorderCss = sidebar.hasBorderRight
+        ? '  border-right: 1px solid ${sidebar.borderColor != null ? _hex(sidebar.borderColor!) : 'var(--color-border)'};'
+        : '  border-right: none;';
+
+    final sidebarLinkHoverBgCss = sidebar.linkHoverBg != null
+        ? '  background-color: ${_hex(sidebar.linkHoverBg!)};'
+        : '  background-color: var(--color-surface-variant);';
+    final sidebarLinkHoverColorCss = sidebar.linkHoverColor != null
+        ? '  color: ${_hex(sidebar.linkHoverColor!)};'
+        : '  color: var(--color-primary);';
+
+    final sidebarActiveBorderCss = sidebar.activeBorderWidth > 0
+        ? '  border-left-color: ${sidebar.activeColor != null ? _hex(sidebar.activeColor!) : 'var(--color-primary)'};'
+        : '';
+    final sidebarActiveColorCss = sidebar.activeColor != null
+        ? '  color: ${_hex(sidebar.activeColor!)};'
+        : '  color: var(--color-primary);';
+    final sidebarActiveBgCss = sidebar.activeBg != null
+        ? '  background-color: ${_hex(sidebar.activeBg!)};'
+        : '  background-color: ${ColorScheme.toRgba(light.primary, sidebar.activeOpacity)};';
+
+    final expansionTileHoverBgCss = sidebar.expansionTileHoverBg != null
+        ? '  background-color: ${_hex(sidebar.expansionTileHoverBg!)};'
+        : sidebar.activeBorderWidth == 0
+        ? '  background-color: var(--color-surface-variant);'
+        : '';
+
+    // Button primary text color
+    final btnPrimaryTextCss = btn.primaryTextColor != null
+        ? '  color: ${_hex(btn.primaryTextColor!)};'
+        : '  color: white;';
+
+    // Button hover CSS
+    final btnHoverCss = switch (btn.hoverEffect) {
+      ButtonHoverEffect.brightness =>
+        '${btn.hoverHasBoxShadow ? '  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);\n' : ''}'
+            '  filter: brightness(${btn.hoverBrightness});',
+      ButtonHoverEffect.opacity => '  opacity: ${btn.hoverOpacity};',
+    };
+
+    // Card CSS — driven by CardTheme
+    final cardShadowCss = card.hasBoxShadow
+        ? '  box-shadow: 0 ${card.shadowBlur ~/ 2}px ${card.shadowBlur.toInt()}px rgba(0, 0, 0, ${card.shadowOpacity});'
+        : '';
+
+    final cardHoverCss = switch (card.hoverEffect) {
+      CardHoverEffect.shadow =>
+        '  box-shadow: 0 ${card.hoverShadowBlur ~/ 4}px ${card.hoverShadowBlur.toInt()}px rgba(0, 0, 0, ${card.hoverShadowOpacity});'
+            '${card.hoverTranslateY != 0 ? '\n  transform: translateY(${card.hoverTranslateY}px);' : ''}',
+      CardHoverEffect.borderHighlight =>
+        '  border-color: var(--color-text-muted);\n  box-shadow: none;',
+    };
 
     final styles =
         '''
@@ -140,10 +206,10 @@ header {
   z-index: 100;
   background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
-${themeName == 'material3' ? '  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);\n' : ''}}
+${header.hasBoxShadow ? '  box-shadow: 0 1px ${header.shadowBlur.toInt()}px rgba(0, 0, 0, ${header.shadowOpacity});\n' : ''}}
 
 header > .row {
-  padding: ${comp.headerPaddingV}rem ${comp.headerPaddingH}rem;
+  padding: ${header.paddingV}rem ${header.paddingH}rem;
 }
 
 .logo,
@@ -169,14 +235,14 @@ header > .row {
 }
 
 .logo-image img {
-  height: ${comp.logoImageHeight}rem;
+  height: ${logo.imageHeight}rem;
   width: auto;
   display: block;
 }
 
 .logo-title {
-  font-size: ${comp.logoFontSize}rem;
-  font-weight: ${comp.logoFontWeight};
+  font-size: ${logo.fontSize}rem;
+  font-weight: ${logo.fontWeight};
   white-space: nowrap;
 }
 
@@ -215,14 +281,11 @@ header a:not(.logo).active {
 
 /* Sidebar */
 .sidebar {
-  width: ${comp.sidebarWidth.toInt()}px;
+  width: ${sidebar.width.toInt()}px;
   flex-shrink: 0;
-  padding: ${comp.sidebarPaddingV}rem ${comp.sidebarPaddingH}rem;
-${themeName == 'shadcn'
-            ? '  border-right: 1px solid var(--color-border);\n  background-color: var(--color-background);'
-            : themeName == 'material3'
-            ? '  border-right: none;\n  background-color: var(--color-surface);'
-            : '  border-right: 1px solid var(--color-border);\n  background-color: var(--color-surface);'}
+  padding: ${sidebar.paddingV}rem ${sidebar.paddingH}rem;
+$sidebarBorderCss
+$sidebarBgCss
   height: calc(100vh - 65px);
   position: sticky;
   top: 65px;
@@ -239,17 +302,17 @@ ${themeName == 'shadcn'
   align-items: center;
   cursor: pointer;
   user-select: none;
-  font-size: ${comp.sidebarFontSize}rem;
+  font-size: ${sidebar.fontSize}rem;
   font-weight: 600;
   color: var(--color-text);
   padding: 0.375rem 0.75rem;
-  border-radius: ${comp.sidebarLinkBorderRadius}rem;
+  border-radius: ${sidebar.linkBorderRadius}rem;
   transition: color 0.15s;
 }
 
 .expansion-tile-header:hover {
   color: var(--color-primary);
-${themeName == 'material3' ? '  background-color: var(--color-surface-variant);' : ''}
+$expansionTileHoverBgCss
 }
 
 .expansion-tile-header::before {
@@ -287,41 +350,37 @@ ${themeName == 'material3' ? '  background-color: var(--color-surface-variant);'
   padding: 0.5rem 0.75rem;
   color: var(--color-text-muted);
   text-decoration: none;
-  border-radius: ${comp.sidebarLinkBorderRadius}rem;
-  font-size: ${comp.sidebarFontSize}rem;
-${themeName == 'material3' ? '' : '  border-left: ${comp.sidebarActiveBorderWidth.toInt()}px solid transparent;\n'}  transition: all 0.15s;
+  border-radius: ${sidebar.linkBorderRadius}rem;
+  font-size: ${sidebar.fontSize}rem;
+${sidebar.activeBorderWidth > 0 ? '  border-left: ${sidebar.activeBorderWidth.toInt()}px solid transparent;\n' : ''}  transition: all 0.15s;
 }
 
 .sidebar-link:hover {
-${themeName == 'material3'
-            ? '  background-color: var(--color-surface-variant);\n  color: var(--color-primary);'
-            : themeName == 'shadcn'
-            ? '  background-color: var(--color-surface-variant);\n  color: var(--color-text);'
-            : '  background-color: var(--color-background);\n  color: var(--color-primary);'}
+$sidebarLinkHoverBgCss
+$sidebarLinkHoverColorCss
 }
 
 .sidebar-link.active {
-${themeName == 'material3'
-            ? '  color: var(--color-primary);\n  background-color: ${ColorScheme.toRgba(light.primary, 0.12)};\n  font-weight: 500;'
-            : themeName == 'shadcn'
-            ? '  border-left-color: var(--color-primary);\n  color: var(--color-text);\n  background-color: var(--color-surface-variant);\n  font-weight: 500;'
-            : '  border-left-color: var(--color-primary);\n  color: var(--color-primary);\n  background-color: ${ColorScheme.toRgba(light.primary, 0.08)};\n  font-weight: 500;'}
+$sidebarActiveBorderCss
+$sidebarActiveColorCss
+$sidebarActiveBgCss
+  font-weight: ${sidebar.activeFontWeight};
 }
 
 /* Main */
 .site-main {
-  padding: ${comp.mainPaddingV}rem ${comp.mainPaddingH}rem;
+  padding: ${theme.mainPaddingV}rem ${theme.mainPaddingH}rem;
 }
 
 /* Footer */
 footer {
   background-color: var(--color-surface);
   border-top: 1px solid var(--color-border);
-  padding: ${comp.footerPaddingV}rem ${comp.footerPaddingH}rem;
+  padding: ${footer.paddingV}rem ${footer.paddingH}rem;
 }
 
 footer > .row {
-  padding: 0 ${comp.footerPaddingH}rem;
+  padding: 0 ${footer.paddingH}rem;
   color: var(--color-text-muted);
 }
 
@@ -405,23 +464,23 @@ footer .column {
 
 /* Hero */
 .home-page {
-  max-width: ${comp.contentMaxWidth.toInt()}px;
+  max-width: ${theme.contentMaxWidth.toInt()}px;
   margin: 0 auto;
 }
 
 .landing-page.column {
   text-align: center;
-  padding: ${comp.landingPaddingV}rem 2rem;
+  padding: ${landing.paddingV}rem 2rem;
 }
 
 .landing-page.column h1 {
-  font-size: ${comp.landingTitleFontSize}rem;
+  font-size: ${landing.titleFontSize}rem;
   font-weight: 700;
   color: var(--color-text);
 }
 
 .landing-page .description {
-  font-size: ${comp.landingDescriptionFontSize}rem;
+  font-size: ${landing.descriptionFontSize}rem;
   color: var(--color-text-muted);
   max-width: 600px;
 }
@@ -435,10 +494,10 @@ footer .column {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: ${comp.buttonPaddingV}rem ${comp.buttonPaddingH}rem;
+  padding: ${btn.paddingV}rem ${btn.paddingH}rem;
   font-size: 1rem;
-  font-weight: ${comp.buttonFontWeight};
-  border-radius: ${comp.buttonBorderRadius}rem;
+  font-weight: ${btn.fontWeight};
+  border-radius: ${btn.borderRadius}rem;
   text-decoration: none;
   transition: all 0.2s;
   cursor: pointer;
@@ -447,15 +506,11 @@ footer .column {
 
 .button-primary {
   background-color: var(--color-primary);
-${themeName == 'shadcn' ? '  color: var(--color-background);' : '  color: white;'}
+$btnPrimaryTextCss
 }
 
 .button-primary:hover {
-${themeName == 'material3'
-            ? '  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);\n  filter: brightness(1.05);'
-            : themeName == 'shadcn'
-            ? '  opacity: 0.9;'
-            : '  filter: brightness(1.1);'}
+$btnHoverCss
 }
 
 /* Docs Content */
@@ -622,8 +677,8 @@ $headingsCss
   border: none;
   background: none;
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 0.375rem;
+  padding: ${iconBtn.padding}rem;
+  border-radius: ${iconBtn.borderRadius}rem;
   color: var(--color-text-muted);
   transition: color 0.2s, background-color 0.2s;
   -webkit-tap-highlight-color: transparent;
@@ -635,8 +690,8 @@ $headingsCss
 }
 
 .icon-button svg {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: ${iconBtn.iconSize}rem;
+  height: ${iconBtn.iconSize}rem;
 }
 
 /* Sidebar backdrop overlay */
@@ -722,10 +777,10 @@ $headingsCss
 
 /* Callout Component */
 .callout {
-  padding: ${comp.calloutPadding}rem ${comp.calloutPadding * 1.25}rem;
+  padding: ${callout.padding}rem ${callout.padding * 1.25}rem;
   margin: 1rem 0;
-  border-radius: ${comp.calloutBorderRadius}rem;
-  border-left: ${comp.calloutBorderWidth.toInt()}px solid;
+  border-radius: ${callout.borderRadius}rem;
+  border-left: ${callout.borderWidth.toInt()}px solid;
 }
 
 .callout-icon {
@@ -774,7 +829,7 @@ $headingsCss
 .tabs-container {
   margin: 1.5rem 0;
   border: 1px solid var(--color-border);
-  border-radius: ${comp.cardBorderRadius}rem;
+  border-radius: ${card.borderRadius}rem;
   overflow: hidden;
 }
 
@@ -793,7 +848,7 @@ $headingsCss
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
-  border-bottom: ${comp.tabBorderWidth.toInt()}px solid transparent;
+  border-bottom: ${theme.tabBorderWidth.toInt()}px solid transparent;
   white-space: nowrap;
   transition: all 0.15s;
 }
@@ -822,20 +877,16 @@ $headingsCss
 
 /* Card Component */
 .card {
-  padding: ${comp.cardPadding}rem;
+  padding: ${card.padding}rem;
   border: 1px solid var(--color-border);
-  border-radius: ${comp.cardBorderRadius}rem;
+  border-radius: ${card.borderRadius}rem;
   background-color: var(--color-surface);
   transition: all 0.15s;
-${themeName == 'material3' ? '  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);' : ''}
+$cardShadowCss
 }
 
 .card:hover {
-${themeName == 'material3'
-            ? '  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  transform: translateY(-1px);'
-            : themeName == 'shadcn'
-            ? '  border-color: var(--color-text-muted);\n  box-shadow: none;'
-            : '  border-color: var(--color-primary);\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);'}
+$cardHoverCss
 }
 
 .card-icon {
@@ -873,7 +924,7 @@ ${themeName == 'material3'
   margin: 1rem 0;
   background-color: ${ColorScheme.toRgba(light.error, 0.1)};
   border: 1px dashed var(--color-error);
-  border-radius: ${comp.cardBorderRadius}rem;
+  border-radius: ${card.borderRadius}rem;
   color: var(--color-error);
   font-size: 0.875rem;
 }
@@ -1090,4 +1141,8 @@ pre.opal {
   static String _cssVars(Map<String, String> vars, {String indent = '  '}) {
     return vars.entries.map((e) => '$indent${e.key}: ${e.value};').join('\n');
   }
+
+  /// Convert an ARGB int color to a CSS hex string.
+  static String _hex(int color) =>
+      '#${(color & 0xFFFFFF).toRadixString(16).padLeft(6, '0')}';
 }

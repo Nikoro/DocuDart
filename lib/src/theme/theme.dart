@@ -1,16 +1,25 @@
 import 'package:jaspr/dom.dart' show Color;
 import 'package:meta/meta.dart';
 
+import 'button_theme.dart';
+import 'callout_theme.dart';
+import 'card_theme.dart';
 import 'color_resolver.dart';
 import 'color_scheme.dart';
-import 'component_theme.dart';
+import 'footer_theme.dart';
+import 'header_theme.dart';
+import 'icon_button_theme.dart';
+import 'landing_theme.dart';
+import 'logo_theme.dart';
 import 'markdown_theme.dart';
+import 'sidebar_theme.dart';
 import 'text_theme.dart';
 
 /// Complete theme configuration for a DocuDart site.
 ///
 /// A theme bundles color schemes (light + dark), typography, markdown styling,
-/// and component dimensions into a single immutable object.
+/// and per-component themes into a single immutable object — mirroring
+/// Flutter's `ThemeData` pattern.
 ///
 /// Three built-in presets are available via named constructors:
 /// - [Theme.classic] — dart.dev / flutter.dev style
@@ -28,14 +37,10 @@ import 'text_theme.dart';
 /// // Seed from a named color
 /// Theme.classic(seedColor: Colors.indigo)
 ///
-/// // Seed from a hex value
-/// Theme.material3(seedColor: Color.value(0xFF006D40))
-///
 /// // Deep customization
 /// Theme.shadcn(seedColor: Colors.sky).copyWith(
-///   textTheme: TextTheme.shadcn().copyWith(
-///     fontFamily: 'Geist, system-ui, sans-serif',
-///   ),
+///   sidebarTheme: SidebarTheme.shadcn().copyWith(width: 300),
+///   buttonTheme: ButtonTheme.shadcn().copyWith(borderRadius: 1.0),
 /// )
 /// ```
 @immutable
@@ -46,7 +51,19 @@ class Theme {
     required this.darkColorScheme,
     this.textTheme = const TextTheme(),
     this.markdownTheme = const MarkdownTheme(),
-    this.componentTheme = const ComponentTheme(),
+    this.sidebarTheme = const SidebarTheme(),
+    this.headerTheme = const HeaderTheme(),
+    this.footerTheme = const FooterTheme(),
+    this.logoTheme = const LogoTheme(),
+    this.buttonTheme = const ButtonTheme(),
+    this.cardTheme = const CardTheme(),
+    this.calloutTheme = const CalloutTheme(),
+    this.iconButtonTheme = const IconButtonTheme(),
+    this.landingTheme = const LandingTheme(),
+    this.contentMaxWidth = 1200,
+    this.mainPaddingH = 3.0,
+    this.mainPaddingV = 2.0,
+    this.tabBorderWidth = 2,
   });
 
   /// dart.dev / flutter.dev style — clean, professional, familiar to Dart devs.
@@ -65,7 +82,15 @@ class Theme {
           : const ColorScheme.dark(),
       textTheme: const TextTheme.classic(),
       markdownTheme: const MarkdownTheme.classic(),
-      componentTheme: const ComponentTheme.classic(),
+      sidebarTheme: const SidebarTheme.classic(),
+      headerTheme: const HeaderTheme.classic(),
+      footerTheme: const FooterTheme.classic(),
+      logoTheme: const LogoTheme.classic(),
+      buttonTheme: const ButtonTheme.classic(),
+      cardTheme: const CardTheme.classic(),
+      calloutTheme: const CalloutTheme.classic(),
+      iconButtonTheme: const IconButtonTheme.classic(),
+      landingTheme: const LandingTheme.classic(),
     );
   }
 
@@ -85,7 +110,16 @@ class Theme {
           : const ColorScheme.material3Dark(),
       textTheme: const TextTheme.material3(),
       markdownTheme: const MarkdownTheme.material3(),
-      componentTheme: const ComponentTheme.material3(),
+      sidebarTheme: const SidebarTheme.material3(),
+      headerTheme: const HeaderTheme.material3(),
+      footerTheme: const FooterTheme.material3(),
+      logoTheme: const LogoTheme.material3(),
+      buttonTheme: const ButtonTheme.material3(),
+      cardTheme: const CardTheme.material3(),
+      calloutTheme: const CalloutTheme.material3(),
+      iconButtonTheme: const IconButtonTheme.material3(),
+      landingTheme: const LandingTheme.material3(),
+      tabBorderWidth: 3,
     );
   }
 
@@ -105,7 +139,15 @@ class Theme {
           : const ColorScheme.shadcnDark(),
       textTheme: const TextTheme.shadcn(),
       markdownTheme: const MarkdownTheme.shadcn(),
-      componentTheme: const ComponentTheme.shadcn(),
+      sidebarTheme: const SidebarTheme.shadcn(),
+      headerTheme: const HeaderTheme.shadcn(),
+      footerTheme: const FooterTheme.shadcn(),
+      logoTheme: const LogoTheme.shadcn(),
+      buttonTheme: const ButtonTheme.shadcn(),
+      cardTheme: const CardTheme.shadcn(),
+      calloutTheme: const CalloutTheme.shadcn(),
+      iconButtonTheme: const IconButtonTheme.shadcn(),
+      landingTheme: const LandingTheme.shadcn(),
     );
   }
 
@@ -123,11 +165,39 @@ class Theme {
     markdownTheme: json['markdownTheme'] != null
         ? MarkdownTheme.fromJson(json['markdownTheme'] as Map<String, dynamic>)
         : const MarkdownTheme(),
-    componentTheme: json['componentTheme'] != null
-        ? ComponentTheme.fromJson(
-            json['componentTheme'] as Map<String, dynamic>,
+    sidebarTheme: json['sidebarTheme'] != null
+        ? SidebarTheme.fromJson(json['sidebarTheme'] as Map<String, dynamic>)
+        : const SidebarTheme(),
+    headerTheme: json['headerTheme'] != null
+        ? HeaderTheme.fromJson(json['headerTheme'] as Map<String, dynamic>)
+        : const HeaderTheme(),
+    footerTheme: json['footerTheme'] != null
+        ? FooterTheme.fromJson(json['footerTheme'] as Map<String, dynamic>)
+        : const FooterTheme(),
+    logoTheme: json['logoTheme'] != null
+        ? LogoTheme.fromJson(json['logoTheme'] as Map<String, dynamic>)
+        : const LogoTheme(),
+    buttonTheme: json['buttonTheme'] != null
+        ? ButtonTheme.fromJson(json['buttonTheme'] as Map<String, dynamic>)
+        : const ButtonTheme(),
+    cardTheme: json['cardTheme'] != null
+        ? CardTheme.fromJson(json['cardTheme'] as Map<String, dynamic>)
+        : const CardTheme(),
+    calloutTheme: json['calloutTheme'] != null
+        ? CalloutTheme.fromJson(json['calloutTheme'] as Map<String, dynamic>)
+        : const CalloutTheme(),
+    iconButtonTheme: json['iconButtonTheme'] != null
+        ? IconButtonTheme.fromJson(
+            json['iconButtonTheme'] as Map<String, dynamic>,
           )
-        : const ComponentTheme(),
+        : const IconButtonTheme(),
+    landingTheme: json['landingTheme'] != null
+        ? LandingTheme.fromJson(json['landingTheme'] as Map<String, dynamic>)
+        : const LandingTheme(),
+    contentMaxWidth: (json['contentMaxWidth'] as num?)?.toDouble() ?? 1200,
+    mainPaddingH: (json['mainPaddingH'] as num?)?.toDouble() ?? 3.0,
+    mainPaddingV: (json['mainPaddingV'] as num?)?.toDouble() ?? 2.0,
+    tabBorderWidth: (json['tabBorderWidth'] as num?)?.toDouble() ?? 2,
   );
 
   /// Display name for the theme.
@@ -145,8 +215,44 @@ class Theme {
   /// Markdown content styling (spacing, borders, code themes).
   final MarkdownTheme markdownTheme;
 
-  /// Component dimensions (sidebar, header, footer, cards, buttons).
-  final ComponentTheme componentTheme;
+  /// Sidebar navigation theme.
+  final SidebarTheme sidebarTheme;
+
+  /// Site header theme.
+  final HeaderTheme headerTheme;
+
+  /// Site footer theme.
+  final FooterTheme footerTheme;
+
+  /// Logo appearance theme.
+  final LogoTheme logoTheme;
+
+  /// Button styling theme.
+  final ButtonTheme buttonTheme;
+
+  /// Card component theme.
+  final CardTheme cardTheme;
+
+  /// Callout/admonition theme.
+  final CalloutTheme calloutTheme;
+
+  /// Icon button theme.
+  final IconButtonTheme iconButtonTheme;
+
+  /// Landing/home page theme.
+  final LandingTheme landingTheme;
+
+  /// Maximum content width in pixels.
+  final double contentMaxWidth;
+
+  /// Main content horizontal padding in rem.
+  final double mainPaddingH;
+
+  /// Main content vertical padding in rem.
+  final double mainPaddingV;
+
+  /// Tab indicator border width in pixels.
+  final double tabBorderWidth;
 
   Theme copyWith({
     String? name,
@@ -154,14 +260,38 @@ class Theme {
     ColorScheme? darkColorScheme,
     TextTheme? textTheme,
     MarkdownTheme? markdownTheme,
-    ComponentTheme? componentTheme,
+    SidebarTheme? sidebarTheme,
+    HeaderTheme? headerTheme,
+    FooterTheme? footerTheme,
+    LogoTheme? logoTheme,
+    ButtonTheme? buttonTheme,
+    CardTheme? cardTheme,
+    CalloutTheme? calloutTheme,
+    IconButtonTheme? iconButtonTheme,
+    LandingTheme? landingTheme,
+    double? contentMaxWidth,
+    double? mainPaddingH,
+    double? mainPaddingV,
+    double? tabBorderWidth,
   }) => Theme(
     name: name ?? this.name,
     lightColorScheme: lightColorScheme ?? this.lightColorScheme,
     darkColorScheme: darkColorScheme ?? this.darkColorScheme,
     textTheme: textTheme ?? this.textTheme,
     markdownTheme: markdownTheme ?? this.markdownTheme,
-    componentTheme: componentTheme ?? this.componentTheme,
+    sidebarTheme: sidebarTheme ?? this.sidebarTheme,
+    headerTheme: headerTheme ?? this.headerTheme,
+    footerTheme: footerTheme ?? this.footerTheme,
+    logoTheme: logoTheme ?? this.logoTheme,
+    buttonTheme: buttonTheme ?? this.buttonTheme,
+    cardTheme: cardTheme ?? this.cardTheme,
+    calloutTheme: calloutTheme ?? this.calloutTheme,
+    iconButtonTheme: iconButtonTheme ?? this.iconButtonTheme,
+    landingTheme: landingTheme ?? this.landingTheme,
+    contentMaxWidth: contentMaxWidth ?? this.contentMaxWidth,
+    mainPaddingH: mainPaddingH ?? this.mainPaddingH,
+    mainPaddingV: mainPaddingV ?? this.mainPaddingV,
+    tabBorderWidth: tabBorderWidth ?? this.tabBorderWidth,
   );
 
   Map<String, dynamic> toJson() => {
@@ -170,6 +300,18 @@ class Theme {
     'darkColorScheme': darkColorScheme.toJson(),
     'textTheme': textTheme.toJson(),
     'markdownTheme': markdownTheme.toJson(),
-    'componentTheme': componentTheme.toJson(),
+    'sidebarTheme': sidebarTheme.toJson(),
+    'headerTheme': headerTheme.toJson(),
+    'footerTheme': footerTheme.toJson(),
+    'logoTheme': logoTheme.toJson(),
+    'buttonTheme': buttonTheme.toJson(),
+    'cardTheme': cardTheme.toJson(),
+    'calloutTheme': calloutTheme.toJson(),
+    'iconButtonTheme': iconButtonTheme.toJson(),
+    'landingTheme': landingTheme.toJson(),
+    'contentMaxWidth': contentMaxWidth,
+    'mainPaddingH': mainPaddingH,
+    'mainPaddingV': mainPaddingV,
+    'tabBorderWidth': tabBorderWidth,
   };
 }

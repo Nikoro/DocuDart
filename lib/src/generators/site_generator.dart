@@ -106,6 +106,8 @@ class SiteGenerator {
     await _generateStyles(includeVersionSwitcher: versionManager.isEnabled);
     await _generateWebFiles();
     await _copyAssets();
+    await _generateSitemap(allPages, discoveredPages);
+    await _generateRobots();
 
     // Run pub get (skip on incremental regeneration — deps don't change)
     if (fullClean) {
@@ -569,11 +571,56 @@ ClientOptions get defaultClientOptions => ClientOptions();
     // Generate routes for all pages
     final routesBuffer = StringBuffer();
 
+    final siteTitle = _escapeForDart(config.title ?? 'Documentation');
+
     // Home route: if config.home is set and returns non-null, render it; otherwise redirect to /docs
-    routesBuffer.writeln('''
+    if (config.siteUrl != null) {
+      final escapedUrl = _escapeForDart(config.siteUrl!);
+      final escapedSiteDesc = config.description != null
+          ? _escapeForDart(config.description!)
+          : null;
+      routesBuffer.writeln('''
         if (configure(context).home?.call() case final homeComponent?)
           Route(
             path: '/',
+            title: '$siteTitle',
+            builder: (context, state) => Component.fragment([
+              Document.head(
+                meta: {
+                  'twitter:card': 'summary',
+                },
+                children: [
+                  meta(attributes: {'property': 'og:title'}, content: '$siteTitle'),
+                  meta(attributes: {'property': 'og:type'}, content: 'website'),
+                  meta(attributes: {'property': 'og:url'}, content: '$escapedUrl'),${escapedSiteDesc != null ? "\n                  meta(attributes: {'property': 'og:description'}, content: '$escapedSiteDesc')," : ''}
+                  link(rel: 'canonical', href: '$escapedUrl/'),
+                  script(
+                    attributes: {'type': 'application/ld+json'},
+                    content: jsonEncode({
+                      '@context': 'https://schema.org',
+                      '@type': 'WebSite',
+                      'name': '$siteTitle',
+                      'url': '$escapedUrl',
+                    }),
+                  ),
+                ],
+              ),
+              LayoutDelegate(
+                child: homeComponent,
+              ),
+            ]),
+          )
+        else
+          Route(
+            path: '/',
+            redirect: (_, _) => '/docs',
+          ),''');
+    } else {
+      routesBuffer.writeln('''
+        if (configure(context).home?.call() case final homeComponent?)
+          Route(
+            path: '/',
+            title: '$siteTitle',
             builder: (context, state) => LayoutDelegate(
               child: homeComponent,
             ),
@@ -583,19 +630,52 @@ ClientOptions get defaultClientOptions => ClientOptions();
             path: '/',
             redirect: (_, _) => '/docs',
           ),''');
+    }
+
+    final escapedSiteUrl = config.siteUrl != null
+        ? _escapeForDart(config.siteUrl!)
+        : null;
 
     // Generate a route for each doc page
     for (final page in pages) {
       final escapedHtml = _escapeForDart(_encodePreNewlines(page.html));
       final escapedTitle = _escapeForDart(page.title);
+      final escapedDesc = page.meta.description != null
+          ? _escapeForDart(page.meta.description!)
+          : null;
+      final escapedImage = page.meta.image != null
+          ? _escapeForDart(page.meta.image!)
+          : null;
+      final escapedCanonical = page.meta.canonical != null
+          ? _escapeForDart(page.meta.canonical!)
+          : null;
+
+      final seoParams = StringBuffer();
+      if (escapedDesc != null) {
+        seoParams.writeln("              description: '$escapedDesc',");
+      }
+      if (escapedSiteUrl != null) {
+        seoParams.writeln("              siteUrl: '$escapedSiteUrl',");
+      }
+      seoParams.writeln("              pagePath: '${page.urlPath}',");
+      if (escapedImage != null) {
+        seoParams.writeln("              image: '$escapedImage',");
+      }
+      if (escapedCanonical != null) {
+        seoParams.writeln("              canonicalUrl: '$escapedCanonical',");
+      }
+      if (page.meta.noIndex) {
+        seoParams.writeln('              noIndex: true,');
+      }
 
       routesBuffer.writeln('''
         Route(
           path: '${page.urlPath}',
+          title: '$escapedTitle - $siteTitle',
           builder: (context, state) => const LayoutDelegate(
             child: DocsPageContent(
               title: '$escapedTitle',
-              htmlContent: \'\'\'$escapedHtml\'\'\',
+$seoParams              htmlContent: \'\'\'$escapedHtml\'\'\',
             ),
           ),
         ),''');
@@ -603,9 +683,11 @@ ClientOptions get defaultClientOptions => ClientOptions();
 
     // Generate routes for discovered custom pages
     for (final page in discoveredPages) {
+      final escapedName = _escapeForDart(page.name);
       routesBuffer.writeln('''
         Route(
           path: '${page.routePath}',
+          title: '$escapedName - $siteTitle',
           builder: (context, state) => LayoutDelegate(
             child: const ${page.className}(),
           ),
@@ -620,6 +702,8 @@ ClientOptions get defaultClientOptions => ClientOptions();
 
     final app =
         '''
+import 'dart:convert';
+
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr_router/jaspr_router.dart';
@@ -636,11 +720,17 @@ class DocuDartApp extends StatelessComponent {
   Component build(BuildContext context) {
     return ProjectProvider(
       project: project,
-      child: Builder(builder: (context) => Router(
-        routes: [
+      child: Builder(builder: (context) {
+        final config = configure(context);
+        return ThemeProvider(
+          theme: config.theme,
+          child: Router(
+            routes: [
 ${routesBuffer.toString()}
-        ],
-      )),
+            ],
+          ),
+        );
+      }),
     );
   }
 }
@@ -669,15 +759,29 @@ ${routesBuffer.toString()}
 
   Future<void> _generateDocsPageContent() async {
     final docsPageContent = '''
+import 'dart:convert';
+
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 
 class DocsPageContent extends StatelessComponent {
   final String title;
+  final String? description;
+  final String? siteUrl;
+  final String? pagePath;
+  final String? image;
+  final String? canonicalUrl;
+  final bool noIndex;
   final String htmlContent;
 
   const DocsPageContent({
     required this.title,
+    this.description,
+    this.siteUrl,
+    this.pagePath,
+    this.image,
+    this.canonicalUrl,
+    this.noIndex = false,
     required this.htmlContent,
     super.key,
   });
@@ -687,6 +791,38 @@ class DocsPageContent extends StatelessComponent {
     return article(
       classes: 'docs-page',
       [
+        Document.head(
+          meta: {
+            if (description case final desc?) 'description': desc,
+            'twitter:card': 'summary',
+            if (noIndex) 'robots': 'noindex',
+          },
+          children: [
+            meta(attributes: {'property': 'og:title'}, content: title),
+            meta(attributes: {'property': 'og:type'}, content: 'article'),
+            if (description case final desc?)
+              meta(attributes: {'property': 'og:description'}, content: desc),
+            if (siteUrl != null && pagePath != null)
+              meta(attributes: {'property': 'og:url'}, content: '\$siteUrl\$pagePath'),
+            if (image != null)
+              meta(attributes: {'property': 'og:image'}, content: image!),
+            if (canonicalUrl case final url?)
+              link(rel: 'canonical', href: url)
+            else if (siteUrl != null && pagePath != null)
+              link(rel: 'canonical', href: '\$siteUrl\$pagePath'),
+            if (siteUrl != null && pagePath != null)
+              script(
+                attributes: {'type': 'application/ld+json'},
+                content: jsonEncode({
+                  '@context': 'https://schema.org',
+                  '@type': 'Article',
+                  'headline': title,
+                  if (description != null) 'description': description,
+                  'url': '\$siteUrl\$pagePath',
+                }),
+              ),
+          ],
+        ),
         div(
           classes: 'docs-content',
           [
@@ -914,6 +1050,64 @@ class VersionSwitcher extends StatelessComponent {
     await File(
       p.join(componentsDir, 'version_switcher.dart'),
     ).writeAsString(versionSwitcher);
+  }
+
+  /// Generate sitemap.xml listing all pages. Only when siteUrl is configured.
+  Future<void> _generateSitemap(
+    List<DocPage> pages,
+    List<_DiscoveredPage> discoveredPages,
+  ) async {
+    final siteUrl = config.siteUrl;
+    if (siteUrl == null) return;
+
+    // Strip trailing slash from siteUrl for consistent concatenation.
+    final baseUrl = siteUrl.endsWith('/')
+        ? siteUrl.substring(0, siteUrl.length - 1)
+        : siteUrl;
+
+    final buffer = StringBuffer();
+    buffer.writeln('<?xml version="1.0" encoding="UTF-8"?>');
+    buffer.writeln(
+      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    );
+
+    // Home page.
+    buffer.writeln('  <url><loc>$baseUrl/</loc></url>');
+
+    // Doc pages (exclude noIndex).
+    for (final page in pages) {
+      if (page.meta.noIndex) continue;
+      buffer.writeln('  <url><loc>$baseUrl${page.urlPath}</loc></url>');
+    }
+
+    // Discovered custom pages.
+    for (final page in discoveredPages) {
+      buffer.writeln('  <url><loc>$baseUrl${page.routePath}</loc></url>');
+    }
+
+    buffer.writeln('</urlset>');
+
+    final webDir = p.join(managedDir, 'web');
+    await File(p.join(webDir, 'sitemap.xml')).writeAsString(buffer.toString());
+  }
+
+  /// Generate robots.txt with sitemap reference when siteUrl is configured.
+  Future<void> _generateRobots() async {
+    final buffer = StringBuffer();
+    buffer.writeln('User-agent: *');
+    buffer.writeln('Allow: /');
+
+    final siteUrl = config.siteUrl;
+    if (siteUrl != null) {
+      final baseUrl = siteUrl.endsWith('/')
+          ? siteUrl.substring(0, siteUrl.length - 1)
+          : siteUrl;
+      buffer.writeln();
+      buffer.writeln('Sitemap: $baseUrl/sitemap.xml');
+    }
+
+    final webDir = p.join(managedDir, 'web');
+    await File(p.join(webDir, 'robots.txt')).writeAsString(buffer.toString());
   }
 }
 

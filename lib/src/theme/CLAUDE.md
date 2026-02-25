@@ -1,6 +1,6 @@
 # Theme System
 
-The theme subsystem defines the visual identity of generated DocuDart sites. A `Theme` bundles 5 sub-themes into a single immutable object.
+The theme subsystem defines the visual identity of generated DocuDart sites. A `Theme` aggregates 13 sub-themes into a single immutable object, mirroring Flutter's `ThemeData` pattern.
 
 ## Files
 
@@ -14,12 +14,20 @@ The theme subsystem defines the visual identity of generated DocuDart sites. A `
 | `text_style.dart` | `TextStyle` | Individual text style → CSS properties |
 | `markdown_theme.dart` | `MarkdownTheme` | Content spacing, borders, code theme selection |
 | `code_theme.dart` | `CodeTheme` | Syntax highlighting (14 token colors for opal build-time highlighting) |
-| `component_theme.dart` | `ComponentTheme` | Component dimensions (sidebar, header, footer, cards, buttons) |
+| `sidebar_theme.dart` | `SidebarTheme` | Sidebar dimensions, active link style, hover colors |
+| `header_theme.dart` | `HeaderTheme` | Header padding, box shadow |
+| `footer_theme.dart` | `FooterTheme` | Footer padding |
+| `logo_theme.dart` | `LogoTheme` | Logo font size, weight, image height |
+| `button_theme.dart` | `ButtonTheme` | Button padding, radius, hover effect (brightness/opacity) |
+| `card_theme.dart` | `CardTheme` | Card padding, radius, shadow, hover effect (shadow/borderHighlight) |
+| `callout_theme.dart` | `CalloutTheme` | Callout padding, radius, border width |
+| `icon_button_theme.dart` | `IconButtonTheme` | Icon button padding, radius, icon size |
+| `landing_theme.dart` | `LandingTheme` | Landing page padding, title/description font sizes |
 | `theme_loader.dart` | `ThemeLoader` | YAML theme loading (legacy) |
 
 ## Presets
 
-Each preset has its own default ColorScheme, TextTheme, MarkdownTheme, and ComponentTheme:
+Each preset has its own default ColorScheme, TextTheme, MarkdownTheme, and per-component themes:
 
 | Preset | Primary (light) | Font | Sidebar Active | Button | Dark Code Theme |
 |--------|----------------|------|---------------|--------|----------------|
@@ -40,11 +48,18 @@ Config.theme (Theme object)
   ├─ markdownTheme → inline code, blockquote, table, list spacing
   ├─ markdownTheme.lightCodeTheme → pre.opal { background, color } (via StylesGenerator)
   ├─ markdownTheme.darkCodeTheme → :root[data-theme="dark"] pre.opal span { color: var(--dd-dark-color) }
-  ├─ componentTheme → sidebar width, padding, border-radius, etc.
-  └─ theme.name → theme-specific CSS (sidebar style, button style, card hover)
+  ├─ sidebarTheme → sidebar width, padding, active link style, hover colors
+  ├─ headerTheme → header padding, box shadow
+  ├─ footerTheme → footer padding
+  ├─ logoTheme → logo font size, weight, image height
+  ├─ buttonTheme → button padding, radius, hover effect
+  ├─ cardTheme → card padding, radius, shadow, hover effect
+  ├─ calloutTheme → callout padding, radius, border width
+  ├─ iconButtonTheme → icon button padding, radius
+  └─ landingTheme → landing page padding, title/description sizes
 ```
 
-`StylesGenerator` reads `theme.name` to emit structurally different CSS per preset (e.g., Material3 sidebar has no right border, shadcn buttons use `opacity` hover).
+`StylesGenerator` reads per-component theme properties directly — no `theme.name` conditionals. Each preset encodes its visual differences as data in the theme objects (e.g., `ButtonTheme.material3()` uses brightness hover, `CardTheme.shadcn()` uses border-highlight hover).
 
 ## Key Patterns
 

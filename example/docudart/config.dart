@@ -8,6 +8,7 @@ import 'pages/landing_page.dart';
 Config configure(BuildContext context) => Config(
   title: context.project.pubspec.name,
   description: context.project.pubspec.description,
+  // siteUrl: 'https://my-project.dev', // Uncomment for SEO (canonical URLs, Open Graph, sitemap)
   themeMode: .system,
   theme: .classic(),
   // Home page component. Set to null to redirect '/' to '/docs'.

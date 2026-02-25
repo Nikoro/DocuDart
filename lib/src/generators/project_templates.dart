@@ -155,6 +155,7 @@ class Sidebar extends StatelessComponent {
         'Config configure(BuildContext context) => Config(\n'
         '  title: context.project.pubspec.name,\n'
         '  description: context.project.pubspec.description,\n'
+        "  // siteUrl: 'https://my-project.dev', // Uncomment for SEO (canonical URLs, Open Graph, sitemap)\n"
         '  themeMode: .system,\n'
         '  theme: .classic(),\n'
         "  // Home page component. Set to null to redirect '/' to '/docs'.\n"
@@ -402,6 +403,7 @@ ${section.content}
     await File(p.join(websiteDir, 'docs', 'index.md')).writeAsString('''
 ---
 title: Introduction
+description: Welcome to your documentation site powered by DocuDart.
 sidebar_position: 1
 ---
 
@@ -426,6 +428,7 @@ Edit the files in the `docs/` folder to add your content.
       '''
 ---
 title: Getting Started
+description: Learn how to set up and write documentation with DocuDart.
 sidebar_position: 2
 ---
 

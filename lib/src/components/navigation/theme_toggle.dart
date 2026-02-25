@@ -6,8 +6,18 @@ import 'package:docudart/docudart.dart';
 /// CSS visibility rules based on `[data-theme]` on `<html>` show the
 /// appropriate icon. Clicking toggles the theme via the existing
 /// `theme.js` click handler on `.theme-toggle`.
+///
+/// ```dart
+/// ThemeToggle(light: Icon(Icons.dark_mode), dark: Icon(Icons.light_mode))
+/// ThemeToggle(light: ..., dark: ..., tooltip: 'Switch theme')
+/// ```
 class ThemeToggle extends StatelessComponent {
-  const ThemeToggle({required this.light, required this.dark, super.key});
+  const ThemeToggle({
+    required this.light,
+    required this.dark,
+    this.tooltip = 'Toggle theme',
+    super.key,
+  });
 
   /// Icon shown when the current theme is light (to indicate "switch to dark").
   final Component light;
@@ -15,11 +25,14 @@ class ThemeToggle extends StatelessComponent {
   /// Icon shown when the current theme is dark (to indicate "switch to light").
   final Component dark;
 
+  /// Tooltip and aria-label text.
+  final String tooltip;
+
   @override
   Component build(BuildContext context) {
     return button(
       classes: 'theme-toggle',
-      attributes: {'aria-label': 'Toggle theme', 'title': 'Toggle theme'},
+      attributes: {'aria-label': tooltip, 'title': tooltip},
       [
         span(classes: 'theme-toggle-light', [light]),
         span(classes: 'theme-toggle-dark', [dark]),

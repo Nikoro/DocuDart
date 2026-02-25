@@ -88,7 +88,7 @@ docudart/
 See `lib/src/generators/CLAUDE.md` for the full generation pipeline. Key methods in `SiteGenerator`:
 - `_generateApp()` — Router with ProjectProvider
 - `_generateLayout()` — LayoutDelegate
-- `_generateStyles()` — delegates to `StylesGenerator` (theme-name-aware: emits different CSS per preset)
+- `_generateStyles()` — delegates to `StylesGenerator` (reads per-component theme properties directly, no theme-name conditionals)
 - `_copyUserFiles()` — copies config.dart, components/, pages/, root-level .dart files (e.g. labels.dart)
 
 ## Committing
@@ -122,7 +122,7 @@ Key things to verify: header, sidebar (active link, collapsible categories), mob
 ## Important Notes
 
 - User's config is `config.dart` (Dart, not YAML) — must export `Config configure(BuildContext context)`
-- `docudart` re-exports `package:jaspr/jaspr.dart` and extensions (`.let()`, `.apply()`, `.screen`)
+- `docudart` re-exports `package:jaspr/jaspr.dart` and extensions (`.let()`, `.apply()`, `.screen`), hiding conflicting types: `Padding`, `Text`, `Border`, `BorderSide`, `BorderRadius`, `BoxShadow`, `ColorScheme` (DocuDart provides Flutter-like replacements)
 - Jaspr `build()` returns `Component` (single), NOT `Iterable<Component>`
 - Jaspr `classes` takes `String` (space-separated), NOT `List<String>`
 - Jaspr `main(...)` from dom.dart shadows Dart's `main()` function

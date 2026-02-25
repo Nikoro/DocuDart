@@ -47,7 +47,8 @@ Collapsible navigation tree from docs structure using `Column` + `ExpansionTile`
 
 CSS-driven light/dark icon swap — no JS text manipulation.
 
-- `ThemeToggle(light: Component, dark: Component)` — renders both in DOM
+- `ThemeToggle(light: Component, dark: Component, tooltip: String)` — renders both in DOM
+- `tooltip` defaults to `'Toggle theme'` — maps to `title` and `aria-label` attributes
 - CSS uses `:root[data-theme="dark"]` and `@media (prefers-color-scheme: dark)` for visibility toggle
 - Reuses `.theme-toggle` click handler in `theme.js`
 
@@ -89,6 +90,19 @@ Markdown(content: context.project.changelog ?? '', classes: 'changelog-content')
 - Supports embedded components via `ComponentRegistry`
 - Default `classes: 'docs-content'`
 
+### Text (`content/text_widget.dart`)
+
+Flutter-like `Text` widget. Renders `<span>` with optional `TextStyle` inline styles.
+
+```dart
+Text('Hello, world!')
+Text('Bold text', style: TextStyle(fontWeight: 700))
+```
+
+- Shadows Jaspr's `Text` class (hidden from barrel export)
+- `data` (`String`) — the text to display
+- `style` (`TextStyle?`) — optional inline styles via `toCssProperties()`
+
 ## Branding
 
 ### Logo (`branding/logo.dart`)
@@ -103,8 +117,8 @@ Logo(image: img(src: Assets.logo.logo_webp, alt: 'Logo'), title: 'My Project')
 
 ### Copyright / BuiltWithDocuDart (`branding/`)
 
-- `Copyright(text:)` — renders `<p>` with `(c) {year} {text}`
-- `BuiltWithDocuDart()` — renders `<p class="built-with">` with DocuDart link
+- `Copyright(text:, year:)` — renders `<p>` with `© {year} {text}`. `year` defaults to `DateTime.now().year`
+- `BuiltWithDocuDart(prefix:, label:, href:)` — renders `<p class="built-with">` with link. Defaults: `'Built with'`, `'DocuDart'`, pub.dev URL
 
 ### Socials (`branding/socials.dart`)
 
@@ -143,6 +157,52 @@ Flutter-like flex containers with inline styles. CSS classes kept as selector ho
 
 Standard Flutter-like layout primitives. `SizedBox` named to avoid conflict with Jaspr's `Gap`.
 
+### Padding (`layout/padding.dart`) + EdgeInsets (`layout/edge_insets.dart`)
+
+Flutter-like padding component. Shadows Jaspr's `Padding` typedef (which is `Spacing`).
+
+```dart
+Padding(padding: EdgeInsets.all(16), child: Text('Hello'))
+Padding(padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12), child: child)
+```
+
+- `EdgeInsets` mirrors Flutter: `.all()`, `.symmetric()`, `.only()`, `.fromLTRB()`, `.zero`
+- Converts to Jaspr's `Spacing` internally via `toSpacing()`
+- `docudart.dart` hides Jaspr's `Padding` typedef — users who need raw `Spacing` import `package:jaspr/dom.dart`
+
+### Container (`layout/container.dart`) + BoxDecoration (`layout/box_decoration.dart`)
+
+Flutter-like container with `width`, `height`, `padding`, `margin`, `color`, `decoration`, `alignment`, `constraints`.
+
+```dart
+Container(width: 200, padding: EdgeInsets.all(16), decoration: BoxDecoration(
+  color: 0xFFF5F5F5, borderRadius: BorderRadius.circular(8),
+), child: child)
+```
+
+- Supporting classes: `BoxDecoration`, `BorderRadius`, `Border`, `BorderSide`, `BoxShadow`, `Alignment`, `BoxConstraints`
+- `docudart.dart` hides Jaspr's `Border`, `BorderSide`, `BorderRadius`, `BoxShadow` to avoid conflicts
+
+### Center (`layout/center.dart`)
+
+Shorthand for flex centering. Renders `div` with `display: flex; justify-content: center; align-items: center;`.
+
+### Wrap (`layout/wrap.dart`)
+
+Wrapping flow layout. Renders `div` with `flex-wrap: wrap` and optional `spacing`/`runSpacing`.
+
+### Divider (`layout/divider.dart`)
+
+Horizontal line. Renders `<hr>` with optional `height`, `thickness`, `color`, `indent`, `endIndent`.
+
+### Card (`layout/card.dart`)
+
+Material card with `.card` CSS class. Optional `elevation`, `borderRadius`, `color` overrides.
+
+### Badge (`layout/badge.dart`)
+
+Inline status label with `label`, `color`, `textColor`. Pill-shaped with inline styles.
+
 ## Interaction
 
 ### IconButton (`interaction/icon_button.dart`)
@@ -162,6 +222,18 @@ IconButton(
 - `tooltip` (`String?`) — maps to `title` and `aria-label` attributes
 - CSS: `.icon-button` base styles (inline-flex, no border, hover state)
 
+### Tooltip (`interaction/tooltip.dart`)
+
+Wraps a child with native browser tooltip via HTML `title` attribute.
+
+```dart
+Tooltip(message: 'Delete this item', child: IconButton(icon: Icon(Icons.delete)))
+```
+
+- `message` (`String`) — tooltip text
+- `child` (`Component`) — the wrapped widget
+- Uses DocuDart's `.apply()` extension to merge `title` attribute onto child
+
 ## Animation
 
 ### SlideTransition (`animation/slide_transition.dart`)
@@ -180,6 +252,7 @@ SlideTransition(
 - `direction` (`SlideDirection`) — slides FROM this direction when entering (`left`, `right`, `top`, `bottom`)
 - `duration` (`Duration`) — CSS transition duration (default 300ms)
 - `curve` (`Curve`) — timing curve (default `Curve.ease`; uses Jaspr's `Curve` class)
+- `offset` (`double`) — slide distance in percent (default 100%)
 - `trigger` (`String?`) — CSS selector; when `document.querySelector(trigger)` matches, `data-slide-active` is set and child slides to natural position
 - `classes` (`String?`) — additional CSS classes
 - Uses Jaspr's typed `Transform.translate()` and `Transition()` for inline styles
@@ -191,9 +264,19 @@ SlideTransition(
 
 `InheritedComponent` providing `Project` data via the component tree.
 
-- Generated `app.dart` wraps Router with `ProjectProvider`
+- Generated `app.dart` wraps Router with `ProjectProvider` and `ThemeProvider`
 - Extension `ProjectContext` on `BuildContext` adds `.project` getter
 - Usage: `context.project.pubspec.name`, `context.project.docs`
+
+### ThemeProvider (`providers/theme_provider.dart`)
+
+`InheritedComponent` providing `Theme` data via the component tree.
+
+- Generated `app.dart` wraps Router: `ProjectProvider` → `Builder` → `ThemeProvider` → `Router`
+- The `Builder` gets a context with `ProjectProvider`, then calls `configure(context)` to get the `Config.theme`
+- Extension `ThemeContext` on `BuildContext` adds `.theme` getter
+- Falls back to `Theme.classic()` if no `ThemeProvider` is found
+- Usage: `context.theme.sidebarTheme`, `context.theme.cardTheme`, `context.theme.buttonTheme`
 
 ## User-Owned Components (generated by ProjectGenerator)
 

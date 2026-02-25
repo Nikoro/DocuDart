@@ -1,16 +1,33 @@
 import 'package:docudart/docudart.dart';
 
-/// "Built with DocuDart" branding link.
+/// A "Built with" branding link.
+///
+/// ```dart
+/// BuiltWithDocuDart()
+/// BuiltWithDocuDart(prefix: 'Powered by', label: 'DocuDart')
+/// ```
 class BuiltWithDocuDart extends StatelessComponent {
-  const BuiltWithDocuDart({super.key});
+  const BuiltWithDocuDart({
+    this.prefix = 'Built with',
+    this.label = 'DocuDart',
+    this.href = 'https://pub.dev/packages/docudart',
+    super.key,
+  });
+
+  /// Text before the link.
+  final String prefix;
+
+  /// Link text.
+  final String label;
+
+  /// Link URL.
+  final String href;
 
   @override
   Component build(BuildContext context) {
     return p(classes: 'built-with', [
-      .text('Built with '),
-      a(href: 'https://pub.dev/packages/docudart', target: .blank, [
-        .text('DocuDart'),
-      ]),
+      .text('$prefix '),
+      a(href: href, target: .blank, [.text(label)]),
     ]);
   }
 }

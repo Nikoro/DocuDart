@@ -8,6 +8,7 @@ class Config {
   Config({
     this.title,
     this.description,
+    this.siteUrl,
     this.docsDir = 'docs',
     this.assetsDir = 'assets',
     this.outputDir = 'build/web',
@@ -25,6 +26,7 @@ class Config {
     return Config(
       title: json['title'] as String?,
       description: json['description'] as String?,
+      siteUrl: json['siteUrl'] as String?,
       docsDir: json['docsDir'] as String? ?? 'docs',
       assetsDir: json['assetsDir'] as String? ?? 'assets',
       outputDir: json['outputDir'] as String? ?? 'build/web',
@@ -47,6 +49,12 @@ class Config {
 
   /// Site description. Defaults to description from pubspec.yaml.
   final String? description;
+
+  /// Base URL of the deployed site (e.g. 'https://docudart.dev').
+  ///
+  /// When set, enables canonical URLs, Open Graph tags, sitemap.xml,
+  /// and robots.txt generation.
+  final String? siteUrl;
 
   /// Directory containing documentation markdown files.
   final String docsDir;
@@ -87,6 +95,7 @@ class Config {
   Map<String, dynamic> toJson() => {
     if (title != null) 'title': title,
     if (description != null) 'description': description,
+    if (siteUrl != null) 'siteUrl': siteUrl,
     'docsDir': docsDir,
     'assetsDir': assetsDir,
     'outputDir': outputDir,
@@ -99,6 +108,7 @@ class Config {
   Config copyWith({
     String? title,
     String? description,
+    String? siteUrl,
     String? docsDir,
     String? assetsDir,
     String? outputDir,
@@ -114,6 +124,7 @@ class Config {
     return Config(
       title: title ?? this.title,
       description: description ?? this.description,
+      siteUrl: siteUrl ?? this.siteUrl,
       docsDir: docsDir ?? this.docsDir,
       assetsDir: assetsDir ?? this.assetsDir,
       outputDir: outputDir ?? this.outputDir,
