@@ -555,9 +555,9 @@ $headingsCss
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  padding: 0;
+  width: 1.625rem;
+  height: 1.625rem;
+  padding: 0.25rem;
   border: none;
   background: none;
   cursor: pointer;
