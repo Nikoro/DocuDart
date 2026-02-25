@@ -306,13 +306,18 @@ class LandingPage extends StatelessComponent {
       p.join(websiteDir, 'pages', 'changelog_page.dart'),
     ).writeAsString('''
 import 'package:docudart/docudart.dart';
+import 'package:jaspr/dom.dart';
 
 class ChangelogPage extends StatelessComponent {
   const ChangelogPage({super.key});
 
   @override
   Component build(BuildContext context) {
-    return Markdown(content: context.project.changelog ?? '');
+    final changelog = context.project.changelog;
+    if (changelog == null || changelog.isEmpty) {
+      return div(classes: 'docs-content', []);
+    }
+    return div(classes: 'docs-content', [RawText(changelog)]);
   }
 }
 ''');

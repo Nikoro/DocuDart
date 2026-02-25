@@ -104,6 +104,42 @@ class CodeTheme {
     this.lineHighlight = 0xFF3B4252,
   });
 
+  /// dart.dev light mode — extracted from dart.dev's opal highlighter.
+  const CodeTheme.dartDevLight({
+    this.background = 0xFFF9FAFB,
+    this.foreground = 0xFF191C22,
+    this.keyword = 0xFF146BCD,
+    this.string = 0xFF0C7064,
+    this.comment = 0xFF59616E,
+    this.number = 0xFF146BCD,
+    this.type = 0xFF146BCD,
+    this.function_ = 0xFF6200EE,
+    this.variable = 0xFFBD2314,
+    this.literal = 0xFF146BCD,
+    this.operator_ = 0xFF191C22,
+    this.punctuation = 0xFF191C22,
+    this.annotation = 0xFF6200EE,
+    this.lineHighlight = 0xFFF0F1F3,
+  });
+
+  /// dart.dev dark mode — extracted from dart.dev's opal highlighter.
+  const CodeTheme.dartDevDark({
+    this.background = 0xFF202731,
+    this.foreground = 0xFFDCDCDC,
+    this.keyword = 0xFF6BB1FF,
+    this.string = 0xFF1CDAC5,
+    this.comment = 0xFF8B95A7,
+    this.number = 0xFF6BB1FF,
+    this.type = 0xFF6BB1FF,
+    this.function_ = 0xFFB581FF,
+    this.variable = 0xFFFF897E,
+    this.literal = 0xFF6BB1FF,
+    this.operator_ = 0xFFDCDCDC,
+    this.punctuation = 0xFFDCDCDC,
+    this.annotation = 0xFFB581FF,
+    this.lineHighlight = 0xFF2A3240,
+  });
+
   /// Night Owl theme by Sarah Drasner.
   const CodeTheme.nightOwl({
     this.background = 0xFF011627,
@@ -181,40 +217,9 @@ class CodeTheme {
   /// Highlighted line background (optional).
   final int? lineHighlight;
 
-  static String _hex(int color) =>
+  /// Convert a 0xAARRGGBB color int to a CSS hex string (e.g. `#1a2b3c`).
+  static String toHex(int color) =>
       '#${(color & 0xFFFFFF).toRadixString(16).padLeft(6, '0')}';
-
-  /// Generate CSS rules for highlight.js token classes.
-  ///
-  /// If [selector] is provided, rules are scoped under it
-  /// (e.g. `:root[data-theme="dark"]`).
-  String toCss({String? selector}) {
-    final prefix = selector != null ? '$selector ' : '';
-    return '''
-$prefix.hljs { background: ${_hex(background)}; color: ${_hex(foreground)}; }
-$prefix.code-block-wrapper pre { background-color: ${_hex(background)}; }
-$prefix.hljs-keyword { color: ${_hex(keyword)}; }
-$prefix.hljs-string { color: ${_hex(string)}; }
-$prefix.hljs-comment { color: ${_hex(comment)}; font-style: italic; }
-$prefix.hljs-number { color: ${_hex(number)}; }
-$prefix.hljs-type,
-$prefix.hljs-built_in { color: ${_hex(type)}; }
-$prefix.hljs-title.function_,
-$prefix.hljs-function { color: ${_hex(function_)}; }
-$prefix.hljs-variable { color: ${_hex(variable)}; }
-$prefix.hljs-literal { color: ${_hex(literal)}; }
-$prefix.hljs-operator { color: ${_hex(operator_)}; }
-$prefix.hljs-punctuation { color: ${_hex(punctuation)}; }
-$prefix.hljs-meta,
-$prefix.hljs-doctag { color: ${_hex(annotation)}; }
-$prefix.hljs-attr { color: ${_hex(type)}; }
-$prefix.hljs-params { color: ${_hex(foreground)}; }
-$prefix.hljs-section,
-$prefix.hljs-title { color: ${_hex(keyword)}; font-weight: 600; }
-$prefix.hljs-symbol { color: ${_hex(literal)}; }
-$prefix.hljs-addition { color: ${_hex(string)}; }
-$prefix.hljs-deletion { color: ${_hex(keyword)}; }''';
-  }
 
   CodeTheme copyWith({
     int? background,

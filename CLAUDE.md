@@ -146,6 +146,7 @@ Key things to verify: header, sidebar (active link, collapsible categories), mob
 | `watcher` | File watching (hot reload) |
 | `yaml` | YAML/frontmatter parsing |
 | `markdown` | Markdown to HTML |
+| `opal` | Build-time syntax highlighting (same engine as dart.dev) |
 | `jaspr` | Web framework for SSG (re-exported to users) |
 | `universal_web` | DOM access in `@client` components (web API on browser, stubs on server) |
 | `meta` | @immutable annotation |

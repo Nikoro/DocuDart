@@ -10,7 +10,7 @@ Code generation modules for DocuDart.
 | `project_generator.dart` | `ProjectGenerator` | Creates new user project via `docudart create` |
 | `project_templates.dart` | `ProjectTemplates` | Template content (components, config, labels, pages, docs, README) |
 | `styles_generator.dart` | `StylesGenerator` | Generates `styles.css` with theme colors, component styles, and mobile drawer CSS (`.sidebar-backdrop`, responsive sidebar at `<= 1024px`) |
-| `theme_script_generator.dart` | `ThemeScriptGenerator` | Generates `theme.js` (toggle + sidebar + mobile drawer close) and `live-reload.js` |
+| `theme_script_generator.dart` | `ThemeScriptGenerator` | Generates `theme.js` (toggle + sidebar + mobile drawer close + code block copy/label) and `live-reload.js` |
 | `asset_path_generator.dart` | `AssetPathGenerator` | Scans `assets/` (with `light/`/`dark/` theme variants) → generates typed asset tree for `project_data.dart` |
 | `sidebar_generator.dart` | `SidebarGenerator` | Converts `DocFolder` tree → `List<Doc>` for sidebar rendering |
 
@@ -68,6 +68,8 @@ ProjectGenerator.generate()
 
 - **String templates**: Generated Dart/JS/CSS files use multi-line string interpolation
 - **`_escapeForDart()`**: Escapes `\`, `'`, `$`, `\n`, `\r`, `\t` for safe embedding in Dart string literals
+- **`_encodePreNewlines()`**: Replaces `\n` with `&#10;` inside `<pre>` blocks so Jaspr's SSR pretty-printer doesn't inject indentation whitespace into code. Applied to docs page HTML and changelog HTML before embedding.
+- **Changelog pre-processing**: `_generateProjectData()` runs the raw CHANGELOG.md through `MarkdownProcessor` + `OpalHighlighter` at generation time, so `project_data.dart` stores highlighted HTML (not raw markdown). The `ChangelogPage` template renders it with `RawText`, not the `Markdown` component.
 - **`writeAsString()` over `File.copy()`**: Triggers filesystem events for hot reload detection
 - **Theme-aware assets**: `AssetPathGenerator.generateProjectAssets()` scans root, `light/`, `dark/` and merges into `SimpleAsset`/`ThemedAsset` tree embedded in `project_data.dart`
 

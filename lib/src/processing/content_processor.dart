@@ -5,15 +5,22 @@ import 'package:path/path.dart' as p;
 import '../cli/errors.dart';
 import '../config/docudart_config.dart';
 import '../markdown/markdown_processor.dart';
+import '../markdown/opal_highlighter.dart';
 import '../models/doc_content.dart';
 
 export '../models/doc_content.dart';
 
 /// Processes all documentation files in the docs directory.
 class ContentProcessor {
-  ContentProcessor(this.config);
+  ContentProcessor(this.config)
+    : _markdownProcessor = MarkdownProcessor(
+        highlighter: OpalHighlighter(
+          lightTheme: config.theme.markdownTheme.lightCodeTheme,
+          darkTheme: config.theme.markdownTheme.darkCodeTheme,
+        ),
+      );
   final Config config;
-  final MarkdownProcessor _markdownProcessor = MarkdownProcessor();
+  final MarkdownProcessor _markdownProcessor;
 
   static const _expandedSuffix = '_expanded';
   static const _docsPathPrefix = '/docs';

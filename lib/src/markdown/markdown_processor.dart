@@ -4,6 +4,7 @@ import 'package:markdown/markdown.dart' as md;
 
 import 'frontmatter_handler.dart';
 import 'component_parser.dart';
+import 'opal_highlighter.dart';
 import '../components/content/component_registry.dart';
 
 /// Result of processing a markdown file.
@@ -44,11 +45,14 @@ class TocEntry {
 
 /// Processes markdown content into HTML with component support.
 class MarkdownProcessor {
-  MarkdownProcessor({ComponentRegistry? registry})
+  MarkdownProcessor({ComponentRegistry? registry, this.highlighter})
     : _registry = registry ?? ComponentRegistry.withBuiltIns();
 
   /// Component registry for rendering embedded components.
   final ComponentRegistry _registry;
+
+  /// Optional build-time syntax highlighter for code blocks.
+  final OpalHighlighter? highlighter;
 
   /// Process markdown content from a file.
   ///
@@ -82,6 +86,11 @@ class MarkdownProcessor {
 
     // Step 6: Replace component placeholders with rendered HTML
     html = _replaceComponentPlaceholders(html, componentResult.components);
+
+    // Step 7: Apply build-time syntax highlighting to all code blocks
+    if (highlighter != null) {
+      html = highlighter!.highlightHtml(html);
+    }
 
     return ProcessedMarkdown(
       meta: meta,

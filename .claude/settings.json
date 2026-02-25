@@ -7,7 +7,10 @@
       "Bash(dart analyze:*)",
       "Bash(dart test:*)",
       "WebFetch(domain:jaspr.site)",
-      "WebFetch(domain:docs.jaspr.site)"
+      "WebFetch(domain:docs.jaspr.site)",
+      "WebFetch(https://github.com/dart-community *)",
+      "WebFetch(https://raw.githubusercontent.com/dart-community *)",
+      "WebFetch(https://raw.githubusercontent.com/dart-lang *)"
     ]
   },
   "enabledPlugins": {

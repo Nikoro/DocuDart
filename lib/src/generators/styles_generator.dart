@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 
 import '../config/docudart_config.dart';
+import '../theme/code_theme.dart';
 import '../theme/color_scheme.dart';
 
 /// Generates the CSS stylesheet for the DocuDart site.
@@ -57,13 +58,18 @@ ${h4Props.entries.map((e) => '  ${e.key}: ${e.value};').join('\n')}
   margin-bottom: ${md.h4MarginBottom}rem;
 }''';
 
-    // Generate syntax highlighting CSS
-    final lightCodeCss = theme.markdownTheme.lightCodeTheme.toCss();
-    final darkCodeCss = theme.markdownTheme.darkCodeTheme.toCss(
-      selector: ':root[data-theme="dark"]',
+    // Generate opal syntax highlighting CSS (build-time inline styles with dark-mode toggle)
+    final lightBg = CodeTheme.toHex(
+      theme.markdownTheme.lightCodeTheme.background,
     );
-    final darkCodeCssMedia = theme.markdownTheme.darkCodeTheme.toCss(
-      selector: ':root:not([data-theme="light"])',
+    final lightFg = CodeTheme.toHex(
+      theme.markdownTheme.lightCodeTheme.foreground,
+    );
+    final darkBg = CodeTheme.toHex(
+      theme.markdownTheme.darkCodeTheme.background,
+    );
+    final darkFg = CodeTheme.toHex(
+      theme.markdownTheme.darkCodeTheme.foreground,
     );
 
     final styles =
@@ -497,7 +503,6 @@ $headingsCss
 }
 
 .docs-content pre {
-  background-color: var(--color-code-background);
   padding: ${md.codeBlockPadding}rem;
   border-radius: ${md.codeBlockBorderRadius}rem;
   border: 1px solid var(--color-border);
@@ -527,23 +532,28 @@ $headingsCss
 /* Language label */
 .code-block-label {
   position: absolute;
-  top: 0;
-  right: 2.5rem;
-  padding: 0.125rem 0.5rem;
-  font-size: 0.7rem;
+  top: 0.25rem;
+  right: 0.5rem;
+  padding: 0.125rem 0.375rem;
+  font-size: 0.8125rem;
   font-family: var(--font-family-mono);
   color: var(--color-text-muted);
-  opacity: 0.7;
+  opacity: 0.6;
   user-select: none;
   pointer-events: none;
   line-height: 1.5;
+  transition: opacity 0.25s;
   z-index: 1;
+}
+
+.code-block-wrapper:hover .code-block-label {
+  opacity: 0;
 }
 
 /* Copy button */
 .code-block-copy {
   position: absolute;
-  top: 0.375rem;
+  top: 0.25rem;
   right: 0.375rem;
   display: inline-flex;
   align-items: center;
@@ -557,7 +567,7 @@ $headingsCss
   border-radius: 0.25rem;
   color: var(--color-text-muted);
   opacity: 0;
-  transition: opacity 0.15s, color 0.15s, background-color 0.15s;
+  transition: opacity 0.25s, color 0.15s, background-color 0.15s;
   z-index: 2;
 }
 
@@ -984,17 +994,38 @@ ${themeName == 'material3'
   :root:not([data-theme="light"]) .theme-asset > .theme-asset-dark { display: inline; }
 }
 
-/* ========== Syntax Highlighting ========== */
+/* ========== Syntax Highlighting (opal build-time) ========== */
 
-/* Light mode */
-$lightCodeCss
+pre.opal {
+  background-color: $lightBg;
+  color: $lightFg;
+}
+.code-block-wrapper pre.opal {
+  background-color: $lightBg;
+}
 
-/* Dark mode via toggle */
-$darkCodeCss
+:root[data-theme="dark"] pre.opal {
+  background-color: $darkBg;
+  color: $darkFg;
+}
+:root[data-theme="dark"] .code-block-wrapper pre.opal {
+  background-color: $darkBg;
+}
+:root[data-theme="dark"] pre.opal span[style] {
+  color: var(--dd-dark-color) !important;
+}
 
-/* Dark mode via system preference */
 @media (prefers-color-scheme: dark) {
-$darkCodeCssMedia
+  :root:not([data-theme="light"]) pre.opal {
+    background-color: $darkBg;
+    color: $darkFg;
+  }
+  :root:not([data-theme="light"]) .code-block-wrapper pre.opal {
+    background-color: $darkBg;
+  }
+  :root:not([data-theme="light"]) pre.opal span[style] {
+    color: var(--dd-dark-color) !important;
+  }
 }
 ''';
 

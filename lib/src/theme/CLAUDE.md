@@ -13,7 +13,7 @@ The theme subsystem defines the visual identity of generated DocuDart sites. A `
 | `text_theme.dart` | `TextTheme` | Typography: fonts, heading sizes, weights, line-heights |
 | `text_style.dart` | `TextStyle` | Individual text style → CSS properties |
 | `markdown_theme.dart` | `MarkdownTheme` | Content spacing, borders, code theme selection |
-| `code_theme.dart` | `CodeTheme` | Syntax highlighting (14 token colors for highlight.js) |
+| `code_theme.dart` | `CodeTheme` | Syntax highlighting (14 token colors for opal build-time highlighting) |
 | `component_theme.dart` | `ComponentTheme` | Component dimensions (sidebar, header, footer, cards, buttons) |
 | `theme_loader.dart` | `ThemeLoader` | YAML theme loading (legacy) |
 
@@ -38,8 +38,8 @@ Config.theme (Theme object)
   ├─ textTheme.cssVariables → :root { --font-family, --font-size-base, etc. }
   ├─ textTheme.h1–h4 → .docs-content h1–h4 { font-size, font-weight, ... }
   ├─ markdownTheme → inline code, blockquote, table, list spacing
-  ├─ markdownTheme.lightCodeTheme.toCss() → .hljs { ... }
-  ├─ markdownTheme.darkCodeTheme.toCss() → :root[data-theme="dark"] .hljs { ... }
+  ├─ markdownTheme.lightCodeTheme → pre.opal { background, color } (via StylesGenerator)
+  ├─ markdownTheme.darkCodeTheme → :root[data-theme="dark"] pre.opal span { color: var(--dd-dark-color) }
   ├─ componentTheme → sidebar width, padding, border-radius, etc.
   └─ theme.name → theme-specific CSS (sidebar style, button style, card hover)
 ```

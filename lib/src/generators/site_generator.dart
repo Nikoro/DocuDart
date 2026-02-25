@@ -5,6 +5,8 @@ import 'package:path/path.dart' as p;
 import '../cli/errors.dart';
 import '../config/config_loader.dart';
 import '../config/docudart_config.dart';
+import '../markdown/markdown_processor.dart';
+import '../markdown/opal_highlighter.dart';
 import '../models/doc.dart';
 import '../models/license.dart';
 import '../models/pubspec.dart';
@@ -326,7 +328,15 @@ jaspr:
     }
 
     if (changelog != null) {
-      buffer.writeln("  changelog: '${_escapeForDart(changelog)}',");
+      final highlighter = OpalHighlighter(
+        lightTheme: config.theme.markdownTheme.lightCodeTheme,
+        darkTheme: config.theme.markdownTheme.darkCodeTheme,
+      );
+      final processed = MarkdownProcessor(
+        highlighter: highlighter,
+      ).process(changelog);
+      final changelogHtml = _encodePreNewlines(processed.html);
+      buffer.writeln("  changelog: '${_escapeForDart(changelogHtml)}',");
     }
 
     buffer.writeln(');');
@@ -428,8 +438,6 @@ void main() {
     head: [
 $faviconLinks      link(rel: 'stylesheet', href: '/styles.css'),
 ${_fontImportLink()}      script(src: '/theme.js'),
-      script(src: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js', defer: true),
-      script(src: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dart.min.js', defer: true),
 ${serveMode ? "      script(src: '/live-reload.js', defer: true),\n" : ''}    ],
     body: DocuDartApp(),
   ));
@@ -578,7 +586,7 @@ ClientOptions get defaultClientOptions => ClientOptions();
 
     // Generate a route for each doc page
     for (final page in pages) {
-      final escapedHtml = _escapeForDart(page.html);
+      final escapedHtml = _escapeForDart(_encodePreNewlines(page.html));
       final escapedTitle = _escapeForDart(page.title);
 
       routesBuffer.writeln('''
@@ -704,6 +712,16 @@ class DocsPageContent extends StatelessComponent {
         .replaceAll('\r', '\\r')
         .replaceAll('\t', '\\t')
         .replaceAll('\x00', '\\x00');
+  }
+
+  static final _preBlockPattern = RegExp(r'<pre[\s>][\s\S]*?</pre>');
+
+  /// Encode newlines inside `<pre>` blocks as `&#10;` so Jaspr's SSR
+  /// pretty-printer doesn't inject indentation whitespace into code blocks.
+  static String _encodePreNewlines(String html) {
+    return html.replaceAllMapped(_preBlockPattern, (match) {
+      return match.group(0)!.replaceAll('\n', '&#10;');
+    });
   }
 
   Future<void> _generateStyles({bool includeVersionSwitcher = false}) async {

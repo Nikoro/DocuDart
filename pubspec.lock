@@ -225,6 +225,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  opal:
+    dependency: "direct main"
+    description:
+      name: opal
+      sha256: "9efa3c3e7809027d5bac6b71c8c224f28bb53c10c8eb6f91b9b3ad9df2964957"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.2"
   package_config:
     dependency: transitive
     description:
