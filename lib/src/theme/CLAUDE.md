@@ -13,7 +13,7 @@ The theme subsystem defines the visual identity of generated DocuDart sites. A `
 | `text_theme.dart` | `TextTheme` | Typography: fonts, heading sizes, weights, line-heights |
 | `text_style.dart` | `TextStyle` | Individual text style → CSS properties |
 | `markdown_theme.dart` | `MarkdownTheme` | Content spacing, borders, code theme selection |
-| `code_theme.dart` | `CodeTheme` | Syntax highlighting (13 token colors for highlight.js) |
+| `code_theme.dart` | `CodeTheme` | Syntax highlighting (14 token colors for highlight.js) |
 | `component_theme.dart` | `ComponentTheme` | Component dimensions (sidebar, header, footer, cards, buttons) |
 | `theme_loader.dart` | `ThemeLoader` | YAML theme loading (legacy) |
 
@@ -23,7 +23,7 @@ Each preset has its own default ColorScheme, TextTheme, MarkdownTheme, and Compo
 
 | Preset | Primary (light) | Font | Sidebar Active | Button | Dark Code Theme |
 |--------|----------------|------|---------------|--------|----------------|
-| `classic` | Blue (#0175C2) | Inter | Left border + primary tint | Rounded | GitHub Dark |
+| `classic` | Blue (#0175C2) | Inter | Left border + primary tint | Rounded | dart.dev Dark |
 | `material3` | Purple (#6750A4) | Roboto | Pill-shaped filled bg | Pill + shadow | Nord |
 | `shadcn` | Near-black (#18181B) | Inter | Left border + neutral fill | Sharp corners | Night Owl |
 

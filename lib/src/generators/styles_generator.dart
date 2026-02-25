@@ -500,6 +500,7 @@ $headingsCss
   background-color: var(--color-code-background);
   padding: ${md.codeBlockPadding}rem;
   border-radius: ${md.codeBlockBorderRadius}rem;
+  border: 1px solid var(--color-border);
   overflow-x: auto;
   margin-bottom: 1rem;
   line-height: 1.6;
@@ -511,6 +512,63 @@ $headingsCss
   border-radius: 0;
   font-size: 0.875rem;
   line-height: inherit;
+}
+
+/* Code block wrapper (injected by JS around <pre>) */
+.code-block-wrapper {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.code-block-wrapper pre {
+  margin-bottom: 0;
+}
+
+/* Language label */
+.code-block-label {
+  position: absolute;
+  top: 0;
+  right: 2.5rem;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.7rem;
+  font-family: var(--font-family-mono);
+  color: var(--color-text-muted);
+  opacity: 0.7;
+  user-select: none;
+  pointer-events: none;
+  line-height: 1.5;
+  z-index: 1;
+}
+
+/* Copy button */
+.code-block-copy {
+  position: absolute;
+  top: 0.375rem;
+  right: 0.375rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  color: var(--color-text-muted);
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s, background-color 0.15s;
+  z-index: 2;
+}
+
+.code-block-wrapper:hover .code-block-copy {
+  opacity: 0.7;
+}
+
+.code-block-copy:hover {
+  opacity: 1 !important;
+  color: var(--color-text);
+  background-color: var(--color-surface-variant);
 }
 
 .docs-content blockquote {

@@ -65,8 +65,8 @@ class MarkdownTheme {
     this.h3MarginBottom = 0.75,
     this.h4MarginTop = 1.5,
     this.h4MarginBottom = 0.5,
-    this.lightCodeTheme = const CodeTheme.githubLight(),
-    this.darkCodeTheme = const CodeTheme.githubDark(),
+    this.lightCodeTheme = const CodeTheme.dartDevLight(),
+    this.darkCodeTheme = const CodeTheme.dartDevDark(),
   });
 
   /// Material Design 3 — rounder corners, more relaxed spacing.

@@ -192,6 +192,7 @@ class CodeTheme {
     final prefix = selector != null ? '$selector ' : '';
     return '''
 $prefix.hljs { background: ${_hex(background)}; color: ${_hex(foreground)}; }
+$prefix.code-block-wrapper pre { background-color: ${_hex(background)}; }
 $prefix.hljs-keyword { color: ${_hex(keyword)}; }
 $prefix.hljs-string { color: ${_hex(string)}; }
 $prefix.hljs-comment { color: ${_hex(comment)}; font-style: italic; }

@@ -278,6 +278,56 @@ class ThemeScriptGenerator {
         }
       });
     }
+    enhanceCodeBlocks();
+  }
+
+  // Enhance code blocks: wrap in container, add language label + copy button
+  var copyIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  var checkIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  function enhanceCodeBlocks() {
+    document.querySelectorAll('.docs-content pre').forEach(function(pre) {
+      if (pre.parentElement && pre.parentElement.classList.contains('code-block-wrapper')) return;
+
+      var code = pre.querySelector('code');
+      var lang = '';
+      if (code) {
+        var cls = code.className || '';
+        var match = cls.match(/(?:language|hljs-)(\\S+)/);
+        if (match) lang = match[1];
+      }
+
+      var wrapper = document.createElement('div');
+      wrapper.className = 'code-block-wrapper';
+      pre.parentNode.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+
+      if (lang) {
+        var label = document.createElement('span');
+        label.className = 'code-block-label';
+        label.textContent = lang;
+        wrapper.appendChild(label);
+      }
+
+      var btn = document.createElement('button');
+      btn.className = 'code-block-copy';
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Copy code');
+      btn.setAttribute('title', 'Copy code');
+      btn.innerHTML = copyIconSvg;
+
+      btn.addEventListener('click', function() {
+        var text = code ? code.textContent : pre.textContent;
+        navigator.clipboard.writeText(text).then(function() {
+          btn.innerHTML = checkIconSvg;
+          setTimeout(function() {
+            btn.innerHTML = copyIconSvg;
+          }, 1500);
+        });
+      });
+
+      wrapper.appendChild(btn);
+    });
   }
 
   // Mobile sidebar drawer: close on backdrop click or sidebar link navigation

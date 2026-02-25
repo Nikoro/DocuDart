@@ -429,6 +429,7 @@ void main() {
 $faviconLinks      link(rel: 'stylesheet', href: '/styles.css'),
 ${_fontImportLink()}      script(src: '/theme.js'),
       script(src: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js', defer: true),
+      script(src: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dart.min.js', defer: true),
 ${serveMode ? "      script(src: '/live-reload.js', defer: true),\n" : ''}    ],
     body: DocuDartApp(),
   ));
