@@ -7,16 +7,24 @@
       "Bash(dart analyze:*)",
       "Bash(dart test:*)",
       "WebFetch(domain:jaspr.site)",
-      "WebFetch(domain:docs.jaspr.site)",
-      "WebFetch(https://github.com/dart-community *)",
-      "WebFetch(https://raw.githubusercontent.com/dart-community *)",
-      "WebFetch(https://raw.githubusercontent.com/dart-lang *)"
+      "WebFetch(domain:docs.jaspr.site)"
     ]
   },
   "enabledPlugins": {
     "playwright-skill@playwright-skill": true
   },
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "WebFetch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "URL=$(jq -r '.tool_input.url' 2>/dev/null); case \"$URL\" in https://github.com/dart-community/*|https://raw.githubusercontent.com/dart-community/*|https://raw.githubusercontent.com/dart-lang/*) echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"allow\",\"permissionDecisionReason\":\"Dart org URL\"}}'; exit 0;; *) exit 0;; esac"
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write",

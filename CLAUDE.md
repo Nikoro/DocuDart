@@ -122,13 +122,13 @@ Key things to verify: header, sidebar (active link, collapsible categories), mob
 ## Important Notes
 
 - User's config is `config.dart` (Dart, not YAML) — must export `Config configure(BuildContext context)`
-- `docudart` re-exports `package:jaspr/jaspr.dart` and extensions (`.let()`, `.apply()`, `.screen`), hiding conflicting types: `Padding`, `Text`, `Border`, `BorderSide`, `BorderRadius`, `BoxShadow`, `ColorScheme` (DocuDart provides Flutter-like replacements)
+- `docudart` re-exports Jaspr and extensions (`.let()`, `.apply()`, `.screen`), hiding conflicting types: `Text` from `jaspr.dart`; `Padding`, `Border`, `BorderSide`, `BorderRadius`, `BoxShadow`, `ColorScheme` from `dom.dart` (DocuDart provides Flutter-like replacements)
 - Jaspr `build()` returns `Component` (single), NOT `Iterable<Component>`
 - Jaspr `classes` takes `String` (space-separated), NOT `List<String>`
 - Jaspr `main(...)` from dom.dart shadows Dart's `main()` function
 - Clean URLs by default (`/docs/intro/` not `/docs/intro.html`)
 - Generated Jaspr project lives in `<projectDir>/.dart_tool/docudart/`
-- Lint rules: `sort_constructors_first`, `use_null_aware_elements`
+- Linting: `many_lints` plugin (analysis server plugin, configured in `analysis_options.yaml` not `pubspec.yaml`) + `sort_constructors_first`, `use_null_aware_elements`
 - Assets use `context.project.assets` (not static `Assets` class) — callable `Asset` returns Component, `.path` for String
 - Theme-aware assets: `assets/light/` and `assets/dark/` subdirs auto-switch via CSS visibility
 - 3 theme presets with distinct palettes: `classic` (blue), `material3` (purple), `shadcn` (zinc/black)
@@ -151,6 +151,7 @@ Key things to verify: header, sidebar (active link, collapsible categories), mob
 | `universal_web` | DOM access in `@client` components (web API on browser, stubs on server) |
 | `meta` | @immutable annotation |
 | `xml` (dev) | SVG parsing for icon generator tool |
+| `many_lints` (plugin) | 100+ custom lint rules via analysis server plugin |
 
 ## References
 
