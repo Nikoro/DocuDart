@@ -92,7 +92,7 @@ class OpalHighlighter {
       return (_rgba(lightTheme.comment), _rgba(darkTheme.comment));
     }
     if (_isStringEscapeOrInterpolation(tag)) {
-      return (_rgba(lightTheme.variable), _rgba(darkTheme.variable));
+      return (_rgba(lightTheme.string), _rgba(darkTheme.string));
     }
     if (_isString(tag)) {
       return (_rgba(lightTheme.string), _rgba(darkTheme.string));
@@ -105,9 +105,6 @@ class OpalHighlighter {
     }
     if (_isLiteral(tag)) {
       return (_rgba(lightTheme.literal), _rgba(darkTheme.literal));
-    }
-    if (_isOperator(tag)) {
-      return (_rgba(lightTheme.operator_), _rgba(darkTheme.operator_));
     }
     if (_isKeyword(tag)) {
       return (_rgba(lightTheme.keyword), _rgba(darkTheme.keyword));
@@ -128,71 +125,43 @@ class OpalHighlighter {
   }
 
   // --- Tag matchers ---
-  // Each checks the tag and walks up its parent chain.
+  //
+  // Opal uses hierarchical tags: e.g. `var` is tagged as
+  // `Tag('var', parent: Tags.keyword)`, not `Tags.declarationKeyword`.
+  // We must walk the parent chain to match correctly.
 
-  static bool _isComment(Tag tag) =>
-      tag == Tags.comment ||
-      tag == Tags.lineComment ||
-      tag == Tags.blockComment ||
-      tag == Tags.docComment ||
-      tag == Tags.commentReference;
+  static bool _matchesRoot(Tag tag, Tag root) {
+    Tag? current = tag;
+    while (current != null) {
+      if (current == root) return true;
+      current = current.parent;
+    }
+    return false;
+  }
 
-  static bool _isString(Tag tag) =>
-      tag == Tags.stringLiteral ||
-      tag == Tags.quotedString ||
-      tag == Tags.singleQuoteString ||
-      tag == Tags.doubleQuoteString ||
-      tag == Tags.tripleQuoteString ||
-      tag == Tags.stringContent ||
-      tag == Tags.unquotedString ||
-      tag == Tags.characterLiteral ||
-      tag == Tags.regexpLiteral;
+  static bool _isComment(Tag tag) => _matchesRoot(tag, Tags.comment);
+
+  static bool _isString(Tag tag) => _matchesRoot(tag, Tags.stringLiteral);
 
   static bool _isStringEscapeOrInterpolation(Tag tag) =>
       tag == Tags.stringEscape || tag == Tags.stringInterpolation;
 
-  static bool _isNumber(Tag tag) =>
-      tag == Tags.numberLiteral ||
-      tag == Tags.integerLiteral ||
-      tag == Tags.floatLiteral;
+  static bool _isNumber(Tag tag) => _matchesRoot(tag, Tags.numberLiteral);
 
-  static bool _isLiteral(Tag tag) =>
-      tag == Tags.literal ||
-      tag == Tags.booleanLiteral ||
-      tag == Tags.trueLiteral ||
-      tag == Tags.falseLiteral ||
-      tag == Tags.nullLiteral;
+  static bool _isLiteral(Tag tag) => _matchesRoot(tag, Tags.literal);
 
-  static bool _isKeyword(Tag tag) =>
-      tag == Tags.keyword ||
-      tag == Tags.declarationKeyword ||
-      tag == Tags.modifierKeyword ||
-      tag == Tags.controlKeyword;
-
-  static bool _isOperator(Tag tag) =>
-      tag == Tags.operator || tag == Tags.customOperator;
+  static bool _isKeyword(Tag tag) => _matchesRoot(tag, Tags.keyword);
 
   static bool _isFunction(Tag tag) =>
-      tag == Tags.function || tag == Tags.constructor;
+      tag == Tags.function || _matchesRoot(tag, Tags.function);
 
-  static bool _isType(Tag tag) => tag == Tags.type || tag == Tags.builtInType;
+  static bool _isType(Tag tag) => _matchesRoot(tag, Tags.type);
 
-  static bool _isVariable(Tag tag) =>
-      tag == Tags.variable ||
-      tag == Tags.parameter ||
-      tag == Tags.identifier ||
-      tag == Tags.privateIdentifier ||
-      tag == Tags.specialIdentifier ||
-      tag == Tags.property;
+  static bool _isVariable(Tag tag) => _matchesRoot(tag, Tags.variable);
 
-  static bool _isPunctuation(Tag tag) =>
-      tag == Tags.punctuation || tag == Tags.separator || tag == Tags.accessor;
+  static bool _isPunctuation(Tag tag) => _matchesRoot(tag, Tags.punctuation);
 
-  static bool _isAnnotation(Tag tag) =>
-      tag == Tags.annotation ||
-      tag == Tags.metadata ||
-      tag == Tags.preprocessor ||
-      tag == Tags.preprocessorDirective;
+  static bool _isAnnotation(Tag tag) => _matchesRoot(tag, Tags.metadata);
 
   // --- Helpers ---
 
