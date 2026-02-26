@@ -4,7 +4,7 @@
 
 **DocuDart** is a static documentation generator for Dart, similar to Docusaurus but using Jaspr as the rendering engine. Users write documentation in Markdown files with YAML frontmatter, and DocuDart generates a static website.
 
-**Design philosophy**: DocuDart provides a Flutter-identical API — components like `Row`, `Column`, `IconButton`, and `SlideTransition` look and feel like Flutter widgets, but underneath they produce optimized HTML, CSS, and JavaScript via Jaspr.
+**Design philosophy**: DocuDart provides a Flutter-identical API — components like `Row`, `Column`, `Padding`, `Expanded`, and `IconButton` look and feel like Flutter widgets, but underneath they produce lean, optimized HTML trees via Jaspr. Primitive layout components (`Padding`, `Flexible`, `Expanded`, `SizedBox`) use `.apply()` internally to merge styles directly onto child elements instead of wrapping them in extra `<div>` elements. Container components (`Row`, `Column`, `Container`, `Center`) use pure inline styles — no CSS class hooks. Users write familiar Flutter-like Dart with no custom CSS or JS; DocuDart generates minimal HTML/CSS/JS.
 
 ## Quick Start Commands
 
@@ -141,6 +141,24 @@ Key things to verify: header, sidebar (active link, collapsible categories), mob
 - `@client` components require `build_web_compilers` in the generated pubspec's `dev_dependencies` — without it, `dart2js` never runs and client JS is never produced (see `lib/src/generators/CLAUDE.md` for full hydration pipeline)
 - Don't manually add `<script src="main.client.dart.js">` — Jaspr's `ClientScriptAdapter` handles it automatically when `@client` components exist
 - `context.screen.when(desktop:, tablet:, mobile:)` and `maybeWhen(...)` — CSS-based responsive layout via `display: contents`/`display: none` wrappers; breakpoints: mobile ≤768px, tablet 769–1024px, desktop 1025px+. All variants rendered to DOM, CSS controls visibility. Use `?` prefix with `maybeWhen` in children lists.
+
+## Component Design: Lean HTML Output
+
+DocuDart's primitives avoid unnecessary wrapper `<div>` elements:
+
+- **`Padding`**: Uses `.apply()` to merge padding directly onto the child's root element
+- **`Flexible` / `Expanded`**: Uses `.apply()` to merge flex styles directly onto the child
+- **`SizedBox`**: Uses `.apply()` when a child is present; renders an empty `<div>` only for spacer usage (no child)
+- **`Center`**: Keeps its wrapper `<div>` — centering via flexbox requires a parent container
+- **`Row` / `Column` / `Container` / `Wrap`**: Keep their `<div>` — they ARE the styled container. No CSS class hooks; all styling is inline.
+
+### The `.apply()` Shadowing Rule
+
+Jaspr's `.apply()` (`Component.wrapElement()`) uses `InheritedComponent` keyed by `runtimeType`. Nested `.apply()` calls shadow each other — only the innermost one takes effect:
+
+- **Never chain `.apply()` on a component that uses `.apply()` internally** (`Padding`, `Flexible`, `Expanded`, `SizedBox` with child)
+- Instead, combine all styles in a single `.apply()` call on the innermost child
+- Example: Instead of `Padding(padding: ..., child: Row(...)).apply(styles: overflow)`, use `Row(...).apply(styles: Styles(padding: ..., overflow: ...))`
 
 ## Dependencies
 

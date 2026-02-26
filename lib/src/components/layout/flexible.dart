@@ -1,4 +1,7 @@
-import 'package:docudart/docudart.dart';
+import 'package:jaspr/dom.dart';
+import 'package:jaspr/jaspr.dart';
+
+import '../../extensions/component_extensions.dart';
 
 /// Whether a [Flexible] child should fill available space tightly or loosely.
 enum FlexFit {
@@ -11,10 +14,15 @@ enum FlexFit {
 
 /// A component that controls how a child of a [Row] or [Column] flexes.
 ///
+/// Uses `.apply()` to merge flex styles directly onto the child — no wrapper div.
+///
 /// When [fit] is [FlexFit.tight], the child is forced to fill available
 /// space proportional to [flex] (equivalent to [Expanded]).
 /// When [fit] is [FlexFit.loose], the child can use up to the available
 /// space but is not forced to fill it.
+///
+/// **Note**: Do not chain `.apply()` on a `Flexible` or `Expanded` instance.
+/// Instead, combine flex and other styles in a single `.apply()` call.
 class Flexible extends StatelessComponent {
   const Flexible({
     this.flex = 1,
@@ -35,13 +43,12 @@ class Flexible extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
+    return child.apply(
       styles: Styles(
         flex: fit == .tight
             ? Flex(grow: flex.toDouble(), shrink: 0, basis: Unit.zero)
             : Flex.grow(flex.toDouble()),
       ),
-      [child],
     );
   }
 }

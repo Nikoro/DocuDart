@@ -27,7 +27,30 @@ myComponent.apply(
 ```
 
 - All parameters optional: `id`, `classes`, `styles`, `attributes`, `events`
-- Critical for the responsive template pattern: `Padding(...).apply(styles: Styles(overflow: ...))`
+
+### Role in Lean HTML Output
+
+`.apply()` is the primary mechanism for eliminating unnecessary wrapper `<div>` elements. Primitive layout components (`Padding`, `Flexible`, `Expanded`, `SizedBox`) use `.apply()` internally to merge their styles directly onto the child's root element.
+
+### Shadowing Behavior (Critical)
+
+Jaspr's `Component.wrapElement()` creates a `_WrappingDomComponent` which extends `InheritedComponent`. The inherited map is keyed by `runtimeType` — nested `.apply()` calls **shadow** each other (only the innermost takes effect).
+
+```dart
+// BAD: outer .apply() is lost (shadowed by Padding's internal .apply())
+Padding(padding: EdgeInsets.all(16), child: Row(...))
+    .apply(styles: Styles(overflow: Overflow.auto))
+
+// GOOD: single .apply() with combined styles
+Row(...).apply(styles: Styles(
+  padding: EdgeInsets.all(16).toSpacing(),
+  overflow: Overflow.auto,
+))
+```
+
+**Uses `.apply()` internally** (unsafe to chain `.apply()` on): `Padding`, `Flexible`, `Expanded`, `SizedBox` (with child).
+
+**Safe to chain `.apply()` on**: `Row`, `Column`, `Container`, `Center`, `Wrap`, `Card`, `Divider`, `Text`, `Badge`, `Logo`, `Link`.
 
 ## Screen (`screen_extension.dart`)
 

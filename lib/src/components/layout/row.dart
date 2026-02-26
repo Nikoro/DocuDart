@@ -3,6 +3,7 @@ import 'package:docudart/docudart.dart';
 /// A component that displays its children in a horizontal array.
 ///
 /// Maps to a CSS flexbox container with `flex-direction: row`.
+/// All styling is inline — no CSS class hooks.
 ///
 /// ```dart
 /// Row(
@@ -46,7 +47,6 @@ class Row extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return div(
-      classes: 'row',
       styles: Styles(
         display: Display.flex,
         flexDirection: FlexDirection.row,
@@ -63,6 +63,7 @@ class Row extends StatelessComponent {
 /// A component that displays its children in a vertical array.
 ///
 /// Maps to a CSS flexbox container with `flex-direction: column`.
+/// All styling is inline — no CSS class hooks.
 ///
 /// ```dart
 /// Column(
@@ -106,7 +107,6 @@ class Column extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return div(
-      classes: 'column',
       styles: Styles(
         display: Display.flex,
         flexDirection: FlexDirection.column,

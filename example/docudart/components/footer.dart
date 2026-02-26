@@ -21,11 +21,15 @@ class Footer extends StatelessComponent {
           mainAxisAlignment: .spaceBetween,
           crossAxisAlignment: .center,
           children: [?leading, ?center, ?trailing],
-        ),
-        tablet: () =>
-            Column(spacing: 1.5.rem, children: [?center, ?leading, ?trailing]),
-        mobile: () =>
-            Column(spacing: 1.5.rem, children: [?center, ?leading, ?trailing]),
+        ).apply(styles: Styles(raw: {'color': 'var(--color-text-muted)'})),
+        tablet: () => Column(
+          spacing: 1.5.rem,
+          children: [?center, ?leading, ?trailing],
+        ).apply(styles: Styles(raw: {'text-align': 'center'})),
+        mobile: () => Column(
+          spacing: 1.5.rem,
+          children: [?center, ?leading, ?trailing],
+        ).apply(styles: Styles(raw: {'text-align': 'center'})),
       ),
     ]);
   }

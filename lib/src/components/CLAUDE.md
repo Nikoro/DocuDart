@@ -2,6 +2,21 @@
 
 Library-level components re-exported via `docudart.dart`. Users import these through `package:docudart/docudart.dart`.
 
+## Component Design Principles
+
+1. **Public API mirrors Flutter** — users write `Padding(padding: EdgeInsets.all(16), child: ...)` just like Flutter
+2. **Lean HTML output** — primitives use `.apply()` to merge styles onto children instead of wrapping in extra `<div>` elements
+3. **Components that ARE containers keep their `<div>`** — `Row`, `Column`, `Container`, `Center`, `Wrap` need their element for flexbox layout
+4. **Components that MODIFY children use `.apply()`** — `Padding`, `Flexible`, `Expanded`, `SizedBox` (with child) merge styles onto the child's root element
+5. **No CSS class hooks on primitives** — `Row`, `Column`, `Spacer` use pure inline styles (no `.row`/`.column` CSS classes). Theme CSS uses semantic classes (`.header-main-row`, `.landing-page`) where needed.
+
+### `.apply()` Shadowing Constraint
+
+Jaspr's `Component.wrapElement()` creates `_WrappingDomComponent` (extends `InheritedComponent`). The inherited map is keyed by `runtimeType` — nested `.apply()` calls **shadow** each other (only innermost applies). Consequences:
+
+- Never chain `.apply()` on `Padding`, `Flexible`, `Expanded`, or `SizedBox` (with child)
+- Combine styles into a single `.apply()` on the target element instead
+
 ## Navigation
 
 ### Link (`navigation/link.dart`)
@@ -141,7 +156,7 @@ Layout(header: myHeader, sidebar: mySidebar, body: content, footer: myFooter)
 ```
 
 - All 4 params optional `Component?`; `const`-constructible
-- Structure: `Column > [skip-link, header?, Expanded(Row > [sidebar?, body?]), footer?, sidebar-backdrop?]`
+- Structure: `Column > [skip-link, header?, Row(.apply(flex+height)) > [sidebar?, body?], footer?, sidebar-backdrop?]`
 - Layout does NOT render the mobile menu button — that's the user's responsibility in their Header component using `context.screen` and `SidebarToggle`
 - When sidebar is present: renders `.sidebar-backdrop` (full-screen overlay for closing drawer)
 - Body: `.site-main` CSS class; inline flex styles
@@ -151,15 +166,27 @@ Layout(header: myHeader, sidebar: mySidebar, body: content, footer: myFooter)
 
 ### Row / Column (`layout/row.dart`)
 
-Flutter-like flex containers with inline styles. CSS classes kept as selector hooks only.
+Flutter-like flex containers. Each renders a single `<div>` with inline flexbox styles. No CSS class hooks — all styling is inline.
 
-### Expanded / Flexible / Spacer / SizedBox (`layout/`)
+### Expanded / Flexible (`layout/expanded.dart`, `layout/flexible.dart`)
 
-Standard Flutter-like layout primitives. `SizedBox` named to avoid conflict with Jaspr's `Gap`.
+Flutter-like flex control primitives. Use `.apply()` to merge flex styles directly onto the child — no wrapper `<div>`. `Expanded` delegates to `Flexible(fit: FlexFit.tight)`.
+
+**Important**: Do not chain `.apply()` on `Expanded` or `Flexible`. Combine flex styles with other styles in a single `.apply()` call.
+
+### Spacer (`layout/spacer.dart`)
+
+Empty `<div>` with flex — cannot use `.apply()` (no child to apply to). No CSS class.
+
+### SizedBox (`layout/sized_box.dart`)
+
+With child: uses `.apply()` to merge width/height onto child (no wrapper). Without child: renders empty `<div>` as spacer.
 
 ### Padding (`layout/padding.dart`) + EdgeInsets (`layout/edge_insets.dart`)
 
-Flutter-like padding component. Shadows Jaspr's `Padding` typedef (which is `Spacing`).
+Flutter-like padding component. Uses `.apply()` to merge padding directly onto the child — no wrapper `<div>`. Shadows Jaspr's `Padding` typedef (which is `Spacing`).
+
+**Important**: Do not chain `.apply()` on `Padding`. Combine all styles in a single `.apply()` on the child instead.
 
 ```dart
 Padding(padding: EdgeInsets.all(16), child: Text('Hello'))

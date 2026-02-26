@@ -69,18 +69,22 @@ class Header extends StatelessComponent {
             ),
             ?trailing,
           ],
-        ),
+        ).apply(classes: 'header-main-row'),
         // Mobile/tablet nav row — below the main header row
         if (links != null && links!.isNotEmpty)
           ?context.screen.maybeWhen(
-            mobile: () => Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, bottom: 8),
-              child: Row(spacing: 1.rem, children: [...?links]),
-            ).apply(styles: Styles(overflow: Overflow.only(x: Overflow.auto))),
-            tablet: () => Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, bottom: 8),
-              child: Row(spacing: 1.rem, children: [...?links]),
-            ).apply(styles: Styles(overflow: Overflow.only(x: Overflow.auto))),
+            mobile: () => Row(spacing: 1.rem, children: [...?links]).apply(
+              styles: Styles(
+                padding: EdgeInsets.only(left: 16, right: 16, bottom: 8).toSpacing(),
+                overflow: Overflow.only(x: Overflow.auto),
+              ),
+            ),
+            tablet: () => Row(spacing: 1.rem, children: [...?links]).apply(
+              styles: Styles(
+                padding: EdgeInsets.only(left: 16, right: 16, bottom: 8).toSpacing(),
+                overflow: Overflow.only(x: Overflow.auto),
+              ),
+            ),
           ),
       ]),
     ]);
@@ -113,15 +117,15 @@ class Footer extends StatelessComponent {
           mainAxisAlignment: .spaceBetween,
           crossAxisAlignment: .center,
           children: [?leading, ?center, ?trailing],
-        ),
+        ).apply(styles: Styles(raw: {'color': 'var(--color-text-muted)'})),
         tablet: () => Column(
           spacing: 1.5.rem,
           children: [?center, ?leading, ?trailing],
-        ),
+        ).apply(styles: Styles(raw: {'text-align': 'center'})),
         mobile: () => Column(
           spacing: 1.5.rem,
           children: [?center, ?leading, ?trailing],
-        ),
+        ).apply(styles: Styles(raw: {'text-align': 'center'})),
       ),
     ]);
   }

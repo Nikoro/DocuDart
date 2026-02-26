@@ -199,7 +199,7 @@ header {
   border-bottom: 1px solid var(--color-border);
 ${header.hasBoxShadow ? '  box-shadow: 0 1px ${header.shadowBlur.toInt()}px rgba(0, 0, 0, ${header.shadowOpacity});\n' : ''}}
 
-header > .column > .row:first-child {
+.header-main-row {
   padding: ${header.paddingV}rem ${header.paddingH}rem;
 }
 
@@ -371,15 +371,6 @@ footer {
   padding: ${footer.paddingV}rem ${footer.paddingH}rem;
 }
 
-footer > .row {
-  padding: 0 ${footer.paddingH}rem;
-  color: var(--color-text-muted);
-}
-
-footer .column {
-  text-align: center;
-}
-
 .built-with {
   font-size: 0.85rem;
   margin-top: 0.5rem;
@@ -460,12 +451,12 @@ footer .column {
   margin: 0 auto;
 }
 
-.landing-page.column {
+.landing-page {
   text-align: center;
   padding: ${landing.paddingV}rem 2rem;
 }
 
-.landing-page.column h1 {
+.landing-page h1 {
   font-size: ${landing.titleFontSize}rem;
   font-weight: 700;
   color: var(--color-text);
@@ -725,7 +716,7 @@ $headingsCss
 
 /* Responsive — Mobile (≤768px) */
 @media (max-width: 768px) {
-  header > .column > .row:first-child {
+  .header-main-row {
     padding: ${header.mobilePaddingV}rem ${header.mobilePaddingH}rem;
   }
 
@@ -733,12 +724,12 @@ $headingsCss
     padding: ${theme.mobilePaddingH}rem;
   }
 
-  .landing-page.column {
+  .landing-page {
     padding-left: ${landing.mobilePaddingH}rem;
     padding-right: ${landing.mobilePaddingH}rem;
   }
 
-  .landing-page.column h1 {
+  .landing-page h1 {
     font-size: ${landing.mobileTitleFontSize}rem;
   }
 

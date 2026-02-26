@@ -34,29 +34,25 @@ class Layout extends StatelessComponent {
           .text('Skip to content'),
         ]),
         ?header,
-        Expanded(
-          child:
-              Row(
-                mainAxisAlignment: hasSidebar ? .start : .center,
-                crossAxisAlignment: hasSidebar ? .start : .center,
-                children: [
-                  ?sidebar,
-                  ?body?.apply(
-                    id: 'main-content',
-                    classes: 'site-main',
-                    styles: Styles(
-                      flex: Flex(grow: 1, shrink: 1, basis: Unit.zero),
-                    ),
-                    attributes: {'role': 'main'},
-                  ),
-                ],
-              ).apply(
-                styles: Styles(
-                  height: 100.percent,
-                  maxWidth: 100.percent,
-                  margin: .symmetric(horizontal: .auto),
-                ),
-              ),
+        Row(
+          mainAxisAlignment: hasSidebar ? .start : .center,
+          crossAxisAlignment: hasSidebar ? .start : .center,
+          children: [
+            ?sidebar,
+            ?body?.apply(
+              id: 'main-content',
+              classes: 'site-main',
+              styles: Styles(flex: Flex(grow: 1, shrink: 1, basis: Unit.zero)),
+              attributes: {'role': 'main'},
+            ),
+          ],
+        ).apply(
+          styles: Styles(
+            flex: Flex(grow: 1, shrink: 0, basis: Unit.zero),
+            height: 100.percent,
+            maxWidth: 100.percent,
+            margin: .symmetric(horizontal: .auto),
+          ),
         ),
         ?footer,
         if (hasSidebar) div(classes: 'sidebar-backdrop', []),

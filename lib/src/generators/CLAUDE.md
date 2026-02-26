@@ -77,6 +77,7 @@ ProjectGenerator.generate()
 - **`writeAsString()` over `File.copy()`**: Triggers filesystem events for hot reload detection
 - **Theme-aware assets**: `AssetPathGenerator.generateProjectAssets()` scans root, `light/`, `dark/` and merges into `SimpleAsset`/`ThemedAsset` tree embedded in `project_data.dart`
 - **SEO generation**: `_generateDocsPageContent()` produces a `DocsPageContent` component with `Document.head()` for per-page meta description, OG tags (via `meta(attributes: {'property': ...})`), canonical `<link>`, and Article JSON-LD `<script>`. Home route gets WebSite JSON-LD. `_generateSitemap()` and `_generateRobots()` write static files to `web/`. All SEO features gate on `config.siteUrl` being set.
+- **Lean HTML in templates**: Generated component templates (header, footer) avoid `Padding(...)` when styles can be combined into a single `.apply()`. This follows the `.apply()` shadowing constraint — `Padding` uses `.apply()` internally, so chaining `.apply()` on it would lose the outer styles. Header uses semantic `.header-main-row` class for CSS theming since `Row`/`Column` no longer emit CSS class hooks.
 
 ## @client Component Hydration Pipeline
 

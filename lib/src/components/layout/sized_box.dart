@@ -1,10 +1,13 @@
-import 'package:docudart/docudart.dart';
+import 'package:jaspr/dom.dart';
+import 'package:jaspr/jaspr.dart';
+
+import '../../extensions/component_extensions.dart';
 
 /// A box with a specified size.
 ///
-/// If given a [child], forces it to have a specific [width] and/or [height].
-/// If not given a child, creates an empty box of the specified size —
-/// useful as a fixed spacer in [Row] or [Column].
+/// When given a [child], uses `.apply()` to merge width/height directly onto
+/// the child — no wrapper div. Without a child, renders an empty `<div>` for
+/// spacer usage.
 ///
 /// ```dart
 /// Column(children: [
@@ -32,6 +35,14 @@ class SizedBox extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(styles: Styles(width: width, height: height), [?child]);
+    if (child != null) {
+      return child!.apply(
+        styles: Styles(width: width, height: height),
+      );
+    }
+    return div(
+      styles: Styles(width: width, height: height),
+      [],
+    );
   }
 }
