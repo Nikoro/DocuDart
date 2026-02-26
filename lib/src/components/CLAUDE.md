@@ -156,7 +156,7 @@ Layout(header: myHeader, sidebar: mySidebar, body: content, footer: myFooter)
 ```
 
 - All 4 params optional `Component?`; `const`-constructible
-- Structure: `Column > [skip-link, header?, Row(.apply(flex+height)) > [sidebar?, body?], footer?, sidebar-backdrop?]`
+- Structure: `Column(.apply(minHeight: 100vh)) > [skip-link, header?, Row(.apply(flex+height+maxWidth+margin)) > [sidebar?, body?], footer?, sidebar-backdrop?]`
 - Layout does NOT render the mobile menu button — that's the user's responsibility in their Header component using `context.screen` and `SidebarToggle`
 - When sidebar is present: renders `.sidebar-backdrop` (full-screen overlay for closing drawer)
 - Body: `.site-main` CSS class; inline flex styles
@@ -309,7 +309,7 @@ SlideTransition(
 
 These live in the user's `components/` directory, not in the library:
 
-- **Header**: `Header(leading:, links:, trailing:, showSidebarToggle:)` → `header > Column(crossAxisAlignment: .stretch)` with two rows: main row (`Row` with logo/hamburger/spacer/desktop-links/trailing) + mobile nav row (`Padding > Row` with scrollable links, only on mobile/tablet via `context.screen.maybeWhen`). Uses `?context.screen.maybeWhen(mobile:, tablet:)` to show `SidebarToggle()` on mobile/tablet.
+- **Header**: `Header(leading:, links:, trailing:, showSidebarToggle:)` → `header > Column(crossAxisAlignment: .stretch)` with two rows: main row (`Row` with logo/hamburger/spacer/desktop-links/trailing, `.apply(classes: 'header-main-row')`) + mobile nav row (`Row(...).apply(styles: combined padding+overflow)`, only on mobile/tablet via `context.screen.maybeWhen`). Uses `?context.screen.maybeWhen(mobile:, tablet:)` to show `SidebarToggle()` on mobile/tablet.
 - **Footer**: `Footer(leading:, center:, trailing:)` → `footer` with `context.screen.when()`: `Row(mainAxisAlignment: .spaceBetween)` on desktop, `Column(spacing: 1.5.rem)` on mobile/tablet
 - **Button**: `Button(text:, href:, classes:)` with `.primary()` factory
 - **Sidebar**: Wrapper around `DefaultSidebar`
@@ -340,5 +340,4 @@ context.screen.maybeWhen(
 ## Gotchas
 
 - **Inline styles override CSS** — properties needing `@media` overrides must stay in CSS
-- `Row`/`Column` set flex inline; CSS classes are only selector hooks for contextual overrides
 - `classes` takes `String` (space-separated), NOT `List<String>`
