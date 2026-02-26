@@ -282,8 +282,8 @@ SlideTransition(
 
 These live in the user's `components/` directory, not in the library:
 
-- **Header**: `Header(leading:, links:, trailing:, showSidebarToggle:)` → `header > Row` directly. Uses `?context.screen.maybeWhen(mobile:, tablet:)` to show `SidebarToggle()` on mobile/tablet (null on desktop, no spacing gap).
-- **Footer**: `Footer(leading:, center:, trailing:)` → `footer > Row` directly
+- **Header**: `Header(leading:, links:, trailing:, showSidebarToggle:)` → `header > Column(crossAxisAlignment: .stretch)` with two rows: main row (`Row` with logo/hamburger/spacer/desktop-links/trailing) + mobile nav row (`Padding > Row` with scrollable links, only on mobile/tablet via `context.screen.maybeWhen`). Uses `?context.screen.maybeWhen(mobile:, tablet:)` to show `SidebarToggle()` on mobile/tablet.
+- **Footer**: `Footer(leading:, center:, trailing:)` → `footer` with `context.screen.when()`: `Row(mainAxisAlignment: .spaceBetween)` on desktop, `Column(spacing: 1.5.rem)` on mobile/tablet
 - **Button**: `Button(text:, href:, classes:)` with `.primary()` factory
 - **Sidebar**: Wrapper around `DefaultSidebar`
 

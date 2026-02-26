@@ -45,6 +45,10 @@ Detailed docs for each subsystem live alongside the code:
 | `lib/src/generators/CLAUDE.md` | SiteGenerator, ProjectGenerator, templates, asset paths |
 | `lib/src/theme/CLAUDE.md` | Theme presets, ColorScheme, CSS generation, seed-based palettes |
 | `lib/src/icons/CLAUDE.md` | Icon system (7 families, ~52k icons), generator tool, data format |
+| `lib/src/extensions/CLAUDE.md` | `.let()`, `.apply()`, `Screen` class (responsive breakpoints) |
+| `lib/src/markdown/CLAUDE.md` | MarkdownProcessor, OpalHighlighter, FrontmatterHandler, ComponentParser |
+| `lib/src/services/CLAUDE.md` | WorkspaceResolver, PackageResolver, DocuDartFileWatcher |
+| `lib/src/processing/CLAUDE.md` | ContentProcessor, ReadmeParser, VersionManager |
 
 ## Project Structure
 
@@ -90,6 +94,7 @@ See `lib/src/generators/CLAUDE.md` for the full generation pipeline. Key methods
 - `_generateLayout()` — LayoutDelegate
 - `_generateStyles()` — delegates to `StylesGenerator` (reads per-component theme properties directly, no theme-name conditionals)
 - `_copyUserFiles()` — copies config.dart, components/, pages/, root-level .dart files (e.g. labels.dart)
+- `ThemeScriptGenerator` — generates `theme.js` (toggle + sidebar + mobile drawer + code block copy/label) and `live-reload.js`
 
 ## Committing
 
@@ -135,6 +140,7 @@ Key things to verify: header, sidebar (active link, collapsible categories), mob
 - Theme `seedColor` accepts Jaspr `Color` (e.g. `Colors.indigo`, `Color.value(0xFF006D40)`) — overrides preset defaults
 - `@client` components require `build_web_compilers` in the generated pubspec's `dev_dependencies` — without it, `dart2js` never runs and client JS is never produced (see `lib/src/generators/CLAUDE.md` for full hydration pipeline)
 - Don't manually add `<script src="main.client.dart.js">` — Jaspr's `ClientScriptAdapter` handles it automatically when `@client` components exist
+- `context.screen.when(desktop:, tablet:, mobile:)` and `maybeWhen(...)` — CSS-based responsive layout via `display: contents`/`display: none` wrappers; breakpoints: mobile ≤768px, tablet 769–1024px, desktop 1025px+. All variants rendered to DOM, CSS controls visibility. Use `?` prefix with `maybeWhen` in children lists.
 
 ## Dependencies
 

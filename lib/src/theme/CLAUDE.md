@@ -1,6 +1,6 @@
 # Theme System
 
-The theme subsystem defines the visual identity of generated DocuDart sites. A `Theme` aggregates 13 sub-themes into a single immutable object, mirroring Flutter's `ThemeData` pattern.
+The theme subsystem defines the visual identity of generated DocuDart sites. A `Theme` aggregates 11 sub-themes into a single immutable object, mirroring Flutter's `ThemeData` pattern.
 
 ## Files
 
