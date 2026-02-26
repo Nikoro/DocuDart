@@ -63,6 +63,7 @@ class Theme {
     this.contentMaxWidth = 1200,
     this.mainPaddingH = 3.0,
     this.mainPaddingV = 2.0,
+    this.mobilePaddingH = 1.0,
     this.tabBorderWidth = 2,
   });
 
@@ -197,6 +198,7 @@ class Theme {
     contentMaxWidth: (json['contentMaxWidth'] as num?)?.toDouble() ?? 1200,
     mainPaddingH: (json['mainPaddingH'] as num?)?.toDouble() ?? 3.0,
     mainPaddingV: (json['mainPaddingV'] as num?)?.toDouble() ?? 2.0,
+    mobilePaddingH: (json['mobilePaddingH'] as num?)?.toDouble() ?? 1.0,
     tabBorderWidth: (json['tabBorderWidth'] as num?)?.toDouble() ?? 2,
   );
 
@@ -251,6 +253,9 @@ class Theme {
   /// Main content vertical padding in rem.
   final double mainPaddingV;
 
+  /// Main content horizontal padding in rem on mobile (≤768px).
+  final double mobilePaddingH;
+
   /// Tab indicator border width in pixels.
   final double tabBorderWidth;
 
@@ -272,6 +277,7 @@ class Theme {
     double? contentMaxWidth,
     double? mainPaddingH,
     double? mainPaddingV,
+    double? mobilePaddingH,
     double? tabBorderWidth,
   }) => .new(
     name: name ?? this.name,
@@ -291,6 +297,7 @@ class Theme {
     contentMaxWidth: contentMaxWidth ?? this.contentMaxWidth,
     mainPaddingH: mainPaddingH ?? this.mainPaddingH,
     mainPaddingV: mainPaddingV ?? this.mainPaddingV,
+    mobilePaddingH: mobilePaddingH ?? this.mobilePaddingH,
     tabBorderWidth: tabBorderWidth ?? this.tabBorderWidth,
   );
 
@@ -312,6 +319,7 @@ class Theme {
     'contentMaxWidth': contentMaxWidth,
     'mainPaddingH': mainPaddingH,
     'mainPaddingV': mainPaddingV,
+    'mobilePaddingH': mobilePaddingH,
     'tabBorderWidth': tabBorderWidth,
   };
 }

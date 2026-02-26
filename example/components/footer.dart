@@ -3,6 +3,9 @@ import 'package:docudart/docudart.dart';
 /// Site footer component.
 ///
 /// Customize this component to change the footer layout.
+///
+/// Uses [context.screen] to switch between horizontal (desktop) and
+/// vertical (mobile/tablet) layout.
 class Footer extends StatelessComponent {
   const Footer({this.leading, this.center, this.trailing, super.key});
 
@@ -13,10 +16,16 @@ class Footer extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return footer([
-      Row(
-        mainAxisAlignment: .spaceBetween,
-        crossAxisAlignment: .center,
-        children: [?leading, ?center, ?trailing],
+      context.screen.when(
+        desktop: () => Row(
+          mainAxisAlignment: .spaceBetween,
+          crossAxisAlignment: .center,
+          children: [?leading, ?center, ?trailing],
+        ),
+        tablet: () =>
+            Column(spacing: 1.5.rem, children: [?center, ?leading, ?trailing]),
+        mobile: () =>
+            Column(spacing: 1.5.rem, children: [?center, ?leading, ?trailing]),
       ),
     ]);
   }

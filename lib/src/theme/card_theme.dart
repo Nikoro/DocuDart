@@ -13,6 +13,7 @@ class CardTheme {
     this.hoverShadowBlur = 16,
     this.hoverShadowOpacity = 0.12,
     this.hoverTranslateY = -1,
+    this.mobileColumns = 1,
   });
 
   const CardTheme.classic({
@@ -25,6 +26,7 @@ class CardTheme {
     this.hoverShadowBlur = 12,
     this.hoverShadowOpacity = 0.1,
     this.hoverTranslateY = 0,
+    this.mobileColumns = 1,
   });
 
   const CardTheme.material3({
@@ -37,6 +39,7 @@ class CardTheme {
     this.hoverShadowBlur = 16,
     this.hoverShadowOpacity = 0.12,
     this.hoverTranslateY = -1,
+    this.mobileColumns = 1,
   });
 
   const CardTheme.shadcn({
@@ -49,6 +52,7 @@ class CardTheme {
     this.hoverShadowBlur = 0,
     this.hoverShadowOpacity = 0,
     this.hoverTranslateY = 0,
+    this.mobileColumns = 1,
   });
 
   factory CardTheme.fromJson(Map<String, dynamic> json) => .new(
@@ -64,6 +68,7 @@ class CardTheme {
     hoverShadowOpacity:
         (json['hoverShadowOpacity'] as num?)?.toDouble() ?? 0.12,
     hoverTranslateY: (json['hoverTranslateY'] as num?)?.toDouble() ?? -1,
+    mobileColumns: (json['mobileColumns'] as num?)?.toInt() ?? 1,
   );
 
   /// Card padding in rem.
@@ -93,6 +98,9 @@ class CardTheme {
   /// Vertical translate on hover in pixels (negative = lift up).
   final double hoverTranslateY;
 
+  /// Number of card grid columns on mobile (≤768px).
+  final int mobileColumns;
+
   CardTheme copyWith({
     double? padding,
     double? borderRadius,
@@ -103,6 +111,7 @@ class CardTheme {
     double? hoverShadowBlur,
     double? hoverShadowOpacity,
     double? hoverTranslateY,
+    int? mobileColumns,
   }) => .new(
     padding: padding ?? this.padding,
     borderRadius: borderRadius ?? this.borderRadius,
@@ -113,6 +122,7 @@ class CardTheme {
     hoverShadowBlur: hoverShadowBlur ?? this.hoverShadowBlur,
     hoverShadowOpacity: hoverShadowOpacity ?? this.hoverShadowOpacity,
     hoverTranslateY: hoverTranslateY ?? this.hoverTranslateY,
+    mobileColumns: mobileColumns ?? this.mobileColumns,
   );
 
   Map<String, dynamic> toJson() => {
@@ -125,6 +135,7 @@ class CardTheme {
     'hoverShadowBlur': hoverShadowBlur,
     'hoverShadowOpacity': hoverShadowOpacity,
     'hoverTranslateY': hoverTranslateY,
+    'mobileColumns': mobileColumns,
   };
 }
 

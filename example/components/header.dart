@@ -7,6 +7,9 @@ import 'package:docudart/docudart.dart';
 ///
 /// Uses [context.screen] to show a [SidebarToggle] on mobile/tablet
 /// when [showSidebarToggle] is true (e.g., on pages with a sidebar).
+///
+/// On desktop, nav links appear inline in the main row.
+/// On mobile/tablet, they appear in a second scrollable row below.
 class Header extends StatelessComponent {
   const Header({
     this.leading,
@@ -26,20 +29,38 @@ class Header extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return header([
-      Row(
-        crossAxisAlignment: .center,
-        spacing: 1.5.rem,
+      Column(
         children: [
-          // Show hamburger menu on mobile/tablet when sidebar is present
-          if (showSidebarToggle)
+          // Main row: hamburger + logo + spacer + desktop links + trailing
+          Row(
+            crossAxisAlignment: .center,
+            spacing: 1.5.rem,
+            children: [
+              // Show hamburger menu on mobile/tablet when sidebar is present
+              if (showSidebarToggle)
+                ?context.screen.maybeWhen(
+                  mobile: () => SidebarToggle(),
+                  tablet: () => SidebarToggle(),
+                ),
+              ?leading,
+              Spacer(),
+              // Nav links only on desktop — inline in main row
+              ?context.screen.maybeWhen(
+                desktop: () => Row(
+                  spacing: 1.5.rem,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [...?links],
+                ),
+              ),
+              ?trailing,
+            ],
+          ),
+          // Mobile/tablet nav row — scrollable link row below header
+          if (links != null && links!.isNotEmpty)
             ?context.screen.maybeWhen(
-              mobile: () => SidebarToggle(),
-              tablet: () => SidebarToggle(),
+              mobile: () => Row(spacing: 1.rem, children: [...?links]),
+              tablet: () => Row(spacing: 1.rem, children: [...?links]),
             ),
-          ?leading,
-          Spacer(),
-          ...?links,
-          ?trailing,
         ],
       ),
     ]);
