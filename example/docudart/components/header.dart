@@ -30,6 +30,7 @@ class Header extends StatelessComponent {
   Component build(BuildContext context) {
     return header([
       Column(
+        crossAxisAlignment: .stretch,
         children: [
           // Main row: hamburger + logo + spacer + desktop links + trailing
           Row(
@@ -55,11 +56,23 @@ class Header extends StatelessComponent {
               ?trailing,
             ],
           ),
-          // Mobile/tablet nav row — scrollable link row below header
+          // Mobile/tablet nav row — below the main header row
           if (links != null && links!.isNotEmpty)
             ?context.screen.maybeWhen(
-              mobile: () => Row(spacing: 1.rem, children: [...?links]),
-              tablet: () => Row(spacing: 1.rem, children: [...?links]),
+              mobile: () =>
+                  Padding(
+                    padding: EdgeInsets.only(left: 16, right: 16, bottom: 8),
+                    child: Row(spacing: 1.rem, children: [...?links]),
+                  ).apply(
+                    styles: Styles(overflow: Overflow.only(x: Overflow.auto)),
+                  ),
+              tablet: () =>
+                  Padding(
+                    padding: EdgeInsets.only(left: 16, right: 16, bottom: 8),
+                    child: Row(spacing: 1.rem, children: [...?links]),
+                  ).apply(
+                    styles: Styles(overflow: Overflow.only(x: Overflow.auto)),
+                  ),
             ),
         ],
       ),

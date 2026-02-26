@@ -203,13 +203,6 @@ header > .column > .row:first-child {
   padding: ${header.paddingV}rem ${header.paddingH}rem;
 }
 
-header > .column > .row:last-child {
-  padding: 0 ${header.paddingH}rem ${header.paddingV}rem;
-  border-top: 1px solid var(--color-border);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
 .logo,
 .logo:visited {
   display: inline-flex;
@@ -734,10 +727,6 @@ $headingsCss
 @media (max-width: 768px) {
   header > .column > .row:first-child {
     padding: ${header.mobilePaddingV}rem ${header.mobilePaddingH}rem;
-  }
-
-  header > .column > .row:last-child {
-    padding: 0 ${header.mobilePaddingH}rem ${header.mobilePaddingV}rem;
   }
 
   .site-main {
