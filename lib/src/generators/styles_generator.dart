@@ -365,6 +365,7 @@ $sidebarActiveBgCss
 
 /* Footer */
 footer {
+  width: 100%;
   background-color: var(--color-surface);
   border-top: 1px solid var(--color-border);
   padding: ${footer.paddingV}rem ${footer.paddingH}rem;

@@ -78,6 +78,12 @@ class MarkdownProcessor {
     final nodes = document.parseLines(lines);
     String html = md.renderToHtml(nodes);
 
+    // Step 3b: Escape angle brackets inside inline <code> tags.
+    // With encodeHtml: false, backtick spans like `List<Object>` produce
+    // raw `<Object>` which the browser parses as an HTML element.
+    // We must not touch <pre><code> blocks (handled by opal).
+    html = _escapeInlineCode(html);
+
     // Step 4: Extract table of contents
     final toc = _extractTableOfContents(nodes);
 
@@ -169,6 +175,26 @@ class MarkdownProcessor {
         .replaceAll(RegExp(r'\s+'), '-')
         .replaceAll(RegExp(r'-+'), '-')
         .replaceAll(RegExp(r'^-|-$'), '');
+  }
+
+  /// Escape `<` and `>` inside inline `<code>` tags so the browser doesn't
+  /// parse them as real HTML elements (e.g. `List<Object>` → `List&lt;Object&gt;`).
+  ///
+  /// Skips `<pre><code>` blocks which are handled by the opal highlighter.
+  static final _inlineCodePattern = RegExp(
+    r'(?<!<pre>)<code>(.*?)</code>',
+    dotAll: true,
+  );
+
+  String _escapeInlineCode(String html) {
+    return html.replaceAllMapped(_inlineCodePattern, (match) {
+      final content = match.group(1)!;
+      final escaped = content
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;');
+      return '<code>$escaped</code>';
+    });
   }
 
   /// Add IDs to heading elements in HTML.
