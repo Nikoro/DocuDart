@@ -10,7 +10,7 @@ When this skill is invoked (e.g., `/test`):
 1. **Run all three checks in parallel**:
 
    a. **Tests**: `dart test`
-   b. **Analysis**: `dart analyze --fatal-infos lib bin`
+   b. **Analysis**: `dart analyze lib bin test`
    c. **Formatting**: `dart format --set-exit-if-changed lib bin test`
 
 2. **Report results** for each check:

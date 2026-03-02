@@ -28,9 +28,29 @@ Internal content processing models used by `ContentProcessor` and `SidebarGenera
 
 Context object available via `context.project` in components.
 
-- `Project(pubspec: Pubspec, docs: List<Doc>, pages: List<Page>, changelog: String?, assets: dynamic)`
+- `Project(pubspec: Pubspec, docs: List<Doc>, pages: List<Page>, changelog: Changelog?, assets: dynamic)`
+- `changelog` — `Changelog?` object with `.raw` (pre-processed HTML) and `.toc` (`List<TocEntry>`) getters
 - `assets` is `dynamic` — generated per-project typed class (`_ProjectAssets`) with `Asset` leaf values
 - Provided by `ProjectProvider` (InheritedComponent)
+
+## Changelog (`changelog.dart`)
+
+Parsed changelog data from the parent project's CHANGELOG.md.
+
+- `Changelog({required String raw, List<TocEntry> toc})`
+- `raw` — pre-processed HTML (run through `MarkdownProcessor` + `OpalHighlighter` at generation time)
+- `toc` — heading entries extracted from CHANGELOG.md; defaults to `const []`
+- Access via `context.project.changelog?.raw` and `context.project.changelog?.toc`
+- Immutable (`@immutable`)
+
+## TocEntry (`toc_entry.dart`)
+
+Table of contents entry extracted from markdown headings by `MarkdownProcessor`.
+
+- `TocEntry({required String text, required int level, required String id})`
+- `text` — heading text, `level` — heading depth (2 = h2, 3 = h3), `id` — anchor slug
+- Used by `TableOfContents` component and serialized into `project_data.dart` for changelog
+- Immutable (`@immutable`)
 
 ## Pubspec (`pubspec.dart`)
 

@@ -1,8 +1,8 @@
+import 'changelog.dart';
 import 'doc.dart';
 import 'license.dart';
 import 'page.dart';
 import 'pubspec.dart';
-import 'toc_entry.dart';
 
 /// Project data passed to the [setup] callback.
 ///
@@ -15,7 +15,6 @@ class Project {
     required this.pages,
     this.license,
     this.changelog,
-    this.changelogToc,
     this.assets,
   });
 
@@ -31,11 +30,11 @@ class Project {
   /// Parsed license information from the parent project's LICENSE file.
   final License? license;
 
-  /// Raw content of CHANGELOG.md from the parent project, if it exists.
-  final String? changelog;
-
-  /// Table of contents entries extracted from CHANGELOG.md headings.
-  final List<TocEntry>? changelogToc;
+  /// Parsed changelog data from the parent project's CHANGELOG.md.
+  ///
+  /// Access HTML content via `context.project.changelog?.raw` and
+  /// table of contents via `context.project.changelog?.toc`.
+  final Changelog? changelog;
 
   /// Auto-generated asset tree from the assets/ directory.
   ///

@@ -1,6 +1,7 @@
 /// Data models for DocuDart.
 library;
 
+export 'changelog.dart';
 export 'doc.dart';
 export 'doc_content.dart';
 export 'page.dart';

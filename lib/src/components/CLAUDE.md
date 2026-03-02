@@ -82,6 +82,46 @@ SidebarToggle()
 - No constructor params (serialization-free) — `super.key` is automatically excluded by `jaspr_builder`
 - The generated Header template uses `context.screen.maybeWhen()` to show `SidebarToggle()` on mobile/tablet
 
+### TableOfContents (`navigation/table_of_contents.dart`)
+
+Server-rendered "On this page" sidebar listing heading links from page content.
+
+```dart
+TableOfContents(entries: context.project.changelog?.toc ?? [])
+TableOfContents(entries: toc, title: 'Contents', minLevel: 2, maxLevel: 4)
+```
+
+- `entries` (`List<TocEntry>`) — required; TOC items extracted by `MarkdownProcessor`
+- `title` (`String`, default `'On this page'`) — heading above the list
+- `minLevel` / `maxLevel` (`int`, default 2/3) — filter entries by heading level
+- Renders: `aside.toc` > `nav.toc-nav[aria-label]` > `.toc-title` + `ul.toc-list` > `li.toc-item.toc-level-{N}` > `a.toc-link[href][data-toc-id]`
+- `data-toc-id` attributes link to heading IDs — consumed by `TocScrollSpy` for active highlighting
+- Hidden at ≤1024px via CSS media query; sticky on desktop
+
+### TocScrollSpy (`navigation/toc_scroll_spy.dart`)
+
+`@client` component that highlights the active TOC link based on scroll position.
+
+```dart
+Row(children: [
+  Expanded(child: div(classes: 'docs-content', [RawText(html)])),
+  TableOfContents(entries: toc),
+  TocScrollSpy(),
+])
+```
+
+- Annotated with `@client` — hydrated client-side by Jaspr's `ClientApp`
+- Renders `Component.fragment([])` on server (invisible)
+- On client (`initState` with `kIsWeb` guard):
+  1. Queries `.toc-link[data-toc-id]` elements via `web.document.querySelectorAll()`
+  2. Collects matching heading elements by ID
+  3. Creates `IntersectionObserver` with `rootMargin: '-64px 0px -80% 0px'`
+  4. Toggles `.active` class on corresponding TOC link
+  5. Fallback: activates last heading above viewport when none intersecting
+- No constructor params (serialization-free) — same pattern as `SidebarToggle`
+- Uses `universal_web` for DOM access (`web.document`, `IntersectionObserver`)
+- `dispose()` disconnects the observer
+
 ### Sidebar Interactivity (vanilla JS in `theme.js`)
 
 - **Collapsible categories**: `.expansion-tile[data-category]` click/keyboard toggle, CSS chevron rotation + `max-height` transition, state persisted in localStorage (`docudart-sidebar-state` key). `initCollapse()` suppresses transitions on page load to prevent visual flash.
@@ -98,7 +138,7 @@ Runtime markdown-to-HTML renderer component.
 
 ```dart
 Markdown(content: '# Hello\n\nSome **bold** text.')
-Markdown(content: context.project.changelog ?? '', classes: 'changelog-content')
+Markdown(content: context.project.changelog?.raw ?? '', classes: 'changelog-content')
 ```
 
 - Uses `MarkdownProcessor` (pure Dart, no dart:io — works in browser)
@@ -123,7 +163,7 @@ Text('Bold text', style: TextStyle(fontWeight: 700))
 ### Logo (`branding/logo.dart`)
 
 ```dart
-Logo(image: img(src: Assets.logo.logo_webp, alt: 'Logo'), title: 'My Project')
+Logo(image: context.project.assets.logo.logo_webp(alt: 'Logo'), title: 'My Project')
 ```
 
 - `image` (`Component?`), `title` (`String?`), `href` (`String`, default `"/"`)

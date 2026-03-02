@@ -89,12 +89,7 @@ docudart/
 3. Register in `DocuDartCliRunner` constructor
 
 ### Modifying Generated Site
-See `lib/src/generators/CLAUDE.md` for the full generation pipeline. Key methods in `SiteGenerator`:
-- `_generateApp()` — Router with ProjectProvider
-- `_generateLayout()` — LayoutDelegate
-- `_generateStyles()` — delegates to `StylesGenerator` (reads per-component theme properties directly, no theme-name conditionals)
-- `_copyUserFiles()` — copies config.dart, components/, pages/, root-level .dart files (e.g. labels.dart)
-- `ThemeScriptGenerator` — generates `theme.js` (toggle + sidebar + mobile drawer + code block copy/label) and `live-reload.js`
+See `lib/src/generators/CLAUDE.md` for the full generation pipeline (`SiteGenerator` methods, `StylesGenerator`, `ThemeScriptGenerator`).
 
 ## Committing
 
@@ -113,69 +108,37 @@ cd example && dart run ../bin/docudart.dart build
 
 ### Visual Testing with Playwright
 
-After style/layout/template changes, verify with Playwright:
+After style/layout/template changes: start `cd example && dart run ../bin/docudart.dart serve &` (cold start ~2 min), use Playwright skill for screenshots (light + dark), then `pkill -f "docudart.dart serve"; pkill -f "jaspr"`.
 
-1. `cd example && dart run ../bin/docudart.dart serve &`
-2. Wait for cold start (~2 min for first `jaspr serve` — compiles builders/JIT)
-3. Use Playwright skill for screenshots (light + dark mode)
-4. `pkill -f "docudart.dart serve"; pkill -f "jaspr"`
-
-**Important**: Use `http://127.0.0.1:8080/` (not `localhost`) — `jaspr serve` binds IPv4 only, and `localhost` resolves to IPv6 (`::1`) on macOS.
-
-Key things to verify: header, sidebar (active link, collapsible categories), mobile sidebar drawer (hamburger menu at <= 1024px), landing page, footer, dark mode, doc content rendering.
+**Important**: Use `http://127.0.0.1:8080/` (not `localhost`) — `jaspr serve` binds IPv4 only, `localhost` resolves to IPv6 on macOS. Verify: header, sidebar, mobile drawer (≤1024px), landing page, footer, dark mode, doc content.
 
 ## Important Notes
 
 - User's config is `config.dart` (Dart, not YAML) — must export `Config configure(BuildContext context)`
-- `docudart` re-exports Jaspr and extensions (`.let()`, `.apply()`, `.screen`), hiding conflicting types: `Text` from `jaspr.dart`; `Padding`, `Border`, `BorderSide`, `BorderRadius`, `BoxShadow`, `ColorScheme` from `dom.dart` (DocuDart provides Flutter-like replacements)
-- Jaspr `build()` returns `Component` (single), NOT `Iterable<Component>`
-- Jaspr `classes` takes `String` (space-separated), NOT `List<String>`
-- Jaspr `main(...)` from dom.dart shadows Dart's `main()` function
-- Clean URLs by default (`/docs/intro/` not `/docs/intro.html`)
-- Generated Jaspr project lives in `<projectDir>/.dart_tool/docudart/`
-- Linting: `many_lints` plugin (analysis server plugin, configured in `analysis_options.yaml` not `pubspec.yaml`) + `sort_constructors_first`, `use_null_aware_elements`
+- `docudart` re-exports Jaspr and extensions (`.let()`, `.apply()`, `.screen`), hiding conflicting types (`Text`, `Padding`, `Border`, `BorderSide`, `BorderRadius`, `BoxShadow`, `ColorScheme`) — DocuDart provides Flutter-like replacements
+- Jaspr gotchas: `build()` returns `Component` (single, not `Iterable`); `classes` takes `String` (space-separated, not `List`); `main(...)` from dom.dart shadows Dart's `main()`
+- Clean URLs by default (`/docs/intro/` not `/docs/intro.html`); generated Jaspr project lives in `<projectDir>/.dart_tool/docudart/`
+- Linting: `many_lints` plugin (in `analysis_options.yaml`) + `sort_constructors_first`, `use_null_aware_elements`
 - Assets use `context.project.assets` (not static `Assets` class) — callable `Asset` returns Component, `.path` for String
 - Theme-aware assets: `assets/light/` and `assets/dark/` subdirs auto-switch via CSS visibility
 - 3 theme presets with distinct palettes: `classic` (blue), `material3` (purple), `shadcn` (zinc/black)
 - Theme `seedColor` accepts Jaspr `Color` (e.g. `Colors.indigo`, `Color.value(0xFF006D40)`) — overrides preset defaults
-- `@client` components require `build_web_compilers` in the generated pubspec's `dev_dependencies` — without it, `dart2js` never runs and client JS is never produced (see `lib/src/generators/CLAUDE.md` for full hydration pipeline)
-- Don't manually add `<script src="main.client.dart.js">` — Jaspr's `ClientScriptAdapter` handles it automatically when `@client` components exist
-- `context.screen.when(desktop:, tablet:, mobile:)` and `maybeWhen(...)` — CSS-based responsive layout via `display: contents`/`display: none` wrappers; breakpoints: mobile ≤768px, tablet 769–1024px, desktop 1025px+. All variants rendered to DOM, CSS controls visibility. Use `?` prefix with `maybeWhen` in children lists.
+- `@client` components require `build_web_compilers` in the generated pubspec's `dev_dependencies`; Jaspr's `ClientScriptAdapter` auto-inserts the script tag (see `lib/src/generators/CLAUDE.md` for full hydration pipeline)
+- `context.screen.when(desktop:, tablet:, mobile:)` / `maybeWhen(...)` — CSS-based responsive layout; breakpoints: mobile ≤768, tablet 769–1024, desktop 1025+. Use `?` prefix with `maybeWhen` in children lists.
 
-## Component Design: Lean HTML Output
+## Component Design & `.apply()` Shadowing
 
-DocuDart's primitives avoid unnecessary wrapper `<div>` elements:
+Primitives (`Padding`, `Flexible`, `Expanded`, `SizedBox` with child) use `.apply()` internally to merge styles onto children — no wrapper `<div>`. Container components (`Row`, `Column`, `Container`, `Center`, `Wrap`) keep their `<div>` with inline styles, no CSS class hooks.
 
-- **`Padding`**: Uses `.apply()` to merge padding directly onto the child's root element
-- **`Flexible` / `Expanded`**: Uses `.apply()` to merge flex styles directly onto the child
-- **`SizedBox`**: Uses `.apply()` when a child is present; renders an empty `<div>` only for spacer usage (no child)
-- **`Center`**: Keeps its wrapper `<div>` — centering via flexbox requires a parent container
-- **`Row` / `Column` / `Container` / `Wrap`**: Keep their `<div>` — they ARE the styled container. No CSS class hooks; all styling is inline.
+**Critical rule**: Nested `.apply()` calls shadow each other (keyed by `runtimeType`). Never chain `.apply()` on a component that uses it internally. Instead, combine all styles in one `.apply()` on the innermost child. See `lib/src/components/CLAUDE.md` for full details.
 
-### The `.apply()` Shadowing Rule
+## Key Dependencies
 
-Jaspr's `.apply()` (`Component.wrapElement()`) uses `InheritedComponent` keyed by `runtimeType`. Nested `.apply()` calls shadow each other — only the innermost one takes effect:
-
-- **Never chain `.apply()` on a component that uses `.apply()` internally** (`Padding`, `Flexible`, `Expanded`, `SizedBox` with child)
-- Instead, combine all styles in a single `.apply()` call on the innermost child
-- Example: Instead of `Padding(padding: ..., child: Row(...)).apply(styles: overflow)`, use `Row(...).apply(styles: Styles(padding: ..., overflow: ...))`
-
-## Dependencies
-
-| Package | Purpose |
-|---------|---------|
-| `args` | CLI argument parsing |
-| `path` | Path manipulation |
-| `glob` | File pattern matching |
-| `watcher` | File watching (hot reload) |
-| `yaml` | YAML/frontmatter parsing |
-| `markdown` | Markdown to HTML |
-| `opal` | Build-time syntax highlighting (same engine as dart.dev) |
-| `jaspr` | Web framework for SSG (re-exported to users) |
-| `universal_web` | DOM access in `@client` components (web API on browser, stubs on server) |
-| `meta` | @immutable annotation |
-| `xml` (dev) | SVG parsing for icon generator tool |
-| `many_lints` (plugin) | 100+ custom lint rules via analysis server plugin |
+See `pubspec.yaml` for the full list. Notable non-obvious ones:
+- `jaspr` — SSG web framework (re-exported to users via `docudart.dart`)
+- `opal` — build-time syntax highlighting (same engine as dart.dev)
+- `universal_web` — DOM access in `@client` components (web API on browser, stubs on server)
+- `many_lints` — 100+ custom lint rules via analysis server plugin (configured in `analysis_options.yaml`, not pubspec)
 
 ## References
 

@@ -7,7 +7,7 @@ import '../../models/toc_entry.dart';
 /// from heading entries, similar to dart.dev's "On this page" sidebar.
 ///
 /// ```dart
-/// TableOfContents(entries: context.project.changelogToc ?? [])
+/// TableOfContents(entries: context.project.changelog?.toc ?? [])
 /// ```
 ///
 /// Typically placed alongside content in a row layout. Hidden on screens

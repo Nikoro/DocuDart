@@ -358,7 +358,6 @@ class LandingPage extends StatelessComponent {
       p.join(websiteDir, 'pages', 'changelog_page.dart'),
     ).writeAsString('''
 import 'package:docudart/docudart.dart';
-import 'package:jaspr/dom.dart';
 
 class ChangelogPage extends StatelessComponent {
   const ChangelogPage({super.key});
@@ -366,18 +365,15 @@ class ChangelogPage extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final changelog = context.project.changelog;
-    if (changelog == null || changelog.isEmpty) {
+    if (changelog == null) {
       return div(classes: 'docs-content', []);
     }
-
-    final toc = context.project.changelogToc;
-    final hasToc = toc != null && toc.isNotEmpty;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(child: div(classes: 'docs-content', [RawText(changelog)])),
-        if (hasToc) TableOfContents(entries: toc),
+        Expanded(child: div(classes: 'docs-content', [RawText(changelog.raw)])),
+        if (changelog.toc.isNotEmpty) TableOfContents(entries: changelog.toc),
         TocScrollSpy(),
       ],
     );
