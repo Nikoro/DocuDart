@@ -114,9 +114,18 @@ class Footer extends StatelessComponent {
     return footer([
       context.screen.when(
         desktop: () => Row(
-          mainAxisAlignment: .spaceBetween,
           crossAxisAlignment: .center,
-          children: [?leading, ?center, ?trailing],
+          children: [
+            if (leading != null) Expanded(child: leading!),
+            if (center != null) Expanded(child: Center(child: center!)),
+            if (trailing != null)
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: .end,
+                  children: [trailing!],
+                ),
+              ),
+          ],
         ).apply(styles: Styles(raw: {'color': 'var(--color-text-muted)'})),
         tablet: () => Column(
           spacing: 1.5.rem,
