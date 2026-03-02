@@ -659,8 +659,8 @@ ClientOptions get defaultClientOptions => ClientOptions();
 
     // Generate a route for each doc page
     for (final page in pages) {
-      final DocPage(:html, :title, :meta, :urlPath) = page;
-      final PageMeta(:description, :image, :canonical, :noIndex) = meta;
+      final DocPage(:html, :title, :meta, :urlPath, :toc) = page;
+      final PageMeta(:description, :image, :canonical, :noIndex, :tags) = meta;
       final escapedHtml = _escapeForDart(_encodePreNewlines(html));
       final escapedTitle = _escapeForDart(title);
       final escapedDesc = description != null
@@ -682,14 +682,31 @@ ClientOptions get defaultClientOptions => ClientOptions();
       ];
       final seoParams = '${seoLines.join('\n')}\n';
 
+      // Serialize TOC entries
+      final tocLines = StringBuffer();
+      if (toc.isNotEmpty) {
+        tocLines.writeln('              toc: [');
+        for (final entry in toc) {
+          tocLines.writeln(
+            "                TocEntry(text: '${_escapeForDart(entry.text)}', level: ${entry.level}, id: '${_escapeForDart(entry.id)}'),",
+          );
+        }
+        tocLines.writeln('              ],');
+      }
+
+      // Serialize tags
+      final tagsLine = tags.isNotEmpty
+          ? "              tags: [${tags.map((t) => "'${_escapeForDart(t)}'").join(', ')}],\n"
+          : '';
+
       routesBuffer.writeln('''
         Route(
           path: '$urlPath',
           title: '$escapedTitle - $siteTitle',
-          builder: (context, state) => const LayoutDelegate(
+          builder: (context, state) => LayoutDelegate(
             child: DocsPageContent(
               title: '$escapedTitle',
-$seoParams              htmlContent: \'\'\'$escapedHtml\'\'\',
+$seoParams$tocLines$tagsLine              htmlContent: \'\'\'$escapedHtml\'\'\',
             ),
           ),
         ),''');
@@ -777,6 +794,8 @@ import 'dart:convert';
 
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
+import 'package:docudart/docudart.dart';
+import 'config.dart';
 
 class DocsPageContent extends StatelessComponent {
   final String title;
@@ -786,6 +805,8 @@ class DocsPageContent extends StatelessComponent {
   final String? image;
   final String? canonicalUrl;
   final bool noIndex;
+  final List<TocEntry> toc;
+  final List<String> tags;
   final String htmlContent;
 
   const DocsPageContent({
@@ -796,12 +817,38 @@ class DocsPageContent extends StatelessComponent {
     this.image,
     this.canonicalUrl,
     this.noIndex = false,
+    this.toc = const [],
+    this.tags = const [],
     required this.htmlContent,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
+    final content = div(
+      classes: 'docs-content',
+      [RawText(htmlContent)],
+    );
+
+    final pageInfo = DocPageInfo(
+      content: content,
+      toc: toc,
+      title: title,
+      urlPath: pagePath ?? '',
+      description: description,
+      tags: tags,
+    );
+
+    final config = configure(context);
+    final body = config.docsBuilder?.call(pageInfo) ?? Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(child: content),
+        if (toc.isNotEmpty) TableOfContents(entries: toc),
+        TocScrollSpy(),
+      ],
+    );
+
     return article(
       classes: 'docs-page',
       [
@@ -837,12 +884,7 @@ class DocsPageContent extends StatelessComponent {
               ),
           ],
         ),
-        div(
-          classes: 'docs-content',
-          [
-            RawText(htmlContent),
-          ],
-        ),
+        body,
       ],
     );
   }

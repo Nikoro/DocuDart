@@ -9,6 +9,7 @@ export 'src/config/setup.dart';
 export 'src/models/asset.dart';
 export 'src/models/changelog.dart';
 export 'src/models/doc.dart';
+export 'src/models/doc_page_info.dart';
 export 'src/models/license.dart';
 export 'src/models/project.dart';
 export 'src/models/pubspec.dart';

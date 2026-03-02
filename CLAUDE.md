@@ -79,7 +79,7 @@ docudart/
 
 ### Adding a New Config Option
 1. Add field to `Config` in `lib/src/config/docudart_config.dart`
-2. Add to constructor, `copyWith`, `toJson()`, `fromJson()`
+2. Add to constructor, `copyWith`, `toJson()`, `fromJson()` (function fields skip serialization — only add to constructor and `copyWith`)
 3. Update `ProjectGenerator` to use it in generated config.dart template
 4. Update `SiteGenerator` to handle it when generating site
 
@@ -124,6 +124,7 @@ After style/layout/template changes: start `cd example && dart run ../bin/docuda
 - 3 theme presets with distinct palettes: `classic` (blue), `material3` (purple), `shadcn` (zinc/black)
 - Theme `seedColor` accepts Jaspr `Color` (e.g. `Colors.indigo`, `Color.value(0xFF006D40)`) — overrides preset defaults
 - `@client` components require `build_web_compilers` in the generated pubspec's `dev_dependencies`; Jaspr's `ClientScriptAdapter` auto-inserts the script tag (see `lib/src/generators/CLAUDE.md` for full hydration pipeline)
+- `docsBuilder` callback customizes doc page body layout; default (null) renders TOC sidebar + scroll spy automatically. Override with `docsBuilder: (page) => ...` receiving a `DocPageInfo` (content, toc, title, urlPath, description, tags)
 - `context.screen.when(desktop:, tablet:, mobile:)` / `maybeWhen(...)` — CSS-based responsive layout; breakpoints: mobile ≤768, tablet 769–1024, desktop 1025+. Use `?` prefix with `maybeWhen` in children lists.
 
 ## Component Design & `.apply()` Shadowing

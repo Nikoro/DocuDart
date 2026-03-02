@@ -22,6 +22,7 @@ Config(
   footer: Component? Function()?,
   sidebar: Component? Function()?,
   layoutBuilder: LayoutBuilder?,     // null = use default Layout
+  docsBuilder: DocsBuilder?,         // null = built-in TOC layout
 )
 ```
 
@@ -63,6 +64,14 @@ typedef LayoutBuilder = Component Function({
 ```
 
 Used by `Config.layoutBuilder` to fully replace the default `Layout` component.
+
+### DocsBuilder Typedef
+
+```dart
+typedef DocsBuilder = Component Function(DocPageInfo page);
+```
+
+Used by `Config.docsBuilder` to customize the doc page body. When null, uses a built-in default (Row with content + TableOfContents + TocScrollSpy). `DocPageInfo` provides: `content` (Component), `toc` (List\<TocEntry\>), `title`, `urlPath`, `description`, `tags`.
 
 ## ConfigLoader (`config_loader.dart`)
 

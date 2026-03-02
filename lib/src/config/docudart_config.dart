@@ -20,6 +20,7 @@ class Config {
     this.sidebar,
     this.home,
     this.layoutBuilder,
+    this.docsBuilder,
   }) : theme = theme ?? Theme.classic();
 
   factory Config.fromJson(Map<String, dynamic> json) {
@@ -92,6 +93,13 @@ class Config {
   /// and returns a [Component] that arranges them.
   final LayoutBuilder? layoutBuilder;
 
+  /// Custom docs page builder function. If null, a built-in default layout
+  /// with [TableOfContents] and [TocScrollSpy] is used.
+  ///
+  /// Receives a [DocPageInfo] containing the rendered content, TOC entries,
+  /// and page metadata. Returns a [Component] that arranges the doc page body.
+  final DocsBuilder? docsBuilder;
+
   Map<String, dynamic> toJson() => {
     if (title != null) 'title': title,
     if (description != null) 'description': description,
@@ -120,6 +128,7 @@ class Config {
     Component? Function()? sidebar,
     Component? Function()? home,
     LayoutBuilder? layoutBuilder,
+    DocsBuilder? docsBuilder,
   }) {
     return Config(
       title: title ?? this.title,
@@ -136,6 +145,7 @@ class Config {
       sidebar: sidebar ?? this.sidebar,
       home: home ?? this.home,
       layoutBuilder: layoutBuilder ?? this.layoutBuilder,
+      docsBuilder: docsBuilder ?? this.docsBuilder,
     );
   }
 }

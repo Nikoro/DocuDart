@@ -49,8 +49,18 @@ Table of contents entry extracted from markdown headings by `MarkdownProcessor`.
 
 - `TocEntry({required String text, required int level, required String id})`
 - `text` — heading text, `level` — heading depth (2 = h2, 3 = h3), `id` — anchor slug
-- Used by `TableOfContents` component and serialized into `project_data.dart` for changelog
+- Used by `TableOfContents` component; serialized into generated routes for doc pages and into `project_data.dart` for changelog
 - Immutable (`@immutable`)
+
+## DocPageInfo (`doc_page_info.dart`)
+
+Data class passed to `DocsBuilder` callback with doc page context.
+
+- `DocPageInfo({required Component content, required List<TocEntry> toc, required String title, required String urlPath, String? description, List<String> tags})`
+- `content` — rendered HTML as a Component (`div.docs-content > RawText`)
+- `toc` — heading entries extracted from the page's markdown
+- `title`, `urlPath`, `description`, `tags` — page metadata from frontmatter
+- Extensible — new fields can be added without breaking the `DocsBuilder` typedef
 
 ## Pubspec (`pubspec.dart`)
 

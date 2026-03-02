@@ -1,5 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../models/doc_page_info.dart';
 import 'docudart_config.dart';
 
 /// Type alias for the configuration function that users define in config.dart.
@@ -28,3 +29,14 @@ typedef LayoutBuilder =
       Component? sidebar,
       Component? body,
     });
+
+/// Type alias for a custom docs page builder function.
+///
+/// Receives a [DocPageInfo] containing the rendered content, table of
+/// contents entries, and page metadata. Returns a [Component] that
+/// arranges the doc page body.
+///
+/// When [Config.docsBuilder] is null, a built-in default layout with
+/// [TableOfContents] and [TocScrollSpy] is used. Set this to fully
+/// replace the default doc page body layout.
+typedef DocsBuilder = Component Function(DocPageInfo page);
