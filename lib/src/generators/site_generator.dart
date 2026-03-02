@@ -346,6 +346,16 @@ jaspr:
       ).process(changelog);
       final changelogHtml = _encodePreNewlines(processed.html);
       buffer.writeln("  changelog: '${_escapeForDart(changelogHtml)}',");
+
+      if (processed.tableOfContents.isNotEmpty) {
+        buffer.writeln('  changelogToc: [');
+        for (final entry in processed.tableOfContents) {
+          buffer.writeln(
+            "    TocEntry(text: '${_escapeForDart(entry.text)}', level: ${entry.level}, id: '${_escapeForDart(entry.id)}'),",
+          );
+        }
+        buffer.writeln('  ],');
+      }
     }
 
     buffer.writeln(');');

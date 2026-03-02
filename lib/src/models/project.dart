@@ -2,6 +2,7 @@ import 'doc.dart';
 import 'license.dart';
 import 'page.dart';
 import 'pubspec.dart';
+import 'toc_entry.dart';
 
 /// Project data passed to the [setup] callback.
 ///
@@ -14,6 +15,7 @@ class Project {
     required this.pages,
     this.license,
     this.changelog,
+    this.changelogToc,
     this.assets,
   });
 
@@ -31,6 +33,9 @@ class Project {
 
   /// Raw content of CHANGELOG.md from the parent project, if it exists.
   final String? changelog;
+
+  /// Table of contents entries extracted from CHANGELOG.md headings.
+  final List<TocEntry>? changelogToc;
 
   /// Auto-generated asset tree from the assets/ directory.
   ///

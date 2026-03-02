@@ -10,6 +10,17 @@ class ChangelogPage extends StatelessComponent {
     if (changelog == null || changelog.isEmpty) {
       return div(classes: 'docs-content', []);
     }
-    return div(classes: 'docs-content', [RawText(changelog)]);
+
+    final toc = context.project.changelogToc;
+    final hasToc = toc != null && toc.isNotEmpty;
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(child: div(classes: 'docs-content', [RawText(changelog)])),
+        if (hasToc) TableOfContents(entries: toc),
+        TocScrollSpy(),
+      ],
+    );
   }
 }

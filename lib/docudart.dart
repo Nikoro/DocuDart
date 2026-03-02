@@ -14,6 +14,7 @@ export 'src/models/pubspec.dart';
 export 'src/models/repository.dart';
 export 'src/models/page.dart';
 export 'src/models/theme_mode.dart';
+export 'src/models/toc_entry.dart';
 export 'src/models/versioning_config.dart';
 
 // Theme
@@ -38,7 +39,9 @@ export 'src/components/navigation/expansion_tile.dart';
 export 'src/components/navigation/link.dart';
 export 'src/components/navigation/sidebar.dart';
 export 'src/components/navigation/sidebar_toggle.dart';
+export 'src/components/navigation/table_of_contents.dart';
 export 'src/components/navigation/theme_toggle.dart';
+export 'src/components/navigation/toc_scroll_spy.dart';
 
 // Components — Content
 export 'src/components/content/markdown.dart';
