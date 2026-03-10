@@ -1,0 +1,13 @@
+name: docudart_docs
+description: Documentation site powered by DocuDart
+publish_to: none
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  docudart:
+    path: ..
+
+dev_dependencies:
+  lints: ^6.1.0
