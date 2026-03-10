@@ -23,6 +23,7 @@ powered by <a href="https://pub.dev/packages/jaspr">Jaspr</a>
 ## Features
 
 - **Markdown-first** — Write docs in Markdown with YAML frontmatter
+- **Rich Markdown components** — `Callout`, `Tabs`, `CodeBlock`, `Card` / `CardGrid` embedded via MDX-like syntax
 - **Live reload** — Instant preview with `docudart serve`
 - **Light & dark mode** — System preference detection with manual toggle
 - **Responsive design** — Mobile sidebar drawer, CSS breakpoints via `context.screen`
@@ -34,6 +35,8 @@ powered by <a href="https://pub.dev/packages/jaspr">Jaspr</a>
 - **Type-safe assets** — `context.project.assets.logo.logo_webp` auto-generated from your `assets/` directory
 - **Theming** — 3 built-in presets (Classic, Material 3, shadcn) with seed color support
 - **Auto-discovered pages** — Just add a `.dart` file to `pages/` and link to it
+- **SEO built-in** — Canonical URLs, Open Graph tags, JSON-LD, and `noindex` frontmatter support
+- **Accessible** — Skip-to-content link, `aria-expanded` attributes, keyboard navigation, semantic HTML
 
 ## Quick Start
 
@@ -67,6 +70,78 @@ docudart build
 ```
 
 Output goes to `docudart/build/web/` — ready to deploy to any static hosting.
+
+## CLI Reference
+
+| Command | Description |
+|---------|-------------|
+| `docudart create [name]` | Scaffold a new project. `--full` for all features, `--directory` to set target. |
+| `docudart serve` | Dev server with live reload. `--port` (default `8080`), `--no-watch` to disable. |
+| `docudart build` | Build for production. `--output` to override output directory. |
+| `docudart update` | Update DocuDart to the latest version. |
+| `docudart version` | Print current version and check for updates. |
+
+## Markdown Components
+
+Embed rich components directly in your Markdown files using MDX-like syntax:
+
+### Callout
+
+```markdown
+<Callout type="tip" title="Did you know?">
+DocuDart supports **Markdown** inside components.
+</Callout>
+```
+
+Available types: `info`, `tip`, `warning`, `danger`, `note`.
+
+### Tabs
+
+```markdown
+<Tabs>
+<Tab label="Dart">
+Content for the Dart tab.
+</Tab>
+<Tab label="Flutter">
+Content for the Flutter tab.
+</Tab>
+</Tabs>
+```
+
+### CodeBlock
+
+```markdown
+<CodeBlock language="dart" title="main.dart" lineNumbers={true}>
+void main() => print('Hello, DocuDart!');
+</CodeBlock>
+```
+
+### Card Grid
+
+```markdown
+<CardGrid cols={3}>
+<Card title="Quick Start" icon="🚀" href="/docs/quick-start">
+Get up and running in minutes.
+</Card>
+<Card title="Theming" icon="🎨" href="/docs/theming">
+Customize colors and presets.
+</Card>
+</CardGrid>
+```
+
+## Responsive Design
+
+Use `context.screen` for CSS-based responsive layouts with no JavaScript:
+
+```dart
+context.screen.when(
+  desktop: () => Row(children: [sidebar, content]),
+  tablet: () => Column(children: [topNav, content]),
+  mobile: () => Column(children: [content]),
+);
+```
+
+Breakpoints: mobile ≤ 768px, tablet 769–1024px, desktop 1025px+.
 
 ## Configuration
 
