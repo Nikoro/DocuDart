@@ -20,12 +20,9 @@ class Footer extends StatelessComponent {
         desktop: () => Row(
           crossAxisAlignment: .center,
           children: [
-            if (leading != null) Expanded(child: leading!),
-            if (center != null) Expanded(child: Center(child: center!)),
-            if (trailing != null)
-              Expanded(
-                child: Row(mainAxisAlignment: .end, children: [trailing!]),
-              ),
+            ?leading.let((it) => Expanded(child: it)),
+            ?center.let((it) => Expanded(child: it)),
+            Spacer(),
           ],
         ).apply(styles: Styles(raw: {'color': 'var(--color-text-muted)'})),
         tablet: () => Column(

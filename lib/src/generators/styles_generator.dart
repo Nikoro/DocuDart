@@ -253,6 +253,8 @@ header a:not(.logo).active {
   display: inline-flex;
   align-items: center;
   gap: 0.375em;
+  color: var(--color-primary);
+  text-decoration: none;
 }
 
 .nav-link-icon {
@@ -371,22 +373,6 @@ footer {
   padding: ${footer.paddingV}rem ${footer.paddingH}rem;
 }
 
-.built-with {
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
-  opacity: 0.8;
-}
-
-.built-with a {
-  color: var(--color-primary);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.built-with a:hover {
-  text-decoration: underline;
-}
-
 /* Socials */
 .socials {
   display: flex;
@@ -467,6 +453,7 @@ footer {
   color: var(--color-text-muted);
   max-width: 600px;
 }
+
 
 .landing-page .logo-image img {
   height: 5rem;

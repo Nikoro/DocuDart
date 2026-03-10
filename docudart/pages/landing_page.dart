@@ -8,15 +8,17 @@ class LandingPage extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final title = context.project.pubspec.name;
-    final description = context.project.pubspec.description;
     return Column(
       mainAxisAlignment: .center,
       spacing: 1.5.rem,
       children: [
         Logo(image: context.project.assets.logo.logo_webp()),
-        ?title.let((t) => h1([.text(t)])),
-        ?description.let((d) => p(classes: 'description', [.text(d)])),
+        h1([.text('DocuDart')]),
+        p(classes: 'description', [
+          .text('A static documentation generator for Dart, powered by '),
+          Link.url('https://pub.dev/packages/jaspr', label: 'Jaspr'),
+          .text('.'),
+        ]),
         Button.primary(text: 'Get Started', href: '/docs'),
       ],
     ).apply(classes: 'landing-page');

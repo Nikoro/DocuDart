@@ -21,7 +21,7 @@ Config configure(BuildContext context) => Config(
       image: context.project.assets.logo.logo_webp(
         alt: '${context.project.pubspec.name} logo',
       ),
-      title: context.project.pubspec.name,
+      title: 'DocuDart',
     ),
     links: [
       .path('/docs', label: Labels.docs, leading: Icon(MaterialSymbols.docs)),
@@ -64,13 +64,6 @@ Config configure(BuildContext context) => Config(
         children: [
           Copyright(text: context.project.license?.holder ?? pubspec.name),
           BuiltWithDocuDart(),
-        ],
-      ),
-      trailing: Socials(
-        links: [
-          ?context.project.pubspec.repository.let(
-            (repository) => .url(repository.link, leading: repository.icon),
-          ),
         ],
       ),
     ),

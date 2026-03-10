@@ -10,7 +10,7 @@ class BuiltWithDocuDart extends StatelessComponent {
   const BuiltWithDocuDart({
     this.prefix = 'Built with',
     this.label = 'DocuDart',
-    this.href = 'https://pub.dev/packages/docudart',
+    this.href = 'https://docudart.dev',
     super.key,
   });
 
@@ -25,9 +25,15 @@ class BuiltWithDocuDart extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return p(classes: 'built-with', [
+    return p([
       .text('$prefix '),
-      a(href: href, target: .blank, [.text(label)]),
-    ]);
+      Link.url(href, label: label).apply(styles: Styles(fontWeight: .w500)),
+    ]).apply(
+      styles: Styles(
+        fontSize: 0.85.rem,
+        margin: .only(top: 0.5.rem),
+        opacity: 0.8,
+      ),
+    );
   }
 }

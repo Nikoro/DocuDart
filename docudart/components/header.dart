@@ -66,7 +66,7 @@ class Header extends StatelessComponent {
                     right: 16,
                     bottom: 8,
                   ).toSpacing(),
-                  overflow: Overflow.only(x: Overflow.auto),
+                  overflow: .only(x: .auto),
                 ),
               ),
               tablet: () => Row(spacing: 1.rem, children: [...?links]).apply(
@@ -76,7 +76,7 @@ class Header extends StatelessComponent {
                     right: 16,
                     bottom: 8,
                   ).toSpacing(),
-                  overflow: Overflow.only(x: Overflow.auto),
+                  overflow: .only(x: .auto),
                 ),
               ),
             ),

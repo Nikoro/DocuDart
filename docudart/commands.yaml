@@ -1,0 +1,4 @@
+serve:
+  script: dart ../bin/docudart.dart serve
+
+

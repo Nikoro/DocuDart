@@ -28,7 +28,8 @@ Link.path('/docs', label: 'Docs', leading: Icon(MaterialSymbols.docs))
 Link.url('https://github.com', label: 'GitHub', leading: Icon(FontAwesomeIcons.github_brand), trailing: Icon(MaterialIcons.open_in_new))
 ```
 
-- Renders `<a class="{classes}">` wrapping a `Row(mainAxisSize: .min, spacing: 0.375.em)`
+- Renders `<a class="{classes}">` with children directly; flex layout comes from `.nav-link` CSS (`display: inline-flex; gap: 0.375em`)
+- `.nav-link` base CSS includes `color: var(--color-primary)` and `text-decoration: none` — works anywhere, not just in header
 - `label` (`String?`), `leading` (`Component?`), `trailing` (`Component?`) — at least one required
 - `classes` defaults to `'nav-link'`; icon wrappers use `'{classes}-icon'`
 - External: `target="_blank" rel="noopener noreferrer"`; internal: `data-path` for JS active highlighting
@@ -174,7 +175,7 @@ Logo(image: context.project.assets.logo.logo_webp(alt: 'Logo'), title: 'My Proje
 ### Copyright / BuiltWithDocuDart (`branding/`)
 
 - `Copyright(text:, year:)` — renders `<p>` with `© {year} {text}`. `year` defaults to `DateTime.now().year`
-- `BuiltWithDocuDart(prefix:, label:, href:)` — renders `<p class="built-with">` with link. Defaults: `'Built with'`, `'DocuDart'`, pub.dev URL
+- `BuiltWithDocuDart(prefix:, label:, href:)` — renders `<p>` with inline styles and `Link.url()`. Defaults: `'Built with'`, `'DocuDart'`, `https://docudart.dev`
 
 ### Socials (`branding/socials.dart`)
 
