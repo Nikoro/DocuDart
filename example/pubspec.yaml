@@ -1,13 +1,16 @@
-name: docudart_docs
-description: Documentation site powered by DocuDart
+name: example_project
+description: An example Dart project using DocuDart for documentation.
 publish_to: none
+repository: https://github.com/Nikoro/docudart/example
+
+topics:
+  - topic1
+  - topic2
+  - topic3
+  - topic4
 
 environment:
   sdk: ^3.10.0
-
-dependencies:
-  docudart:
-    path: ..
 
 dev_dependencies:
   lints: ^6.1.0

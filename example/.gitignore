@@ -1,4 +1,7 @@
-
+# Dart
+.dart_tool/
+build/
+test-results/
 
 # DocuDart
 docudart/.dart_tool/

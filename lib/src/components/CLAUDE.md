@@ -87,13 +87,14 @@ SidebarToggle()
 Server-rendered "On this page" sidebar listing heading links from page content.
 
 ```dart
-TableOfContents(entries: context.project.changelog?.toc ?? [])
-TableOfContents(entries: toc, title: 'Contents', minLevel: 2, maxLevel: 4)
+TableOfContents(entries: context.project.changelog?.toc ?? [], basePath: '/changelog/')
+TableOfContents(entries: toc, basePath: pagePath, title: 'Contents', minLevel: 2, maxLevel: 4)
 ```
 
 - `entries` (`List<TocEntry>`) — required; TOC items extracted by `MarkdownProcessor`
 - `title` (`String`, default `'On this page'`) — heading above the list
 - `minLevel` / `maxLevel` (`int`, default 2/3) — filter entries by heading level
+- `basePath` (`String?`) — current page path prepended to `#fragment` hrefs. **Required** because Jaspr renders `<base href="/">`, which makes bare `#id` links resolve to the root instead of the current page. Pass the page's route path (e.g. `/docs/quick-start/`).
 - Renders: `aside.toc` > `nav.toc-nav[aria-label]` > `.toc-title` + `ul.toc-list` > `li.toc-item.toc-level-{N}` > `a.toc-link[href][data-toc-id]`
 - `data-toc-id` attributes link to heading IDs — consumed by `TocScrollSpy` for active highlighting
 - Hidden at ≤1024px via CSS media query; sticky on desktop
@@ -105,7 +106,7 @@ TableOfContents(entries: toc, title: 'Contents', minLevel: 2, maxLevel: 4)
 ```dart
 Row(children: [
   Expanded(child: div(classes: 'docs-content', [RawText(html)])),
-  TableOfContents(entries: toc),
+  TableOfContents(entries: toc, basePath: pagePath),
   TocScrollSpy(),
 ])
 ```

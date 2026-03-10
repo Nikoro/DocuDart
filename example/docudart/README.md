@@ -1,4 +1,4 @@
-# docudart_docs - Documentation Site
+# example_project - Documentation Site
 
 This documentation site is powered by [DocuDart](https://github.com/docudart/docudart).
 

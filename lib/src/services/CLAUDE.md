@@ -20,10 +20,6 @@ Static `resolve([workingDirectory])` method. Returns the absolute path to the we
 2. If cwd has a `docudart/` subdirectory with `config.dart` + `pubspec.yaml` → use that
 3. Legacy: if cwd has `config.dart` directly (old-style flat project) → use cwd
 
-### Example Project Gotcha
-
-The `example/` directory has both old-style (flat: `config.dart` + `pubspec.yaml` at root) and new-style (`docudart/` subdirectory). The resolver matches old-style first (step 1), so `_copyUserFiles()` copies from `example/components/` not `example/docudart/components/`. Both locations must be kept in sync.
-
 ## PackageResolver
 
 Resolves the docudart package installation path for generating `pubspec.yaml` path dependencies.

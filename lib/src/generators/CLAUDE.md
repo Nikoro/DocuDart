@@ -32,7 +32,7 @@ SiteGenerator.generate()
   ├─ _generateLayout()       — layout.dart (LayoutDelegate)
   ├─ _generateApp()          — app.dart (Router with ProjectProvider + ThemeProvider)
   │   ├─ _generatePages()              — pages/ directory
-  │   └─ _generateDocsPageContent()    — docs_page_content.dart (SEO meta + OG + JSON-LD + docsBuilder delegation + TOC)
+  │   └─ _generateDocsPageContent()    — docs_page_content.dart (SEO meta + OG + JSON-LD + docsBuilder delegation + TOC with basePath)
   ├─ _generateStyles()       → delegates to StylesGenerator
   │   ├─ StylesGenerator.generate()      — styles.css
   │   ├─ ThemeScriptGenerator.generateThemeScript() — theme.js

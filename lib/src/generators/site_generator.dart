@@ -844,7 +844,7 @@ class DocsPageContent extends StatelessComponent {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(child: content),
-        if (toc.isNotEmpty) TableOfContents(entries: toc),
+        if (toc.isNotEmpty) TableOfContents(entries: toc, basePath: pagePath),
         TocScrollSpy(),
       ],
     );

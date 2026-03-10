@@ -18,6 +18,7 @@ class TableOfContents extends StatelessComponent {
     this.title = 'On this page',
     this.minLevel = 2,
     this.maxLevel = 3,
+    this.basePath,
     super.key,
   });
 
@@ -32,6 +33,14 @@ class TableOfContents extends StatelessComponent {
 
   /// Maximum heading level to include (default: 3, shows h2 and h3).
   final int maxLevel;
+
+  /// Base path for TOC anchor links.
+  ///
+  /// Because Jaspr renders `<base href="/">`, bare `#fragment` links resolve
+  /// relative to the root instead of the current page. Set this to the
+  /// current page path (e.g. `/docs/quick-start/`) so links render as
+  /// `/docs/quick-start/#fragment`.
+  final String? basePath;
 
   @override
   Component build(BuildContext context) {
@@ -51,7 +60,7 @@ class TableOfContents extends StatelessComponent {
             for (final entry in filtered)
               li(classes: 'toc-item toc-level-${entry.level}', [
                 a(
-                  href: '#${entry.id}',
+                  href: '${basePath ?? ''}#${entry.id}',
                   classes: 'toc-link',
                   attributes: {'data-toc-id': entry.id},
                   [.text(entry.text)],

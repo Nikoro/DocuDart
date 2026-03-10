@@ -373,7 +373,7 @@ class ChangelogPage extends StatelessComponent {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(child: div(classes: 'docs-content', [RawText(changelog.raw)])),
-        if (changelog.toc.isNotEmpty) TableOfContents(entries: changelog.toc),
+        if (changelog.toc.isNotEmpty) TableOfContents(entries: changelog.toc, basePath: '/changelog/'),
         TocScrollSpy(),
       ],
     );
