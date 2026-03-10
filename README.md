@@ -1,5 +1,5 @@
 <p align="center">
-  <a alt="DocuDart Logo" href="https://pub.dev/packages/docudart"><img src="./logo/logo-long2.png" width="500"/></a>
+  <a alt="DocuDart Logo" href="https://pub.dev/packages/docudart"><img src="https://raw.githubusercontent.com/nikoro/docudart/main/logo/logo-long.webp" width="500"/></a>
 </p>
 <h2 align="center">
 A static documentation generator<br/>
@@ -78,11 +78,11 @@ import 'package:docudart/docudart.dart';
 Config configure(BuildContext context) => Config(
   title: context.project.pubspec.name,
   description: context.project.pubspec.description,
-  themeMode: ThemeMode.system,
+  themeMode: .system,
   home: () => LandingPage(title: 'My Project'),
   header: () => Header(
     leading: Logo(title: 'My Project'),
-    links: [Link.path('/docs', label: 'Docs')],
+    links: [.path('/docs', label: 'Docs')],
   ),
   sidebar: () => context.url.contains('/docs')
       ? Sidebar(items: context.project.docs)
@@ -107,11 +107,3 @@ docudart/
     footer.dart
   assets/              # Static assets (logo, images)
 ```
-
-## Contributing
-
-Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
-
-## License
-
-MIT License — see [LICENSE](LICENSE) for details.

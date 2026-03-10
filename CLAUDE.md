@@ -72,6 +72,7 @@ docudart/
 │       └── extensions/                  # .let(), .apply(), and .screen extensions
 ├── tool/generate_icons.dart             # Icon generator tool
 ├── example/                             # Example DocuDart project
+├── docudart/                            # Self-documentation (docudart.dev)
 └── pubspec.yaml
 ```
 
@@ -126,6 +127,7 @@ After style/layout/template changes: start `cd example && dart run ../bin/docuda
 - `@client` components require `build_web_compilers` in the generated pubspec's `dev_dependencies`; Jaspr's `ClientScriptAdapter` auto-inserts the script tag (see `lib/src/generators/CLAUDE.md` for full hydration pipeline)
 - `docsBuilder` callback customizes doc page body layout; default (null) renders TOC sidebar + scroll spy automatically. Override with `docsBuilder: (page) => ...` receiving a `DocPageInfo` (content, toc, title, urlPath, description, tags)
 - `context.screen.when(desktop:, tablet:, mobile:)` / `maybeWhen(...)` — CSS-based responsive layout; breakpoints: mobile ≤768, tablet 769–1024, desktop 1025+. Use `?` prefix with `maybeWhen` in children lists.
+- `ConfigEvaluator` (text-based parsing) doesn't extract `siteUrl` — so `sitemap.xml` isn't generated during build. SEO tags in HTML (canonical, OG, JSON-LD) still work because the managed Jaspr project imports `config.dart` directly.
 
 ## Component Design & `.apply()` Shadowing
 
@@ -139,7 +141,11 @@ See `pubspec.yaml` for the full list. Notable non-obvious ones:
 - `jaspr` — SSG web framework (re-exported to users via `docudart.dart`)
 - `opal` — build-time syntax highlighting (same engine as dart.dev)
 - `universal_web` — DOM access in `@client` components (web API on browser, stubs on server)
-- `many_lints` — 100+ custom lint rules via analysis server plugin (configured in `analysis_options.yaml`, not pubspec)
+- `many_lints` — lint plugin (configured in `analysis_options.yaml`, not pubspec)
+
+## Documentation Site
+
+DocuDart documents itself at [docudart.dev](https://docudart.dev). The `docudart/` directory in the project root is a standard DocuDart project with `siteUrl: 'https://docudart.dev'`. Deployed to GitHub Pages via `.github/workflows/docs.yaml` (builds on push to `main`, writes CNAME, deploys with `actions/deploy-pages`).
 
 ## References
 
