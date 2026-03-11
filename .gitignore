@@ -16,8 +16,14 @@ coverage/
 *.freezed.dart
 
 # OS
-.DS_Store
+**/.DS_Store
 Thumbs.db
+
+# Generated docs
+doc/api/
+
+# Merge artifacts
+*.orig
 
 # DocuDart
 docudart/.dart_tool/
