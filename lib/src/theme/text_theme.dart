@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import 'text_style.dart';
+import 'package:docudart/src/theme/text_style.dart';
 
 /// Typography configuration for a DocuDart site.
 ///

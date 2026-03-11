@@ -2,8 +2,8 @@ import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:universal_web/web.dart' as web;
 
-import '../interaction/icon_button.dart';
-import '../../icons/icons.dart';
+import 'package:docudart/src/components/interaction/icon_button.dart';
+import 'package:docudart/src/icons/icons.dart';
 
 /// A client-side button that toggles the mobile sidebar drawer.
 ///

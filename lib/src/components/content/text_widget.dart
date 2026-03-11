@@ -1,7 +1,7 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 
-import '../../theme/text_style.dart' as dd;
+import 'package:docudart/src/theme/text_style.dart' as dd;
 
 /// A run of text with optional style.
 ///

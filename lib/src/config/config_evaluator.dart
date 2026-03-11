@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:jaspr/dom.dart' show Color;
 import 'package:path/path.dart' as p;
 
-import 'docudart_config.dart';
-import '../theme/color_resolver.dart';
-import '../theme/theme.dart';
-import '../models/theme_mode.dart';
+import 'package:docudart/src/config/docudart_config.dart';
+import 'package:docudart/src/theme/color_resolver.dart';
+import 'package:docudart/src/theme/theme.dart';
+import 'package:docudart/src/models/theme_mode.dart';
 
 /// Parses serializable fields from config.dart by reading it as text.
 ///
@@ -53,6 +53,14 @@ abstract final class ConfigEvaluator {
     );
   }
 
+  static final _commentPattern = RegExp(r'//.*');
+  static final _themeModePattern = RegExp(
+    r'themeMode\s*:\s*(?:ThemeMode\.)?(\w+)',
+  );
+  static final _themePattern = RegExp(
+    r'Theme\.(classic|material3|shadcn)\s*\(([^()]*(?:\([^)]*\)[^()]*)*)\)',
+  );
+
   /// Extract a string value for a named field: `fieldName: 'value'`
   static String? _extractString(String content, String field) {
     // Match: fieldName: 'value' or fieldName: "value"
@@ -65,8 +73,7 @@ abstract final class ConfigEvaluator {
 
   /// Extract ThemeMode from: `themeMode: ThemeMode.system` or `themeMode: .system`
   static ThemeMode _extractThemeMode(String content) {
-    final pattern = RegExp(r'themeMode\s*:\s*(?:ThemeMode\.)?(\w+)');
-    final match = pattern.firstMatch(content);
+    final match = _themeModePattern.firstMatch(content);
     if (match == null) return .system;
     return ThemeMode.fromJson(match.group(1)!);
   }
@@ -80,14 +87,9 @@ abstract final class ConfigEvaluator {
   /// - Same for `material3` and `shadcn`
   static Theme? _extractTheme(String content) {
     // Strip single-line comments to avoid matching commented-out theme lines
-    final stripped = content.replaceAll(RegExp(r'//.*'), '');
+    final stripped = content.replaceAll(_commentPattern, '');
 
-    // Match Theme.factory(...) allowing one level of nested parens
-    // (for Color.value(...) inside the constructor)
-    final pattern = RegExp(
-      r'Theme\.(classic|material3|shadcn)\s*\(([^()]*(?:\([^)]*\)[^()]*)*)\)',
-    );
-    final match = pattern.firstMatch(stripped);
+    final match = _themePattern.firstMatch(stripped);
     if (match == null) return null;
 
     final factory = match.group(1)!;

@@ -2,22 +2,23 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
-import '../cli/errors.dart';
-import '../config/config_loader.dart';
-import '../config/docudart_config.dart';
-import '../markdown/frontmatter_handler.dart';
-import '../markdown/markdown_processor.dart';
-import '../markdown/opal_highlighter.dart';
-import '../models/doc.dart';
-import '../models/license.dart';
-import '../models/pubspec.dart';
-import 'asset_path_generator.dart';
-import '../processing/content_processor.dart';
-import '../services/package_resolver.dart';
-import '../processing/version_manager.dart';
-import 'sidebar_generator.dart';
-import 'styles_generator.dart';
-import 'theme_script_generator.dart';
+import 'package:docudart/src/cli/errors.dart';
+import 'package:docudart/src/extensions/string_extensions.dart';
+import 'package:docudart/src/config/config_loader.dart';
+import 'package:docudart/src/config/docudart_config.dart';
+import 'package:docudart/src/markdown/frontmatter_handler.dart';
+import 'package:docudart/src/markdown/markdown_processor.dart';
+import 'package:docudart/src/markdown/opal_highlighter.dart';
+import 'package:docudart/src/models/doc.dart';
+import 'package:docudart/src/models/license.dart';
+import 'package:docudart/src/models/pubspec.dart';
+import 'package:docudart/src/generators/asset_path_generator.dart';
+import 'package:docudart/src/processing/content_processor.dart';
+import 'package:docudart/src/services/package_resolver.dart';
+import 'package:docudart/src/processing/version_manager.dart';
+import 'package:docudart/src/generators/sidebar_generator.dart';
+import 'package:docudart/src/generators/styles_generator.dart';
+import 'package:docudart/src/generators/theme_script_generator.dart';
 
 /// Generates the managed Jaspr site in .dart_tool/docudart.
 class SiteGenerator {
@@ -35,6 +36,15 @@ class SiteGenerator {
 
   late final _stylesGenerator = StylesGenerator(config);
   late final _themeScriptGenerator = ThemeScriptGenerator(config, managedDir);
+
+  /// Site URL with trailing slash stripped, or null if not configured.
+  String? get _baseUrl {
+    final siteUrl = config.siteUrl;
+    if (siteUrl == null) return null;
+    return siteUrl.endsWith('/')
+        ? siteUrl.substring(0, siteUrl.length - 1)
+        : siteUrl;
+  }
 
   /// Generate the complete Jaspr site structure.
   ///
@@ -105,7 +115,6 @@ class SiteGenerator {
     await _generateLayout();
     await _generateApp(allPages, versionManager, discoveredPages);
     await _generateStyles(includeVersionSwitcher: versionManager.isEnabled);
-    await _generateWebFiles();
     await _copyAssets();
     await _generateSitemap(allPages, discoveredPages);
     await _generateRobots();
@@ -373,7 +382,7 @@ jaspr:
     switch (item) {
       case DocLink(:final name, :final path, :final order):
         buffer.writeln(
-          "${indent}DocLink(name: '${_escapeForDart(name)}', path: '$path', order: $order),",
+          "${indent}DocLink(name: '${_escapeForDart(name)}', path: '${_escapeForDart(path)}', order: $order),",
         );
       case DocCategory(
         :final name,
@@ -518,23 +527,36 @@ ClientOptions get defaultClientOptions => ClientOptions();
   /// StatefulComponent, extracts the class name, and derives a URL path
   /// from the filename (e.g., `changelog_page.dart` → `/changelog`).
   /// Supports subdirectories (e.g., `pages/foo/bar_page.dart` → `/foo/bar`).
+  static final _validClassName = RegExp(r'^[A-Z][a-zA-Z0-9_]*$');
+  static final _classPattern = RegExp(
+    r'class\s+(\w+)\s+extends\s+(?:Stateless|Stateful)Component',
+  );
+
   Future<List<_DiscoveredPage>> _discoverPages() async {
     final pagesDir = Directory(p.join(websiteDir, 'pages'));
     if (!pagesDir.existsSync()) return [];
 
+    final canonicalPagesDir = p.canonicalize(pagesDir.path);
     final discovered = <_DiscoveredPage>[];
-    final classPattern = RegExp(
-      r'class\s+(\w+)\s+extends\s+(?:Stateless|Stateful)Component',
-    );
 
-    await for (final entity in pagesDir.list(recursive: true)) {
+    await for (final entity in pagesDir.list(
+      recursive: true,
+      followLinks: false,
+    )) {
       if (entity is! File || !entity.path.endsWith('.dart')) continue;
 
+      // Validate file resolves to within the pages directory
+      final canonicalPath = p.canonicalize(entity.path);
+      if (!p.isWithin(canonicalPagesDir, canonicalPath)) continue;
+
       final content = await entity.readAsString();
-      final match = classPattern.firstMatch(content);
+      final match = _classPattern.firstMatch(content);
       if (match == null) continue;
 
       final className = match.group(1)!;
+
+      // Validate class name is a valid Dart identifier
+      if (!_validClassName.hasMatch(className)) continue;
 
       // Compute relative path from pages/ directory
       final relativePath = p.relative(entity.path, from: pagesDir.path);
@@ -557,7 +579,7 @@ ClientOptions get defaultClientOptions => ClientOptions();
       final routePath = '/${normalizedParts.join('/')}';
 
       // Derive display name from the leaf segment
-      final name = _titleCase(normalizedParts.last.replaceAll('-', ' '));
+      final name = normalizedParts.last.replaceAll('-', ' ').toTitleCase();
 
       discovered.add(
         _DiscoveredPage(
@@ -574,15 +596,6 @@ ClientOptions get defaultClientOptions => ClientOptions();
 
     return discovered;
   }
-
-  static String _titleCase(String input) => input
-      .split(' ')
-      .map(
-        (word) => word.isEmpty
-            ? word
-            : word[0].toUpperCase() + word.substring(1).toLowerCase(),
-      )
-      .join(' ');
 
   Future<void> _generateApp(
     List<DocPage> pages,
@@ -701,7 +714,7 @@ ClientOptions get defaultClientOptions => ClientOptions();
 
       routesBuffer.writeln('''
         Route(
-          path: '$urlPath',
+          path: '${_escapeForDart(urlPath)}',
           title: '$escapedTitle - $siteTitle',
           builder: (context, state) => LayoutDelegate(
             child: DocsPageContent(
@@ -716,9 +729,10 @@ $seoParams$tocLines$tagsLine              htmlContent: \'\'\'$escapedHtml\'\'\',
     for (final page in discoveredPages) {
       final _DiscoveredPage(:name, :routePath, :className) = page;
       final escapedName = _escapeForDart(name);
+      final escapedRoute = _escapeForDart(routePath);
       routesBuffer.writeln('''
         Route(
-          path: '$routePath',
+          path: '$escapedRoute',
           title: '$escapedName - $siteTitle',
           builder: (context, state) => LayoutDelegate(
             child: const $className(),
@@ -728,7 +742,7 @@ $seoParams$tocLines$tagsLine              htmlContent: \'\'\'$escapedHtml\'\'\',
 
     // Generate imports for discovered pages
     final pageImports = discoveredPages
-        .map((page) => "import '${page.filePath}';")
+        .map((page) => "import '${_escapeForDart(page.filePath)}';")
         .join('\n');
 
     final app =
@@ -768,9 +782,6 @@ ${routesBuffer.toString()}
 ''';
     await File(p.join(managedDir, 'lib', 'app.dart')).writeAsString(app);
 
-    // Generate pages
-    await _generatePages();
-
     // Generate docs page content component
     await _generateDocsPageContent();
 
@@ -780,12 +791,6 @@ ${routesBuffer.toString()}
       await Directory(componentsDir).create(recursive: true);
       await _generateVersionSwitcher(componentsDir, versionManager);
     }
-  }
-
-  Future<void> _generatePages() async {
-    final pagesDir = p.join(managedDir, 'lib', 'pages');
-    await Directory(pagesDir).create(recursive: true);
-    // User pages (landing_page.dart, etc.) are copied by _copyUserFiles()
   }
 
   Future<void> _generateDocsPageContent() async {
@@ -895,7 +900,10 @@ class DocsPageContent extends StatelessComponent {
     ).writeAsString(docsPageContent);
   }
 
+  static final _dartEscapePattern = RegExp(r'''[\\'\$\n\r\t\x00]''');
+
   String _escapeForDart(String s) {
+    if (!_dartEscapePattern.hasMatch(s)) return s;
     return s
         .replaceAll('\\', '\\\\')
         .replaceAll("'", "\\'")
@@ -936,12 +944,6 @@ class DocsPageContent extends StatelessComponent {
   /// Called after each regeneration during serve mode.
   Future<void> bumpLiveReloadVersion() =>
       _themeScriptGenerator.bumpLiveReloadVersion();
-
-  Future<void> _generateWebFiles() async {
-    // No custom index.html needed — Jaspr generates it from the Document
-    // component in main.server.dart. Only web/styles.css is needed, which
-    // is already handled by _generateStyles().
-  }
 
   static const _faviconFiles = {
     'favicon.ico',
@@ -994,12 +996,24 @@ class DocsPageContent extends StatelessComponent {
     final targetDir = Directory(p.join(managedDir, 'web', 'assets'));
     await targetDir.create(recursive: true);
 
-    await for (final entity in sourceDir.list(recursive: true)) {
+    final canonicalSource = p.canonicalize(sourceDir.path);
+
+    await for (final entity in sourceDir.list(
+      recursive: true,
+      followLinks: false,
+    )) {
       if (entity is File) {
         // Skip generated .dart files (e.g. assets.dart) — they are not web assets.
         if (entity.path.endsWith('.dart')) continue;
 
+        // Validate file stays within source directory (prevent symlink escape)
+        final canonicalPath = p.canonicalize(entity.path);
+        if (!p.isWithin(canonicalSource, canonicalPath)) continue;
+
         final relativePath = p.relative(entity.path, from: sourceDir.path);
+
+        // Validate relative path doesn't escape target
+        if (relativePath.startsWith('..')) continue;
 
         // Copy favicon files to web root for browser discovery
         if (relativePath.startsWith('favicon${p.separator}') ||
@@ -1113,13 +1127,8 @@ class VersionSwitcher extends StatelessComponent {
     List<DocPage> pages,
     List<_DiscoveredPage> discoveredPages,
   ) async {
-    final siteUrl = config.siteUrl;
-    if (siteUrl == null) return;
-
-    // Strip trailing slash from siteUrl for consistent concatenation.
-    final baseUrl = siteUrl.endsWith('/')
-        ? siteUrl.substring(0, siteUrl.length - 1)
-        : siteUrl;
+    final baseUrl = _baseUrl;
+    if (baseUrl == null) return;
 
     final buffer = StringBuffer();
     buffer.writeln('<?xml version="1.0" encoding="UTF-8"?>');
@@ -1153,11 +1162,8 @@ class VersionSwitcher extends StatelessComponent {
     buffer.writeln('User-agent: *');
     buffer.writeln('Allow: /');
 
-    final siteUrl = config.siteUrl;
-    if (siteUrl != null) {
-      final baseUrl = siteUrl.endsWith('/')
-          ? siteUrl.substring(0, siteUrl.length - 1)
-          : siteUrl;
+    final baseUrl = _baseUrl;
+    if (baseUrl != null) {
       buffer.writeln();
       buffer.writeln('Sitemap: $baseUrl/sitemap.xml');
     }

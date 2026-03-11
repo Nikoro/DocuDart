@@ -1,7 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 
-import '../../models/toc_entry.dart';
+import 'package:docudart/src/models/toc_entry.dart';
 
 /// A table of contents component that renders a sticky navigation panel
 /// from heading entries, similar to dart.dev's "On this page" sidebar.

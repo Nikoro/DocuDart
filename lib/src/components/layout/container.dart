@@ -1,8 +1,8 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 
-import 'box_decoration.dart';
-import 'edge_insets.dart';
+import 'package:docudart/src/components/layout/box_decoration.dart';
+import 'package:docudart/src/components/layout/edge_insets.dart';
 
 /// A convenience widget that combines common painting, positioning,
 /// and sizing widgets.

@@ -1,8 +1,8 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 
-import '../../extensions/component_extensions.dart';
-import 'edge_insets.dart';
+import 'package:docudart/src/extensions/component_extensions.dart';
+import 'package:docudart/src/components/layout/edge_insets.dart';
 
 /// A widget that insets its child by the given padding.
 ///

@@ -1,10 +1,10 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 
-import '../../models/doc.dart';
-import '../layout/flex_enums.dart';
-import '../layout/row.dart';
-import 'expansion_tile.dart';
+import 'package:docudart/src/models/doc.dart';
+import 'package:docudart/src/components/layout/flex_enums.dart';
+import 'package:docudart/src/components/layout/row.dart';
+import 'package:docudart/src/components/navigation/expansion_tile.dart';
 
 /// Default sidebar component that renders a navigation tree from [Doc] items.
 ///

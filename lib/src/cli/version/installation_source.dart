@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:meta/meta.dart';
+
 enum InstallationSource { git, hosted }
 
+@immutable
 class InstallationInfo {
   InstallationInfo({
     required this.source,

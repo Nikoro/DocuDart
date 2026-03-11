@@ -1,5 +1,5 @@
-import '../models/doc.dart';
-import '../processing/content_processor.dart';
+import 'package:docudart/src/models/doc.dart';
+import 'package:docudart/src/processing/content_processor.dart';
 
 /// Generates sidebar structure from documentation pages.
 abstract final class SidebarGenerator {

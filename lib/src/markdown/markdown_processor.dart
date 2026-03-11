@@ -1,13 +1,17 @@
 import 'dart:convert';
 
 import 'package:markdown/markdown.dart' as md;
+import 'package:meta/meta.dart';
 
-import 'frontmatter_handler.dart';
-import 'component_parser.dart';
-import 'opal_highlighter.dart';
-import '../components/content/component_registry.dart';
+import 'package:docudart/src/markdown/frontmatter_handler.dart';
+import 'package:docudart/src/markdown/component_parser.dart';
+import 'package:docudart/src/markdown/opal_highlighter.dart';
+import 'package:docudart/src/components/content/component_registry.dart';
+import 'package:docudart/src/models/toc_entry.dart';
+export '../models/toc_entry.dart';
 
 /// Result of processing a markdown file.
+@immutable
 class ProcessedMarkdown {
   const ProcessedMarkdown({
     required this.meta,
@@ -27,20 +31,6 @@ class ProcessedMarkdown {
 
   /// Table of contents extracted from headings.
   final List<TocEntry> tableOfContents;
-}
-
-/// Entry in the table of contents.
-class TocEntry {
-  const TocEntry({required this.text, required this.level, required this.id});
-
-  /// Heading text.
-  final String text;
-
-  /// Heading level (1-6).
-  final int level;
-
-  /// Anchor ID for linking.
-  final String id;
 }
 
 /// Processes markdown content into HTML with component support.
@@ -164,6 +154,11 @@ class MarkdownProcessor {
     return '';
   }
 
+  static final _nonWordPattern = RegExp(r'[^\w\s-]', unicode: true);
+  static final _whitespacePattern = RegExp(r'\s+');
+  static final _multiDashPattern = RegExp(r'-+');
+  static final _edgeDashPattern = RegExp(r'^-|-$');
+
   /// Generate a URL-safe ID from heading text.
   ///
   /// Allows Unicode word characters for internationalization
@@ -171,10 +166,10 @@ class MarkdownProcessor {
   String _generateId(String text) {
     return text
         .toLowerCase()
-        .replaceAll(RegExp(r'[^\w\s-]', unicode: true), '')
-        .replaceAll(RegExp(r'\s+'), '-')
-        .replaceAll(RegExp(r'-+'), '-')
-        .replaceAll(RegExp(r'^-|-$'), '');
+        .replaceAll(_nonWordPattern, '')
+        .replaceAll(_whitespacePattern, '-')
+        .replaceAll(_multiDashPattern, '-')
+        .replaceAll(_edgeDashPattern, '');
   }
 
   /// Escape `<` and `>` inside inline `<code>` tags so the browser doesn't
@@ -197,22 +192,37 @@ class MarkdownProcessor {
     });
   }
 
+  static final _headingPattern = RegExp(
+    r'<(h[1-6])>(.*?)</\1>',
+    caseSensitive: false,
+  );
+
   /// Add IDs to heading elements in HTML.
   String _addHeadingIds(String html, List<TocEntry> toc) {
-    String result = html;
-
+    // Build lookup: (level, text) -> id, consuming entries on first match.
+    final lookup = <(int, String), String>{};
     for (final entry in toc) {
-      // Match heading tag without id attribute
-      final pattern = RegExp(
-        '<(h${entry.level})>([^<]*${RegExp.escape(entry.text)}[^<]*)</(h${entry.level})>',
-        caseSensitive: false,
-      );
-
-      result = result.replaceFirstMapped(pattern, (match) {
-        return '<${match.group(1)} id="${entry.id}">${match.group(2)}</${match.group(3)}>';
-      });
+      lookup.putIfAbsent((entry.level, entry.text), () => entry.id);
     }
+    final used = <(int, String)>{};
 
-    return result;
+    return html.replaceAllMapped(_headingPattern, (match) {
+      final tag = match.group(1)!;
+      final content = match.group(2)!;
+      final level = int.parse(tag.substring(1));
+
+      // Find matching TOC entry by level and text content.
+      for (final MapEntry(key: key, value: id) in lookup.entries) {
+        final (entryLevel, entryText) = key;
+        if (entryLevel == level &&
+            content.contains(entryText) &&
+            !used.contains(key)) {
+          used.add(key);
+          return '<$tag id="$id">$content</$tag>';
+        }
+      }
+
+      return match.group(0)!;
+    });
   }
 }

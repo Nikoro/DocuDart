@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
-import '../cli/errors.dart';
-import '../processing/readme_parser.dart';
+import 'package:docudart/src/cli/errors.dart';
+import 'package:docudart/src/processing/readme_parser.dart';
 
 /// Generates template files (components, config, labels, pages, docs)
 /// for new DocuDart projects.

@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
+import 'package:meta/meta.dart';
 
-import '../errors.dart';
-import '../version/installation_source.dart';
+import 'package:docudart/src/cli/errors.dart';
+import 'package:docudart/src/cli/version/installation_source.dart';
 
 /// Command to update docudart to the latest version.
 class UpdateCommand extends Command<int> {
@@ -53,13 +54,7 @@ class UpdateCommand extends Command<int> {
       final output = result.stdout.toString();
       CliPrinter.line(output);
 
-      final alreadyUpToDate = [
-        'already activated at newest available version',
-        'is already active',
-        'already using',
-      ].any(output.contains);
-
-      if (alreadyUpToDate) {
+      if (isAlreadyUpToDate(output)) {
         CliPrinter.success('Already up to date!');
       } else {
         CliPrinter.success('Successfully updated!');
@@ -71,4 +66,12 @@ class UpdateCommand extends Command<int> {
       return 1;
     }
   }
+
+  /// Whether [output] from `dart pub global activate` indicates no update.
+  @visibleForTesting
+  static bool isAlreadyUpToDate(String output) => const [
+    'already activated at newest available version',
+    'is already active',
+    'already using',
+  ].any(output.contains);
 }

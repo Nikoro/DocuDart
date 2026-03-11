@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:opal/opal.dart';
 
-import '../theme/code_theme.dart';
+import 'package:docudart/src/theme/code_theme.dart';
 
 /// Build-time syntax highlighter using the opal package.
 ///

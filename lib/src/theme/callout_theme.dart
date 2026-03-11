@@ -9,11 +9,7 @@ class CalloutTheme {
     this.borderWidth = 4,
   });
 
-  const CalloutTheme.classic({
-    this.padding = 1.0,
-    this.borderRadius = 0.5,
-    this.borderWidth = 4,
-  });
+  const CalloutTheme.classic() : this();
 
   const CalloutTheme.material3({
     this.padding = 1.25,

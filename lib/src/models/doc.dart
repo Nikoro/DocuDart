@@ -28,14 +28,14 @@ class DocLink extends Doc {
 /// A collapsible category group containing child [Doc] items.
 @immutable
 class DocCategory extends Doc {
-  const DocCategory({
+  DocCategory({
     required super.name,
-    required this.children,
+    required List<Doc> children,
     this.expanded = false,
     super.order = 0,
-  });
+  }) : children = List.unmodifiable(children);
 
-  /// Child navigation items.
+  /// Child navigation items (unmodifiable).
   final List<Doc> children;
 
   /// Whether this category starts expanded in the sidebar.

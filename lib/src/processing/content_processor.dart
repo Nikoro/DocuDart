@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
-import '../cli/errors.dart';
-import '../config/docudart_config.dart';
-import '../markdown/markdown_processor.dart';
-import '../markdown/opal_highlighter.dart';
-import '../models/doc_content.dart';
+import 'package:docudart/src/cli/errors.dart';
+import 'package:docudart/src/config/docudart_config.dart';
+import 'package:docudart/src/markdown/markdown_processor.dart';
+import 'package:docudart/src/extensions/string_extensions.dart';
+import 'package:docudart/src/markdown/opal_highlighter.dart';
+import 'package:docudart/src/models/doc_content.dart';
 
 export '../models/doc_content.dart';
 
@@ -23,7 +24,9 @@ class ContentProcessor {
   final MarkdownProcessor _markdownProcessor;
 
   static const _expandedSuffix = '_expanded';
-  static const _docsPathPrefix = '/docs';
+
+  /// The URL path prefix for documentation pages.
+  static const docsPathPrefix = '/docs';
   static final _numericPrefixPattern = RegExp(r'^\d+[-_]?');
   static final _numericLeadingPattern = RegExp(r'^(\d+)');
 
@@ -126,8 +129,10 @@ class ContentProcessor {
       final processed = _markdownProcessor.process(content);
       final ProcessedMarkdown(:meta, :html, :tableOfContents) = processed;
 
-      // Generate URL path
-      final urlPath = _generateUrlPath(relativePath);
+      // Generate URL path (slug override takes precedence)
+      final urlPath = meta.slug != null
+          ? _applySlug(meta.slug!)
+          : _generateUrlPath(relativePath);
 
       // Determine order from filename or frontmatter
       final filename = p.basenameWithoutExtension(relativePath);
@@ -150,6 +155,23 @@ class ContentProcessor {
       CliPrinter.warning('Failed to process $relativePath: $e');
       return null;
     }
+  }
+
+  /// Apply a frontmatter slug as the URL path.
+  ///
+  /// The slug is normalized: leading/trailing slashes stripped, prefixed
+  /// with `/docs/`. Example: `slug: custom-path` → `/docs/custom-path`.
+  String _applySlug(String slug) {
+    // Strip leading/trailing slashes and whitespace
+    final normalized = slug.trim().replaceAll(RegExp(r'^/+|/+$'), '');
+    if (normalized.isEmpty) return docsPathPrefix;
+
+    // If slug already starts with 'docs/', don't double-prefix
+    if (normalized.startsWith('docs/') || normalized == 'docs') {
+      return '/$normalized';
+    }
+
+    return '$docsPathPrefix/$normalized';
   }
 
   String _generateUrlPath(String relativePath) {
@@ -179,10 +201,10 @@ class ContentProcessor {
 
     // Ensure leading slash and clean URL format
     if (path.isEmpty) {
-      return _docsPathPrefix;
+      return docsPathPrefix;
     }
 
-    return '$_docsPathPrefix/$path';
+    return '$docsPathPrefix/$path';
   }
 
   int _extractOrder(String name) {
@@ -214,14 +236,6 @@ class ContentProcessor {
     }
     // Remove numeric prefix and convert to title case
     final withoutPrefix = name.replaceFirst(_numericPrefixPattern, '');
-    return withoutPrefix
-        .replaceAll(RegExp(r'[-_]'), ' ')
-        .split(' ')
-        .map(
-          (word) => word.isEmpty
-              ? word
-              : word[0].toUpperCase() + word.substring(1).toLowerCase(),
-        )
-        .join(' ');
+    return withoutPrefix.replaceAll(RegExp(r'[-_]'), ' ').toTitleCase();
   }
 }

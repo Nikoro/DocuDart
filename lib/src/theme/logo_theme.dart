@@ -9,11 +9,7 @@ class LogoTheme {
     this.imageHeight = 1.75,
   });
 
-  const LogoTheme.classic({
-    this.fontSize = 1.25,
-    this.fontWeight = 600,
-    this.imageHeight = 1.75,
-  });
+  const LogoTheme.classic() : this();
 
   const LogoTheme.material3({
     this.fontSize = 1.25,

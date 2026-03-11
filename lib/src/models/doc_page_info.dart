@@ -1,12 +1,13 @@
 import 'package:jaspr/jaspr.dart';
 
-import 'toc_entry.dart';
+import 'package:docudart/src/models/toc_entry.dart';
 
 /// Information about a documentation page, passed to [DocsBuilder].
 ///
 /// Contains the rendered content component, table of contents entries,
 /// and page metadata. Extensible — new fields can be added without
 /// breaking the [DocsBuilder] typedef.
+@immutable
 class DocPageInfo {
   const DocPageInfo({
     required this.content,

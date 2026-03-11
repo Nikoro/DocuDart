@@ -1,6 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../theme/theme.dart' as dd;
+import 'package:docudart/src/theme/theme.dart' as dd;
 
 /// Provides [Theme] data to descendant components via the component tree.
 ///

@@ -1,6 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../models/project.dart';
+import 'package:docudart/src/models/project.dart';
 
 /// Provides [Project] data to descendant components via the component tree.
 ///

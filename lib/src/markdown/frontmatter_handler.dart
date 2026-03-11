@@ -1,6 +1,8 @@
+import 'package:meta/meta.dart';
 import 'package:yaml/yaml.dart';
 
 /// Result of parsing frontmatter from markdown content.
+@immutable
 class FrontmatterResult {
   const FrontmatterResult({required this.data, required this.content});
 
@@ -12,6 +14,7 @@ class FrontmatterResult {
 }
 
 /// Metadata extracted from frontmatter.
+@immutable
 class PageMeta {
   const PageMeta({
     this.title,
@@ -89,6 +92,9 @@ class PageMeta {
 
 /// Handles parsing YAML frontmatter from markdown files.
 abstract final class FrontmatterHandler {
+  /// Characters that require quoting in YAML values.
+  static final _yamlSpecialChars = RegExp(r'[:{}\[\],&*?|>!%@`#]');
+
   /// Regular expression to match frontmatter block.
   /// Matches content between --- delimiters at the start of the file.
   static final _frontmatterRegex = RegExp(
@@ -148,6 +154,8 @@ abstract final class FrontmatterHandler {
         for (final line in value.split('\n')) {
           buffer.writeln('  $line');
         }
+      } else if (value is String && _yamlSpecialChars.hasMatch(value)) {
+        buffer.writeln("${entry.key}: '${value.replaceAll("'", "''")}'");
       } else {
         buffer.writeln('${entry.key}: $value');
       }

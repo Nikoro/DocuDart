@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
-import '../config/docudart_config.dart';
-import '../theme/code_theme.dart';
-import '../theme/color_scheme.dart';
+import 'package:docudart/src/config/docudart_config.dart';
+import 'package:docudart/src/theme/code_theme.dart';
+import 'package:docudart/src/theme/color_scheme.dart';
 
 /// Generates the CSS stylesheet for the DocuDart site.
 class StylesGenerator {
@@ -134,6 +134,9 @@ ${h4Props.entries.map((e) => '  ${e.key}: ${e.value};').join('\n')}
 /* DocuDart Generated Styles */
 
 :root {
+  /* Layout */
+  --header-height: 65px;
+
   /* Colors - Light Mode */
 ${_cssVars(light.cssVariables)}
 
@@ -279,9 +282,9 @@ header a:not(.logo).active {
   padding: ${sidebar.paddingV}rem ${sidebar.paddingH}rem;
 $sidebarBorderCss
 $sidebarBgCss
-  height: calc(100vh - 65px);
+  height: calc(100vh - var(--header-height));
   position: sticky;
-  top: 65px;
+  top: var(--header-height);
   overflow-y: auto;
 }
 
@@ -651,8 +654,8 @@ $headingsCss
   width: 220px;
   flex-shrink: 0;
   position: sticky;
-  top: 65px;
-  max-height: calc(100vh - 65px);
+  top: var(--header-height);
+  max-height: calc(100vh - var(--header-height));
   overflow-y: auto;
   padding: 1rem 0 1rem 1.5rem;
 }

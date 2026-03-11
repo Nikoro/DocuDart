@@ -13,15 +13,7 @@ class HeaderTheme {
     this.shadowOpacity = 0.08,
   });
 
-  const HeaderTheme.classic({
-    this.paddingH = 2.0,
-    this.paddingV = 1.0,
-    this.mobilePaddingH = 1.0,
-    this.mobilePaddingV = 0.75,
-    this.hasBoxShadow = false,
-    this.shadowBlur = 3,
-    this.shadowOpacity = 0.08,
-  });
+  const HeaderTheme.classic() : this();
 
   const HeaderTheme.material3({
     this.paddingH = 2.0,

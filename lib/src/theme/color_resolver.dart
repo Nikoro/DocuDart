@@ -1,6 +1,6 @@
 import 'package:jaspr/dom.dart' show Color;
 
-import 'color_utils.dart';
+import 'package:docudart/src/theme/color_utils.dart';
 
 /// Resolves a [Color] to an ARGB int (0xAARRGGBB).
 ///

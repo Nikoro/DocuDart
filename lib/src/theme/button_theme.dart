@@ -15,17 +15,7 @@ class ButtonTheme {
     this.hoverHasBoxShadow = false,
   });
 
-  const ButtonTheme.classic({
-    this.paddingH = 1.5,
-    this.paddingV = 0.75,
-    this.borderRadius = 0.5,
-    this.fontWeight = 500,
-    this.primaryTextColor,
-    this.hoverEffect = ButtonHoverEffect.brightness,
-    this.hoverBrightness = 1.1,
-    this.hoverOpacity = 0.9,
-    this.hoverHasBoxShadow = false,
-  });
+  const ButtonTheme.classic() : this();
 
   const ButtonTheme.material3({
     this.paddingH = 1.5,

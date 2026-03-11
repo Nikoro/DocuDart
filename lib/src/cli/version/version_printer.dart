@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import '../errors.dart';
-import 'version_checker.dart';
+import 'package:docudart/src/cli/errors.dart';
+import 'package:docudart/src/cli/version/version_checker.dart';
 
 // ANSI color codes
 const _reset = '\x1B[0m';

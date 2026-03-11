@@ -7,5 +7,6 @@ plugins:
 
 linter:
   rules:
+    - always_use_package_imports
     - sort_constructors_first
     - use_null_aware_elements

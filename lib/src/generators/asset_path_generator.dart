@@ -261,16 +261,20 @@ class AssetPathGenerator {
     return '$parent$pascal';
   }
 
+  static final _nonAlphanumPattern = RegExp(r'[^a-zA-Z0-9]');
+  static final _leadingDigitPattern = RegExp(r'^[0-9]');
+  static final _nonIdentCharPattern = RegExp(r'[^a-zA-Z0-9_]');
+  static final _multiUnderscorePattern = RegExp(r'_+');
+  static final _edgeUnderscorePattern = RegExp(r'^_+|_+$');
+
   /// Convert a directory name to PascalCase.
   ///
   /// `my-icons` → `MyIcons`, `01-guides` → `\$01Guides`.
   static String _toPascalCase(String name) {
-    final parts = name
-        .split(RegExp(r'[^a-zA-Z0-9]'))
-        .where((s) => s.isNotEmpty);
+    final parts = name.split(_nonAlphanumPattern).where((s) => s.isNotEmpty);
     final result = parts.map((s) => s[0].toUpperCase() + s.substring(1)).join();
     if (result.isEmpty) return 'Unnamed';
-    if (RegExp(r'^[0-9]').hasMatch(result)) return '\$$result';
+    if (_leadingDigitPattern.hasMatch(result)) return '\$$result';
     return result;
   }
 
@@ -279,11 +283,11 @@ class AssetPathGenerator {
   /// `logo.webp` → `logo_webp`, `favicon-32x32.png` → `favicon_32x32_png`,
   /// `1icon.svg` → `\$1icon_svg`.
   static String _toIdentifier(String name) {
-    String result = name.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
-    result = result.replaceAll(RegExp(r'_+'), '_');
-    result = result.replaceAll(RegExp(r'^_+|_+$'), '');
+    String result = name.replaceAll(_nonIdentCharPattern, '_');
+    result = result.replaceAll(_multiUnderscorePattern, '_');
+    result = result.replaceAll(_edgeUnderscorePattern, '');
     if (result.isEmpty) return 'unnamed';
-    if (RegExp(r'^[0-9]').hasMatch(result)) return '\$$result';
+    if (_leadingDigitPattern.hasMatch(result)) return '\$$result';
     return result;
   }
 

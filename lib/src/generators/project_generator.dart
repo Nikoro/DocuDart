@@ -3,12 +3,10 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
-import '../cli/errors.dart';
-import '../services/package_resolver.dart';
-import 'project_templates.dart';
-
-/// Default timeout for HTTP requests to external services.
-const _httpTimeout = Duration(seconds: 5);
+import 'package:docudart/src/cli/errors.dart';
+import 'package:docudart/src/constants.dart';
+import 'package:docudart/src/services/package_resolver.dart';
+import 'package:docudart/src/generators/project_templates.dart';
 
 /// Template options for project initialization.
 enum InitTemplate {
@@ -200,14 +198,13 @@ class ProjectGenerator {
       return 'https://pub.dev';
     }
 
+    final client = HttpClient();
     try {
-      final client = HttpClient();
-      client.connectionTimeout = _httpTimeout;
+      client.connectionTimeout = httpTimeout;
       final request = await client.headUrl(
         Uri.parse('https://pub.dev/packages/$packageName'),
       );
       final response = await request.close();
-      client.close();
 
       if (response.statusCode == 200) {
         return 'https://pub.dev/packages/$packageName';
@@ -216,6 +213,8 @@ class ProjectGenerator {
     } catch (_) {
       // No internet, timeout, DNS failure, etc.
       return 'https://pub.dev';
+    } finally {
+      client.close();
     }
   }
 

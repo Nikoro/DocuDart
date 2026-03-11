@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:path/path.dart' as p;
 
-import '../../generators/site_generator.dart';
-import '../../services/workspace_resolver.dart';
-import '../../config/config_loader.dart';
-import '../errors.dart';
+import 'package:docudart/src/generators/site_generator.dart';
+import 'package:docudart/src/services/workspace_resolver.dart';
+import 'package:docudart/src/config/config_loader.dart';
+import 'package:docudart/src/cli/errors.dart';
 
 /// Command to build the documentation site for production.
 class BuildCommand extends Command<int> {

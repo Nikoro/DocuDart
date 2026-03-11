@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 class FooterTheme {
   const FooterTheme({this.paddingH = 2.0, this.paddingV = 2.0});
 
-  const FooterTheme.classic({this.paddingH = 2.0, this.paddingV = 2.0});
+  const FooterTheme.classic() : this();
 
   const FooterTheme.material3({this.paddingH = 2.0, this.paddingV = 2.0});
 

@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:path/path.dart' as p;
 
-import '../../generators/project_generator.dart';
-import '../errors.dart';
+import 'package:docudart/src/generators/project_generator.dart';
+import 'package:docudart/src/cli/errors.dart';
 
 /// Default folder name for DocuDart projects.
 const defaultFolderName = 'docudart';

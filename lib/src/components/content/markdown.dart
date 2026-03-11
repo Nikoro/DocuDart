@@ -1,8 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart';
 
-import '../../markdown/markdown_processor.dart';
-import '../../markdown/opal_highlighter.dart';
+import 'package:docudart/src/markdown/markdown_processor.dart';
+import 'package:docudart/src/markdown/opal_highlighter.dart';
 
 /// A component that renders a raw markdown string as formatted HTML.
 ///

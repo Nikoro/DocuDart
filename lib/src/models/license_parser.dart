@@ -1,4 +1,4 @@
-import 'license.dart';
+import 'package:docudart/src/models/license.dart';
 
 /// Parses LICENSE file content to extract license type, year, and holder.
 class LicenseParser {

@@ -1,13 +1,15 @@
 import 'dart:io';
 
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
-import '../cli/errors.dart';
-import '../models/versioning_config.dart';
-import '../config/docudart_config.dart';
-import 'content_processor.dart';
+import 'package:docudart/src/cli/errors.dart';
+import 'package:docudart/src/models/versioning_config.dart';
+import 'package:docudart/src/config/docudart_config.dart';
+import 'package:docudart/src/processing/content_processor.dart';
 
 /// Represents a versioned documentation set.
+@immutable
 class VersionedDocs {
   const VersionedDocs({
     required this.version,
@@ -33,7 +35,7 @@ class VersionedDocs {
   final DocFolder rootFolder;
 
   /// URL prefix for this version's docs.
-  String get urlPrefix => '/$version/docs';
+  String get urlPrefix => '/$version${ContentProcessor.docsPathPrefix}';
 }
 
 /// Manages versioned documentation.
@@ -47,7 +49,29 @@ class VersionedDocs {
 /// ```
 class VersionManager {
   VersionManager(this.config)
-    : _versionConfig = config.versioning ?? const VersioningConfig();
+    : _versionConfig = config.versioning ?? const VersioningConfig() {
+    // Validate all version identifiers at construction time.
+    for (final version in _versionConfig.versions) {
+      _validateVersion(version);
+    }
+    if (_versionConfig.defaultVersion.isNotEmpty) {
+      _validateVersion(_versionConfig.defaultVersion);
+    }
+  }
+
+  static final _validVersion = RegExp(r'^[a-zA-Z0-9._-]+$');
+
+  static void _validateVersion(String version) {
+    if (!_validVersion.hasMatch(version)) {
+      throw DocuDartException(
+        'Invalid version identifier: "$version".',
+        hint:
+            'Version identifiers must match [a-zA-Z0-9._-] '
+            '(letters, digits, dots, hyphens, underscores).',
+      );
+    }
+  }
+
   final Config config;
   final VersioningConfig _versionConfig;
 
@@ -217,46 +241,4 @@ class VersionManager {
     }
     return null;
   }
-
-  /// Generate version switcher data for templates.
-  List<VersionSwitcherItem> getVersionSwitcherItems(String currentVersion) {
-    return [
-      for (final version in versions)
-        VersionSwitcherItem(
-          version: version,
-          label: _formatVersionLabel(version),
-          isCurrent: version == currentVersion,
-          isLatest: version == latestVersion,
-          isDefault: version == defaultVersion,
-        ),
-    ];
-  }
-
-  String _formatVersionLabel(String version) {
-    // Add badges for latest/default
-    final badges = <String>[];
-    if (version == latestVersion) badges.add('latest');
-    if (version == defaultVersion && version != latestVersion) {
-      badges.add('default');
-    }
-
-    if (badges.isEmpty) return version;
-    return '$version (${badges.join(', ')})';
-  }
-}
-
-/// Item for the version switcher dropdown.
-class VersionSwitcherItem {
-  const VersionSwitcherItem({
-    required this.version,
-    required this.label,
-    required this.isCurrent,
-    required this.isLatest,
-    required this.isDefault,
-  });
-  final String version;
-  final String label;
-  final bool isCurrent;
-  final bool isLatest;
-  final bool isDefault;
 }

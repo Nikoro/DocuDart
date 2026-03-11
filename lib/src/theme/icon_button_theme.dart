@@ -9,11 +9,7 @@ class IconButtonTheme {
     this.iconSize = 1.25,
   });
 
-  const IconButtonTheme.classic({
-    this.padding = 0.5,
-    this.borderRadius = 0.375,
-    this.iconSize = 1.25,
-  });
+  const IconButtonTheme.classic() : this();
 
   const IconButtonTheme.material3({
     this.padding = 0.5,

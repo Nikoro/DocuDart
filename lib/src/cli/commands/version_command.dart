@@ -1,6 +1,6 @@
 import 'package:args/command_runner.dart';
 
-import '../version/version_printer.dart';
+import 'package:docudart/src/cli/version/version_printer.dart';
 
 /// Command to print the docudart version and check for updates.
 class VersionCommand extends Command<int> {

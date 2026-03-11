@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
-import '../cli/errors.dart';
-import 'color_scheme.dart';
-import 'theme.dart';
+import 'package:docudart/src/cli/errors.dart';
+import 'package:docudart/src/theme/color_scheme.dart';
+import 'package:docudart/src/theme/theme.dart';
 
 /// Loads custom themes from YAML files.
 abstract final class ThemeLoader {

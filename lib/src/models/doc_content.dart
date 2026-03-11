@@ -1,9 +1,12 @@
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
-import '../markdown/frontmatter_handler.dart';
-import '../markdown/markdown_processor.dart';
+import 'package:docudart/src/markdown/frontmatter_handler.dart';
+import 'package:docudart/src/extensions/string_extensions.dart';
+import 'package:docudart/src/markdown/markdown_processor.dart';
 
 /// Represents a processed documentation page.
+@immutable
 class DocPage {
   const DocPage({
     required this.relativePath,
@@ -47,19 +50,12 @@ class DocPage {
     // Remove numeric prefix if present (e.g., "01-getting-started" -> "getting-started")
     final withoutPrefix = filename.replaceFirst(RegExp(r'^\d+[-_]?'), '');
     // Convert to title case
-    return withoutPrefix
-        .replaceAll(RegExp(r'[-_]'), ' ')
-        .split(' ')
-        .map(
-          (word) => word.isEmpty
-              ? word
-              : word[0].toUpperCase() + word.substring(1).toLowerCase(),
-        )
-        .join(' ');
+    return withoutPrefix.replaceAll(RegExp(r'[-_]'), ' ').toTitleCase();
   }
 }
 
 /// Represents a folder in the documentation structure.
+@immutable
 class DocFolder {
   const DocFolder({
     required this.relativePath,

@@ -1,7 +1,7 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 
-import '../../extensions/component_extensions.dart';
+import 'package:docudart/src/extensions/component_extensions.dart';
 
 /// Whether a [Flexible] child should fill available space tightly or loosely.
 enum FlexFit {

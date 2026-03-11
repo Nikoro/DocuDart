@@ -1,4 +1,4 @@
-import '../../markdown/component_parser.dart';
+import 'package:docudart/src/markdown/component_parser.dart';
 
 /// Factory function for creating component HTML from props and children.
 typedef ComponentFactory =
@@ -28,8 +28,11 @@ class ComponentRegistry {
   /// Get all registered component names.
   Set<String> get registeredNames => _components.keys.toSet();
 
+  static int _tabCounter = 0;
+
   /// Create a registry with all built-in components.
   static ComponentRegistry withBuiltIns() {
+    _tabCounter = 0;
     final registry = ComponentRegistry();
 
     // Register built-in components
@@ -73,15 +76,11 @@ class ComponentRegistry {
   }
 
   static String _buildTabs(Map<String, dynamic> props, String? children) {
-    // Tabs component wraps Tab children
-    // The actual tab switching is handled by CSS/JS
-    final tabId = 'tabs-${DateTime.now().millisecondsSinceEpoch}';
+    final tabId = 'tabs-${_tabCounter++}';
 
     return '''
 <div class="tabs-container" data-tabs-id="$tabId">
-  <div class="tabs-list" role="tablist">
-    <!-- Tab buttons will be generated from Tab children -->
-  </div>
+  <div class="tabs-list" role="tablist"></div>
   <div class="tabs-content">
     ${children ?? ''}
   </div>
@@ -94,7 +93,7 @@ class ComponentRegistry {
     final tabId = label.toLowerCase().replaceAll(RegExp(r'\s+'), '-');
 
     return '''
-<div class="tab-panel" data-tab-id="$tabId" data-tab-label="$label">
+<div class="tab-panel" role="tabpanel" data-tab-id="$tabId" data-tab-label="$label">
   ${children ?? ''}
 </div>
 ''';
@@ -115,7 +114,6 @@ class ComponentRegistry {
 <div class="code-block$lineNumbersClass">
   $titleHtml
   <pre><code class="language-$language">$code</code></pre>
-  <button class="copy-button" aria-label="Copy code">Copy</button>
 </div>
 ''';
   }

@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import 'repository.dart';
+import 'package:docudart/src/models/repository.dart';
 
 /// SDK environment constraints from pubspec.yaml.
 ///

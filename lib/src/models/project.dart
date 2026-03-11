@@ -1,13 +1,16 @@
-import 'changelog.dart';
-import 'doc.dart';
-import 'license.dart';
-import 'page.dart';
-import 'pubspec.dart';
+import 'package:meta/meta.dart';
+
+import 'package:docudart/src/models/changelog.dart';
+import 'package:docudart/src/models/doc.dart';
+import 'package:docudart/src/models/license.dart';
+import 'package:docudart/src/models/page.dart';
+import 'package:docudart/src/models/pubspec.dart';
 
 /// Project data passed to the [setup] callback.
 ///
 /// Contains the project's pubspec metadata and auto-generated site
 /// structure data that layout components may need.
+@immutable
 class Project {
   const Project({
     required this.pubspec,

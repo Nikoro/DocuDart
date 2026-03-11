@@ -26,24 +26,7 @@ class SidebarTheme {
   });
 
   /// dart.dev / flutter.dev style — left-border active indicator.
-  const SidebarTheme.classic({
-    this.width = 280,
-    this.paddingH = 1.0,
-    this.paddingV = 2.0,
-    this.fontSize = 0.875,
-    this.linkBorderRadius = 0.375,
-    this.activeBorderWidth = 3,
-    this.hasBorderRight = true,
-    this.backgroundColor,
-    this.borderColor,
-    this.linkHoverBg,
-    this.linkHoverColor,
-    this.activeColor,
-    this.activeBg,
-    this.activeOpacity = 0.08,
-    this.activeFontWeight = 500,
-    this.expansionTileHoverBg,
-  });
+  const SidebarTheme.classic() : this();
 
   /// Material Design 3 — pill-shaped, filled active indicator.
   const SidebarTheme.material3({

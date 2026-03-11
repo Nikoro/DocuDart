@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import 'color_utils.dart';
+import 'package:docudart/src/theme/color_utils.dart';
 
 /// Brightness mode for color scheme generation.
 enum Brightness { light, dark }

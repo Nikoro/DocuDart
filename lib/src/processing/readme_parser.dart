@@ -28,6 +28,11 @@ class ReadmeSection {
 
 /// Parses README.md files and extracts sections for documentation.
 abstract final class ReadmeParser {
+  static final _headingPattern = RegExp(r'^(#{1,6})\s+(.+)$');
+  static final _badgePattern = RegExp(
+    r'^\[?\!\[[^\]]*\]\([^)]+\)(?:\([^)]*\))?\]?(\s*\[?\!\[[^\]]*\]\([^)]+\)(?:\([^)]*\))?\]?)*\s*$',
+  );
+
   /// Parse a README file and return a list of sections.
   ///
   /// The parser will:
@@ -52,7 +57,7 @@ abstract final class ReadmeParser {
       final line = lines[i];
 
       // Check for heading
-      final headingMatch = RegExp(r'^(#{1,6})\s+(.+)$').firstMatch(line);
+      final headingMatch = _headingPattern.firstMatch(line);
 
       if (headingMatch != null) {
         final level = headingMatch.group(1)!.length;
@@ -213,12 +218,7 @@ abstract final class ReadmeParser {
     final trimmed = line.trim();
     if (trimmed.isEmpty) return false;
 
-    // Badge patterns: [![...](...)(...)] or ![...](...)
-    final badgePattern = RegExp(
-      r'^\[?\!\[[^\]]*\]\([^)]+\)(?:\([^)]*\))?\]?(\s*\[?\!\[[^\]]*\]\([^)]+\)(?:\([^)]*\))?\]?)*\s*$',
-    );
-
-    return badgePattern.hasMatch(trimmed);
+    return _badgePattern.hasMatch(trimmed);
   }
 
   /// Clean introduction content by removing badges and extra whitespace.

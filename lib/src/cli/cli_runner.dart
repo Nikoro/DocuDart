@@ -1,12 +1,12 @@
 import 'package:args/command_runner.dart';
 
-import 'commands/build_command.dart';
-import 'commands/create_command.dart';
-import 'commands/serve_command.dart';
-import 'commands/update_command.dart';
-import 'commands/version_command.dart';
-import 'errors.dart';
-import 'version/version_printer.dart';
+import 'package:docudart/src/cli/commands/build_command.dart';
+import 'package:docudart/src/cli/commands/create_command.dart';
+import 'package:docudart/src/cli/commands/serve_command.dart';
+import 'package:docudart/src/cli/commands/update_command.dart';
+import 'package:docudart/src/cli/commands/version_command.dart';
+import 'package:docudart/src/cli/errors.dart';
+import 'package:docudart/src/cli/version/version_printer.dart';
 
 /// Main CLI runner for DocuDart.
 class DocuDartCliRunner extends CommandRunner<int> {

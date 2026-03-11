@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: constant_identifier_names
 
-import 'helpers.dart';
+import 'package:docudart/src/icons/helpers.dart';
 
 /// A collection of Lucide icons.
 abstract class LucideIcons {

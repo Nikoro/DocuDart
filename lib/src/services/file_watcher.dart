@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:watcher/watcher.dart';
 import 'package:path/path.dart' as p;
 
-import '../config/docudart_config.dart';
-import '../cli/errors.dart';
+import 'package:docudart/src/config/docudart_config.dart';
+import 'package:docudart/src/cli/errors.dart';
 
 /// Watches documentation files for changes and triggers regeneration.
 class DocuDartFileWatcher {

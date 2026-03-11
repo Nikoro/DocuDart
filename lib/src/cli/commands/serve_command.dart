@@ -2,13 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
-import '../../generators/site_generator.dart';
-import '../../services/file_watcher.dart';
-import '../../services/workspace_resolver.dart';
-import '../../config/config_loader.dart';
-import '../errors.dart';
+import 'package:docudart/src/generators/site_generator.dart';
+import 'package:docudart/src/services/file_watcher.dart';
+import 'package:docudart/src/services/workspace_resolver.dart';
+import 'package:docudart/src/config/config_loader.dart';
+import 'package:docudart/src/cli/errors.dart';
 
 /// Command to start development server with hot reload.
 class ServeCommand extends Command<int> {
@@ -133,15 +134,17 @@ class ServeCommand extends Command<int> {
           .transform(utf8.decoder)
           .transform(const LineSplitter())
           .listen((line) {
-            if (_shouldShowLog(line)) {
+            if (shouldShowLog(line)) {
               stdout.writeln(line);
             }
           });
+      final stderrLines = <String>[];
       final stderrSub = process.stderr
           .transform(utf8.decoder)
           .transform(const LineSplitter())
           .listen((line) {
-            if (_shouldShowLog(line)) {
+            stderrLines.add(line);
+            if (shouldShowLog(line)) {
               stderr.writeln(line);
             }
           });
@@ -165,9 +168,15 @@ class ServeCommand extends Command<int> {
       await sigintSub.cancel();
       await fileWatcher?.stop();
 
-      // Check for port in use error
       if (exitCode != 0) {
-        CliPrinter.exception(DocuDartErrors.portInUse(portNum));
+        final stderrOutput = stderrLines.join('\n');
+        if (stderrOutput.contains('already in use') ||
+            stderrOutput.contains('SocketException') ||
+            stderrOutput.contains('Address already in use')) {
+          CliPrinter.exception(DocuDartErrors.portInUse(portNum));
+        } else {
+          CliPrinter.exception(DocuDartErrors.buildFailed(stderrOutput));
+        }
       }
 
       return exitCode;
@@ -184,7 +193,8 @@ class ServeCommand extends Command<int> {
 
   /// Filter out noisy Jaspr internal logs (proxy errors, stack traces, etc.).
   /// Only show lines that are useful to the user.
-  static bool _shouldShowLog(String line) {
+  @visibleForTesting
+  static bool shouldShowLog(String line) {
     // Suppress empty lines from filtered blocks
     if (line.trim().isEmpty) return true;
 

@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import 'code_theme.dart';
+import 'package:docudart/src/theme/code_theme.dart';
 
 /// Styling for markdown-rendered content.
 ///

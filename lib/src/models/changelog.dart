@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import 'toc_entry.dart';
+import 'package:docudart/src/models/toc_entry.dart';
 
 /// Parsed changelog data from the parent project's CHANGELOG.md.
 ///

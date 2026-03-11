@@ -1,7 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../models/doc_page_info.dart';
-import 'docudart_config.dart';
+import 'package:docudart/src/models/doc_page_info.dart';
+import 'package:docudart/src/config/docudart_config.dart';
 
 /// Type alias for the configuration function that users define in config.dart.
 ///

@@ -3,15 +3,15 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
-import '../cli/errors.dart';
-import 'config_evaluator.dart';
-import 'docudart_config.dart';
-import '../models/license.dart';
-import '../models/license_parser.dart';
-import '../models/pubspec.dart';
-import '../models/repository.dart';
-import '../theme/theme.dart';
-import '../theme/theme_loader.dart';
+import 'package:docudart/src/cli/errors.dart';
+import 'package:docudart/src/config/config_evaluator.dart';
+import 'package:docudart/src/config/docudart_config.dart';
+import 'package:docudart/src/models/license.dart';
+import 'package:docudart/src/models/license_parser.dart';
+import 'package:docudart/src/models/pubspec.dart';
+import 'package:docudart/src/models/repository.dart';
+import 'package:docudart/src/theme/theme.dart';
+import 'package:docudart/src/theme/theme_loader.dart';
 
 /// Loads DocuDart configuration from config.dart or defaults.
 abstract final class ConfigLoader {
@@ -40,8 +40,15 @@ abstract final class ConfigLoader {
   }
 
   static String _absolutize(String dir, String path) {
-    if (p.isAbsolute(path)) return p.normalize(path);
-    return p.normalize(p.join(dir, path));
+    final resolved = p.isAbsolute(path)
+        ? p.canonicalize(path)
+        : p.canonicalize(p.join(dir, path));
+    if (!p.isWithin(dir, resolved) && resolved != p.canonicalize(dir)) {
+      throw DocuDartErrors.invalidConfig(
+        'Directory path "$path" resolves outside the project root.',
+      );
+    }
+    return resolved;
   }
 
   /// Load the parent project's pubspec.yaml from the website directory.
@@ -123,7 +130,8 @@ abstract final class ConfigLoader {
         try {
           final content = await file.readAsString();
           return LicenseParser.parse(content);
-        } catch (_) {
+        } catch (e) {
+          CliPrinter.warning('Failed to parse LICENSE file: $e');
           return null;
         }
       }
@@ -146,7 +154,8 @@ abstract final class ConfigLoader {
 
     try {
       return await changelogFile.readAsString();
-    } catch (_) {
+    } catch (e) {
+      CliPrinter.warning('Failed to read CHANGELOG.md: $e');
       return null;
     }
   }
@@ -214,9 +223,9 @@ abstract final class ConfigLoader {
       title: title,
       description: description,
       theme: theme,
-      docsDir: p.normalize(p.join(dir, docsDir ?? 'docs')),
-      outputDir: p.normalize(p.join(dir, outputDir ?? 'build/web')),
-      assetsDir: p.normalize(p.join(dir, assetsDir ?? 'assets')),
+      docsDir: _absolutize(dir, docsDir ?? 'docs'),
+      outputDir: _absolutize(dir, outputDir ?? 'build/web'),
+      assetsDir: _absolutize(dir, assetsDir ?? 'assets'),
     );
   }
 }

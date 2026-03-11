@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
-import '../config/docudart_config.dart';
+import 'package:docudart/src/config/docudart_config.dart';
 
 /// Generates theme.js, live-reload.js, and manages the live-reload version file.
 class ThemeScriptGenerator {
@@ -216,6 +216,7 @@ class ThemeScriptGenerator {
     setTimeout(function() {
       updateActiveLink();
       enhanceCodeBlocks();
+      initTabs();
     }, 50);
   });
 
@@ -223,6 +224,7 @@ class ThemeScriptGenerator {
     setTimeout(function() {
       updateActiveLink();
       enhanceCodeBlocks();
+      initTabs();
     }, 50);
   });
 
@@ -305,6 +307,60 @@ class ThemeScriptGenerator {
     });
   }
 
+  // Tabs: generate tab buttons from tab panels and wire up switching
+  function initTabs() {
+    document.querySelectorAll('.tabs-container').forEach(function(container) {
+      if (container.hasAttribute('data-tabs-init')) return;
+      container.setAttribute('data-tabs-init', '');
+
+      var tabList = container.querySelector('.tabs-list');
+      var panels = container.querySelectorAll('.tab-panel');
+      if (!tabList || panels.length === 0) return;
+
+      // Clear any existing buttons (in case of re-init)
+      tabList.innerHTML = '';
+
+      panels.forEach(function(panel, index) {
+        var label = panel.getAttribute('data-tab-label') || 'Tab';
+        var tabId = panel.getAttribute('data-tab-id') || 'tab-' + index;
+
+        var btn = document.createElement('button');
+        btn.className = 'tab-button';
+        btn.setAttribute('role', 'tab');
+        btn.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+        btn.setAttribute('data-tab-target', tabId);
+        btn.textContent = label;
+
+        if (index === 0) {
+          btn.classList.add('active');
+          panel.classList.add('active');
+        } else {
+          panel.style.display = 'none';
+        }
+
+        btn.addEventListener('click', function() {
+          // Deactivate all
+          tabList.querySelectorAll('.tab-button').forEach(function(b) {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          panels.forEach(function(p) {
+            p.classList.remove('active');
+            p.style.display = 'none';
+          });
+
+          // Activate clicked
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+          panel.classList.add('active');
+          panel.style.display = '';
+        });
+
+        tabList.appendChild(btn);
+      });
+    });
+  }
+
   // SlideTransition trigger observer
   function initSlideTransitions() {
     function update() {
@@ -328,6 +384,7 @@ class ThemeScriptGenerator {
     initCollapse();
     updateActiveLink();
     enhanceCodeBlocks();
+    initTabs();
     startObserver();
     initMobileMenu();
     initSlideTransitions();

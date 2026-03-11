@@ -1,19 +1,19 @@
 import 'package:jaspr/dom.dart' show Color;
 import 'package:meta/meta.dart';
 
-import 'button_theme.dart';
-import 'callout_theme.dart';
-import 'card_theme.dart';
-import 'color_resolver.dart';
-import 'color_scheme.dart';
-import 'footer_theme.dart';
-import 'header_theme.dart';
-import 'icon_button_theme.dart';
-import 'landing_theme.dart';
-import 'logo_theme.dart';
-import 'markdown_theme.dart';
-import 'sidebar_theme.dart';
-import 'text_theme.dart';
+import 'package:docudart/src/theme/button_theme.dart';
+import 'package:docudart/src/theme/callout_theme.dart';
+import 'package:docudart/src/theme/card_theme.dart';
+import 'package:docudart/src/theme/color_resolver.dart';
+import 'package:docudart/src/theme/color_scheme.dart';
+import 'package:docudart/src/theme/footer_theme.dart';
+import 'package:docudart/src/theme/header_theme.dart';
+import 'package:docudart/src/theme/icon_button_theme.dart';
+import 'package:docudart/src/theme/landing_theme.dart';
+import 'package:docudart/src/theme/logo_theme.dart';
+import 'package:docudart/src/theme/markdown_theme.dart';
+import 'package:docudart/src/theme/sidebar_theme.dart';
+import 'package:docudart/src/theme/text_theme.dart';
 
 /// Complete theme configuration for a DocuDart site.
 ///
