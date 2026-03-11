@@ -99,7 +99,7 @@ When this skill is invoked with optional `$ARGUMENTS`:
    - After pushing, inform the user:
      - The `release.yaml` workflow has been triggered
      - It will: validate the version, run checks, publish to pub.dev, and create a GitHub release
-     - They can monitor progress at: `https://github.com/dominikkrajcer/docudart/actions`
+     - They can monitor progress at: `https://github.com/Nikoro/DocuDart/actions`
    - If something goes wrong after push, provide rollback instructions:
      ```bash
      git push origin :refs/tags/vX.Y.Z   # delete remote tag

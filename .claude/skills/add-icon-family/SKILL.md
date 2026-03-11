@@ -34,7 +34,6 @@ When this skill is invoked (e.g., `/add-icon-family`):
 
 7. **Update documentation**:
    - Update the Icon System table in `CLAUDE.md` with the new family
-   - Update the Icon System table in `MEMORY.md` with the new family
    - Add the new family to the table in `lib/src/icons/CLAUDE.md` if it exists
 
 8. **Report**:
