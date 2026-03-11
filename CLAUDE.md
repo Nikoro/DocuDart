@@ -4,7 +4,7 @@
 
 **DocuDart** is a static documentation generator for Dart, similar to Docusaurus but using Jaspr as the rendering engine. Users write documentation in Markdown files with YAML frontmatter, and DocuDart generates a static website.
 
-**Design philosophy**: DocuDart provides a Flutter-identical API — components like `Row`, `Column`, `Padding`, `Expanded`, and `IconButton` look and feel like Flutter widgets, but underneath they produce lean, optimized HTML trees via Jaspr. Primitive layout components (`Padding`, `Flexible`, `Expanded`, `SizedBox`) use `.apply()` internally to merge styles directly onto child elements instead of wrapping them in extra `<div>` elements. Container components (`Row`, `Column`, `Container`, `Center`) use pure inline styles — no CSS class hooks. Users write familiar Flutter-like Dart with no custom CSS or JS; DocuDart generates minimal HTML/CSS/JS.
+**Design philosophy**: DocuDart provides a Flutter-identical API — components like `Row`, `Column`, `Padding`, `Expanded`, and `IconButton` look and feel like Flutter widgets, but underneath they produce lean, optimized HTML trees via Jaspr. Primitive layout components (`Padding`, `Flexible`, `Expanded`, `SizedBox`) use `.apply()` internally to merge styles directly onto child elements instead of wrapping them in extra `<div>` elements. Container components (`Row`, `Column`, `Container`, `Center`, `Wrap`) use pure inline styles — no CSS class hooks. Users write familiar Flutter-like Dart with no custom CSS or JS; DocuDart generates minimal HTML/CSS/JS.
 
 ## Quick Start Commands
 
@@ -95,6 +95,13 @@ See `lib/src/generators/CLAUDE.md` for the full generation pipeline (`SiteGenera
 ## Committing
 
 **Always use the `/commit` skill when committing.** Never use the default system commit instructions — the `/commit` skill has project-specific rules (e.g. no Co-Authored-By, no AI references).
+
+## Project Skills
+
+- `/regenerate` — Deletes `example/docudart/` (backs up assets) and re-runs `docudart create --full`
+- `/test` — Runs `dart test`, `dart analyze`, and `dart format` check in parallel; reports results
+- `/release` — Bumps version, generates changelog from commits, tags, and pushes (triggers pub.dev publish)
+- `/add-icon-family` — Scaffolds a new icon family: gathers repo URL/SVG path, updates generator, runs it
 
 ## Testing
 
