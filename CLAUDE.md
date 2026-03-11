@@ -126,7 +126,7 @@ After style/layout/template changes: start `cd example && dart run ../bin/docuda
 - `docudart` re-exports Jaspr and extensions (`.let()`, `.apply()`, `.screen`), hiding conflicting types (`Text`, `Padding`, `Border`, `BorderSide`, `BorderRadius`, `BoxShadow`, `ColorScheme`) — DocuDart provides Flutter-like replacements
 - Jaspr gotchas: `build()` returns `Component` (single, not `Iterable`); `classes` takes `String` (space-separated, not `List`); `main(...)` from dom.dart shadows Dart's `main()`
 - Clean URLs by default (`/docs/intro/` not `/docs/intro.html`); generated Jaspr project lives in `<projectDir>/.dart_tool/docudart/`
-- Linting: `many_lints` analyzer plugin (in `analysis_options.yaml`; base ruleset `lints` is in pubspec) + `sort_constructors_first`, `use_null_aware_elements`
+- Linting: `many_lints` analyzer plugin (in `analysis_options.yaml`; base ruleset `lints` is a dev dependency in pubspec) + `sort_constructors_first`, `use_null_aware_elements`
 - Assets use `context.project.assets` (not static `Assets` class) — callable `Asset` returns Component, `.path` for String
 - Theme-aware assets: `assets/light/` and `assets/dark/` subdirs auto-switch via CSS visibility
 - 3 theme presets with distinct palettes: `classic` (blue), `material3` (purple), `shadcn` (zinc/black)

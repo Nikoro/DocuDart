@@ -109,10 +109,15 @@ ${h4Props.entries.map((e) => '  ${e.key}: ${e.value};').join('\n')}
         : '  color: white;';
 
     // Button hover CSS
+    // Avoid CSS `filter` (e.g. brightness) — it forces GPU compositing layers
+    // that cause visible horizontal tearing/flicker on macOS dark backgrounds.
+    // Use a white rgba overlay via background-image instead.
+    final brightnessAlpha =
+        ((btn.hoverBrightness - 1.0).clamp(0.0, 1.0) * 100).round() / 100;
     final btnHoverCss = switch (btn.hoverEffect) {
       .brightness =>
         '${btn.hoverHasBoxShadow ? '  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);\n' : ''}'
-            '  filter: brightness(${btn.hoverBrightness});',
+            '  background-image: linear-gradient(rgba(255, 255, 255, $brightnessAlpha), rgba(255, 255, 255, $brightnessAlpha));',
       .opacity => '  opacity: ${btn.hoverOpacity};',
     };
 
@@ -348,7 +353,7 @@ $expansionTileHoverBgCss
   text-decoration: none;
   border-radius: ${sidebar.linkBorderRadius}rem;
   font-size: ${sidebar.fontSize}rem;
-${sidebar.activeBorderWidth > 0 ? '  border-left: ${sidebar.activeBorderWidth.toInt()}px solid transparent;\n' : ''}  transition: all 0.15s;
+${sidebar.activeBorderWidth > 0 ? '  border-left: ${sidebar.activeBorderWidth.toInt()}px solid transparent;\n' : ''}  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
 }
 
 .sidebar-link:hover {
@@ -472,7 +477,6 @@ footer {
   font-weight: ${btn.fontWeight};
   border-radius: ${btn.borderRadius}rem;
   text-decoration: none;
-  transition: all 0.2s;
   cursor: pointer;
   border: none;
 }
@@ -480,6 +484,7 @@ footer {
 .button-primary {
   background-color: var(--color-primary);
 $btnPrimaryTextCss
+  transition: background-color 0.2s, opacity 0.2s, box-shadow 0.2s;
 }
 
 .button-primary:hover {
@@ -732,7 +737,7 @@ $headingsCss
 
 .icon-button:hover {
   color: var(--color-primary);
-  background-color: var(--color-bg-hover);
+  background-color: var(--color-surface-variant);
 }
 
 .icon-button svg {
@@ -920,7 +925,7 @@ $headingsCss
   cursor: pointer;
   border-bottom: ${theme.tabBorderWidth.toInt()}px solid transparent;
   white-space: nowrap;
-  transition: all 0.15s;
+  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
 }
 
 .tab-button:hover {
@@ -951,7 +956,7 @@ $headingsCss
   border: 1px solid var(--color-border);
   border-radius: ${card.borderRadius}rem;
   background-color: var(--color-surface);
-  transition: all 0.15s;
+  transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
 $cardShadowCss
 }
 
@@ -1171,7 +1176,7 @@ pre.opal {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.5rem center;
-  transition: all 0.15s;
+  transition: border-color 0.15s;
 }
 
 .version-select:hover {

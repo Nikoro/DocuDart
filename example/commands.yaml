@@ -1,5 +1,5 @@
 create:
-  script: dart ../bin/docudart.dart create
+  script: dart ../bin/docudart.dart create ...args
 
 serve:
   script: dart ../bin/docudart.dart serve
@@ -7,5 +7,5 @@ serve:
 regenerate:
   script: |
     rm -rf docudart
-    create
+    create --full
     serve
