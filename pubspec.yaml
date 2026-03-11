@@ -1,6 +1,6 @@
 name: docudart
 description: A static documentation generator for Dart, powered by Jaspr.
-version: 0.0.1
+version: 0.1.0
 homepage: https://docudart.dev
 documentation: https://docudart.dev/docs
 repository: https://github.com/Nikoro/docudart
