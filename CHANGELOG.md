@@ -31,17 +31,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - CRLF line endings in frontmatter parser (Windows compatibility)
 - `dart format` exit code was silently ignored in project generator
 
-## 0.0.1
+## 0.0.1 — 2026-02-05
 
-- Initial release with core features:
-  - CLI commands: `create`, `build`, `serve`, `version`, `update`
-  - Markdown documentation with YAML frontmatter
-  - Collapsible sidebar with `_expanded` suffix convention
-  - Light/dark theme with system preference detection
-  - Icon system with 6 families (~49k icons)
-  - Live reload during `docudart serve`
-  - Type-safe asset paths (`Assets.logo.logo_webp`)
-  - Auto-discovered custom pages
-  - `ProjectProvider` + `context.project` for accessing pubspec data
-  - Component library: Layout, Row, Column, Link, Logo, Copyright, etc.
-  - `configure()` pattern with `BuildContext` for type-safe config
+### Added
+- CLI commands: `create`, `build`, `serve`, `version`, `update`
+- Markdown documentation with YAML frontmatter
+- Collapsible sidebar with `_expanded` suffix convention
+- Light/dark theme with system preference detection
+- Icon system with 6 families (~49k icons)
+- Live reload during `docudart serve`
+- Type-safe asset paths (`Assets.logo.logo_webp`)
+- Auto-discovered custom pages
+- `ProjectProvider` + `context.project` for accessing pubspec data
+- Component library: Layout, Row, Column, Link, Logo, Copyright, etc.
+- `configure()` pattern with `BuildContext` for type-safe config
