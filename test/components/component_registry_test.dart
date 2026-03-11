@@ -252,10 +252,9 @@ void main() {
           expect(html, isNot(contains('from children')));
         });
 
-        test('includes copy button with aria-label', () {
+        test('does not include inline copy button (JS handles it)', () {
           final html = registry.buildComponent(codeBlock())!;
-          expect(html, contains('copy-button'));
-          expect(html, contains('aria-label="Copy code"'));
+          expect(html, isNot(contains('copy-button')));
         });
       });
 

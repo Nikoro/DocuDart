@@ -76,12 +76,12 @@ void main() {
     });
 
     test('DocCategory defaults to collapsed', () {
-      const category = DocCategory(name: 'API', children: []);
+      final category = DocCategory(name: 'API', children: []);
       expect(category.expanded, isFalse);
     });
 
     test('nested DocCategory', () {
-      const nested = DocCategory(
+      final nested = DocCategory(
         name: 'Top',
         children: [
           DocCategory(

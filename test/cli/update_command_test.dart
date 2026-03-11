@@ -14,8 +14,7 @@ void main() {
     });
   });
 
-  group('up-to-date detection patterns', () {
-    // UpdateCommand checks these patterns in dart pub global activate output
+  group('isAlreadyUpToDate', () {
     final upToDateMessages = [
       'Package docudart is already activated at newest available version.',
       'Package docudart is already active at 1.0.0.',
@@ -28,26 +27,15 @@ void main() {
       'Some other output',
     ];
 
-    final patterns = [
-      'already activated at newest available version',
-      'is already active',
-      'already using',
-    ];
-
     for (final msg in upToDateMessages) {
-      test(
-        '"${msg.substring(0, msg.length.clamp(0, 50))}..." detected as up-to-date',
-        () {
-          final isUpToDate = patterns.any(msg.contains);
-          expect(isUpToDate, isTrue);
-        },
-      );
+      test('detects up-to-date: "$msg"', () {
+        expect(UpdateCommand.isAlreadyUpToDate(msg), isTrue);
+      });
     }
 
     for (final msg in notUpToDateMessages) {
-      test('"$msg" detected as new update', () {
-        final isUpToDate = patterns.any(msg.contains);
-        expect(isUpToDate, isFalse);
+      test('detects new update: "$msg"', () {
+        expect(UpdateCommand.isAlreadyUpToDate(msg), isFalse);
       });
     }
   });

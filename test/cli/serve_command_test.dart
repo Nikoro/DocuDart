@@ -27,15 +27,8 @@ void main() {
     });
   });
 
-  // _shouldShowLog is a static private method on ServeCommand.
-  // We test it via the public shouldShowLog test helper if exposed,
-  // or verify the filtering logic by documenting expected behavior.
-  group('log filtering logic', () {
-    // These tests document the expected filtering rules.
-    // The actual _shouldShowLog method is private, so we test the
-    // patterns it checks against to ensure our understanding is correct.
-
-    final suppressedPatterns = [
+  group('shouldShowLog', () {
+    final suppressedLines = [
       'SocketException: Connection refused',
       'Connection attempt cancelled',
       'ClientException with SocketException',
@@ -51,55 +44,24 @@ void main() {
       '[SERVER] [ERROR] GET /some/path',
     ];
 
-    final passedPatterns = [
+    final passedLines = [
       'Serving at http://localhost:8080',
       'Building web assets...',
       'Build completed successfully',
       'Hot reload triggered',
-      '', // empty lines pass through
+      '',
       'INFO: some user message',
     ];
 
-    // Verify the suppression patterns match what _shouldShowLog checks
-    for (final line in suppressedPatterns) {
+    for (final line in suppressedLines) {
       test('suppresses: "${_truncate(line, 50)}"', () {
-        final shouldSuppress =
-            line.contains('SocketException') ||
-            line.contains('Connection attempt cancelled') ||
-            line.contains('ClientException with SocketException') ||
-            line.contains('dart:_http') ||
-            line.contains('package:http/') ||
-            line.contains('package:shelf_proxy/') ||
-            line.contains('package:shelf_gzip/') ||
-            line.contains('package:shelf/shelf_io.dart') ||
-            line.contains('package:jaspr/src/server/') ||
-            line.contains('[SERVER] [ERROR] ERROR -') ||
-            line.contains('[SERVER] [ERROR] Asynchronous error') ||
-            line.contains('[SERVER] [ERROR] Error thrown by handler.') ||
-            line.contains('[SERVER] [ERROR] GET /');
-
-        expect(shouldSuppress, isTrue, reason: '"$line" should be suppressed');
+        expect(ServeCommand.shouldShowLog(line), isFalse);
       });
     }
 
-    for (final line in passedPatterns) {
+    for (final line in passedLines) {
       test('passes through: "${_truncate(line, 50)}"', () {
-        final shouldSuppress =
-            line.contains('SocketException') ||
-            line.contains('Connection attempt cancelled') ||
-            line.contains('ClientException with SocketException') ||
-            line.contains('dart:_http') ||
-            line.contains('package:http/') ||
-            line.contains('package:shelf_proxy/') ||
-            line.contains('package:shelf_gzip/') ||
-            line.contains('package:shelf/shelf_io.dart') ||
-            line.contains('package:jaspr/src/server/') ||
-            line.contains('[SERVER] [ERROR] ERROR -') ||
-            line.contains('[SERVER] [ERROR] Asynchronous error') ||
-            line.contains('[SERVER] [ERROR] Error thrown by handler.') ||
-            line.contains('[SERVER] [ERROR] GET /');
-
-        expect(shouldSuppress, isFalse, reason: '"$line" should pass through');
+        expect(ServeCommand.shouldShowLog(line), isTrue);
       });
     }
   });
